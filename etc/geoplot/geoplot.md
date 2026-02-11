@@ -1,0 +1,90 @@
+# Geoplot rodent colabs
+Joanes Grandjean
+2026-11-02
+
+Reproduce the shell environement in nix with
+
+``` {bash}
+#| eval: false
+
+nix-shell -p python313Packages.geopandas python313Packages.matplotlib python313Packages.pandas python313Packages.shapely
+```
+
+First import libraries and load data.
+
+``` python
+import pandas as pd
+import geopandas
+import matplotlib.pyplot as plt
+from shapely.geometry import Polygon
+
+df_path='colabs.tsv'
+df = pd.read_csv(df_path, sep='\t')
+df[['Latitude','Longitude']] = df['Lat.Long'].str.split(',',expand=True)
+
+
+gdf = geopandas.GeoDataFrame(
+    df, geometry=geopandas.points_from_xy(df.Longitude, df.Latitude))
+url = "https://naciscdn.org/naturalearth/110m/cultural/ne_110m_admin_0_countries.zip"
+world = geopandas.read_file(url)
+```
+
+Make europe plot
+
+``` python
+countries = ['The Netherlands', 'France', 'Germany', 'Finland', 'Switzerland','UK','Ireland', 'Belgium', 'Italy', 'Spain','Netherlands', 'Portugal', 'Israel']
+gdf_europe = gdf[gdf.Country.isin(countries)]
+
+europe=world[world.CONTINENT=="Europe"]
+europe=europe[(europe.ADMIN!="Russia") & (europe.ADMIN!="Iceland")]
+
+polygon = Polygon([(-25,35), (40,35), (40,75),(-25,75)])
+poly_gdf = geopandas.GeoDataFrame([1], geometry=[polygon], crs=world.crs)
+europe=geopandas.clip(europe, polygon) 
+ax = europe.plot(color='lightgrey', edgecolor='white')
+gdf_europe.plot(ax=ax,color='darkblue')
+plt.axis('off')
+plt.savefig('europe.png', dpi=300, bbox_inches='tight')
+```
+
+![](geoplot_files/figure-commonmark/cell-3-output-1.png)
+
+Make north america plot
+
+``` python
+countries = ['USA', 'Canada', 'Mexico']
+gdf_namerica = gdf[gdf.Country.isin(countries)]
+
+
+namerica=world[world.CONTINENT=="North America"]
+
+polygon = Polygon([(-130,10), (-35,10),(-35,60), (-130,60)])
+poly_gdf = geopandas.GeoDataFrame([1], geometry=[polygon], crs=world.crs)
+namerica=geopandas.clip(namerica, polygon) 
+ax = namerica.plot(color='lightgrey', edgecolor='white')
+gdf_namerica.plot(ax=ax,color='darkblue')
+plt.axis('off')
+plt.savefig('namerica.png', dpi=300, bbox_inches='tight')
+```
+
+![](geoplot_files/figure-commonmark/cell-4-output-1.png)
+
+Make asia plot
+
+``` python
+countries = ['Australia',  'India', 'Japan',  'China', 'Singapore']
+gdf_australiasia = gdf[gdf.Country.isin(countries)]
+
+
+australasia=world
+
+polygon = Polygon([(50,-50), (160,-50),(160,60), (50,60)])
+poly_gdf = geopandas.GeoDataFrame([1], geometry=[polygon], crs=world.crs)
+australasia=geopandas.clip(australasia, polygon) 
+ax = australasia.plot(color='lightgrey', edgecolor='white')
+gdf_australiasia.plot(ax=ax,color='darkblue')
+plt.axis('off')
+plt.savefig('australasia.png', dpi=300, bbox_inches='tight')
+```
+
+![](geoplot_files/figure-commonmark/cell-5-output-1.png)

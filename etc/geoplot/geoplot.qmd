@@ -37,10 +37,10 @@ Make europe plot
 countries = ['The Netherlands', 'France', 'Germany', 'Finland', 'Switzerland','UK','Ireland', 'Belgium', 'Italy', 'Spain','Netherlands', 'Portugal', 'Israel']
 gdf_europe = gdf[gdf.Country.isin(countries)]
 
-europe=world[world.CONTINENT=="Europe"]
+europe=world[(world.CONTINENT=="Europe") | (world.CONTINENT=="Asia")]
 europe=europe[(europe.ADMIN!="Russia") & (europe.ADMIN!="Iceland")]
 
-polygon = Polygon([(-25,35), (40,35), (40,75),(-25,75)])
+polygon = Polygon([(-25,32), (40,32), (40,75),(-25,75)])
 poly_gdf = geopandas.GeoDataFrame([1], geometry=[polygon], crs=world.crs)
 europe=geopandas.clip(europe, polygon) 
 ax = europe.plot(color='lightgrey', edgecolor='white')

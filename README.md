@@ -13,7 +13,7 @@ We want to use the normative model framework to create a trans-species framework
 Place holeder for the pre-registration
 
 ### Proof of concept analysis
-Place holder for the demo analysis using the mouse awake dataset. 
+Place holder for the [demo analysis](./etc/demo/demo.md) using the mouse awake dataset. 
 
 ### Distribution and license.
 This project is made available under the terms of the [Apache-2 license](LICENSE)

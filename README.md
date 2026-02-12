@@ -3,9 +3,7 @@ The digital rodent project aims to generate an in-silico model of the mouse and 
 We have curated and aggregated >3000 fMRI scans from mice and rats from ~50 participating [laboratories](./etc/geoplot/geoplot.md). We want to leverage this to generate accurate and representative in-silico models of the rodent functional connectome.
 
 *Map of participating centers*
-![map of collaborators in north namerica](./etc/geoplot/namerica.png)
-![map of collaborators in europe](./etc/geoplot/europe.png)
-![map of collaborators in australasia](./etc/geoplot/australasia.png)
+![map of collaborators](./etc/geoplot/colabs.png)
 
 We want to use the normative model framework to create a trans-species framework to compare functional connectome features accross diagnostics
 

@@ -9,7 +9,7 @@ Reproduce the shell environement in nix with
 ```{bash}
 #| eval: false
 
-nix-shell -p python313Packages.geopandas python313Packages.matplotlib python313Packages.pandas python313Packages.shapely
+nix-shell -p python313Packages.geopandas python313Packages.matplotlib python313Packages.pandas python313Packages.shapely imagemagick
 
 ```
 
@@ -88,4 +88,9 @@ plt.savefig('australasia.png', dpi=300, bbox_inches='tight')
 
 ```
 
+merge all plots together
+```{bash}
 
+magick europe.png namerica.png australasia.png +append colabs.png
+
+```

@@ -12,4 +12,81 @@ See PCN installation and demo code at https://pcntoolkit.readthedocs.io/en/lates
 See dataset at ./mouse_metadata_processed.tsv from the AwakeRodent project
 
 
+```{python}
+import warnings
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from pcntoolkit import ( BLR, NormativeModel,NormData,plot_centiles,plot_qq,)
+import pcntoolkit.util.output
+import re
+
+import seaborn as sns
+
+sns.set_style("darkgrid")
+warnings.simplefilter(action="ignore", category=FutureWarning)
+pd.options.mode.chained_assignment = None  # default='warn'
+pcntoolkit.util.output.Output.set_show_messages(False)
+
+# Load Data and Encode 'rodent.sex'
+mouse_data_path = 'digitalrodent/etc/demo/mouse_metadata_processed.tsv'
+mouse_df = pd.read_csv(mouse_data_path, sep='\t')
+
+# 'm' -> 0, 'f' -> 1 
+mouse_df['rodent.sex_encoded'] = mouse_df['rodent.sex'].map({'m': 0, 'f': 1}).astype('float64')
+
+# Define Covariates, Batch Effects, and Response Variables
+covariates = ['rodent.sex_encoded'] 
+
+batch_effects = [
+    'rodent.strain'
+]
+
+response_vars = [
+    's1.specific.wmcsf3',
+    's1.unspecific.wmcsf3',
+    'thal.specific.wmcsf3'
+]
+
+# Handle NaNs and Create NormData Object 
+all_relevant_columns = covariates + batch_effects + response_vars
+mouse_df_cleaned = mouse_df.dropna(subset=all_relevant_columns).copy()
+
+print(f"Original DataFrame shape: {mouse_df.shape}")
+print(f"Cleaned DataFrame shape after dropping NaNs: {mouse_df_cleaned.shape}")
+
+norm_data = NormData.from_dataframe(
+    name="mouse_data",
+    dataframe=mouse_df_cleaned,
+    covariates=covariates,
+    batch_effects=batch_effects,
+    response_vars=response_vars,
+    remove_Nan=False
+)
+
+print("\nNormData coordinates after cleaning and covariate update:")
+print(norm_data.coords)
+
+#Perform Reproducible Train-Test Split 
+train, test = norm_data.train_test_split()
+
+# Initialize and Fit Normative Model 
+model = NormativeModel(BLR(heteroskedastic=True), inscaler="standardize", outscaler="standardize")
+model.fit_predict(train, test)
+
+# Generate Evaluation Plots and Statistics
+plot_centiles(model, scatter_data=train)
+
+# Show dataset statistics
+print("\nTrain Set Statistics:")
+display(train.get_statistics_df())
+print("\nTest Set Statistics:")
+display(test.get_statistics_df())
+
+# QQ plot
+plot_qq(test, plot_id_line=True)
+
+```
+
+
 

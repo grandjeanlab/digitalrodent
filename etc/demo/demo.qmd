@@ -28,18 +28,97 @@ warnings.simplefilter(action="ignore", category=FutureWarning)
 pd.options.mode.chained_assignment = None  # default='warn'
 pcntoolkit.util.output.Output.set_show_messages(False)
 
-# Load Data and Encode 'rodent.sex'
+# Load Data
 mouse_data_path = 'digitalrodent/etc/demo/mouse_metadata_processed.tsv'
 mouse_df = pd.read_csv(mouse_data_path, sep='\t')
 
-# 'm' -> 0, 'f' -> 1 
+
+#Take wanted columsn 
+mouse_df = mouse_df[
+    [
+        'rodent.sex',
+        'rodent.strain',
+        'main.experimenter.gender',
+        'head-plate',
+        'anesthesia.before.acquisition',
+        'MRI.cryocoil',
+        'fMRI.sequence',
+        's1.specific.wmcsf3',
+        's1.unspecific.wmcsf3',
+        'thal.specific.wmcsf3'
+    ]
+]
+
+#Encoding
+# 'm' -> 0, 'f' -> 1
 mouse_df['rodent.sex_encoded'] = mouse_df['rodent.sex'].map({'m': 0, 'f': 1}).astype('float64')
+# 'm' -> 0, 'f' -> 1
+mouse_df['main.experimenter.gender_encoded'] = mouse_df['main.experimenter.gender'].map({'m': 0, 'f': 1}).astype('float64')
+# 'n' -> 0 , 'y' -> 1 
+mouse_df['head-plate_encoded'] = mouse_df['head-plate'].map({'n': 0, 'y': 1}).astype('float64')
+# 'n' -> 0, 'y' -> 1
+mouse_df['anesthesia.before.acquisition_encoded'] = mouse_df['anesthesia.before.acquisition'].map({'n': 0, 'y': 1}).astype('float64')
+# 'n' -> 0, 'y' -> 1
+mouse_df['MRI.cryocoil_encoded'] = mouse_df['MRI.cryocoil'].map({'n': 0, 'y': 1}).astype('float64')
+# Enumarated encoding strain
+strain_map = {v: i for i, v in enumerate(mouse_df['rodent.strain'].dropna().unique())}
+mouse_df['rodent.strain_encoded'] = mouse_df['rodent.strain'].map(strain_map).astype('float64')
+# Enumarated encoding fMRI sequence
+sequence_map = {v: i for i, v in enumerate(mouse_df['fMRI.sequence'].dropna().unique())}
+mouse_df['fMRI.sequence_encoded'] = mouse_df['fMRI.sequence'].map(sequence_map).astype('float64')
+
+mouse_df = mouse_df[
+    [
+        'rodent.sex_encoded',
+        'rodent.strain_encoded',
+        'main.experimenter.gender_encoded',
+        'head-plate_encoded',
+        'anesthesia.before.acquisition_encoded',
+        'MRI.cryocoil_encoded',
+        'fMRI.sequence_encoded',
+        's1.specific.wmcsf3',
+        's1.unspecific.wmcsf3',
+        'thal.specific.wmcsf3'
+    ]
+]
+
+display(mouse_df.head())
+
+# Create an encoding table
+sex_map = {'m': 0, 'f': 1}
+experimenter_map = {'m': 0, 'f': 1}
+headplate_map = {'n': 0, 'y': 1}
+anesthesia_map = {'n': 0, 'y': 1}
+cryocoil_map = {'n': 0, 'y': 1}
+
+encoding_table = pd.concat([
+    pd.DataFrame(sex_map.items(), columns=['category','encoding']).assign(variable='rodent.sex'),
+    pd.DataFrame(experimenter_map.items(), columns=['category','encoding']).assign(variable='main.experimenter.gender'),
+    pd.DataFrame(headplate_map.items(), columns=['category','encoding']).assign(variable='head-plate'),
+    pd.DataFrame(anesthesia_map.items(), columns=['category','encoding']).assign(variable='anesthesia.before.acquisition'),
+    pd.DataFrame(cryocoil_map.items(), columns=['category','encoding']).assign(variable='MRI.cryocoil'),
+    pd.DataFrame(strain_map.items(), columns=['category','encoding']).assign(variable='rodent.strain'),
+    pd.DataFrame(sequence_map.items(), columns=['category','encoding']).assign(variable='fMRI.sequence')
+])
+
+encoding_table = encoding_table[['variable','category','encoding']]
+
+print(encoding_table)
 
 # Define Covariates, Batch Effects, and Response Variables
-covariates = ['rodent.sex_encoded'] 
+covariates = [
+    'rodent.sex_encoded',
+    'main.experimenter.gender_encoded',    
+    'rodent.strain_encoded',
+    'head-plate_encoded',
+    'anesthesia.before.acquisition_encoded',
+    'MRI.cryocoil_encoded',
+    'fMRI.sequence_encoded'      
+              
+]
 
 batch_effects = [
-    'rodent.strain'
+
 ]
 
 response_vars = [
@@ -48,12 +127,13 @@ response_vars = [
     'thal.specific.wmcsf3'
 ]
 
-# Handle NaNs and Create NormData Object 
+# Handle NaNs (this does remove the whole row even when one Nan is present)
 all_relevant_columns = covariates + batch_effects + response_vars
 mouse_df_cleaned = mouse_df.dropna(subset=all_relevant_columns).copy()
 
 print(f"Original DataFrame shape: {mouse_df.shape}")
 print(f"Cleaned DataFrame shape after dropping NaNs: {mouse_df_cleaned.shape}")
+display(mouse_df_cleaned.head())
 
 norm_data = NormData.from_dataframe(
     name="mouse_data",
@@ -75,7 +155,14 @@ model = NormativeModel(BLR(heteroskedastic=True), inscaler="standardize", outsca
 model.fit_predict(train, test)
 
 # Generate Evaluation Plots and Statistics
-plot_centiles(model, scatter_data=train)
+plot_centiles(
+    model,
+    scatter_data=train,
+    centiles=[0.05, 0.5, 0.95],
+    covariate='rodent.sex_encoded', 
+    scatter_kwargs={'s':30, 'alpha':0.6},
+    
+) 
 
 # Show dataset statistics
 print("\nTrain Set Statistics:")

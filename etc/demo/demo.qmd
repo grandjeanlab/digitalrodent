@@ -28,8 +28,14 @@ warnings.simplefilter(action="ignore", category=FutureWarning)
 pd.options.mode.chained_assignment = None  # default='warn'
 pcntoolkit.util.output.Output.set_show_messages(False)
 
+from pathlib import Path
+
+# Use the current working directory where Quarto runs
+current_dir = Path.cwd()  # Quarto's render directory
+mouse_data_path = current_dir / "mouse_metadata_processed.tsv"
+
 # Load Data
-mouse_data_path = 'digitalrodent/etc/demo/mouse_metadata_processed.tsv'
+# mouse_data_path = '/home/dansch/Documents/digital_rodent/digitalrodent/etc/demo/mouse_metadata_processed.tsv'
 mouse_df = pd.read_csv(mouse_data_path, sep='\t')
 
 

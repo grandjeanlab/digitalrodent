@@ -1,0 +1,8 @@
+then, I would usually do the following:
+
+add this to preprocessing (only for the failing scan): --bold_inho_cor method=N4_reg,otsu_thresh=2,multiotsu=false and then try to re-run
+if it fails again, add --bold_autobox and try again
+if it fails again, add --bold_robust_inho_cor apply=true,masking=true,brain_extraction=true,template_registration=Affine and try again
+if it fails again, make a copy of the raw file in the bids folder, 
+then use the fslroi function to only keep the brain in the image and discard everything none brain. you can lookup the fslroi help in the terminal.
+ if really stuck, i can show you

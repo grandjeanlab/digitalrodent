@@ -29,3 +29,11 @@ When adding a new dataset:
 3. Include the dataset name, source, DOI (if available), and any other relevant metadata.
 4. Use the assigned `dataset_id` consistently for processed outputs stored in the `results/` directory.
 
+# Subjects 
+
+Not all subjects from all datasets were compatible with our analysis, for the normative model healthy and control subjects were used to create an accurate model. Other animals did not deliver correct results and the image data was just not processable to use for input of the model.
+
+## 'subject.tsv' 
+shows the subjects that were included in the normative model
+
+## 

@@ -1,0 +1,531 @@
+---
+title: "Dataset overview"
+format:
+  html:
+    toc: true
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Setup
+
+```{python}
+from pathlib import Path
+import re
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.stats import gaussian_kde
+from IPython.display import display
+
+pd.set_option("display.max_columns", 50)
+pd.set_option("display.max_rows", 20)
+
+# Find the digitalrodent folder
+root = Path.cwd()
+while root != root.parent:
+    if (root / "data" / "MetaData").exists():
+        break
+    root = root.parent
+
+meta_dir = root / "data" / "MetaData"
+dr_dir = root / "results" / "dual_regression"
+out_dir = root / "results" / "combined_simple"
+fig_dir = root / "results" / "figures_simple"
+
+out_dir.mkdir(parents=True, exist_ok=True)
+fig_dir.mkdir(parents=True, exist_ok=True)
+
+# Master list of the 20 datasets
+datasets = pd.read_csv(root / "data" / "datasets.tsv", sep="\t", dtype=str)
+datasets["dataset_id"] = datasets["dataset_id"].str.zfill(2)
+
+display(datasets.fillna("NA"))
+```
+
+## Small functions for the merge
+
+```{python}
+def clean_name(text):
+    text = str(text).strip().lower()
+    text = re.sub(r"[^a-z0-9]+", "_", text)
+    return text.strip("_")
+
+
+def read_file(path):
+    sep = "\t" if path.suffix.lower() == ".tsv" else ","
+    df = pd.read_csv(path, sep=sep, dtype=str)
+    df = df.dropna(axis=0, how="all").dropna(axis=1, how="all")
+    df.columns = [clean_name(c) for c in df.columns]
+    return df
+
+
+def first_column(df, choices):
+    for col in choices:
+        if col in df.columns:
+            return col
+    return None
+
+
+def clean_session(value):
+    if pd.isna(value):
+        return pd.NA
+    text = str(value).strip()
+    if text == "" or text.lower() in ["na", "nan", "none"]:
+        return pd.NA
+    match = re.search(r"ses[-_ ]?([a-z0-9]+)", text, re.I)
+    if match:
+        return "ses-" + match.group(1)
+    if text.isdigit():
+        return "ses-" + text
+    return text
+
+
+def clean_run(value):
+    if pd.isna(value):
+        return pd.NA
+    text = str(value).strip()
+    if text == "" or text.lower() in ["na", "nan", "none"]:
+        return pd.NA
+    match = re.search(r"run[-_ ]?([a-z0-9]+)", text, re.I)
+    if match:
+        return "run-" + match.group(1)
+    if text.isdigit():
+        return "run-" + text
+    return text
+
+
+def clean_participant(value, dataset_id):
+    if pd.isna(value):
+        return pd.NA
+
+    text = str(value).strip()
+    if text == "" or text.lower() in ["na", "nan", "none"]:
+        return pd.NA
+
+    # A few datasets use a different name in metadata and DR
+    if dataset_id == "01":
+        digits = re.sub(r"\D", "", text)
+        return "sub-" + digits.zfill(7) if digits else pd.NA
+
+    if dataset_id == "03":
+        number = re.search(r"\d+", text)
+        return f"sub-MFC{int(number.group()):03d}" if number else pd.NA
+
+    if dataset_id in ["07", "08"]:
+        text = re.sub(r"^sub-", "", text, flags=re.I)
+        text = re.sub(r"^jgrAD", "", text, flags=re.I)
+        return "sub-jgrAD" + text
+
+    if not text.lower().startswith("sub-"):
+        text = "sub-" + text
+
+    return text
+```
+
+## Prepare metadata and DR files
+
+```{python}
+def prepare_metadata(df, dataset_id):
+    df = df.copy()
+
+    # Find participant column
+    if dataset_id == "01" and "rodent_sub" in df.columns:
+        participant_col = "rodent_sub"
+    elif dataset_id == "03" and "mouse_id" in df.columns:
+        participant_col = "mouse_id"
+    else:
+        participant_col = first_column(
+            df,
+            ["participant_id", "subject", "subject_id", "mouse_id", "rodent_sub", "animal_id"]
+        )
+
+    if participant_col is None:
+        raise ValueError("No participant column found")
+
+    df["participant_id"] = df[participant_col].apply(
+        lambda x: clean_participant(x, dataset_id)
+    )
+
+    # Session
+    session_col = first_column(df, ["session", "rodent_session"])
+    if session_col:
+        df["session"] = df[session_col].apply(clean_session)
+    else:
+        df["session"] = pd.NA
+
+    # Douglas has session inside Mouse ID, e.g. '59 ses-2'
+    if dataset_id == "03":
+        session_from_id = df[participant_col].astype(str).str.extract(
+            r"(ses[-_ ]?\d+)", expand=False
+        )
+        df["session"] = session_from_id.apply(clean_session).fillna("ses-1")
+
+    # Run
+    run_col = first_column(df, ["run", "rodent_run"])
+    if run_col:
+        df["run"] = df[run_col].apply(clean_run)
+    else:
+        df["run"] = pd.NA
+
+    # Sex
+    sex_col = first_column(df, ["sex", "gender", "rodent_sex"])
+    if sex_col:
+        df["sex_simple"] = df[sex_col].astype(str).str.lower().str[0]
+        df.loc[~df["sex_simple"].isin(["m", "f"]), "sex_simple"] = pd.NA
+    else:
+        df["sex_simple"] = pd.NA
+
+    # Age in weeks, but only when the unit is clear
+    df["age_weeks"] = np.nan
+
+    week_col = first_column(df, ["age_when_scanned_weeks", "age_at_scan_weeks", "age_weeks"])
+    day_col = first_column(df, ["age_days"])
+    dob_col = first_column(df, ["dob", "date_of_birth"])
+    scan_col = first_column(df, ["experiment_date", "date_scanned", "scan_date", "acquisition_date"])
+
+    if week_col:
+        df["age_weeks"] = pd.to_numeric(df[week_col], errors="coerce")
+    elif day_col:
+        df["age_weeks"] = pd.to_numeric(df[day_col], errors="coerce") / 7
+    elif dob_col and scan_col:
+        dob = pd.to_datetime(df[dob_col], errors="coerce")
+        scan = pd.to_datetime(df[scan_col], errors="coerce")
+        df["age_weeks"] = (scan - dob).dt.days / 7
+
+    return df
+
+
+def prepare_dr(df, dataset_id):
+    df = df.copy()
+
+    if "subject" not in df.columns:
+        raise ValueError("No subject column found in DR file")
+
+    # Get participant, session and run from the DR subject name
+    df["participant_id"] = df["subject"].str.split(r"_(?:ses|task|run|acq|echo)-", regex=True).str[0]
+    df["participant_id"] = df["participant_id"].apply(
+        lambda x: clean_participant(x, dataset_id)
+    )
+
+    df["session"] = df["subject"].str.extract(r"_(ses-[^_]+)", expand=False)
+    df["session"] = df["session"].apply(clean_session)
+
+    df["run"] = df["subject"].str.extract(r"_(run-[^_]+)", expand=False)
+    df["run"] = df["run"].apply(clean_run)
+
+    for col in [c for c in df.columns if c.startswith("comp")]:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+
+    return df
+
+
+def first_value(series):
+    values = series.dropna()
+    return values.iloc[0] if len(values) else pd.NA
+```
+
+## Merge each dataset
+
+```{python}
+all_datasets = []
+status = []
+
+for _, info in datasets.iterrows():
+    dataset_id = info["dataset_id"]
+    dataset_name = info["dataset_name"]
+
+    # Find all files that start with this dataset number
+    meta_files = sorted(meta_dir.glob(f"{int(dataset_id)}.*")) + sorted(meta_dir.glob(f"{dataset_id}*"))
+    meta_files = list(dict.fromkeys([p for p in meta_files if p.suffix.lower() in [".csv", ".tsv"]]))
+    dr_files = sorted(dr_dir.glob(f"{dataset_id}_DR.csv"))
+
+    metadata = None
+    dr = None
+
+    # Read metadata
+    if meta_files:
+        meta_parts = []
+        for file in meta_files:
+            try:
+                meta_parts.append(prepare_metadata(read_file(file), dataset_id))
+            except Exception as e:
+                print(dataset_id, file.name, "metadata error:", e)
+
+        if meta_parts:
+            metadata = pd.concat(meta_parts, ignore_index=True, sort=False)
+
+    # Read DR
+    if dr_files:
+        dr_parts = [prepare_dr(read_file(file), dataset_id) for file in dr_files]
+        dr = pd.concat(dr_parts, ignore_index=True, sort=False)
+
+    # Merge as far as possible
+    if metadata is not None and dr is not None:
+        keys = ["participant_id"]
+
+        if metadata["session"].notna().any() and dr["session"].notna().any():
+            keys.append("session")
+        if metadata["run"].notna().any() and dr["run"].notna().any():
+            keys.append("run")
+
+        # Prevent duplicate metadata rows from multiplying the DR rows
+        other_cols = [c for c in metadata.columns if c not in keys]
+        metadata = metadata.groupby(keys, dropna=False, as_index=False)[other_cols].agg(first_value)
+
+        metadata["has_metadata"] = True
+        dr["has_dr"] = True
+
+        merged = dr.merge(metadata, on=keys, how="outer", suffixes=("", "_meta"))
+
+    elif metadata is not None:
+        merged = metadata.copy()
+        merged["has_metadata"] = True
+        merged["has_dr"] = False
+
+    elif dr is not None:
+        merged = dr.copy()
+        merged["has_metadata"] = False
+        merged["has_dr"] = True
+
+    else:
+        merged = pd.DataFrame({
+            "participant_id": [pd.NA],
+            "has_metadata": [False],
+            "has_dr": [False]
+        })
+
+    if "has_metadata" not in merged.columns:
+        merged["has_metadata"] = False
+    if "has_dr" not in merged.columns:
+        merged["has_dr"] = False
+
+    merged["has_metadata"] = merged["has_metadata"].fillna(False).astype(bool)
+    merged["has_dr"] = merged["has_dr"].fillna(False).astype(bool)
+
+    merged.insert(0, "dataset_name", dataset_name)
+    merged.insert(0, "dataset_id", dataset_id)
+
+    # Save every dataset separately
+    merged.to_csv(
+        out_dir / f"{dataset_id}_merged.csv",
+        index=False,
+        na_rep="NA"
+    )
+
+    all_datasets.append(merged)
+
+    status.append({
+        "dataset_id": dataset_id,
+        "dataset_name": dataset_name,
+        "metadata": "yes" if metadata is not None else "no",
+        "DR": "yes" if dr is not None else "no",
+        "rows": len(merged)
+    })
+
+    print("\n", dataset_id, "-", dataset_name, "| rows:", len(merged))
+    display(merged.fillna("NA"))
+```
+
+## Dataset status
+
+```{python}
+status = pd.DataFrame(status)
+status.to_csv(out_dir / "dataset_status.csv", index=False, na_rep="NA")
+display(status)
+```
+
+## One combined dataset
+
+```{python}
+combined = pd.concat(all_datasets, ignore_index=True, sort=False)
+
+combined.to_csv(
+    out_dir / "all_datasets_combined.csv",
+    index=False,
+    na_rep="NA"
+)
+
+print("Rows:", len(combined))
+print("Datasets:", combined["dataset_id"].nunique())
+display(combined.head(30).fillna("NA"))
+```
+
+## Number of subjects
+
+```{python}
+with_dr = combined[combined["has_dr"] & combined["participant_id"].notna()].copy()
+
+subject_counts = (
+    with_dr.drop_duplicates(["dataset_id", "participant_id", "session"])
+    .groupby("dataset_name")
+    .size()
+    .sort_values()
+)
+
+fig, ax = plt.subplots(figsize=(9, max(5, len(subject_counts) * 0.4)))
+ax.barh(subject_counts.index, subject_counts.values)
+ax.set_title("Subjects per dataset")
+ax.set_xlabel("Subjects / scans")
+ax.set_ylabel("")
+ax.spines[["top", "right"]].set_visible(False)
+plt.tight_layout()
+plt.savefig(fig_dir / "01_subjects_per_dataset.png", dpi=300, bbox_inches="tight")
+plt.show()
+```
+
+## DR inclusion
+
+```{python}
+metadata_rows = combined[
+    combined["has_metadata"] & combined["participant_id"].notna()
+].copy()
+
+if len(metadata_rows):
+    inclusion = (
+        metadata_rows.groupby(["dataset_name", "participant_id", "session"], dropna=False)["has_dr"]
+        .max()
+        .reset_index()
+    )
+
+    inclusion["status"] = np.where(inclusion["has_dr"], "With DR", "No DR")
+
+    inclusion_counts = (
+        inclusion.groupby(["dataset_name", "status"])
+        .size()
+        .unstack(fill_value=0)
+    )
+
+    for col in ["With DR", "No DR"]:
+        if col not in inclusion_counts.columns:
+            inclusion_counts[col] = 0
+
+    inclusion_counts = inclusion_counts[["With DR", "No DR"]]
+    inclusion_counts = inclusion_counts.loc[inclusion_counts.sum(axis=1).sort_values().index]
+
+    fig, ax = plt.subplots(figsize=(9, max(5, len(inclusion_counts) * 0.4)))
+    left = np.zeros(len(inclusion_counts))
+
+    for col in ["With DR", "No DR"]:
+        ax.barh(inclusion_counts.index, inclusion_counts[col], left=left, label=col)
+        left += inclusion_counts[col].values
+
+    ax.set_title("DR inclusion")
+    ax.set_xlabel("Subjects / scans")
+    ax.set_ylabel("")
+    ax.legend(frameon=False)
+    ax.spines[["top", "right"]].set_visible(False)
+    plt.tight_layout()
+    plt.savefig(fig_dir / "02_DR_inclusion.png", dpi=300, bbox_inches="tight")
+    plt.show()
+```
+
+## Sex
+
+```{python}
+sex_data = combined[
+    combined["has_metadata"] & combined["participant_id"].notna()
+].copy()
+
+sex_data = sex_data.drop_duplicates(["dataset_id", "participant_id", "session"])
+sex_data = sex_data[sex_data["sex_simple"].isin(["m", "f"])]
+
+if len(sex_data):
+    sex_counts = (
+        sex_data.groupby(["dataset_name", "sex_simple"])
+        .size()
+        .unstack(fill_value=0)
+    )
+
+    for col in ["m", "f"]:
+        if col not in sex_counts.columns:
+            sex_counts[col] = 0
+
+    sex_counts = sex_counts[["m", "f"]]
+    sex_counts = sex_counts.loc[sex_counts.sum(axis=1).sort_values().index]
+
+    fig, ax = plt.subplots(figsize=(9, max(5, len(sex_counts) * 0.4)))
+    ax.barh(sex_counts.index, sex_counts["m"], label="Male")
+    ax.barh(sex_counts.index, sex_counts["f"], left=sex_counts["m"], label="Female")
+    ax.set_title("Sex by dataset")
+    ax.set_xlabel("Subjects")
+    ax.set_ylabel("")
+    ax.legend(frameon=False)
+    ax.spines[["top", "right"]].set_visible(False)
+    plt.tight_layout()
+    plt.savefig(fig_dir / "04_sex.png", dpi=300, bbox_inches="tight")
+    plt.show()
+```
+
+## DR heatmap
+
+```{python}
+components = [f"comp{i}" for i in range(1, 19) if f"comp{i}" in combined.columns]
+
+dr_data = combined[combined["has_dr"]].copy()
+
+for col in components:
+    dr_data[col] = pd.to_numeric(dr_data[col], errors="coerce")
+
+if components and len(dr_data):
+    heatmap = dr_data.groupby("dataset_name")[components].median()
+
+    # Standardize each row so the component pattern is easier to compare
+    heatmap = heatmap.sub(heatmap.mean(axis=1), axis=0)
+    heatmap = heatmap.div(heatmap.std(axis=1).replace(0, np.nan), axis=0)
+
+    fig, ax = plt.subplots(figsize=(10, max(5, len(heatmap) * 0.4)))
+    image = ax.imshow(heatmap.values, aspect="auto")
+
+    ax.set_yticks(range(len(heatmap)))
+    ax.set_yticklabels(heatmap.index)
+    ax.set_xticks(range(len(components)))
+    ax.set_xticklabels(components, rotation=45, ha="right")
+    ax.set_title("DR heatmap")
+    ax.set_xlabel("Component")
+    ax.set_ylabel("")
+    plt.colorbar(image, ax=ax, label="z-score")
+    plt.tight_layout()
+    plt.savefig(fig_dir / "05_DR_heatmap.png", dpi=300, bbox_inches="tight")
+    plt.show()
+```
+
+## Component 1 ridgeline
+
+```{python}
+if "comp1" in dr_data.columns:
+    comp_data = dr_data[["dataset_name", "comp1"]].dropna()
+    counts = comp_data.groupby("dataset_name").size()
+    groups = counts[counts >= 3].index.tolist()
+
+    if groups:
+        x_min = comp_data["comp1"].min()
+        x_max = comp_data["comp1"].max()
+        x = np.linspace(x_min, x_max, 400)
+
+        fig, ax = plt.subplots(figsize=(9, max(5, len(groups) * 0.55)))
+
+        for i, group in enumerate(groups):
+            values = comp_data.loc[comp_data["dataset_name"] == group, "comp1"].values
+
+            if len(np.unique(values)) > 1:
+                density = gaussian_kde(values)(x)
+                density = density / density.max()
+                ax.fill_between(x, i, i + density * 0.8, alpha=0.6)
+                ax.plot(x, i + density * 0.8, linewidth=1)
+
+            ax.scatter(values, np.full(len(values), i), marker="|", s=35)
+
+        ax.set_yticks(range(len(groups)))
+        ax.set_yticklabels(groups)
+        ax.set_title("Component 1 by dataset")
+        ax.set_xlabel("DR value")
+        ax.set_ylabel("")
+        ax.spines[["top", "right", "left"]].set_visible(False)
+        plt.tight_layout()
+        plt.savefig(fig_dir / "06_component1_ridgeline.png", dpi=300, bbox_inches="tight")
+        plt.show()
+```

@@ -1,0 +1,21 @@
+dataset_id,dataset_name,metadata,DR,rows
+01,Awake,yes,yes,1571
+02,Brain-wide spatiotemporally,no,no,1
+03,Douglas hypercapnia,yes,yes,20
+04,Environmental enrichment dataset,yes,yes,78
+05,Florida Mouse Sepsis fMRI Study,no,yes,12
+06,Longitudinal in vivo MRI of C57BL6J mice,yes,yes,140
+07,Mouse rest 3xTG,yes,yes,53
+08,Mouse rest 3xTG Alzheimer,yes,yes,53
+09,Mouse rest anesthesia,no,no,1
+10,Mouse rest awake,yes,yes,171
+11,Mouse rest awake Takata,no,no,1
+12,Mouse rest KCLtraining,no,yes,2
+13,Mouse rest multicenter,yes,yes,255
+14,Mouse rest psilocybin,yes,yes,40
+15,Mouse rest psilocybin pilot,yes,yes,96
+16,MPTP mouse,yes,yes,34
+17,MRI scan sex difference,yes,yes,61
+18,NDUFS4,no,no,1
+19,Propofol anesthesia dataset,yes,yes,10
+20,Alvino resting-state fMRI,no,no,1

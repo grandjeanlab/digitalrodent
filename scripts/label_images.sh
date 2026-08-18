@@ -4,18 +4,18 @@
 # intial date: 24.04.2026
 # last modified: 21.04.2026 (Danny)
 
-Img_dir="/project/4180000.73/University_of_Florida_Mouse_Sepsis_fMRI_StudyT/output_mouse/preprocess_QC_report/commonspace_reg_wf.Anat2Atlas/"
+img_dir="/project/4180000.73/University_of_Florida_Mouse_Sepsis_fMRI_StudyT/output_mouse/preprocess_QC_report/commonspace_reg_wf.Anat2Atlas/"
 
 #Change based on rescue
-Log_file="labels1.csv"
-Rescue="sub"
+log_file="labels1.csv"
+rescue="sub"
 
 # Create log file if missing
-[ ! -f "$Log_file" ] && echo "filename,label" > "$Log_file"
+[ ! -f "$log_file" ] && echo "filename,label" > "$log_file"
 
-Files=( "$Img_dir"/*"$Rescue"* )
+Files=( "$img_dir"/*"$rescue"* )
 
-for img in "${Files[@]}"; do
+for img in "${files[@]}"; do
     [ -e "$img" ] || continue
 
     # Open image in Gwenview
@@ -29,7 +29,7 @@ for img in "${Files[@]}"; do
     echo "Label this image: A=good, S=bad, D=maybe, q=quit"
     read -n 1 key
     echo
-
+S
     [[ "$key" == "q" ]] && break
 
     # Map keys to labels
@@ -41,14 +41,14 @@ for img in "${Files[@]}"; do
     esac
 
     # Log to CSV
-    echo "$(basename "$img"),$label" >> "$Log_file"
+    echo "$(basename "$img"),$label" >> "$log_file"
 done
 
-echo "Good: $(grep -c ',good$' "$Log_file")"
-grep ',good$' "$Log_file" | cut -d',' -f1
+echo "Good: $(grep -c ',good$' "$log_file")"
+grep ',good$' "$log_file" | cut -d',' -f1
 
-echo "Bad: $(grep -c ',bad$' "$Log_file")"
-grep ',bad$' "$Log_file" | cut -d',' -f1
+echo "Bad: $(grep -c ',bad$' "$log_file")"
+grep ',bad$' "$log_file" | cut -d',' -f1
 
-echo "Maybe: $(grep -c ',maybe$' "$Log_file")"
-grep ',maybe$' "$Log_file" | cut -d',' -f1
+echo "Maybe: $(grep -c ',maybe$' "$log_file")"
+grep ',maybe$' "$log_file" | cut -d',' -f1

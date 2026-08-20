@@ -1,0 +1,13 @@
+Excluded	Comments	participant_id	Session	Link to the paper	Dataset	Rodent.strain	Sex	Weight	Age(days)	MRI	Coil	fMRI.sequence	MRI T.E.(ms)	MRI T.R.(s)	Anethesia	Ventilation(v/f)	(dex)med.bolus	(dex)med.infusion	(dex)med.route	Isoflurane	Abituation(short/long)	head-plate	FD avarage	FD maximum	tSNR
+		sub-001		DOI: 10.1016/j.neuroimage.2024.120995	Florida-Mouse-Sepsi		M	N/A	N/A	7	Cryo	SE-EPI	25	1.5	Iso	f	N/A	N/A	N/A	1,25% isoflurane	N/A	N/A	0.005054012023	0.008570363753	
+		sub-002		DOI: 10.1016/j.neuroimage.2024.120996	Florida-Mouse-Sepsi		F	N/A	N/A	7	Cryo	SE-EPI	25	1.5	Iso	f	N/A	N/A	N/A	1,25% isoflurane	N/A	N/A	0.005294416042	0.009215761434	
+		sub-003		DOI: 10.1016/j.neuroimage.2024.120997	Florida-Mouse-Sepsi		M	N/A	N/A	7	Cryo	SE-EPI	25	1.5	Iso	f	N/A	N/A	N/A	1,25% isoflurane	N/A	N/A	0.005689686879	0.009271274347	
+		sub-004		DOI: 10.1016/j.neuroimage.2024.120998	Florida-Mouse-Sepsi		F	N/A	N/A	7	Cryo	SE-EPI	25	1.5	Iso	f	N/A	N/A	N/A	1,25% isoflurane	N/A	N/A	0.004051258344	0.006637363086	
+		sub-008		DOI: 10.1016/j.neuroimage.2024.120999	Florida-Mouse-Sepsi		F	N/A	N/A	7	Cryo	SE-EPI	25	1.5	Iso	f	N/A	N/A	N/A	1,25% isoflurane	N/A	N/A	0.004737200593	0.007884912845	
+		sub-015		DOI: 10.1016/j.neuroimage.2024.121000	Florida-Mouse-Sepsi		M	N/A	N/A	7	Cryo	SE-EPI	25	1.5	Iso	f	N/A	N/A	N/A	1,25% isoflurane	N/A	N/A	0.004770533968	0.007976828502	
+		sub-016		DOI: 10.1016/j.neuroimage.2024.121001	Florida-Mouse-Sepsi		M	N/A	N/A	7	Cryo	SE-EPI	25	1.5	Iso	f	N/A	N/A	N/A	1,25% isoflurane	N/A	N/A	0.005252482533	0.008990177243	
+		sub-019		DOI: 10.1016/j.neuroimage.2024.121002	Florida-Mouse-Sepsi		M	N/A	N/A	7	Cryo	SE-EPI	25	1.5	Iso	f	N/A	N/A	N/A	1,25% isoflurane	N/A	N/A	0.006497501845	0.01197330862	
+		sub-020		DOI: 10.1016/j.neuroimage.2024.121003	Florida-Mouse-Sepsi		M	N/A	N/A	7	Cryo	SE-EPI	25	1.5	Iso	f	N/A	N/A	N/A	1,25% isoflurane	N/A	N/A	0.01641967858	0.02936319043	
+		sub-021		DOI: 10.1016/j.neuroimage.2024.121004	Florida-Mouse-Sepsi		F	N/A	N/A	7	Cryo	SE-EPI	25	1.5	Iso	f	N/A	N/A	N/A	1,25% isoflurane	N/A	N/A	0.01502611941	0.02230353261	
+		sub-022		DOI: 10.1016/j.neuroimage.2024.121005	Florida-Mouse-Sepsi		F	N/A	N/A	7	Cryo	SE-EPI	25	1.5	Iso	f	N/A	N/A	N/A	1,25% isoflurane	N/A	N/A	0.0128873474	0.0236736342	
+		sub-023		DOI: 10.1016/j.neuroimage.2024.121006	Florida-Mouse-Sepsi		F	N/A	N/A	7	Cryo	SE-EPI	25	1.5	Iso	f	N/A	N/A	N/A	1,25% isoflurane	N/A	N/A	0.007124579376	0.01244014258	

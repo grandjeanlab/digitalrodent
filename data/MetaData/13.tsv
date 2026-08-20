@@ -1,256 +1,256 @@
-participant_id	Session	Dataset	Rodent.strain	Sex	Weight	Age(days)	MRI	Coil	fMRI.sequence	MRI T.E.(ms)	MRI T.R.(s)	Anethesia	Sedation(low/hight)	Abituation(short/long)	head-plate	FD avarage	FD maximum	tSNR
-sub-001		7_Cryo_mediso_v		M			7	Cryo				Mediso						
-sub-002		7_Cryo_mediso_v		M			7	Cryo				Mediso						
-sub-003		7_Cryo_mediso_v		M			7	Cryo				Mediso						
-sub-004		7_Cryo_mediso_v		M			7	Cryo				Mediso						
-sub-005		7_Cryo_mediso_v		M			7	Cryo				Mediso						
-sub-006		7_Cryo_mediso_v		M			7	Cryo				Mediso						
-sub-007		7_Cryo_mediso_v		M			7	Cryo				Mediso						
-sub-008		7_Cryo_mediso_v		M			7	Cryo				Mediso						
-sub-009		7_Cryo_mediso_v		F			7	Cryo				Mediso						
-sub-010		7_Cryo_mediso_v		F			7	Cryo				Mediso						
-sub-011		7_Cryo_mediso_v		F			7	Cryo				Mediso						
-sub-012		7_Cryo_mediso_v		F			7	Cryo				Mediso						
-sub-013		7_Cryo_mediso_v		F			7	Cryo				Mediso						
-sub-014		7_Cryo_mediso_v		M			7	Cryo				Mediso						
-sub-015		7_Cryo_mediso_v		M			7	Cryo				Mediso						
-sub-016		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-017		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-018		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-019		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-020		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-021		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-022		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-023		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-024		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-025		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-026		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-027		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-028		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-029		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-030		94_Cryo_mediso_v		M			9.4	Cryo				Mediso						
-sub-031		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-032		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-033		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-034		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-035		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-036		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-037		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-038		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-039		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-040		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-041		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-042		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-043		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-044		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-045		7_Cryo_med_f1		N/A			7	Cryo				Med						
-sub-046		7_RT_halo_v		M			7	RT				Hal						
-sub-047		7_RT_halo_v		M			7	RT				Hal						
-sub-048		7_RT_halo_v		M			7	RT				Hal						
-sub-049		7_RT_halo_v		M			7	RT				Hal						
-sub-050		7_RT_halo_v		M			7	RT				Hal						
-sub-051		7_RT_halo_v		M			7	RT				Hal						
-sub-052		7_RT_halo_v		M			7	RT				Hal						
-sub-053		7_RT_halo_v		M			7	RT				Hal						
-sub-054		7_RT_halo_v		M			7	RT				Hal						
-sub-055		7_RT_halo_v		M			7	RT				Hal						
-sub-056		7_RT_halo_v		M			7	RT				Hal						
-sub-057		7_RT_halo_v		M			7	RT				Hal						
-sub-058		7_RT_halo_v		M			7	RT				Hal						
-sub-059		7_RT_halo_v		M			7	RT				Hal						
-sub-060		7_RT_halo_v		M			7	RT				Hal						
-sub-061		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-062		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-063		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-064		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-065		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-066		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-067		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-068		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-069		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-070		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-071		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-072		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-073		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-074		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-075		94_Cryo_med_f		N/A			9.4	Cryo				Med						
-sub-076		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-077		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-078		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-079		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-080		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-081		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-082		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-083		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-084		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-085		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-086		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-087		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-088		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-089		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-090		94_RT_mediso_f1		N/A			9.4	RT				Mediso						
-sub-091		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-092		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-093		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-094		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-095		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-096		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-097		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-098		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-099		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-100		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-101		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-102		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-103		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-104		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-105		117_Cryo_mediso_v		F			11.75	Cryo				Mediso						
-sub-106		94_RT_iso_v		F			9.4	RT				Iso						
-sub-107		94_RT_iso_v		F			9.4	RT				Iso						
-sub-108		94_RT_iso_v		F			9.4	RT				Iso						
-sub-109		94_RT_iso_v		F			9.4	RT				Iso						
-sub-110		94_RT_iso_v		F			9.4	RT				Iso						
-sub-111		94_RT_iso_v		F			9.4	RT				Iso						
-sub-112		94_RT_iso_v		F			9.4	RT				Iso						
-sub-113		94_RT_iso_v		F			9.4	RT				Iso						
-sub-114		94_RT_iso_v		F			9.4	RT				Iso						
-sub-115		94_RT_iso_v		F			9.4	RT				Iso						
-sub-116		94_RT_iso_v		F			9.4	RT				Iso						
-sub-117		94_RT_iso_v		F			9.4	RT				Iso						
-sub-118		94_RT_iso_v		F			9.4	RT				Iso						
-sub-119		94_RT_iso_v		F			9.4	RT				Iso						
-sub-120		94_RT_iso_v		F			9.4	RT				Iso						
-sub-121		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-122		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-123		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-124		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-125		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-126		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-127		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-128		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-129		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-130		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-131		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-132		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-133		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-134		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-135		47_RT_iso_f		N/A			4.7	RT				Iso						
-sub-136		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-137		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-138		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-139		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-140		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-141		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-142		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-143		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-144		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-145		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-146		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-147		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-148		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-149		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-150		94_RT_mediso_f2		M			9.4	RT				Mediso						
-sub-151		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-152		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-153		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-154		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-155		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-156		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-157		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-158		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-159		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-160		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-161		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-162		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-163		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-164		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-165		94_Cryo_iso_f		N/A			9.4	Cryo				Iso						
-sub-166		7_RT_iso_f		N/A			7	RT				Iso						
-sub-167		7_RT_iso_f		N/A			7	RT				Iso						
-sub-168		7_RT_iso_f		N/A			7	RT				Iso						
-sub-169		7_RT_iso_f		N/A			7	RT				Iso						
-sub-170		7_RT_iso_f		N/A			7	RT				Iso						
-sub-171		7_RT_iso_f		N/A			7	RT				Iso						
-sub-172		7_RT_iso_f		N/A			7	RT				Iso						
-sub-173		7_RT_iso_f		N/A			7	RT				Iso						
-sub-174		7_RT_iso_f		N/A			7	RT				Iso						
-sub-175		7_RT_iso_f		N/A			7	RT				Iso						
-sub-176		7_RT_iso_f		N/A			7	RT				Iso						
-sub-177		7_RT_iso_f		N/A			7	RT				Iso						
-sub-178		7_RT_iso_f		N/A			7	RT				Iso						
-sub-179		7_RT_iso_f		N/A			7	RT				Iso						
-sub-180		7_RT_iso_f		N/A			7	RT				Iso						
-sub-181		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-182		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-183		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-184		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-185		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-186		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-187		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-188		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-189		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-190		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-191		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-192		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-193		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-194		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-195		7_Cryo_med_f2		N/A			7	Cryo				Med						
-sub-196		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-197		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-198		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-199		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-200		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-201		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-202		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-203		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-204		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-205		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-206		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-207		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-208		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-209		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-210		7_Cryo_aw_f		N/A			7	Cryo				Awake						
-sub-211		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-212		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-213		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-214		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-215		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-216		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-217		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-218		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-219		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-220		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-221		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-222		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-223		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-224		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-225		7_Cryo_med_f3		N/A			7	Cryo				Med						
-sub-226		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-227		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-228		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-229		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-230		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-231		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-232		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-233		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-234		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-235		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-236		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-237		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-238		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-239		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-240		117_Cryo_iso_f		M			11.75	Cryo				Iso						
-sub-241		7_RT_med_f		N/A			7	RT				Med						
-sub-242		7_RT_med_f		N/A			7	RT				Med						
-sub-243		7_RT_med_f		N/A			7	RT				Med						
-sub-244		7_RT_med_f		N/A			7	RT				Med						
-sub-245		7_RT_med_f		N/A			7	RT				Med						
-sub-246		7_RT_med_f		N/A			7	RT				Med						
-sub-247		7_RT_med_f		N/A			7	RT				Med						
-sub-248		7_RT_med_f		N/A			7	RT				Med						
-sub-249		7_RT_med_f		N/A			7	RT				Med						
-sub-250		7_RT_med_f		N/A			7	RT				Med						
-sub-251		7_RT_med_f		N/A			7	RT				Med						
-sub-252		7_RT_med_f		N/A			7	RT				Med						
-sub-253		7_RT_med_f		N/A			7	RT				Med						
-sub-254		7_RT_med_f		N/A			7	RT				Med						
-sub-255		7_RT_med_f		N/A			7	RT				Med						
+Excluded	Comments	participant_id	Session	Link to the paper	Dataset	Rodent.strain	Sex	Weight	Age(days)	MRI	Coil	fMRI.sequence	MRI T.E.(ms)	MRI T.R.(s)	Anethesia	Ventilation(v/f)	(dex)med.bolus	(dex)med.infusion	(dex)med.route	Isoflurane	Abituation(short/long)	head-plate	FD avarage	FD maximum	tSNR
+	data is the same BIDS_raw	sub-001		N/A	7_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.00434073724	0.00841875561	
+	data is the same BIDS_raw	sub-002		N/A	7_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.006868971982	0.01446924905	
+	data is the same BIDS_raw	sub-003		N/A	7_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.004805405828	0.009413081244	
+	data is the same BIDS_raw	sub-004		N/A	7_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.004391320916	0.008151504712	
+	data is the same BIDS_raw	sub-005		N/A	7_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.004319339152	0.008383598712	
+	data is the same BIDS_raw	sub-006		N/A	7_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.004474733114	0.00825084776	
+	data is the same BIDS_raw	sub-007		N/A	7_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.004616573705	0.008885533926	
+	data is the same BIDS_raw	sub-008		N/A	7_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.003879020413	0.007040541544	
+	data is the same BIDS_raw	sub-009		N/A	7_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.004263006768	0.008161539954	
+	data is the same BIDS_raw	sub-010		N/A	7_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.003966624861	0.006564959649	
+	data is the same BIDS_raw	sub-011		N/A	7_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.003774979961	0.006684586702	
+	data is the same BIDS_raw	sub-012		N/A	7_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.003652074274	0.006066842537	
+	data is the same BIDS_raw	sub-013		N/A	7_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.003955947988	0.007306404623	
+	data is the same BIDS_raw	sub-014		N/A	7_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.005002680296	0.01011821595	
+	data is the same BIDS_raw	sub-015		N/A	7_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	7	Cryo	EPI	15	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.004231607131	0.007158022422	
+	data is the same BIDS_raw	sub-016		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.007170263327	0.01105985256	
+	data is the same BIDS_raw	sub-017		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.006377216287	0.00945271478	
+	data is the same BIDS_raw	sub-018		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.006863532899	0.009820615866	
+	data is the same BIDS_raw	sub-019		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.00877567847	0.01364497643	
+	data is the same BIDS_raw	sub-020		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.007380476818	0.016570147	
+	data is the same BIDS_raw	sub-021		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.006242331578	0.009114502836	
+	data is the same BIDS_raw	sub-022		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.009013204967	0.0132493965	
+	data is the same BIDS_raw	sub-023		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.005953929397	0.009037392903	
+	data is the same BIDS_raw	sub-024		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.005791914149	0.009922982187	
+	data is the same BIDS_raw	sub-025		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.00657744669	0.01106215173	
+	data is the same BIDS_raw	sub-026		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.008829678227	0.01169556093	
+	data is the same BIDS_raw	sub-027		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.005972838767	0.008209046389	
+	data is the same BIDS_raw	sub-028		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.006768442893	0.01030220139	
+	data is the same BIDS_raw	sub-029		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.006159011932	0.009347239948	
+	data is the same BIDS_raw	sub-030		N/A	94_Cryo_mediso_v	C57BL/6J	M	N/A	N/A	9.4	Cryo	EPI	9.2	1	Mediso	v	0.05	0.1	i.v.	0.5	N/A	N/A	0.005006510027	0.007768139055	
+y	data is the same BIDS_raw	sub-031		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.007730924006	0.01177546826	
+	data is the same BIDS_raw	sub-032		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006875135439	0.01004240463	
+y	data is the same BIDS_raw	sub-033		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.007678198908	0.01153491252	
+	data is the same BIDS_raw	sub-034		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.008164736046	0.01296967184	
+y	data is the same BIDS_raw	sub-035		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.008126143041	0.0131133258	
+	data is the same BIDS_raw	sub-036		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.00784362785	0.01147391947	
+	data is the same BIDS_raw	sub-037		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006611174716	0.00966198664	
+	data is the same BIDS_raw	sub-038		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.008469401014	0.01369331348	
+	data is the same BIDS_raw	sub-039		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.009040147342	0.01572161939	
+	data is the same BIDS_raw	sub-040		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.007464903831	0.01191360416	
+	data is the same BIDS_raw	sub-041		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.008492774778	0.01478095819	
+	data is the same BIDS_raw	sub-042		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.009907196383	0.01692225154	
+	data is the same BIDS_raw	sub-043		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.007748879101	0.01258316897	
+	data is the same BIDS_raw	sub-044		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.007622971152	0.01258431926	
+	data is the same BIDS_raw	sub-045		N/A	7_Cryo_med_f1	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.008466303309	0.0145366339	
+	data is the same BIDS_raw	sub-046		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.009932014555	0.02067078517	
+	data is the same BIDS_raw	sub-047		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.01735000582	0.03789148872	
+	data is the same BIDS_raw	sub-048		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.01232224451	0.02563897022	
+	data is the same BIDS_raw	sub-049		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.01043171327	0.02207619421	
+	data is the same BIDS_raw	sub-050		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.007567176635	0.01543061138	
+	data is the same BIDS_raw	sub-051		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.01536155801	0.02556109513	
+	data is the same BIDS_raw	sub-052		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.01112640318	0.02275062302	
+	data is the same BIDS_raw	sub-053		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.00556295171	0.0060840277	
+	data is the same BIDS_raw	sub-054		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.009773145901	0.0212095432	
+	data is the same BIDS_raw	sub-055		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.009037169794	0.01818195945	
+	data is the same BIDS_raw	sub-056		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.00990274876	0.01954825124	
+	data is the same BIDS_raw	sub-057		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.0142944734	0.03033350913	
+	data is the same BIDS_raw	sub-058		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.007250453845	0.01350475527	
+	data is the same BIDS_raw	sub-059		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.007154402852	0.01340317617	
+	data is the same BIDS_raw	sub-060		N/A	7_RT_halo_v	C57BL/6J	M	N/A	N/A	7	RT	EPI	15	1.2	Hal	v	n/a	n/a	n/a	0.75	N/A	N/A	0.01657559629	0.03633753522	
+	data is the same BIDS_raw	sub-061		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.009903678327	0.01512429155	
+	data is the same BIDS_raw	sub-062		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.009004734169	0.01497945715	
+	data is the same BIDS_raw	sub-063		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.01195967599	0.0207217595	
+	data is the same BIDS_raw	sub-064		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.0108824826	0.01871805778	
+	data is the same BIDS_raw	sub-065		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.01417168053	0.02631535713	
+	data is the same BIDS_raw	sub-066		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.01047719812	0.01754661508	
+	data is the same BIDS_raw	sub-067		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.009576040858	0.0172923237	
+	data is the same BIDS_raw	sub-068		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.03922094987	0.07387236	
+	data is the same BIDS_raw	sub-069		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.01135869941	0.02071846484	
+	data is the same BIDS_raw	sub-070		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.01290784501	0.02219212864	
+	data is the same BIDS_raw	sub-071		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.009805735902	0.01705441345	
+	data is the same BIDS_raw	sub-072		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.01022399093	0.0160215198	
+	data is the same BIDS_raw	sub-073		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.01360410733	0.02582435869	
+	data is the same BIDS_raw	sub-074		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.009346487944	0.01667664347	
+	data is the same BIDS_raw	sub-075		N/A	94_Cryo_med_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	18	1.3	Med	f	0.4	0.8	i.p	n/a	N/A	N/A	0.01055867233	0.0193083265	
+	data is the same BIDS_raw	sub-076		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.007303835091	0.009634507568	
+	data is the same BIDS_raw	sub-077		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.007328303631	0.009618388662	
+	data is the same BIDS_raw	sub-078		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.00894360234	0.01085714825	
+	data is the same BIDS_raw	sub-079		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.007859582267	0.009734652434	
+	data is the same BIDS_raw	sub-080		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.007597478503	0.009617290888	
+	data is the same BIDS_raw	sub-081		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.007683568887	0.009818086906	
+	data is the same BIDS_raw	sub-082		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.008075832322	0.01022171377	
+	data is the same BIDS_raw	sub-083		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.008056606005	0.009810288206	
+	data is the same BIDS_raw	sub-084		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.00719206575	0.008817617921	
+	data is the same BIDS_raw	sub-085		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.00902701635	0.0112027542	
+	data is the same BIDS_raw	sub-086		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.008246565903	0.01082608672	
+	data is the same BIDS_raw	sub-087		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.008518133902	0.0110903349	
+	data is the same BIDS_raw	sub-088		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.007590389906	0.009883622894	
+	data is the same BIDS_raw	sub-089		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.008548999203	0.01142120322	
+	data is the same BIDS_raw	sub-090		N/A	94_RT_mediso_f1	C57BL/6J	N/A	N/A	N/A	9.4	RT	EPI	15	2	Mediso	f	0.3	n/a	s.c.	0.3	N/A	N/A	0.007209486142	0.01077738817	
+	data is the same BIDS_raw	sub-091		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01416493636	0.0291624151	
+	data is the same BIDS_raw	sub-092		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01340295048	0.02794559311	
+	data is the same BIDS_raw	sub-093		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01399244982	0.02848942391	
+	data is the same BIDS_raw	sub-094		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01183373264	0.02395533392	
+	data is the same BIDS_raw	sub-095		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01320490859	0.02703446765	
+	data is the same BIDS_raw	sub-096		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01403551797	0.02932009205	
+	data is the same BIDS_raw	sub-097		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01121933475	0.02242078391	
+	data is the same BIDS_raw	sub-098		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01268920201	0.02608014396	
+	data is the same BIDS_raw	sub-099		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01351789557	0.02768590296	
+	data is the same BIDS_raw	sub-100		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01303797224	0.02711887064	
+	data is the same BIDS_raw	sub-101		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.0127444357	0.02581775694	
+	data is the same BIDS_raw	sub-102		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01376682494	0.02787027233	
+	data is the same BIDS_raw	sub-103		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.009400235631	0.01852956492	
+	data is the same BIDS_raw	sub-104		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01051073776	0.02054880855	
+	data is the same BIDS_raw	sub-105		N/A	117_Cryo_mediso_v	C57BL/6J	F	N/A	N/A	11.75	Cryo	EPI	15	1	Mediso	v	0.05	0.1	s.c.	0.5	N/A	N/A	0.01315931118	0.0262319743	
+	data is the same BIDS_raw	sub-106		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.004571183139	0.007421905092	
+	data is the same BIDS_raw	sub-107		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.004427552253	0.007434218139	
+	data is the same BIDS_raw	sub-108		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.004748089694	0.007561807685	
+	data is the same BIDS_raw	sub-109		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.004806171621	0.008394206638	
+	data is the same BIDS_raw	sub-110		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.005081502649	0.008507294607	
+	data is the same BIDS_raw	sub-111		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.00597806243	0.009360077202	
+	data is the same BIDS_raw	sub-112		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.004750784846	0.007881874923	
+	data is the same BIDS_raw	sub-113		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.004934136987	0.008902339036	
+	data is the same BIDS_raw	sub-114		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.004470264841	0.007883865647	
+	data is the same BIDS_raw	sub-115		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.00501325881	0.00854398695	
+	data is the same BIDS_raw	sub-116		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.004864918565	0.008603983209	
+	data is the same BIDS_raw	sub-117		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.004678864785	0.007880429048	
+	data is the same BIDS_raw	sub-118		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.005731171327	0.01021097435	
+	data is the same BIDS_raw	sub-119		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.004793390664	0.007715315412	
+	data is the same BIDS_raw	sub-120		N/A	94_RT_iso_v	C57BL/6J	F	N/A	N/A	9.4	RT	EPI	17	1.5	Iso	v	n/a	n/a	n/a	1	N/A	N/A	0.005706020007	0.008917823893	
+	data is the same BIDS_raw	sub-121		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.006448448823	0.01156412576	
+	data is the same BIDS_raw	sub-122		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.005538228853	0.008309936503	
+	data is the same BIDS_raw	sub-123		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.005205512961	0.008009074691	
+	data is the same BIDS_raw	sub-124		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.00577599488	0.009439171297	
+	data is the same BIDS_raw	sub-125		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.005259943951	0.008689595323	
+	data is the same BIDS_raw	sub-126		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.006266431213	0.009656436533	
+	data is the same BIDS_raw	sub-127		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.008562485841	0.01424547409	
+	data is the same BIDS_raw	sub-128		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.008054041938	0.01255816342	
+	data is the same BIDS_raw	sub-129		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.004986881999	0.007018941569	
+	data is the same BIDS_raw	sub-130		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.005679726101	0.008742345056	
+	data is the same BIDS_raw	sub-131		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.004931463214	0.00729976945	
+y	data is the same BIDS_raw	sub-132		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.005900467826	0.007962446774	
+	data is the same BIDS_raw	sub-133		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.004818277697	0.007466766064	
+	data is the same BIDS_raw	sub-134		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.006141278197	0.01017890661	
+	data is the same BIDS_raw	sub-135		N/A	47_RT_iso_f	C57BL/6J	N/A	N/A	N/A	4.7	RT	EPI	25	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.006447641418	0.01027815993	
+	data is the same BIDS_raw	sub-136		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.009726266021	0.01422283837	
+	data is the same BIDS_raw	sub-137		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.009960928341	0.01510466231	
+	data is the same BIDS_raw	sub-138		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.009223233873	0.01296421364	
+	data is the same BIDS_raw	sub-139		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.008816622153	0.01332639087	
+	data is the same BIDS_raw	sub-140		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.008093498796	0.01239694387	
+	data is the same BIDS_raw	sub-141		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.008697758023	0.01351819538	
+	data is the same BIDS_raw	sub-142		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.01049524495	0.01589968891	
+	data is the same BIDS_raw	sub-143		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.009272132693	0.01356490663	
+	data is the same BIDS_raw	sub-144		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.01207533324	0.01923186611	
+	data is the same BIDS_raw	sub-145		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.01069795698	0.01567041037	
+	data is the same BIDS_raw	sub-146		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.01160949885	0.01734910561	
+	data is the same BIDS_raw	sub-147		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.009131988807	0.01368243015	
+	data is the same BIDS_raw	sub-148		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.006075429317	0.009416010917	
+	data is the same BIDS_raw	sub-149		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.01039641856	0.01565954754	
+	data is the same BIDS_raw	sub-150		N/A	94_RT_mediso_f2	C57BL/6J	M	N/A	N/A	9.4	RT	EPI	15	1	Mediso	f	0.05	0.1	n/a	0.3	N/A	N/A	0.008445185715	0.01211958517	
+	data is the same BIDS_raw	sub-151		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.006030336162	0.009969512832	
+	data is the same BIDS_raw	sub-152		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.01495133855	0.02023299761	
+	data is the same BIDS_raw	sub-153		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.02944095404	0.05451888004	
+	data is the same BIDS_raw	sub-154		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.02295683217	0.02991504332	
+	data is the same BIDS_raw	sub-155		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.008120845893	0.01335105451	
+	data is the same BIDS_raw	sub-156		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.01282439175	0.01960123224	
+	data is the same BIDS_raw	sub-157		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.005607561743	0.009487282431	
+	data is the same BIDS_raw	sub-158		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.01089928828	0.01799171598	
+	data is the same BIDS_raw	sub-159		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.005784708082	0.008867755674	
+	data is the same BIDS_raw	sub-160		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.009418595854	0.01370373638	
+	data is the same BIDS_raw	sub-161		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.01930646498	0.03122592146	
+	data is the same BIDS_raw	sub-162		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.006082297989	0.01008480425	
+	data is the same BIDS_raw	sub-163		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.006264652116	0.0109074268	
+	data is the same BIDS_raw	sub-164		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.007278216398	0.01195230826	
+	data is the same BIDS_raw	sub-165		N/A	94_Cryo_iso_f	C57BL/6J	N/A	N/A	N/A	9.4	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.0133404761	0.01906287473	
+	data is the same BIDS_raw	sub-166		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01244142492	0.02086447109	
+	data is the same BIDS_raw	sub-167		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01266853571	0.02024178111	
+	data is the same BIDS_raw	sub-168		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01309739321	0.02089017139	
+	data is the same BIDS_raw	sub-169		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01201652021	0.01982854784	
+	data is the same BIDS_raw	sub-170		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01265758414	0.02009862437	
+	data is the same BIDS_raw	sub-171		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.008946686541	0.01544136748	
+	data is the same BIDS_raw	sub-172		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01323948092	0.0215873483	
+	data is the same BIDS_raw	sub-173		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01009245982	0.01728222129	
+	data is the same BIDS_raw	sub-174		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01073229645	0.01741274644	
+	data is the same BIDS_raw	sub-175		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.0100005041	0.01682429638	
+	data is the same BIDS_raw	sub-176		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01206326781	0.01972432054	
+	data is the same BIDS_raw	sub-177		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01310296057	0.0228389097	
+	data is the same BIDS_raw	sub-178		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01237949072	0.02102495376	
+	data is the same BIDS_raw	sub-179		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01094544652	0.01866779339	
+	data is the same BIDS_raw	sub-180		N/A	7_RT_iso_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Iso	f	n/a	n/a	n/a	1	N/A	N/A	0.01318489559	0.02095021984	
+	data is the same BIDS_raw	sub-181		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006667760431	0.0116533435	
+	data is the same BIDS_raw	sub-182		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.007281787245	0.01358005862	
+	data is the same BIDS_raw	sub-183		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006985088689	0.01191006864	
+	data is the same BIDS_raw	sub-184		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006788486652	0.01154230841	
+	data is the same BIDS_raw	sub-185		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006177457812	0.01083194114	
+	data is the same BIDS_raw	sub-186		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006604289711	0.01054751716	
+	data is the same BIDS_raw	sub-187		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006386896974	0.01050598935	
+	data is the same BIDS_raw	sub-188		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006768898686	0.01125702174	
+	data is the same BIDS_raw	sub-189		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006813143833	0.01126159183	
+	data is the same BIDS_raw	sub-190		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.005834757357	0.009575048884	
+	data is the same BIDS_raw	sub-191		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.007199792896	0.01176488106	
+	data is the same BIDS_raw	sub-192		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006594742688	0.01106676484	
+	data is the same BIDS_raw	sub-193		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006412119162	0.01082524531	
+	data is the same BIDS_raw	sub-194		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.007522976753	0.01202299698	
+	data is the same BIDS_raw	sub-195		N/A	7_Cryo_med_f2	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.006254056584	0.01073228047	
+	data is the same BIDS_raw	sub-196		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.01850020026	0.03037390652	
+	data is the same BIDS_raw	sub-197		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.01667770279	0.02842045792	
+	data is the same BIDS_raw	sub-198		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.01249751695	0.02170377214	
+	data is the same BIDS_raw	sub-199		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.01548085368	0.02649852869	
+	data is the same BIDS_raw	sub-200		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.018338619	0.03133574514	
+	data is the same BIDS_raw	sub-201		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.01354015442	0.02264010902	
+	data is the same BIDS_raw	sub-202		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.01195617793	0.02039470837	
+	data is the same BIDS_raw	sub-203		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.0207906409	0.03839845686	
+	data is the same BIDS_raw	sub-204		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.02112040936	0.03967079726	
+	data is the same BIDS_raw	sub-205		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.01340179629	0.02417862101	
+	data is the same BIDS_raw	sub-206		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.01145137439	0.01877394165	
+	data is the same BIDS_raw	sub-207		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.02541070162	0.04956298727	
+	data is the same BIDS_raw	sub-208		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.01126843224	0.01985968192	
+	data is the same BIDS_raw	sub-209		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.01336836845	0.02433541462	
+	data is the same BIDS_raw	sub-210		N/A	7_Cryo_aw_f	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	15	1.5	Awake	f	n/a	n/a	n/a	N/A			0.01252030008	0.02249692952	
+	data is the same BIDS_raw	sub-211		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.008154337525	0.01263586657	
+	data is the same BIDS_raw	sub-212		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.008717058942	0.01372111884	
+	data is the same BIDS_raw	sub-213		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.0081225293	0.0119416923	
+	data is the same BIDS_raw	sub-214		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.00837632661	0.01344295942	
+	data is the same BIDS_raw	sub-215		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.007144557472	0.01073984033	
+	data is the same BIDS_raw	sub-216		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.008444517041	0.01302994034	
+	data is the same BIDS_raw	sub-217		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.008323197458	0.01265942017	
+	data is the same BIDS_raw	sub-218		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.009140667888	0.01351380418	
+	data is the same BIDS_raw	sub-219		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.008998665104	0.01443081795	
+	data is the same BIDS_raw	sub-220		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.007378096906	0.01120341224	
+	data is the same BIDS_raw	sub-221		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.00859171001	0.01177184954	
+	data is the same BIDS_raw	sub-222		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.1159979416	0.1750761821	
+	data is the same BIDS_raw	sub-223		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.009456060322	0.01482168701	
+	data is the same BIDS_raw	sub-224		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01001314748	0.01585807036	
+	data is the same BIDS_raw	sub-225		N/A	7_Cryo_med_f3	C57BL/6J	N/A	N/A	N/A	7	Cryo	EPI	10	1.7	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.009743518897	0.01426750153	
+	data is the same BIDS_raw	sub-226		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.007510676038	0.01284698574	
+	data is the same BIDS_raw	sub-227		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.01963257406	0.03384795447	
+	data is the same BIDS_raw	sub-228		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.01024675758	0.01687089806	
+	data is the same BIDS_raw	sub-229		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.007635879271	0.01192960706	
+	data is the same BIDS_raw	sub-230		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.01933771855	0.02877373935	
+	data is the same BIDS_raw	sub-231		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.01171331316	0.02046135546	
+	data is the same BIDS_raw	sub-232		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.007537366776	0.01183220353	
+	data is the same BIDS_raw	sub-233		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.01064803733	0.01569490469	
+	data is the same BIDS_raw	sub-234		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.006505710247	0.009658533672	
+	data is the same BIDS_raw	sub-235		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.007130786886	0.01076879391	
+	data is the same BIDS_raw	sub-236		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.007166754727	0.0109460142	
+	data is the same BIDS_raw	sub-237		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.007538455045	0.01333469532	
+	data is the same BIDS_raw	sub-238		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.01327056857	0.02230392011	
+	data is the same BIDS_raw	sub-239		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.007674103051	0.01243918776	
+	data is the same BIDS_raw	sub-240		N/A	117_Cryo_iso_f	C57BL/6J	M	N/A	N/A	11.75	Cryo	EPI	10	1	Iso	f	n/a	n/a	n/a	1.25	N/A	N/A	0.005410671878	0.008414737079	
+	data is the same BIDS_raw	sub-241		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01081852659	0.01798448504	
+	data is the same BIDS_raw	sub-242		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01088026791	0.01811000607	
+	data is the same BIDS_raw	sub-243		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01201908558	0.02145887282	
+	data is the same BIDS_raw	sub-244		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01027015087	0.01673096946	
+	data is the same BIDS_raw	sub-245		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.009714580137	0.01631827828	
+	data is the same BIDS_raw	sub-246		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01039516809	0.0168404414	
+	data is the same BIDS_raw	sub-247		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.008695836799	0.01388805545	
+	data is the same BIDS_raw	sub-248		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01143573697	0.01965438225	
+	data is the same BIDS_raw	sub-249		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01018983235	0.01670047921	
+	data is the same BIDS_raw	sub-250		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.008691236904	0.01386446376	
+	data is the same BIDS_raw	sub-251		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01054120966	0.01772088027	
+	data is the same BIDS_raw	sub-252		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01089032416	0.01698780141	
+	data is the same BIDS_raw	sub-253		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01158649163	0.01916893125	
+	data is the same BIDS_raw	sub-254		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01051807848	0.01832842948	
+	data is the same BIDS_raw	sub-255		N/A	7_RT_med_f	C57BL/6J	N/A	N/A	N/A	7	RT	EPI	15	2	Med	f	0.3	0.6	s.c.	N/A	N/A	N/A	0.01193504672	0.02052508587	

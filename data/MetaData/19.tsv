@@ -1,0 +1,11 @@
+Excluded	Comments	participant_id	Session	Link to the paper	Dataset	Rodent.strain	Sex	Weight	Age(days)	MRI	Coil	fMRI.sequence	MRI T.E.(ms)	MRI T.R.(s)	Anethesia	Ventilation(v/f)	(dex)med.bolus	(dex)med.infusion	(dex)med.route	Isoflurane	Abituation(short/long)	head-plate	FD avarage	FD maximum	tSNR
+	fsloriented	sub-02		N/A	propofol_dataset	C57BL/6J	N/A	N/A	N/A	9.4	N/A	GE-EPI	N/A	2	propofol	N/A	N/A	N/A	N/A	N/A	N/A	N/A	0.01575884442	0.03012737777	
+y	fsloriented	sub-03		N/A	propofol_dataset	C57BL/6J	N/A	N/A	N/A	9.4	N/A	GE-EPI	N/A	2	propofol	N/A	N/A	N/A	N/A	N/A	N/A	N/A			
+y	fsloriented	sub-04		N/A	propofol_dataset	C57BL/6J	N/A	N/A	N/A	9.4	N/A	GE-EPI	N/A	2	propofol	N/A	N/A	N/A	N/A	N/A	N/A	N/A			
+y	fsloriented	sub-05		N/A	propofol_dataset	C57BL/6J	N/A	N/A	N/A	9.4	N/A	GE-EPI	N/A	2	propofol	N/A	N/A	N/A	N/A	N/A	N/A	N/A			
+y	fsloriented	sub-06		N/A	propofol_dataset	C57BL/6J	N/A	N/A	N/A	9.4	N/A	GE-EPI	N/A	2	propofol	N/A	N/A	N/A	N/A	N/A	N/A	N/A			
+	fsloriented	sub-07		N/A	propofol_dataset	C57BL/6J	N/A	N/A	N/A	9.4	N/A	GE-EPI	N/A	2	propofol	N/A	N/A	N/A	N/A	N/A	N/A	N/A	0.01469539836	0.02666691239	
+	fsloriented	sub-08		N/A	propofol_dataset	C57BL/6J	N/A	N/A	N/A	9.4	N/A	GE-EPI	N/A	2	propofol	N/A	N/A	N/A	N/A	N/A	N/A	N/A	0.02042759419	0.03625944326	
+y	fsloriented	sub-09		N/A	propofol_dataset	C57BL/6J	N/A	N/A	N/A	9.4	N/A	GE-EPI	N/A	2	propofol	N/A	N/A	N/A	N/A	N/A	N/A	N/A	0.01952493532	0.03525646159	
+	fsloriented	sub-10		N/A	propofol_dataset	C57BL/6J	N/A	N/A	N/A	9.4	N/A	GE-EPI	N/A	2	propofol	N/A	N/A	N/A	N/A	N/A	N/A	N/A	0.01472907944	0.02559961732	
+y	fsloriented	sub-11		N/A	propofol_dataset	C57BL/6J	N/A	N/A	N/A	9.4	N/A	GE-EPI	N/A	2	propofol	N/A	N/A	N/A	N/A	N/A	N/A	N/A			

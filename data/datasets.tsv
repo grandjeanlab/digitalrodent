@@ -1,21 +1,21 @@
-dataset_id	dataset_name	openneuro_id	openneuro_link
-01	Awake	ds001653	10.18112/openneuro.ds001653.v1.0.2
-02	Brain-wide spatiotemporally	ds006407	10.18112/openneuro.ds006407.v1.0.0
-03	Douglas hypercapnia	ds004125	10.18112/openneuro.ds004125.v1.0.0
-04	Environmental enrichment dataset	ds005636	10.18112/openneuro.ds005636.v1.0.1
-05	Florida Mouse Sepsis fMRI Study	ds005467	10.18112/openneuro.ds005467.v1.0.0
-06	Longitudinal in vivo MRI of C57BL6J mice	ds006663	10.18112/openneuro.ds006663.v1.0.3
-07	Mouse rest 3xTG	ds001890	10.18112/openneuro.ds001890.v1.0.1
-08	Mouse rest 3xTG Alzheimer	ds001890	10.18112/openneuro.ds001890.v1.0.1
-09	Mouse rest anesthesia	ds001529	10.18112/openneuro.ds001529.v1.0.2
-10	Mouse rest awake	ds001653	10.18112/openneuro.ds001653.v1.0.2
-11	Mouse rest awake Takata	ds002551	10.18112/openneuro.ds002551.v1.0.1
-12	Mouse rest KCLtraining	ds001591	10.18112/openneuro.ds001591.v1.3.0
-13	Mouse rest multicenter	ds001720	10.18112/openneuro.ds001720.v1.0.2
-14	Mouse rest psilocybin	ds001725	10.18112/openneuro.ds001725.v1.1.0
-15	Mouse rest psilocybin pilot	ds002154	10.18112/openneuro.ds002154.v1.0.0
-16	MPTP mouse	ds005402	10.18112/openneuro.ds005402.v1.0.0
-17	MRI scan sex difference	Zenodo 15191235	10.5281/zenodo.15191235
-18	NDUFS4	ds004976	10.18112/openneuro.ds004976.v1.0.0
-19	Propofol anesthesia dataset	ds007783	10.18112/openneuro.ds007783.v1.0.0
-20	Alvino resting-state fMRI	IIT Dataverse AIO2LN	10.48557/AIO2LN
+dataset_id	nickname	dataset_name	openneuro_id	openneuro_link
+01	Awake	Awake	ds001653	10.18112/openneuro.ds001653.v1.0.2
+02	Brain-wide ST	Brain-wide spatiotemporally	ds006407	10.18112/openneuro.ds006407.v1.0.0
+03	Douglas Hypercapnia	Douglas hypercapnia	ds004125	10.18112/openneuro.ds004125.v1.0.0
+04	Env Enrichment	Environmental enrichment dataset	ds005636	10.18112/openneuro.ds005636.v1.0.1
+05	Florida Sepsis	Florida Mouse Sepsis fMRI Study	ds005467	10.18112/openneuro.ds005467.v1.0.0
+06	C57BL6J Longitudinal	Longitudinal in vivo MRI of C57BL6J mice	ds006663	10.18112/openneuro.ds006663.v1.0.3
+07	3xTG Rest	Mouse rest 3xTG	ds001890	10.18112/openneuro.ds001890.v1.0.1
+08	3xTG Alzheimer	Mouse rest 3xTG Alzheimer	ds001890	10.18112/openneuro.ds001890.v1.0.1
+09	Anesthesia Rest	Mouse rest anesthesia	ds001529	10.18112/openneuro.ds001529.v1.0.2
+10	Awake Rest	Mouse rest awake	ds001653	10.18112/openneuro.ds001653.v1.0.2
+11	Awake Takata	Mouse rest awake Takata	ds002551	10.18112/openneuro.ds002551.v1.0.1
+12	KCL Training	Mouse rest KCLtraining	ds001591	10.18112/openneuro.ds001591.v1.3.0
+13	Multicenter Rest	Mouse rest multicenter	ds001720	10.18112/openneuro.ds001720.v1.0.2
+14	Psilocybin Rest	Mouse rest psilocybin	ds001725	10.18112/openneuro.ds001725.v1.1.0
+15	Psilocybin Pilot	Mouse rest psilocybin pilot	ds002154	10.18112/openneuro.ds002154.v1.0.0
+16	MPTP Mouse	MPTP mouse	ds005402	10.18112/openneuro.ds005402.v1.0.0
+17	Sex Difference MRI	MRI scan sex difference	Zenodo 15191235	10.5281/zenodo.15191235
+18	NDUFS4	NDUFS4	ds004976	10.18112/openneuro.ds004976.v1.0.0
+19	Propofol Anesthesia	Propofol anesthesia dataset	ds007783	10.18112/openneuro.ds007783.v1.0.0
+20	Alvino Resting-State	Alvino resting-state fMRI	IIT Dataverse AIO2LN	10.48557/AIO2LN

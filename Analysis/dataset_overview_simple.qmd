@@ -368,12 +368,245 @@ subject_counts = (
 
 fig, ax = plt.subplots(figsize=(9, max(5, len(subject_counts) * 0.4)))
 ax.barh(subject_counts.index, subject_counts.values)
-ax.set_title("Subjects per dataset")
-ax.set_xlabel("Subjects / scans")
+ax.set_title("Scans per dataset")
+ax.set_xlabel("Scans")
 ax.set_ylabel("")
 ax.spines[["top", "right"]].set_visible(False)
 plt.tight_layout()
 plt.savefig(fig_dir / "01_subjects_per_dataset.png", dpi=300, bbox_inches="tight")
+plt.show()
+```
+
+```{python}
+# ---------------------------------------------------------
+# AGE DISTRIBUTION ACROSS ALL DATASETS
+# One figure, one shared x-axis
+# Each dataset = one row
+# Half violin + boxplot + sample size
+# ---------------------------------------------------------
+
+plot_data = combined[
+    combined["has_dr"]
+    & combined["participant_id"].notna()
+    & combined["age_weeks"].notna()
+].copy()
+
+
+# Make sure age is numeric
+plot_data["age_weeks"] = pd.to_numeric(
+    plot_data["age_weeks"],
+    errors="coerce"
+)
+
+plot_data = plot_data.dropna(subset=["age_weeks"])
+
+
+# Keep one row per subject/session
+plot_data = plot_data.drop_duplicates(
+    ["dataset_id", "participant_id", "session"]
+)
+
+
+# ---------------------------------------------------------
+# ORDER DATASETS
+# Here they are ordered by median age
+# ---------------------------------------------------------
+
+dataset_order = (
+    plot_data
+    .groupby("dataset_name")["age_weeks"]
+    .median()
+    .sort_values()
+    .index
+    .tolist()
+)
+
+
+# ---------------------------------------------------------
+# CREATE ONE FIGURE
+# ---------------------------------------------------------
+
+fig, ax = plt.subplots(
+    figsize=(12, max(6, len(dataset_order) * 0.55))
+)
+
+
+# ---------------------------------------------------------
+# DRAW ALL DATASETS ON THE SAME AXIS
+# ---------------------------------------------------------
+
+for i, dataset in enumerate(dataset_order):
+
+    ages = (
+        plot_data.loc[
+            plot_data["dataset_name"] == dataset,
+            "age_weeks"
+        ]
+        .dropna()
+        .astype(float)
+        .values
+    )
+
+    if len(ages) == 0:
+        continue
+
+    y = i
+
+
+    # -----------------------------------------------------
+    # HALF VIOLIN
+    # -----------------------------------------------------
+
+    if len(ages) >= 2 and len(np.unique(ages)) > 1:
+
+        kde = gaussian_kde(ages)
+
+        x_grid = np.linspace(
+            ages.min(),
+            ages.max(),
+            300
+        )
+
+        density = kde(x_grid)
+
+        # Same maximum height for each dataset
+        density = density / density.max() * 0.30
+
+        # Half violin above the boxplot
+        ax.fill_between(
+            x_grid,
+            y,
+            y - density,
+            alpha=0.40
+        )
+
+        ax.plot(
+            x_grid,
+            y - density,
+            linewidth=1
+        )
+
+
+    # -----------------------------------------------------
+    # BOXPLOT
+    # -----------------------------------------------------
+
+    box = ax.boxplot(
+        ages,
+        vert=False,
+        positions=[y + 0.10],
+        widths=0.18,
+        showfliers=False,
+        patch_artist=True,
+        manage_ticks=False
+    )
+
+    for patch in box["boxes"]:
+        patch.set(
+            facecolor="white",
+            linewidth=1.2
+        )
+
+    for median in box["medians"]:
+        median.set(
+            linewidth=1.8
+        )
+
+    for whisker in box["whiskers"]:
+        whisker.set(
+            linewidth=1
+        )
+
+    for cap in box["caps"]:
+        cap.set(
+            linewidth=1
+        )
+
+
+    # -----------------------------------------------------
+    # SAMPLE SIZE
+    # -----------------------------------------------------
+
+    ax.text(
+        ages.max() + 0.5,
+        y + 0.10,
+        f"n = {len(ages)}",
+        va="center",
+        ha="left",
+        fontsize=9
+    )
+
+
+# ---------------------------------------------------------
+# AXIS LABELS
+# ---------------------------------------------------------
+
+ax.set_yticks(range(len(dataset_order)))
+ax.set_yticklabels(dataset_order)
+
+ax.set_xlabel("Age (weeks)")
+ax.set_ylabel("")
+
+ax.set_title(
+    "Age distribution across all datasets",
+    loc="left",
+    fontweight="bold"
+)
+
+
+# Youngest median age at the top
+ax.invert_yaxis()
+
+
+# ---------------------------------------------------------
+# CLEAN FIGURE STYLE
+# ---------------------------------------------------------
+
+ax.grid(
+    axis="x",
+    alpha=0.15
+)
+
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+ax.spines["left"].set_visible(False)
+
+ax.tick_params(
+    axis="y",
+    length=0
+)
+
+
+# ---------------------------------------------------------
+# EXTRA SPACE FOR n = ...
+# ---------------------------------------------------------
+
+min_age = plot_data["age_weeks"].min()
+max_age = plot_data["age_weeks"].max()
+
+age_range = max_age - min_age
+
+if age_range == 0:
+    age_range = 1
+
+ax.set_xlim(
+    min_age - age_range * 0.03,
+    max_age + age_range * 0.20
+)
+
+
+# ---------------------------------------------------------
+# SAVE + SHOW
+# ---------------------------------------------------------
+
+plt.tight_layout()
+
+plt.savefig(
+    fig_dir / "01_age_distribution_all_datasets.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
 plt.show()
 ```
 
@@ -493,39 +726,42 @@ if components and len(dr_data):
     plt.show()
 ```
 
-## Component 1 ridgeline
+## Component ridgelines
 
 ```{python}
-if "comp1" in dr_data.columns:
-    comp_data = dr_data[["dataset_name", "comp1"]].dropna()
-    counts = comp_data.groupby("dataset_name").size()
-    groups = counts[counts >= 3].index.tolist()
 
-    if groups:
-        x_min = comp_data["comp1"].min()
-        x_max = comp_data["comp1"].max()
-        x = np.linspace(x_min, x_max, 400)
+for component in [f"comp{i}" for i in range(1, 19)]:
 
-        fig, ax = plt.subplots(figsize=(9, max(5, len(groups) * 0.55)))
+    if f"{component}" in dr_data.columns:
+        comp_data = dr_data[["dataset_name", component]].dropna()
+        counts = comp_data.groupby("dataset_name").size()
+        groups = counts[counts >= 3].index.tolist()
 
-        for i, group in enumerate(groups):
-            values = comp_data.loc[comp_data["dataset_name"] == group, "comp1"].values
+        if groups:
+            x_min = comp_data[component].min()
+            x_max = comp_data[component].max()
+            x = np.linspace(x_min, x_max, 400)
 
-            if len(np.unique(values)) > 1:
-                density = gaussian_kde(values)(x)
-                density = density / density.max()
-                ax.fill_between(x, i, i + density * 0.8, alpha=0.6)
-                ax.plot(x, i + density * 0.8, linewidth=1)
+            fig, ax = plt.subplots(figsize=(9, max(5, len(groups) * 0.55)))
 
-            ax.scatter(values, np.full(len(values), i), marker="|", s=35)
+            for i, group in enumerate(groups):
+                values = comp_data.loc[comp_data["dataset_name"] == group, component].values
 
-        ax.set_yticks(range(len(groups)))
-        ax.set_yticklabels(groups)
-        ax.set_title("Component 1 by dataset")
-        ax.set_xlabel("DR value")
-        ax.set_ylabel("")
-        ax.spines[["top", "right", "left"]].set_visible(False)
-        plt.tight_layout()
-        plt.savefig(fig_dir / "06_component1_ridgeline.png", dpi=300, bbox_inches="tight")
-        plt.show()
+                if len(np.unique(values)) > 1:
+                    density = gaussian_kde(values)(x)
+                    density = density / density.max()
+                    ax.fill_between(x, i, i + density * 0.8, alpha=0.6)
+                    ax.plot(x, i + density * 0.8, linewidth=1)
+
+                ax.scatter(values, np.full(len(values), i), marker="|", s=35)
+
+            ax.set_yticks(range(len(groups)))
+            ax.set_yticklabels(groups)
+            ax.set_title(f"Component {component} by dataset")
+            ax.set_xlabel("DR value")
+            ax.set_ylabel("")
+            ax.spines[["top", "right", "left"]].set_visible(False)
+            plt.tight_layout()
+            plt.savefig(fig_dir / f"06_component{component}_ridgeline.png", dpi=300, bbox_inches="tight")
+            plt.show()
 ```

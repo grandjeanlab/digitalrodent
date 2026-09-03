@@ -52,7 +52,7 @@ mkdir -p $output_dir
 cd $script_dir
 
 #this is the main loop. by default, it will loop over every func scan that you have in your bids directory and make a separate script for it. 
-find $bids -name *019*_bold.nii* | while read line
+find "$bids" -name '*_bold.nii*' | while read -r line
 do
 
 #need to find the corresponding json to find tr, extract it from json, and div by 1000 to get val in sec.

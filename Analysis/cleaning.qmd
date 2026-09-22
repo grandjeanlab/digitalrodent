@@ -1,0 +1,21 @@
+```{python}
+import pandas as pd
+import os
+
+columns = ["Animal_ID_Internal", "Session", "Run", "Sex", "Age", "Strain", "MRI", "Coil", "Sequence", "TE", "TR", " Handling", "Ventilation", "FD_Average", "FD_Max", "tSNR"]
+
+root = "c:\\Users\\Drilby\\Desktop\\DCCN\\digitalrodent\\"
+df = pd.read_table(root + "data/MetaData/3xTG.tsv")
+print(df.head())
+
+
+
+
+```
+
+```{python}
+new columns: Dataset, scan_id, mouse_id_external
+
+
+
+```

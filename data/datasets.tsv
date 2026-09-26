@@ -1,6 +1,6 @@
-dataset_id	nickname	dataset_name	openneuro_id	openneuro_link
+Dataset_id	Nickname	Dataset_name	Openneuro_id	Openneuro_link
 01	Awake	Awake	ds001653	10.18112/openneuro.ds001653.v1.0.2
-02	Douglas 	Douglas hypercapnia	ds004125	10.18112/openneuro.ds004125.v1.0.0
+02	Douglas	Douglas hypercapnia	ds004125	10.18112/openneuro.ds004125.v1.0.0
 03	Env_Enrichment	Environmental enrichment dataset	ds005636	10.18112/openneuro.ds005636.v1.0.1
 04	Florida	Florida Mouse Sepsis fMRI Study	ds005467	10.18112/openneuro.ds005467.v1.0.0
 05	Longitudinal	Longitudinal in vivo MRI of C57BL6J mice	ds006663	10.18112/openneuro.ds006663.v1.0.3

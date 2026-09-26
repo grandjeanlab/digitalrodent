@@ -5,17 +5,33 @@ import os
 columns = ["Animal_ID_Internal", "Session", "Run", "Sex", "Age", "Strain", "MRI", "Coil", "Sequence", "TE", "TR", " Handling", "Ventilation", "FD_Average", "FD_Max", "tSNR"]
 
 root = "c:\\Users\\Drilby\\Desktop\\DCCN\\digitalrodent\\"
-df = pd.read_table(root + "data/MetaData/3xTG.tsv")
-print(df.head())
+```
 
 
+Load data from the Excel file into a pandas DataFrame and display the first few rows to verify that the data has been loaded correctly. Afterwards, we concatenate the dual regression values with the metadata DataFrame to create a comprehensive dataset for further analysis.
 
+```{python}
+df = pd.read_excel(root + "data/MetaData_Combined.xlsx")
+
+#print(df.head())
+print(df.columns)
 
 ```
 
+
 ```{python}
-new columns: Dataset, scan_id, mouse_id_external
 
+import pandas as pd
 
+df = pd.read_excel(root + "data/MetaData_Combined.xlsx")
 
+for dataset in df["Dataset_name"].unique():
+    
+    temp = df[df["Dataset_name"] == dataset]
+    
+    temp.to_csv(
+        root + "data/" + dataset + ".tsv",
+        sep="\t",
+        index=False
+    )
 ```

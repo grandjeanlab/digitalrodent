@@ -1,0 +1,23 @@
+Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anethesia	Anesthesia amount	Ventilation(v/f)	head-plate	Habituation	FD average	FD maximum	tSNR	Exclude 	Comments 	DR Values
+	sub-06		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01042837781	0.02194789415				
+	sub-07		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01075919526	0.02273853084				
+	sub-08		Resting_state_fMRI_Alvino	F	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01015683363	0.02044985644				
+	sub-09		Resting_state_fMRI_Alvino	F	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.009435752021	0.02002973551				
+	sub-14		Resting_state_fMRI_Alvino	F	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01112574182	0.02175328937				
+	sub-15		Resting_state_fMRI_Alvino	F	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01119487044	0.02333786427				
+	sub-16		Resting_state_fMRI_Alvino	F	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.008874049048	0.01792473211				
+	sub-17		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.03886550218	0.06610672386				
+	sub-18		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.00870493779	0.01795428175				
+	sub-19		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01802769196	0.03417952035				
+	sub-33		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01165985911	0.02543689408				
+	sub-37		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.03045184712	0.05392973911				
+	sub-49		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01482927452	0.03061146656				
+	sub-51		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01136644799	0.02333443335				
+	sub-54		Resting_state_fMRI_Alvino	F	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01433318918	0.02866474663				
+	sub-59		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01569036889	0.03555196104				
+	sub-71		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.0138956367	0.02831483707				
+	sub-73		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01229509391	0.02521322895				
+	sub-81		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01222212445	0.0250991257				
+	sub-82		Resting_state_fMRI_Alvino	M	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01289735747	0.02763273058				
+	sub-83		Resting_state_fMRI_Alvino	F	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01030692416	0.02146759915				
+	sub-84		Resting_state_fMRI_Alvino	F	12.0	C57BL/6J	7.0	n	EPI	1000.0	15.0	Hal	0,8% halothane	y			0.01086747227	0.0228175791				

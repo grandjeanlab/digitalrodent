@@ -1,0 +1,1577 @@
+Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anethesia	Anesthesia amount	Ventilation(v/f)	head-plate	Habituation	FD average	FD maximum	tSNR	Exclude 	Comments 	DR Values
+	100100	1.0	Awake	m		C57BL/6	9.4	y	GE-EPI	1000.0	15.0	Awake		n	y							
+	100101	1.0	Awake	m		C57BL/6	9.4	y	GE-EPI	1000.0	15.0	Awake		n	y							
+	100102	1.0	Awake	m		C57BL/6	9.4	y	GE-EPI	1000.0	15.0	Awake		n	y							
+	100103	1.0	Awake	m		C57BL/6	9.4	y	GE-EPI	1000.0	15.0	Awake		n	y							
+	100200	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	2000.0	16385.0	Awake		n	y							
+	100201	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	2000.0	16385.0	Awake		n	y							
+	100202	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	2000.0	16385.0	Awake		n	y							
+	100203	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	2000.0	16385.0	Awake		n	y							
+	100204	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	2000.0	16385.0	Awake		n	y							
+	100205	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	2000.0	16385.0	Awake		n	y							
+	100206	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	2000.0	16385.0	Awake		n	y							
+	100207	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	2000.0	16385.0	Awake		n	y							
+	100300	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	1000.0	15.0	Awake		n	y							
+	100301	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	1000.0	15.0	Awake		n	y							
+	100302	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	1000.0	15.0	Awake		n	y							
+	100303	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	1000.0	15.0	Awake		n	y							
+	100304	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	1000.0	15.0	Awake		n	y							
+	100305	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	1000.0	15.0	Awake		n	y							
+	100306	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	1000.0	15.0	Awake		n	y							
+	100307	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	1000.0	15.0	Awake		n	y							
+	100308	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	1000.0	15.0	Awake		n	y							
+	100309	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	1000.0	15.0	Awake		n	y							
+	100310	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	1000.0	15.0	Awake		n	y							
+	100311	1.0	Awake	m		C57BL/6	7.0	n	GE-EPI	1000.0	15.0	Awake		n	y							
+	100400	1.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100400	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100400	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100400	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100401	1.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100401	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100401	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100401	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100402	1.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100402	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100402	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100402	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100403	1.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100403	1.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100403	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100403	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100403	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100404	1.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100404	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100404	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100404	2.0	Awake	f		C57BL/6	11.7	n	GE-EPI	1800.0	11.0	Awake		y	y							
+	100500	1.0	Awake	f		C57BL/6	9.4	y	GE-EPI	1500.0	12.5	Awake		n	y					y		
+	100500	2.0	Awake	f		C57BL/6	9.4	y	GE-EPI	1500.0	12.5	Awake		n	y							
+	100500	3.0	Awake	f		C57BL/6	9.4	y	GE-EPI	1500.0	25.0	Awake		n	y					y		
+	100500	4.0	Awake	f		C57BL/6	9.4	y	GE-EPI	1500.0	25.0	Awake		n	y					y		
+	100500	5.0	Awake	f		C57BL/6	9.4	y	GE-EPI	2500.0	25.0	Awake		n	y					y		
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y					y		
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y					y		
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100501	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	1.0	Awake	f		C57BL/6	9.4	y	GE-EPI	1500.0	12.5	Awake		n	y							
+	100502	2.0	Awake	f		C57BL/6	9.4	y	SE-EPI	1500.0	25.0	Awake		n	y					y		
+	100502	3.0	Awake	f		C57BL/6	9.4	y	SE-EPI	1500.0	25.0	Awake		n	y					y		
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100502	4.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100503	1.0	Awake	f		C57BL/6	9.4	y	SE-EPI	1500.0	25.0	Awake		n	y							
+	100503	2.0	Awake	f		C57BL/6	9.4	y	SE-EPI	1500.0	25.0	Awake		n	y							
+	100504	1.0	Awake	f		C57BL/6	9.4	y	GE-EPI	1500.0	25.0	Awake		n	y							
+	100504	2.0	Awake	f		C57BL/6	9.4	y	GE-EPI	1500.0	12.5	Awake		n	y					y		
+	100504	3.0	Awake	f		C57BL/6	9.4	y	GE-EPI	1500.0	12.5	Awake		n	y					y		
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100505	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100506	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y					y		
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y					y		
+	100507	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y					y		
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y					y		
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100508	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y					y		
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100509	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	14.0	Awake		n	y							
+	100510	1.0	Awake	f		C57BL/6	9.4	y	GE-EPI	1500.0	14.4	Awake		n	y					y		
+	100511	1.0	Awake	f		C57BL/6	9.4	y	GE-EPI	1500.0	14.4	Awake		n	y					y		
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100512	1.0	Awake	f		C57BL/6	9.4	n	GE-EPI	600.0	11.0	Awake		n	y							
+	100600	2.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100600	6.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100601	1.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100601	5.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100602	2.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100602	4.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100603	1.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100603	3.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100604	3.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100604	4.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100605	1.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100605	3.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100606	2.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y					y		
+	100606	3.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100607	1.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100607	2.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100608	1.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100608	2.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100609	1.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100609	1.0	Awake	m		C57BL/6	11.7	n	GE-EPI	1000.0	0.014	Awake		y	y							
+	100700	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	y							
+	100701	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	y							
+	100702	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	y							
+	100703	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	y							
+	100704	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	y							
+	100705	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	y							
+	100706	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	y							
+	100800	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100800	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100800	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100800	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100801	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100801	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100801	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100801	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100802	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100802	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100802	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100802	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100803	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100803	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100803	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100803	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100804	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100804	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100804	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100804	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100805	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100805	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100805	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100805	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100806	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100806	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100806	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100806	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100807	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100807	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100807	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100807	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100808	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100808	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100808	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100808	1.0	Awake	m		C57BL/6	9.4	n	GE-EPI	1500.0	12.0	Awake		y	n							
+	100900	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100900	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100900	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100900	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100900	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100901	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100901	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100901	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100901	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100901	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100901	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100901	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100901	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100901	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100901	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100901	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100901	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100901	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100901	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100901	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100901	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100901	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100901	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100901	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100901	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100902	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100902	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100902	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100902	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100902	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100902	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100903	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100903	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100903	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100903	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100903	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100903	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100903	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100903	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100903	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100903	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100904	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100904	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100904	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	1.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100904	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100904	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	2.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100904	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	3.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100904	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y					y		
+	100904	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	100904	4.0	Awake	m		129S2/SvPas	9.4		GE-EPI	1000.0	15.0	Awake		n	y							
+	101000	1.0	Awake			C57BL/6	9.4	n	SORDINO	62.0	0.0	Awake		y	y					y		
+	101001	1.0	Awake			C57BL/6	9.4	n	SORDINO	62.0	0.0	Awake		y	y					y		
+	101002	1.0	Awake			C57BL/6	9.4	n	SORDINO	62.0	0.0	Awake		y	y					y		
+	101003	1.0	Awake			C57BL/6	9.4	n	SORDINO	62.0	0.0	Awake		y	y					y		
+	101004	1.0	Awake			C57BL/6	9.4	n	SORDINO	62.0	0.0	Awake		y	y					y		
+	101005	1.0	Awake			C57BL/6	9.4	n	SORDINO	62.0	0.0	Awake		y	y					y		
+	101006	1.0	Awake			C57BL/6	9.4	n	SORDINO	62.0	0.0	Awake		y	y					y		
+	101007	1.0	Awake			C57BL/6	9.4	n	SORDINO	62.0	0.0	Awake		y	y					y		
+	101008	1.0	Awake			C57BL/6	9.4	n	SORDINO	62.0	0.0	Awake		y	y					y		
+	101009	1.0	Awake			C57BL/6	9.4	n	SORDINO	62.0	0.0	Awake		y	y					y		
+	101100	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101100	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101100	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101101	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101101	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101101	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101102	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101102	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101102	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101103	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101103	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101103	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101104	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101104	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101104	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101105	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101105	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101105	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101106	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101106	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101106	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101107	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101107	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101107	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101108	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101108	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101108	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101109	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101109	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101109	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101110	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101110	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101110	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101111	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101111	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101111	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101112	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101112	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101112	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101113	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101113	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101113	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101114	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101114	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101114	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101115	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101115	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101115	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101116	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101116	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	101116	1.0	Awake	m		C57BL/6	15.2	n	GE-EPI	1000.0	11.7	Awake		n	y							
+	300100	1.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	1.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	1.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	1.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300100	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	6.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	6.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	6.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300101	6.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300102	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	6.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	6.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	6.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300103	6.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	6.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	6.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	6.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300104	6.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	2.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	3.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	4.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300105	5.0	Awake	m		C57BL/6	9.4		SE-EPI	2500.0	18398.0	Awake			y							
+	300200	1.0	Awake	f		C57BL/6	7.0		GE-EPI	1000.0	15.0	Awake			y							
+	300201	1.0	Awake	f		C57BL/6	7.0		GE-EPI	1000.0	15.0	Awake			y							
+	300202	1.0	Awake	f		C57BL/6	7.0		GE-EPI	1000.0	15.0	Awake			y							
+	300203	1.0	Awake	f		C57BL/6	7.0		GE-EPI	1000.0	15.0	Awake			y							
+	300204	1.0	Awake	f		C57BL/6	7.0		GE-EPI	1000.0	15.0	Awake			y							
+	300205	1.0	Awake	f		C57BL/6	7.0		GE-EPI	1000.0	15.0	Awake			y							
+	300206	1.0	Awake	f		C57BL/6	7.0		GE-EPI	1000.0	15.0	Awake			y							
+	300207	1.0	Awake	f		C57BL/6	7.0		GE-EPI	1000.0	15.0	Awake			y							
+	300208	1.0	Awake	f		C57BL/6	7.0		GE-EPI	1000.0	15.0	Awake			y							
+	300209	1.0	Awake	f		C57BL/6	7.0		GE-EPI	1000.0	15.0	Awake			y							
+	300300	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300300	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300301	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300302	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y					y		
+	300303	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300303	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300304	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300305	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300306	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300307	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300308	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300309	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300310	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300311	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300312	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300313	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300314	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300315	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300316	7.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300317	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	1.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	2.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	3.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	4.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	5.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	300318	6.0	Awake	m		F1 C6/129P	9.4		SE-EPI	2500.0	18398.0	Awake		n	y							
+	101200	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101201	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101202	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101203	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101204	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101205	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101206	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101207	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101208	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101209	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n					y		
+	101210	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101211	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101212	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101213	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101214	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101215	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101216	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101217	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101218	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101219	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101220	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101221	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101222	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101223	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	101224	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n					y		
+	101225	1.0	Awake	f		C57BL/6	9.4		GE-EPI	1500.0	6.0	Awake			n							
+	300400	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300400	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300400	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300401	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300401	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300401	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300402	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300402	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300402	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300403	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300403	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300403	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300404	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300404	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300404	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300405	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300405	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300405	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300406	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300406	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300406	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300407	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300407	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300407	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300408	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300408	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300408	1.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300400	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300400	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300400	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300401	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300401	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300401	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300402	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300402	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300402	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300403	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300403	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300403	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300404	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300404	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300404	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300405	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300405	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300405	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300406	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300406	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300406	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300407	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300407	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300407	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300408	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300408	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	300408	2.0	Awake	f		C57BL/6	11.7	y	GE-EPI	1200.0	15.0	Awake		n	n							
+	101400	1.0	Awake	f		ICR	7.0	y	GE-EPI	2000.0	17.0	Awake		y	y							
+	101401	1.0	Awake	f		ICR	7.0	y	GE-EPI	2000.0	17.0	Awake		y	y							
+	101402	1.0	Awake	f		ICR	7.0	y	GE-EPI	2000.0	17.0	Awake		y	y							
+	101403	1.0	Awake	f		ICR	7.0	y	GE-EPI	2000.0	17.0	Awake		y	y							
+	300500	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	8.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	8.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	8.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300500	8.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300501	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300502	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300503	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300504	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300505	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300506	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300507	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300508	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300509	7.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300510	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300511	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	2.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	3.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	4.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	5.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	300512	6.0	Awake	f		C57BL/6	9.4	n	SE-EPI	2500.0	18.398	Awake		n	y							
+	101500	1.0	Awake	m		C57BL/6	11.7	y	GE-EPI	1500.0	14.0	Awake		n	y					y		
+	101501	1.0	Awake	m		C57BL/6	11.7	y	GE-EPI	1500.0	14.0	Awake		n	y					y		
+	101502	1.0	Awake	m		C57BL/6	11.7	y	GE-EPI	1500.0	14.0	Awake		n	y							
+	101503	1.0	Awake	m		C57BL/6	11.7	y	GE-EPI	1500.0	14.0	Awake		n	y							
+	101504	1.0	Awake	m		C57BL/6	11.7	y	GE-EPI	1500.0	14.0	Awake		n	y					y		
+	101505	1.0	Awake	m		C57BL/6	11.7	y	GE-EPI	1500.0	14.0	Awake		n	y							
+	101300	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101300	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101300	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101300	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101301	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101301	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101301	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101301	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101302	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101302	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101302	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101302	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101303	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101303	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101303	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101303	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101304	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101304	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101304	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101304	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101305	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101305	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101305	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101305	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101306	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101306	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101306	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101306	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101307	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101307	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101307	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101307	1.0	Awake	f		C57BL/6	9.4	n	SE-EPI	1250.0	14.0	Awake		y	y							
+	101600	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101600	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101600	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101600	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101601	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101601	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101601	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101601	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101602	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101602	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101602	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101602	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101603	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101603	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101603	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101603	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101604	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101604	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101604	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101604	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101605	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101605	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101605	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101605	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101606	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101606	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101606	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							
+	101606	1.0	Awake	m		C57BL/6	9.4	y	SE-EPI	1500.0	13.0	Awake		y	y							

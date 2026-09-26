@@ -1,0 +1,16 @@
+Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anethesia	Anesthesia amount	Ventilation(v/f)	head-plate	Habituation	FD average	FD maximum	tSNR	Exclude 	Comments 	DR Values
+	sub-001		Mouse_rest_psilocybin	M			9.4															
+	sub-006		Mouse_rest_psilocybin	M			9.4															
+	sub-009		Mouse_rest_psilocybin	M			9.4															
+	sub-011		Mouse_rest_psilocybin	M			9.4															
+	sub-014		Mouse_rest_psilocybin	M			9.4															
+	sub-016		Mouse_rest_psilocybin	M			9.4															
+	sub-019		Mouse_rest_psilocybin	M			9.4															
+	sub-022		Mouse_rest_psilocybin	M			9.4															
+	sub-025		Mouse_rest_psilocybin	M			9.4															
+	sub-028		Mouse_rest_psilocybin	M			9.4															
+	sub-031		Mouse_rest_psilocybin	M			9.4															
+	sub-034		Mouse_rest_psilocybin	M			9.4															
+	sub-037		Mouse_rest_psilocybin	M			9.4															
+	sub-039		Mouse_rest_psilocybin	M			9.4															
+	sub-040		Mouse_rest_psilocybin	M			9.4															

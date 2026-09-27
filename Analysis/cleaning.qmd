@@ -22,16 +22,43 @@ print(df.columns)
 ```{python}
 
 import pandas as pd
+dataset_info = pd.read_csv(root + "data/datasets.tsv", sep="\t")
 
-df = pd.read_excel(root + "data/MetaData_Combined.xlsx")
+all_metadata = []
 
-for dataset in df["Dataset_name"].unique():
+for i in range(len(dataset_info)):
     
-    temp = df[df["Dataset_name"] == dataset]
+    nickname = dataset_info.loc[i, "Nickname"]
     
-    temp.to_csv(
-        root + "data/" + dataset + ".tsv",
-        sep="\t",
-        index=False
+    temp = pd.read_csv(
+        root + "data/MetaData/" + nickname + ".tsv",
+        sep="\t"
     )
+    
+    all_metadata.append(temp)
+
+metadata = pd.concat(all_metadata, ignore_index=True)
+
+print(metadata.head())
+print(metadata.columns)
+print(metadata.shape)
+
+
+
+```
+
+
+```{python}
+for i in range(len(dataset_info)):
+    
+    nickname = dataset_info.loc[i, "Nickname"]
+    
+    temp = pd.read_csv(
+        root + "data/MetaData/" + nickname + ".tsv",
+        sep="\t"
+    )
+    
+    print(nickname, temp.shape)
+   
+
 ```

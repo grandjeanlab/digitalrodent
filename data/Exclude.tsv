@@ -1,0 +1,85 @@
+Subject	Dataset	Comment
+sub-0100203_ses-1_run-1	Awake	from temporal features you can see there is something bad in the back and in the front; temporal voxel 1079 peak
+sub-0100206_ses-1_run-1	Awake	from temporal features you can see there is something bad in the back and in the front
+sub-0100502_ses-2_run-1	Awake	bold inhco mask problem, anat2atals misreg, temporal feature misreg
+sub-0100504_ses-2_run-1	Awake	bold inhco mask problem, anat2atlas blurry, temporal feature misreg
+sub-0100603_ses-1_run-2	Awake	temporal diagnosis looks very bad a lot of peaks, looking in time series you
+sub-0100606_ses-3_run-2	Awake	temporal diagnosis looks very bad a lot of peaks, looking in time series you
+sub-0100900_ses-1_run-9	Awake	EPI2Anat misreg
+sub-0100900_ses-2_run-4	Awake	bold inhco mask problem
+sub-0100901_ses-3_run-2	Awake	bold inhco mask problem (tissue)
+sub-0100902_ses-1_run-2	Awake	bold inhco mask problem
+sub-0100902_ses-1_run-3	Awake	bold inhco mask problem
+sub-0100902_ses-1_run-5	Awake	bold inhco mask problem
+sub-0100902_ses-2_run-4	Awake	bold inhco mask problem
+sub-0100903_ses-3_run-2	Awake	bold inhco mask problem, anat2atlas blurry, EPI2atlas blurry
+sub-0100903_ses-3_run-4	Awake	bold inhco mask problem, anat2atlas blurry, EPI2atlas blurry
+sub-0100903_ses-4_run-1	Awake	bold inhco mask problem, anat2atlas blurry, EPI2atlas blurry
+sub-0100903_ses-4_run-4	Awake	bold inhco mask problem, anat2atlas blurry, EPI2atlas blurry
+sub-0100904_ses-1_run-5	Awake	bold inhco mask problem
+sub-0100904_ses-2_run-3	Awake	bold inhco mask problem
+sub-0101503_ses-1_run-1	Awake	bold inhco mask problem
+sub-0101601_ses-1_run-3	Awake	Mice moved around voxels 427 in the carterplot
+sub-0101601_ses-1_run-4	Awake	EPI2atlas blurry
+sub-0300300_ses-4_run-1	Awake	EPI2atlas blurry
+sub-0300301_ses-4_run-3	Awake	EPI2atlas blurry
+sub-0300302_ses-1_run-2	Awake	bold inhco mask problem imprecise, EPI2atlas blurry
+sub-0300302_ses-2_run-2	Awake	EPI2atlas blurry
+sub-0300302_ses-2_run-4	Awake	EPI2atlas blurry
+sub-0300302_ses-4_run-1	Awake	EPI2atlas blurry
+sub-0300303_ses-4_run-3	Awake	bold inhco mask problem
+sub-0300304_ses-2_run-3	Awake	EPI2atlas blurry
+sub-0300304_ses-3_run-3	Awake	EPI2atlas blurry
+sub-0300304_ses-3_run-4	Awake	EPI2atlas blurry
+sub-0300304_ses-6_run-4	Awake	EPI2atlas blurry
+sub-0300305_ses-6_run-2	Awake	EPI2atlas blurry
+sub-0300306_ses-4_run-4	Awake	EPI2atlas blurry
+sub-0300306_ses-6_run-2	Awake	EPI2atlas blurry
+sub-0300306_ses-7_run-3	Awake	EPI2atlas blurry
+sub-0300307_ses-4_run-3	Awake	EPI2atlas blurry
+sub-0300309_ses-4_run-3	Awake	EPI2atlas blurry
+sub-0300309_ses-5_run-4	Awake	EPI2atlas blurry
+sub-0300310_ses-5_run-2	Awake	EPI2atlas blurry
+sub-0300310_ses-5_run-3	Awake	EPI2atlas blurry
+sub-0300310_ses-5_run-4	Awake	EPI2atlas blurry
+sub-0300311_ses-1_run-1	Awake	EPI2atlas blurry
+sub-0300311_ses-1_run-3	Awake	EPI2atlas blurry
+sub-0300311_ses-2_run-4	Awake	motion in the front
+sub-0300312_ses-5_run-3	Awake	EPI2atlas blurry
+sub-0300315_ses-1_run-3	Awake	bold inhco mask problem, EPI2atlas blurry
+sub-0300315_ses-1_run-4	Awake	EPI2atlas blurry
+sub-0300504_ses-1_run-4	Awake	EPI2atlas blurry (little bit), in temporal feature there is a huge peak in the beginning
+sub-0300506_ses-4_run-3	Awake	in temporal feature there are 2 huge peak
+sub-0300508_ses-4_run-3	Awake	bold inhco mask problem (little bit)
+sub-0300509_ses-1_run-4	Awake	bold inhco mask problem (little bit)
+sub-0300509_ses-3_run-2	Awake	bold inhco mask problem (little bit)
+sub-0300509_ses-4_run-4	Awake	bold inhco mask problem (little bit), in temporal feature there is a huge peak in the beginning
+sub-0300509_ses-5_run-2	Awake	bold inhco mask problem (little bit)
+sub-0300509_ses-5_run-4	Awake	bold inhco mask problem (little bit), in temporal feature there are 3 huge peak
+sub-0300511_ses-1_run-3	Awake	in temporal feature there are 3 huge peak at the end
+sub-0300511_ses-5_run-2	Awake	EPI2atlas blurry (little bit), in temporal feature there is a peak
+sub-0300511_ses-5_run-3	Awake	EPI2atlas blurry (little bit), in temporal feature there is a huge peak in the middle
+sub-0300512_ses-1_run-4	Awake	EPI2atlas blurry (little bit)
+jgrAesAWc11L_ses-1_run-2	Awake_Rest	Bad registration
+jgrAesAWc11L_ses-1_run-3	Awake_Rest	Bad registration
+jgrAesAWc11L_ses-2_run-1	Awake_Rest	Bad registration
+jgrAesAWc21R_ses-1_run-2	Awake_Rest	Bad registration
+jgrAesMEDISOc11L_ses-1_run-1	Awake_Rest	Bad registration
+170	Multicenter	Blurry scans
+173	Multicenter	Blurry scans
+179	Multicenter	Blurry scans
+231	Multicenter	Blurry scans
+232	Multicenter	Blurry scans
+234	Multicenter	Blurry scans
+203	Multicenter	Outer edge artifact
+204	Multicenter	Outer edge artifact
+222	Multicenter	Outer edge artifact
+sub-399233_ses-1_t2w	NDUFS4	Bad registration
+sub-405017_ses1_T2w	NDUFS4	Bad registration
+sub-405221_ses1_T2w	NDUFS4	Bad registration
+sub-42	Environment	
+3	Propofol	
+4	Propofol	
+5	Propofol	
+6	Propofol	
+11	Propofol	

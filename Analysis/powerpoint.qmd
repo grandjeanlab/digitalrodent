@@ -1,0 +1,640 @@
+## Setup
+```{python}
+from pathlib import Path
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Find the digitalrodent folder
+root = Path.cwd().parent
+print(root)
+
+# Define paths for the MetaData, dual regression, combined dataset, and figures directories
+
+meta_dir = root / "data" / "MetaData"
+dr_dir = root / "results" / "dual_regression"
+out_dir = root / "results" / "combined_dataset"
+fig_dir = root / "results" / "figures"
+
+out_dir.mkdir(parents=True, exist_ok=True)
+fig_dir.mkdir(parents=True, exist_ok=True)
+
+# Master list of the 15 datasets
+datasets = pd.read_csv(root / "data" / "datasets.tsv", sep="\t", dtype=str)
+datasets["Dataset_id"] = datasets["Dataset_id"].str.zfill(2)
+
+display(datasets.fillna("NA"))
+MM = 1 / 25.4
+
+plt.rcParams.update({
+    "font.family": "Arial",
+    "font.size": 6,
+    "axes.labelsize": 8,
+    "axes.titlesize": 8,
+    "xtick.labelsize": 6,
+    "ytick.labelsize": 6,
+    "legend.fontsize": 6,
+    "legend.title_fontsize": 6
+})
+```
+
+## Control and combine metadata filese. 
+```{python}
+import re
+Combined_dataset = pd.DataFrame()
+
+# Check the shape and columns of each metadata file
+for file in meta_dir.glob("*.tsv"):
+    df = pd.read_csv(file, sep="\t")
+    
+    print(file.name)
+    print("Shape:", df.shape)
+    print("Columns:", df.columns.tolist())
+    print()
+
+# Combine all metadata files into a single DataFrame
+for file in meta_dir.glob("*.tsv"):
+    df = pd.read_csv(file, sep="\t")
+    Combined_dataset = pd.concat([Combined_dataset, df], ignore_index=True)
+
+# Replace old dataset names with nicknames in the combined dataset
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("Mouse_rest_3xTG", "3xTG")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("Resting_state_fMRI_Alvino", "Alvino")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("Awake", "Awake")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("Mouse_rest_awake", "Awake_Rest")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("Douglas hypercapnia", "Douglas")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("Envoiromental_enrichment", "Env_Enrichment")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("Florida-Mouse-Sepsi", "Florida")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("Longitudinal_in_vivo_MRI", "Longitudinal")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("MPTP", "MPTP")
+
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("7_Cryo_mediso_v", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("94_Cryo_mediso_v", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("7_Cryo_med_f1", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("7_RT_halo_v", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("94_Cryo_med_f", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("94_RT_mediso_f1", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("117_Cryo_mediso_v", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("94_RT_iso_v", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("47_RT_iso_f", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("94_RT_mediso_f2", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("94_Cryo_iso_f", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("7_RT_iso_f", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("7_Cryo_med_f2", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("7_Cryo_aw_f", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("7_Cryo_med_f3", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("117_Cryo_iso_f", "Multicenter")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("7_RT_med_f", "Multicenter")
+
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("NDUFS4", "NDUFS4")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("propofol_dataset", "Propofol")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("Mouse_rest_psilocybin", "Psilocybin")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("Mouse_rest_psilocybin_pilot", "Psilocybin_Pilot")
+Combined_dataset["Dataset_name"] = Combined_dataset["Dataset_name"].replace("Sex-differences", "Sexdifference")
+
+print(Combined_dataset)
+print(Combined_dataset["Dataset_name"].unique())
+
+```
+
+
+Remove excluded subjects from the combined dataset and save the cleaned dataset to a new CSV file.
+```{python}
+exclude = pd.read_csv(root / "data" / "Exclude.tsv", sep="\t")
+
+matches = []
+
+# Loop through the excluded subjects and find matches in the combined dataset
+for _, row in exclude.iterrows():
+
+    subject = str(row["Subject"])
+    dataset = str(row["Dataset"])
+    session = None
+
+    if dataset in ["Awake", "Awake_Rest"]:
+
+        session = subject.split("_ses-")[1].split("_")[0]
+        subject = subject.split("_")[0].replace("sub-", "").lstrip("0")
+
+        subject_match = Combined_dataset[
+            (Combined_dataset["Dataset_name"] == dataset) &
+            (
+                Combined_dataset["Participant_Id"]
+                .astype(str)
+                .str.replace("sub-", "", regex=False)
+                .str.split("_ses-")
+                .str[0]
+                .str.lstrip("0")
+                == subject
+            ) &
+            (
+                Combined_dataset["Session"]
+                .astype(str)
+                .str.replace(".0", "", regex=False)
+                == session
+            )
+        ]
+
+    if subject_match.empty:
+        print("NOT FOUND:", row["Subject"], dataset)
+    else:
+        print("FOUND:", row["Subject"], dataset)
+        matches.append(subject_match)
+
+excluded_matches = pd.concat(matches, ignore_index=True)
+
+print(excluded_matches)
+
+# Remove the excluded subjects from the combined dataset
+print("Excluded shape:", excluded_matches.shape)
+print("Combined before:", Combined_dataset.shape)
+
+old_shape = Combined_dataset.shape
+
+for _, row in excluded_matches.iterrows():
+    Combined_dataset = Combined_dataset[
+        ~(
+            (Combined_dataset["Dataset_name"] == row["Dataset_name"]) &
+            (Combined_dataset["Participant_Id"] == row["Participant_Id"]) &
+            (Combined_dataset["Session"] == row["Session"])
+        )
+    ]
+
+Combined_dataset = Combined_dataset.reset_index(drop=True)
+
+new_shape = Combined_dataset.shape
+
+print("Combined after:", new_shape)
+print("Difference:", old_shape[0] - new_shape[0], "rows removed")
+
+#TEMP EXCLUDE AWAKE MESSING THINGS UP
+Combined_dataset = Combined_dataset[Combined_dataset["Dataset_name"] != "Awake"]
+
+Combined_dataset["Anesthesia"] = Combined_dataset["Anesthesia"].str.lower()
+
+Combined_dataset = Combined_dataset.fillna(np.nan)
+
+Combined_dataset.to_csv(out_dir / "Combined_dataset.csv", index=False)
+
+```
+
+The following code generates a horizontal bar plot showing the number of scans per dataset, broken down by sex (F, M, NA). The x-axis is on a logarithmic scale to accommodate datasets with varying numbers of scans.
+```{python}
+import matplotlib.pyplot as plt
+
+gender_counts = (
+    Combined_dataset
+    .assign(Sex=Combined_dataset["Sex"].fillna("NA"))
+    .groupby(["Dataset_name", "Sex"])
+    .size()
+    .unstack(fill_value=0)
+)
+
+gender_counts = gender_counts.loc[
+    gender_counts.sum(axis=1).sort_values().index
+]
+
+print(gender_counts)
+fig, ax = plt.subplots(figsize=(180 * MM, 100 * MM))
+
+left = [0] * len(gender_counts)
+
+for sex, color in [("F", "sandybrown"), ("M", "steelblue"), ("NA", "gray")]:
+    if sex in gender_counts.columns:
+        ax.barh(
+            gender_counts.index,
+            gender_counts[sex],
+            left=left,
+            label=sex,
+            color=color
+        )
+
+        left = left + gender_counts[sex].values
+
+ax.set_xscale("log")
+ax.set_xlabel("Number of scans")
+ax.set_ylabel("Dataset")
+ax.set_title("Number of scans per dataset")
+
+ax.legend(title="Sex")
+
+plt.tight_layout()
+plt.savefig(root / "results" / "figures" / "scans_per_dataset.svg", format="svg", bbox_inches="tight")
+plt.show()
+
+
+```
+
+The following code generates a kernel density estimate (KDE) plot to visualize the age distribution of all scans in the combined dataset. 
+```{python}
+age = Combined_dataset["Age(week)"].dropna()
+
+fig, ax = plt.subplots(figsize=(180 * MM, 100 * MM))
+
+age.plot(kind="kde", ax=ax, color="steelblue", linewidth=3)
+
+ax.set_xlim(left=0)
+ax.set_xlabel("Age (weeks)")
+ax.set_ylabel("Density")
+ax.set_title("Age distribution of all scans")
+
+plt.tight_layout()
+
+plt.savefig(
+    root / "results" / "figures" / "age_distribution.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+```
+
+
+The following code computes the mean age per dataset. It also generates a summary table showing the count, mean, standard deviation, minimum, and maximum age for each dataset.
+```{python}
+pd.set_option("display.max_rows", None)
+
+print(
+    Combined_dataset[
+        ["Dataset_name", "Participant_Id", "Age(week)"]
+    ]
+    .sort_values("Age(week)", ascending=False)
+)
+
+print("\nMean age per dataset:")
+print(
+    Combined_dataset
+    .groupby("Dataset_name")["Age(week)"]
+    .mean()
+    .sort_values(ascending=False)
+)
+
+age_table = (
+    Combined_dataset
+    .groupby("Dataset_name")["Age(week)"]
+    .agg(["count", "mean", "std", "min", "max"])
+    .round(2)
+    .sort_values("mean", ascending=False)
+)
+
+print(age_table)
+```
+
+This code generates a heatmap to visualize the mean component values for each dataset. To see which datasets may have generally higher or lower values.
+```{python}
+from matplotlib.colors import LinearSegmentedColormap
+
+components = [f"comp{i}" for i in range(1, 19)]
+
+Combined_dataset[components] = Combined_dataset[components].apply(pd.to_numeric, errors="coerce")
+
+heatmap_data = (
+    Combined_dataset
+    .groupby("Dataset_name")[components]
+    .mean()
+)
+
+cmap = LinearSegmentedColormap.from_list(
+    "steelblue_sandybrown",
+    ["steelblue", "lightblue", "wheat", "sandybrown"]
+)
+
+fig, ax = plt.subplots(figsize=(180 * MM, 100 * MM))
+
+im = ax.imshow(heatmap_data.values, aspect="auto", cmap=cmap)
+
+ax.set_xticks(range(len(components)))
+ax.set_xticklabels(components, rotation=45, ha="right")
+
+ax.set_yticks(range(len(heatmap_data.index)))
+ax.set_yticklabels(heatmap_data.index)
+
+ax.set_xlabel("Component")
+ax.set_ylabel("Dataset")
+ax.set_title("Mean component value per dataset")
+
+cbar = plt.colorbar(im, ax=ax)
+cbar.set_label("Mean value")
+
+plt.tight_layout()
+
+plt.savefig(
+    root / "results" / "figures" / "component_heatmap.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+```
+
+
+
+Create a heatmap of standardized component values (Z-scores) for each dataset. This allows for comparison of component patterns across datasets, highlighting which datasets have higher or lower values relative to their own mean and standard deviation.
+```{python}
+components = [f"comp{i}" for i in range(1, 19)]
+
+Combined_dataset[components] = Combined_dataset[components].apply(pd.to_numeric, errors="coerce")
+
+heatmap_data = (
+    Combined_dataset
+    .groupby("Dataset_name")[components]
+    .median()
+)
+
+heatmap_z = heatmap_data.sub(
+    heatmap_data.mean(axis=1),
+    axis=0
+)
+
+heatmap_z = heatmap_z.div(
+    heatmap_data.std(axis=1).replace(0, np.nan),
+    axis=0
+)
+
+cmap = LinearSegmentedColormap.from_list(
+    "custom",
+    ["steelblue", "lightblue", "wheat", "sandybrown"]
+)
+
+fig, ax = plt.subplots(figsize=(180 * MM, 100 * MM))
+
+im = ax.imshow(
+    heatmap_z.values,
+    aspect="auto",
+    cmap=cmap
+)
+
+ax.set_xticks(range(len(components)))
+ax.set_xticklabels(components, rotation=45, ha="right")
+
+ax.set_yticks(range(len(heatmap_z.index)))
+ax.set_yticklabels(heatmap_z.index)
+
+ax.set_xlabel("Component")
+ax.set_ylabel("Dataset")
+ax.set_title("Standardized component pattern per dataset")
+
+cbar = plt.colorbar(im, ax=ax)
+cbar.set_label("Z-score")
+
+plt.tight_layout()
+
+plt.savefig(
+    root / "results" / "figures" / "component_heatmap_zscore.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+```
+
+Ridgeline plots for each component across datasets.
+```{python}
+from scipy.stats import gaussian_kde
+
+components = [f"comp{i}" for i in range(1, 19)]
+
+#Possibility to isolate a specific dataset
+plot_data = Combined_dataset#[Combined_dataset["Dataset_name"] != "Alvino"]
+
+for component in components:
+    means = (
+        plot_data
+        .groupby("Dataset_name")[component]
+        .mean()
+        .sort_values(ascending=False)
+    )
+
+    datasets = means.index
+
+    fig, ax = plt.subplots(figsize=(180 * MM, 120 * MM))
+
+    x_min = plot_data[component].min()
+    x_max = plot_data[component].max()
+
+    for i, dataset in enumerate(datasets):
+
+        values = (
+            plot_data.loc[
+                plot_data["Dataset_name"] == dataset,
+                component
+            ]
+            .dropna()
+            .astype(float)
+        )
+
+        if len(values) < 2:
+            continue
+
+        x = np.linspace(x_min, x_max, 300)
+
+        kde = gaussian_kde(values)
+        density = kde(x)
+
+        if density.max() == 0:
+            continue
+
+        density = density / density.max() * 0.8
+
+        color = "steelblue" if i % 2 == 0 else "sandybrown"
+
+        ax.fill_between(
+            x,
+            i,
+            i + density,
+            color=color,
+            alpha=0.6
+        )
+
+        ax.plot(
+            x,
+            i + density,
+            color=color
+        )
+
+        ax.hlines(
+            y=i,
+            xmin=x.min(),
+            xmax=x.max(),
+            color=color,
+            linewidth=1
+        )
+
+        mean_val = values.mean()
+        mean_height = np.interp(mean_val, x, density)
+
+        ax.vlines(
+            x=mean_val,
+            ymin=i,
+            ymax=i + mean_height,
+            color="black",
+            linewidth=1.5
+        )
+
+        low_vals = np.sort(values)[:2]
+        high_vals = np.sort(values)[-2:]
+        extreme_vals = np.concatenate([low_vals, high_vals])
+
+        extreme_heights = np.interp(extreme_vals, x, density)
+
+        ax.scatter(
+            values,
+            [i] * len(values),
+            color="black",
+            s=10,
+            alpha=0.25,
+            zorder=3
+        )
+
+    ax.set_yticks(range(len(datasets)))
+    ax.set_yticklabels(datasets)
+
+    ax.set_xlabel("DR value")
+    ax.set_ylabel("Dataset")
+    ax.set_title(component)
+
+    plt.tight_layout()
+
+    plt.savefig(
+        root / "results" / "figures" / f"ridgeline_{component}.svg",
+        format="svg",
+        bbox_inches="tight"
+    )
+
+    plt.show()
+```
+
+
+Following code does everything that has already been done for the datasets for the normative model for the Alzheimer dataset.
+## Alzheimer 
+```{python}
+Alzheimer = pd.read_csv(
+    root / "data" / "Alzheimer" / "Alzheimer_MetaData.tsv",
+    sep="\t"
+)
+
+components = [f"comp{i}" for i in range(18, 0, -1) if f"comp{i}" in Alzheimer.columns]
+
+Alzheimer[components] = Alzheimer[components].apply(pd.to_numeric, errors="coerce")
+
+cmap = LinearSegmentedColormap.from_list(
+    "custom",
+    ["steelblue", "lightblue", "white", "wheat", "sandybrown"]
+)
+# Heatmap
+heatmap_data = Alzheimer[components].median().to_frame().T
+
+fig, ax = plt.subplots(figsize=(180 * MM, 30 * MM))
+
+im = ax.imshow(
+    heatmap_data.values,
+    aspect="auto",
+    cmap=cmap
+)
+
+ax.set_xticks(range(len(components)))
+ax.set_xticklabels(components, rotation=45, ha="right")
+
+ax.set_yticks([0])
+ax.set_yticklabels(["Alzheimer"])
+
+ax.set_xlabel("Component")
+ax.set_title("Median DR values")
+
+cbar = plt.colorbar(im, ax=ax, aspect=2)
+cbar.set_label("Median DR value")
+
+plt.tight_layout()
+
+plt.savefig(
+    root / "results" / "figures" / "Alzheimer_component_heatmap.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+
+
+# Ridgeline switched components to an axis
+fig, ax = plt.subplots(figsize=(180 * MM, 120 * MM))
+
+all_values = Alzheimer[components].values.flatten()
+all_values = all_values[~np.isnan(all_values)]
+
+x_min = all_values.min()
+x_max = all_values.max()
+
+for i, component in enumerate(components):
+
+    values = Alzheimer[component].dropna().astype(float)
+
+    if len(values) < 2:
+        continue
+
+    x = np.linspace(x_min, x_max, 300)
+
+    kde = gaussian_kde(values)
+    density = kde(x)
+    density = density / density.max() * 0.8
+
+    color = "steelblue" if i % 2 == 0 else "sandybrown"
+
+    ax.fill_between(
+        x,
+        i,
+        i + density,
+        color=color,
+        alpha=0.6
+    )
+
+    ax.plot(
+        x,
+        i + density,
+        color=color
+    )
+
+    ax.hlines(
+        y=i,
+        xmin=x.min(),
+        xmax=x.max(),
+        color=color,
+        linewidth=1
+    )
+
+    mean_val = values.mean()
+    mean_height = np.interp(mean_val, x, density)
+
+    ax.vlines(
+        x=mean_val,
+        ymin=i,
+        ymax=i + mean_height,
+        color="black",
+        linewidth=1.5
+    )
+
+    ax.scatter(
+        values,
+        [i] * len(values),
+        color="black",
+        s=10,
+        alpha=0.25,
+        zorder=3
+    )
+
+ax.set_yticks(range(len(components)))
+ax.set_yticklabels(components)
+
+ax.set_xlabel("DR value")
+ax.set_ylabel("Component")
+ax.set_title("Alzheimer component distributions")
+
+plt.tight_layout()
+
+plt.savefig(
+    root / "results" / "figures" / "Alzheimer_ridgeline_components.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+```

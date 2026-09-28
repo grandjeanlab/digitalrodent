@@ -167,8 +167,13 @@ new_shape = Combined_dataset.shape
 print("Combined after:", new_shape)
 print("Difference:", old_shape[0] - new_shape[0], "rows removed")
 
+#TEMP EXCLUDE AWAKE MESSING THINGS UP
+Combined_dataset = Combined_dataset[Combined_dataset["Dataset_name"] != "Awake"]
 
-Combined_dataset = Combined_dataset.fillna("NA")
+Combined_dataset["Anesthesia"] = Combined_dataset["Anesthesia"].str.lower()
+
+Combined_dataset = Combined_dataset.fillna(np.nan)
+
 Combined_dataset.to_csv(out_dir / "Combined_dataset.csv", index=False)
 
 ```

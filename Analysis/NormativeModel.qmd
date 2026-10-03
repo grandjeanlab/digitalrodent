@@ -23,33 +23,41 @@ for component in components:
         errors="coerce"
     )
 
-# Columns that should NOT be covariates
-id_columns = [
-    "Scan_id",
-    "Participant_Id"
-]
+id_columns = ["Scan_id","Participant_Id"]
 
-batch_effects = [
-    "Dataset_name"
+batch_effects = ["Dataset_name"]
+
+covariates = [
+    "Session",
+    "Sex",
+    "Age(week)",
+    "Rodent.strain",
+    "MRI",
+    "Coil",
+    "fMRI.sequence",
+    "MRI T.R.",
+    "MRI T.E.",
+    "Anethesia",
+    "Anesthesia amount",
+    "Ventilation",
+    "head-plate",
+    "Habituation",
+    "FD average",
+    "FD maximum",
+    "tSNR"
 ]
 
 response_vars = components
 
-# All remaining columns are possible covariates
-covariates = [
-    col for col in model_df.columns
-    if col not in id_columns + batch_effects + response_vars
-]
-
 encoding_table = []
 
 # Encode string covariates
-for col in covariates.copy():
-
-    if model_df[col].dtype == "object":
-
+for col in covariates:
+    if model_df[col].dtype == "str":
         values = model_df[col].dropna().unique()
 
+        print(values)  
+```
         # Binary categorical variable
         if len(values) == 2:
 
@@ -103,6 +111,9 @@ print(covariates)
 
 print("\nBatch effects:")
 print(batch_effects)
+
+print("\nResponse variables:")
+print(response_vars)
 
 print("\nEncoding table:")
 display(encoding_table)

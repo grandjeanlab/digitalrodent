@@ -1,0 +1,211 @@
+```{python}
+from pathlib import Path
+import pandas as pd
+import re
+
+root = Path.cwd().parent
+
+meta_dir = root / "data" / "MetaData"
+dr_dir = root / "results" / "dual_regression"
+out_dir = root / "results" / "combined_dataset"
+
+datasets = pd.read_csv(root / "data" / "datasets.tsv", sep="\t")
+
+
+def clean_metadata_id(dataset, x):
+    
+    x = str(x).strip()
+
+    if x.endswith(".0"):
+        x = x[:-2]
+
+    # Awake_Rest IDs may already contain session
+    x = re.sub(r"_ses-\d+$", "", x)
+
+    # Awake IDs have extra leading zeroes in DR
+    if dataset == "Awake":
+        x = x.replace("sub-", "")
+        x = x.lstrip("0")
+
+    return x.lower()
+
+
+def clean_dr_id(dataset, subject):
+
+    subject = str(subject).strip()
+
+    # Longitudinal
+    if dataset == "Longitudinal":
+        return subject.replace("_ses-", "-").lower()
+
+    # Remove session/run information
+    subject = re.sub(r"_ses-\d+.*$", "", subject)
+
+    # Datasets with _task-rest instead of session
+    subject = re.sub(r"_task-.*$", "", subject)
+
+    # 3xTG
+    if dataset == "3xTG":
+        subject = subject.replace("sub-jgrAD", "")
+
+    # Awake
+    if dataset == "Awake":
+        subject = subject.replace("sub-", "")
+        subject = subject.lstrip("0")
+
+    return subject.lower()
+
+
+def get_dr_session(dataset, subject):
+
+    subject = str(subject)
+
+    # Longitudinal
+    if "_ses-PND30" in subject:
+        return 1
+
+    if "_ses-PND90" in subject:
+        return 2
+
+    # Normal session
+    match = re.search(r"_ses-(\d+)", subject)
+
+    if match:
+        return int(match.group(1))
+
+    # No session in scan name
+    return 1
+
+```
+
+```{python}
+all_datasets = []
+
+for dataset in datasets["Nickname"]:
+
+    metadata_file = meta_dir / f"{dataset}.tsv"
+    dr_file = dr_dir / f"{dataset}.csv"
+
+    if not metadata_file.exists() or not dr_file.exists():
+        continue
+
+    metadata = pd.read_csv(metadata_file, sep="\t")
+    dr = pd.read_csv(dr_file)
+
+    # Create matching variables
+    metadata["match_id"] = metadata["Participant_Id"].apply(
+        lambda x: clean_metadata_id(dataset, x)
+    )
+
+    metadata["match_session"] = pd.to_numeric(
+        metadata["Session"],
+        errors="coerce"
+    )
+
+    dr["match_id"] = dr["subject"].apply(
+        lambda x: clean_dr_id(dataset, x)
+    )
+
+    dr["match_session"] = dr["subject"].apply(
+        lambda x: get_dr_session(dataset, x)
+    )
+
+    # Sexdifference: match only on subject ID
+    if dataset == "Sexdifference":
+
+        metadata_unique = metadata.drop_duplicates(
+            subset=["match_id"]
+        )
+
+        matched = dr.merge(
+            metadata_unique,
+            on="match_id",
+            how="left"
+        )
+
+    else:
+
+        metadata_unique = metadata.drop_duplicates(
+            subset=["match_id", "match_session"]
+        )
+
+        matched = dr.merge(
+            metadata_unique,
+            on=["match_id", "match_session"],
+            how="left"
+        )
+
+    # Use the session from the DR scan
+    if "match_session_x" in matched.columns:
+        matched["Session"] = matched["match_session_x"]
+    else:
+        matched["Session"] = matched["match_session"]
+
+    # Fill existing Scan_id with DR subject
+    matched["Scan_id"] = matched["subject"]
+
+    # Remove original DR subject column
+    matched = matched.drop(columns="subject")
+
+    # Dataset name
+    matched["Dataset_name"] = dataset
+
+    # Remove temporary matching columns
+    columns_to_remove = [
+        "match_id",
+        "match_session",
+        "match_session_x",
+        "match_session_y"
+    ]
+
+    for column in columns_to_remove:
+        if column in matched.columns:
+            matched = matched.drop(columns=column)
+
+    all_datasets.append(matched)
+
+
+# Combine all datasets
+Combined_dataset = pd.concat(
+    all_datasets,
+    ignore_index=True
+)
+
+# Rearrange columns
+first_columns = [
+    "Scan_id",
+    "Participant_Id",
+    "Session",
+    "Dataset_name",
+    "Sex",
+    "Age(week)",
+    "Rodent.strain",
+    "MRI",
+    "Coil",
+    "fMRI.sequence",
+    "MRI T.R.",
+    "MRI T.E.",
+    "Anesthesia",
+    "Anesthesia amount",
+    "Ventilation",
+    "head-plate",
+    "Habituation",
+    "FD average",
+    "FD maximum",
+    "tSNR"
+]
+
+components = [f"comp{i}" for i in range(1, 19)]
+
+Combined_dataset = Combined_dataset[
+    first_columns + components
+]
+
+# Save
+Combined_dataset.to_csv(
+    out_dir / "Combined_dataset.csv",
+    index=False
+)
+
+print(Combined_dataset.shape)
+```

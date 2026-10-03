@@ -38,6 +38,15 @@ plt.rcParams.update({
 })
 ```
 
+## Add Dr values to metadata files
+```{python}
+
+
+
+
+
+```
+
 ## Control and combine metadata filese. 
 ```{python}
 import re

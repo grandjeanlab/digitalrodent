@@ -5,7 +5,7 @@ module load afni/23.3.02
 ICA_map="/project/4180000.73/template/mouse/ica.nii.gz"
 DR_base="/project/4180000.73/Mouse_rest_anesthesia/output_mouse/commonspace_analysis_datasink/dual_regression_nii/"
 BRAIN_MASK="/project/4180000.73/template/mouse/mask.nii.gz"    
-output="/project/4180000.73/Mouse_rest_anesthesia/output_mouse//DR_results.csv"
+output="/project/4180000.73/Mouse_rest_anesthesia/output_mouse/DR_results.csv"
 tmp_dir="/project/4180000.73/Mouse_rest_anesthesia/output_mouse/tmp_DR_$$"
 n_comp=18
 

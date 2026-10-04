@@ -1,0 +1,2745 @@
+{
+    "name": null,
+    "save_dir": "/home/traaffneu/dansch/Documents/digital_rodent/digitalrodent/results/normative_model/BLR",
+    "savemodel": true,
+    "saveresults": true,
+    "saveplots": true,
+    "evaluate_model": true,
+    "template_regression_model": {
+        "name": "template",
+        "type": "BLR",
+        "is_fitted": false,
+        "is_from_dict": false,
+        "transfered": false,
+        "ptk_version": "1.1.2",
+        "_name": "template",
+        "n_iter": 100,
+        "tol": 0.001,
+        "ard": false,
+        "optimizer": "l-bfgs-b",
+        "l_bfgs_b_l": 0.1,
+        "l_bfgs_b_epsilon": 0.1,
+        "l_bfgs_b_norm": "l2",
+        "fixed_effect": false,
+        "fixed_effect_slope": false,
+        "fixed_effect_slope_indices": null,
+        "heteroskedastic": true,
+        "fixed_effect_var": false,
+        "fixed_effect_var_slope": false,
+        "fixed_effect_var_slope_indices": null,
+        "warp_name": null,
+        "n_gamma": 0,
+        "warp_params": null,
+        "warp_reparam": false,
+        "gamma": null,
+        "basis_function_mean": {
+            "is_fitted": false,
+            "basis_name": "linear",
+            "min": {},
+            "max": {},
+            "compute_min": true,
+            "compute_max": true,
+            "basis_column": [
+                -1
+            ],
+            "basis_function": "LinearBasisFunction"
+        },
+        "basis_function_var": {
+            "is_fitted": false,
+            "basis_name": "linear",
+            "min": {},
+            "max": {},
+            "compute_min": true,
+            "compute_max": true,
+            "basis_column": [
+                -1
+            ],
+            "basis_function": "LinearBasisFunction"
+        },
+        "models_variance": true,
+        "hyp0": null,
+        "hyp": null
+    },
+    "inscalers": {
+        "Age(week)": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 15.153470715835141,
+            "s": 11.943707620690281,
+            "min": 3.0,
+            "max": 100.0
+        },
+        "MRI": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 9.463557483731021,
+            "s": 1.447481930343032,
+            "min": 4.7,
+            "max": 15.2
+        },
+        "MRI T.R.": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 1744.441431670282,
+            "s": 692.1470433730184,
+            "min": 600.0,
+            "max": 2500.0
+        },
+        "MRI T.E.": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 16.021709869848152,
+            "s": 2.8322087863406824,
+            "min": 6.0,
+            "max": 25.0
+        },
+        "FD average": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.027668384682173537,
+            "s": 0.018535565443886185,
+            "min": 0.003551669005,
+            "max": 0.1159979416
+        },
+        "FD maximum": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.046341037893321585,
+            "s": 0.03125990810948943,
+            "min": 0.005730417691,
+            "max": 0.2094791319
+        },
+        "Age(week)_Missing": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.30856832971800435,
+            "s": 0.4619024957856856,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "MRI_Missing": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.07646420824295011,
+            "s": 0.2657394082569028,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "MRI T.R._Missing": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.09002169197396963,
+            "s": 0.28621283505131867,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "MRI T.E._Missing": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.11822125813449023,
+            "s": 0.3228699308693649,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "FD average_Missing": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.09598698481561822,
+            "s": 0.29457339248755054,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "FD maximum_Missing": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.09598698481561822,
+            "s": 0.29457339248755054,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Sex_M": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.4896963123644252,
+            "s": 0.49989382274749955,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Rodent.strain_C57BL/6": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.6670281995661606,
+            "s": 0.47127654360225363,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Rodent.strain_F1 C6/129P": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.20661605206073752,
+            "s": 0.4048775853163178,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Rodent.strain_ICR": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.0016268980477223427,
+            "s": 0.040302000576456005,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Coil_RT": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.4289587852494577,
+            "s": 0.49492741468498924,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "fMRI.sequence_GE-EPI": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.32266811279826463,
+            "s": 0.46749695376704964,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "fMRI.sequence_ME-EPI": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.016811279826464208,
+            "s": 0.1285638389947209,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "fMRI.sequence_SE-EPI": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.44685466377440347,
+            "s": 0.4971675504671118,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Dex": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.0021691973969631237,
+            "s": 0.046524101061881165,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Dexiso": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.046637744034707156,
+            "s": 0.21086171977402707,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Hal": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.015184381778741865,
+            "s": 0.12228579773930934,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Iso": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.0650759219088937,
+            "s": 0.24665977843296882,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Med": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.03253796095444685,
+            "s": 0.1774239049603343,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Mediso": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.11442516268980477,
+            "s": 0.3183269464453434,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Propofol": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.0021691973969631237,
+            "s": 0.04652410106188117,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Ventilation_Yes": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.12255965292841649,
+            "s": 0.32793106654064136,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "head-plate_Yes": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.6225596529284165,
+            "s": 0.48474646102273516,
+            "min": 0.0,
+            "max": 1.0
+        }
+    },
+    "is_fitted": true,
+    "inscaler": "standardize",
+    "outscaler": "standardize",
+    "ptk_version": "1.1.2",
+    "covariates": [
+        "Age(week)",
+        "MRI",
+        "MRI T.R.",
+        "MRI T.E.",
+        "FD average",
+        "FD maximum",
+        "Age(week)_Missing",
+        "MRI_Missing",
+        "MRI T.R._Missing",
+        "MRI T.E._Missing",
+        "FD average_Missing",
+        "FD maximum_Missing",
+        "Sex_M",
+        "Rodent.strain_C57BL/6",
+        "Rodent.strain_F1 C6/129P",
+        "Rodent.strain_ICR",
+        "Coil_RT",
+        "fMRI.sequence_GE-EPI",
+        "fMRI.sequence_ME-EPI",
+        "fMRI.sequence_SE-EPI",
+        "Anesthesia_Dex",
+        "Anesthesia_Dexiso",
+        "Anesthesia_Hal",
+        "Anesthesia_Iso",
+        "Anesthesia_Med",
+        "Anesthesia_Mediso",
+        "Anesthesia_Propofol",
+        "Ventilation_Yes",
+        "head-plate_Yes"
+    ],
+    "unique_batch_effects": {
+        "Dataset_name": [
+            "3xTG",
+            "Alvino",
+            "Awake",
+            "Awake_Rest",
+            "Douglas",
+            "Env_Enrichment",
+            "Florida",
+            "Longitudinal",
+            "MPTP",
+            "Multicenter",
+            "NDUFS4",
+            "Propofol",
+            "Psilocybin",
+            "Psilocybin_Pilot",
+            "Sexdifference"
+        ]
+    },
+    "inverse_batch_effect_counts": {
+        "Dataset_name": {
+            "0_21": "3xTG",
+            "1_22": "Alvino",
+            "2_1552": "Awake",
+            "3_171": "Awake_Rest",
+            "4_20": "Douglas",
+            "5_39": "Env_Enrichment",
+            "6_12": "Florida",
+            "7_70": "Longitudinal",
+            "8_9": "MPTP",
+            "9_255": "Multicenter",
+            "10_31": "NDUFS4",
+            "11_5": "Propofol",
+            "12_15": "Psilocybin",
+            "13_24": "Psilocybin_Pilot",
+            "14_60": "Sexdifference"
+        }
+    },
+    "batch_effects_maps": {
+        "Dataset_name": {
+            "0_0": "3xTG",
+            "1_1": "Alvino",
+            "2_2": "Awake",
+            "3_3": "Awake_Rest",
+            "4_4": "Douglas",
+            "5_5": "Env_Enrichment",
+            "6_6": "Florida",
+            "7_7": "Longitudinal",
+            "8_8": "MPTP",
+            "9_9": "Multicenter",
+            "10_10": "NDUFS4",
+            "11_11": "Propofol",
+            "12_12": "Psilocybin",
+            "13_13": "Psilocybin_Pilot",
+            "14_14": "Sexdifference"
+        }
+    },
+    "batch_effect_covariate_ranges": {
+        "Dataset_name": {
+            "3xTG": {
+                "Age(week)": {
+                    "mean": 4.5,
+                    "min": 3.0,
+                    "max": 6.0
+                },
+                "MRI": {
+                    "mean": 11.75,
+                    "min": 11.75,
+                    "max": 11.75
+                },
+                "MRI T.R.": {
+                    "mean": 1000.0,
+                    "min": 1000.0,
+                    "max": 1000.0
+                },
+                "MRI T.E.": {
+                    "mean": 15.0,
+                    "min": 15.0,
+                    "max": 15.0
+                },
+                "FD average": {
+                    "mean": 0.01260974789433333,
+                    "min": 0.009351516861,
+                    "max": 0.01439849296
+                },
+                "FD maximum": {
+                    "mean": 0.02563064642452381,
+                    "min": 0.01828143773,
+                    "max": 0.02964451452
+                },
+                "Age(week)_Missing": {
+                    "mean": 0.3333333333333333,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.3333333333333333,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.3333333333333333,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 0.3333333333333333,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.3333333333333333,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.3333333333333333,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Sex_M": {
+                    "mean": 0.6666666666666666,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 0.6666666666666666,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 0.6666666666666666,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.6666666666666666,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Alvino": {
+                "Age(week)": {
+                    "mean": 12.0,
+                    "min": 12.0,
+                    "max": 12.0
+                },
+                "MRI": {
+                    "mean": 7.0,
+                    "min": 7.0,
+                    "max": 7.0
+                },
+                "MRI T.R.": {
+                    "mean": 1000.0,
+                    "min": 1000.0,
+                    "max": 1000.0
+                },
+                "MRI T.E.": {
+                    "mean": 15.0,
+                    "min": 15.0,
+                    "max": 15.0
+                },
+                "FD average": {
+                    "mean": 0.01401766126040909,
+                    "min": 0.00870493779,
+                    "max": 0.03886550218
+                },
+                "FD maximum": {
+                    "mean": 0.027931671362272727,
+                    "min": 0.01792473211,
+                    "max": 0.06610672386
+                },
+                "Age(week)_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Sex_M": {
+                    "mean": 0.6363636363636364,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Awake": {
+                "Age(week)": {
+                    "mean": 16.2145618556701,
+                    "min": 8.0,
+                    "max": 100.0
+                },
+                "MRI": {
+                    "mean": 9.683311855670105,
+                    "min": 7.0,
+                    "max": 15.2
+                },
+                "MRI T.R.": {
+                    "mean": 1916.430412371134,
+                    "min": 600.0,
+                    "max": 2500.0
+                },
+                "MRI T.E.": {
+                    "mean": 16.44286082474227,
+                    "min": 6.0,
+                    "max": 25.0
+                },
+                "FD average": {
+                    "mean": 0.03445776471744653,
+                    "min": 0.003590682057,
+                    "max": 0.1157969147
+                },
+                "FD maximum": {
+                    "mean": 0.05777666115783118,
+                    "min": 0.005818014505,
+                    "max": 0.2094791319
+                },
+                "Age(week)_Missing": {
+                    "mean": 0.14432989690721648,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Sex_M": {
+                    "mean": 0.5541237113402062,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 0.6230670103092784,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.30670103092783507,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.002577319587628866,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Coil_RT": {
+                    "mean": 0.4632731958762887,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 0.3595360824742268,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.6404639175257731,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 0.09471649484536082,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.9252577319587629,
+                    "min": 0.0,
+                    "max": 1.0
+                }
+            },
+            "Awake_Rest": {
+                "Age(week)": {
+                    "mean": 12.0,
+                    "min": 12.0,
+                    "max": 12.0
+                },
+                "MRI": {
+                    "mean": 9.4,
+                    "min": 9.4,
+                    "max": 9.4
+                },
+                "MRI T.R.": {
+                    "mean": 1700.0,
+                    "min": 1700.0,
+                    "max": 1700.0
+                },
+                "MRI T.E.": {
+                    "mean": 16.0,
+                    "min": 16.0,
+                    "max": 16.0
+                },
+                "FD average": {
+                    "mean": 0.028176119694999998,
+                    "min": 0.028176119695,
+                    "max": 0.028176119695
+                },
+                "FD maximum": {
+                    "mean": 0.04540762477,
+                    "min": 0.04540762477,
+                    "max": 0.04540762477
+                },
+                "Age(week)_Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "MRI_Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "FD average_Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Sex_M": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.3333333333333333,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.3508771929824561,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Douglas": {
+                "Age(week)": {
+                    "mean": 11.5,
+                    "min": 11.0,
+                    "max": 12.0
+                },
+                "MRI": {
+                    "mean": 7.0,
+                    "min": 7.0,
+                    "max": 7.0
+                },
+                "MRI T.R.": {
+                    "mean": 1000.0,
+                    "min": 1000.0,
+                    "max": 1000.0
+                },
+                "MRI T.E.": {
+                    "mean": 15.0,
+                    "min": 15.0,
+                    "max": 15.0
+                },
+                "FD average": {
+                    "mean": 0.0070790784506,
+                    "min": 0.005167729657,
+                    "max": 0.00967930513
+                },
+                "FD maximum": {
+                    "mean": 0.012718201975199999,
+                    "min": 0.009135519224,
+                    "max": 0.01822208663
+                },
+                "Age(week)_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.75,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.75,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Sex_M": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.25,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.5,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.25,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Env_Enrichment": {
+                "Age(week)": {
+                    "mean": 9.0,
+                    "min": 9.0,
+                    "max": 9.0
+                },
+                "MRI": {
+                    "mean": 11.100000000000003,
+                    "min": 11.1,
+                    "max": 11.1
+                },
+                "MRI T.R.": {
+                    "mean": 1500.0,
+                    "min": 1500.0,
+                    "max": 1500.0
+                },
+                "MRI T.E.": {
+                    "mean": 16.0,
+                    "min": 16.0,
+                    "max": 16.0
+                },
+                "FD average": {
+                    "mean": 0.011335438500794874,
+                    "min": 0.008691328782,
+                    "max": 0.01766044047
+                },
+                "FD maximum": {
+                    "mean": 0.020403562100769226,
+                    "min": 0.01480244783,
+                    "max": 0.03197699058
+                },
+                "Age(week)_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Sex_M": {
+                    "mean": 0.41025641025641024,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Florida": {
+                "Age(week)": {
+                    "mean": 28.0,
+                    "min": 28.0,
+                    "max": 28.0
+                },
+                "MRI": {
+                    "mean": 7.0,
+                    "min": 7.0,
+                    "max": 7.0
+                },
+                "MRI T.R.": {
+                    "mean": 1500.0,
+                    "min": 1500.0,
+                    "max": 1500.0
+                },
+                "MRI T.E.": {
+                    "mean": 25.0,
+                    "min": 25.0,
+                    "max": 25.0
+                },
+                "FD average": {
+                    "mean": 0.007733734749416667,
+                    "min": 0.004051258344,
+                    "max": 0.01641967858
+                },
+                "FD maximum": {
+                    "mean": 0.013191707470833335,
+                    "min": 0.006637363086,
+                    "max": 0.02936319043
+                },
+                "Age(week)_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Sex_M": {
+                    "mean": 0.5,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Longitudinal": {
+                "Age(week)": {
+                    "mean": 8.0,
+                    "min": 4.0,
+                    "max": 12.0
+                },
+                "MRI": {
+                    "mean": 9.399999999999999,
+                    "min": 9.4,
+                    "max": 9.4
+                },
+                "MRI T.R.": {
+                    "mean": 1000.0,
+                    "min": 1000.0,
+                    "max": 1000.0
+                },
+                "MRI T.E.": {
+                    "mean": 15.0,
+                    "min": 15.0,
+                    "max": 15.0
+                },
+                "FD average": {
+                    "mean": 0.0070313583723714285,
+                    "min": 0.004911227186,
+                    "max": 0.0190391148
+                },
+                "FD maximum": {
+                    "mean": 0.011513186061742854,
+                    "min": 0.007102097003,
+                    "max": 0.03214168533
+                },
+                "Age(week)_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Sex_M": {
+                    "mean": 0.4857142857142857,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 0.6857142857142857,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "MPTP": {
+                "Age(week)": {
+                    "mean": 12.0,
+                    "min": 12.0,
+                    "max": 12.0
+                },
+                "MRI": {
+                    "mean": 11.75,
+                    "min": 11.75,
+                    "max": 11.75
+                },
+                "MRI T.R.": {
+                    "mean": 1000.0,
+                    "min": 1000.0,
+                    "max": 1000.0
+                },
+                "MRI T.E.": {
+                    "mean": 17.0,
+                    "min": 17.0,
+                    "max": 17.0
+                },
+                "FD average": {
+                    "mean": 0.010081406447111111,
+                    "min": 0.008446025228,
+                    "max": 0.01332890441
+                },
+                "FD maximum": {
+                    "mean": 0.01916097280111111,
+                    "min": 0.01464629034,
+                    "max": 0.02755487586
+                },
+                "Age(week)_Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Sex_M": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Multicenter": {
+                "Age(week)": {
+                    "mean": 12.0,
+                    "min": 12.0,
+                    "max": 12.0
+                },
+                "MRI": {
+                    "mean": 8.270588235294118,
+                    "min": 4.7,
+                    "max": 11.75
+                },
+                "MRI T.R.": {
+                    "mean": 1464.7058823529412,
+                    "min": 1000.0,
+                    "max": 2000.0
+                },
+                "MRI T.E.": {
+                    "mean": 14.070588235294117,
+                    "min": 9.2,
+                    "max": 25.0
+                },
+                "FD average": {
+                    "mean": 0.009804307255929413,
+                    "min": 0.003652074274,
+                    "max": 0.1159979416
+                },
+                "FD maximum": {
+                    "mean": 0.016461671199050978,
+                    "min": 0.006066842537,
+                    "max": 0.1750761821
+                },
+                "Age(week)_Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Sex_M": {
+                    "mean": 0.27450980392156865,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 0.4117647058823529,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.058823529411764705,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.29411764705882354,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.29411764705882354,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.29411764705882354,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 0.29411764705882354,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "NDUFS4": {
+                "Age(week)": {
+                    "mean": 29.129032258064516,
+                    "min": 21.0,
+                    "max": 39.0
+                },
+                "MRI": {
+                    "mean": 11.75,
+                    "min": 11.75,
+                    "max": 11.75
+                },
+                "MRI T.R.": {
+                    "mean": 1700.0,
+                    "min": 1700.0,
+                    "max": 1700.0
+                },
+                "MRI T.E.": {
+                    "mean": 16.0,
+                    "min": 16.0,
+                    "max": 16.0
+                },
+                "FD average": {
+                    "mean": 0.028176119695,
+                    "min": 0.028176119695,
+                    "max": 0.028176119695
+                },
+                "FD maximum": {
+                    "mean": 0.04540762476999999,
+                    "min": 0.04540762477,
+                    "max": 0.04540762477
+                },
+                "Age(week)_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "FD average_Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Sex_M": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Propofol": {
+                "Age(week)": {
+                    "mean": 12.0,
+                    "min": 12.0,
+                    "max": 12.0
+                },
+                "MRI": {
+                    "mean": 9.4,
+                    "min": 9.4,
+                    "max": 9.4
+                },
+                "MRI T.R.": {
+                    "mean": 2000.0,
+                    "min": 2000.0,
+                    "max": 2000.0
+                },
+                "MRI T.E.": {
+                    "mean": 16.0,
+                    "min": 16.0,
+                    "max": 16.0
+                },
+                "FD average": {
+                    "mean": 0.017027170346,
+                    "min": 0.01469539836,
+                    "max": 0.02042759419
+                },
+                "FD maximum": {
+                    "mean": 0.030781962466000002,
+                    "min": 0.02559961732,
+                    "max": 0.03625944326
+                },
+                "Age(week)_Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Sex_M": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Psilocybin": {
+                "Age(week)": {
+                    "mean": 12.0,
+                    "min": 12.0,
+                    "max": 12.0
+                },
+                "MRI": {
+                    "mean": 9.400000000000002,
+                    "min": 9.4,
+                    "max": 9.4
+                },
+                "MRI T.R.": {
+                    "mean": 1700.0,
+                    "min": 1700.0,
+                    "max": 1700.0
+                },
+                "MRI T.E.": {
+                    "mean": 15.0,
+                    "min": 15.0,
+                    "max": 15.0
+                },
+                "FD average": {
+                    "mean": 0.0063299219764,
+                    "min": 0.005947452137,
+                    "max": 0.007046452825
+                },
+                "FD maximum": {
+                    "mean": 0.010076547221333332,
+                    "min": 0.009329271062,
+                    "max": 0.0115487633
+                },
+                "Age(week)_Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Sex_M": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Psilocybin_Pilot": {
+                "Age(week)": {
+                    "mean": 12.0,
+                    "min": 12.0,
+                    "max": 12.0
+                },
+                "MRI": {
+                    "mean": 9.4,
+                    "min": 9.4,
+                    "max": 9.4
+                },
+                "MRI T.R.": {
+                    "mean": 1700.0,
+                    "min": 1700.0,
+                    "max": 1700.0
+                },
+                "MRI T.E.": {
+                    "mean": 15.0,
+                    "min": 15.0,
+                    "max": 15.0
+                },
+                "FD average": {
+                    "mean": 0.006003442904041666,
+                    "min": 0.005562611464,
+                    "max": 0.006940992466
+                },
+                "FD maximum": {
+                    "mean": 0.009783107065125,
+                    "min": 0.008773633876,
+                    "max": 0.01143645953
+                },
+                "Age(week)_Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Sex_M": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Sexdifference": {
+                "Age(week)": {
+                    "mean": 16.0,
+                    "min": 16.0,
+                    "max": 16.0
+                },
+                "MRI": {
+                    "mean": 7.0,
+                    "min": 7.0,
+                    "max": 7.0
+                },
+                "MRI T.R.": {
+                    "mean": 1000.0,
+                    "min": 1000.0,
+                    "max": 1000.0
+                },
+                "MRI T.E.": {
+                    "mean": 16.0,
+                    "min": 16.0,
+                    "max": 16.0
+                },
+                "FD average": {
+                    "mean": 0.006356345857799999,
+                    "min": 0.003551669005,
+                    "max": 0.03666148801
+                },
+                "FD maximum": {
+                    "mean": 0.011072702468700001,
+                    "min": 0.005730417691,
+                    "max": 0.06421548025
+                },
+                "Age(week)_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.R._Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "MRI T.E._Missing": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "FD average_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "FD maximum_Missing": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Sex_M": {
+                    "mean": 0.5,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_C57BL/6": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Rodent.strain_F1 C6/129P": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Rodent.strain_ICR": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Coil_RT": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_GE-EPI": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "fMRI.sequence_ME-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "fMRI.sequence_SE-EPI": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dex": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Dexiso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Propofol": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Ventilation_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "head-plate_Yes": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            }
+        }
+    },
+    "covariate_ranges": {
+        "Age(week)": {
+            "mean": 15.009323503902863,
+            "min": 3.0,
+            "max": 100.0
+        },
+        "MRI": {
+            "mean": 9.438052905464007,
+            "min": 4.7,
+            "max": 15.2
+        },
+        "MRI T.R.": {
+            "mean": 1754.5533391153513,
+            "min": 600.0,
+            "max": 2500.0
+        },
+        "MRI T.E.": {
+            "mean": 16.060849956634865,
+            "min": 6.0,
+            "max": 25.0
+        },
+        "FD average": {
+            "mean": 0.027843999530705116,
+            "min": 0.003551669005,
+            "max": 0.1159979416
+        },
+        "FD maximum": {
+            "mean": 0.04665358837384562,
+            "min": 0.005730417691,
+            "max": 0.2094791319
+        },
+        "Age(week)_Missing": {
+            "mean": 0.30789245446660884,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "MRI_Missing": {
+            "mean": 0.07718993928881179,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "MRI T.R._Missing": {
+            "mean": 0.09063313096270599,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "MRI T.E._Missing": {
+            "mean": 0.11882046834345186,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "FD average_Missing": {
+            "mean": 0.0971379011274935,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "FD maximum_Missing": {
+            "mean": 0.0971379011274935,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Sex_M": {
+            "mean": 0.4822202948829141,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Rodent.strain_C57BL/6": {
+            "mean": 0.6691240242844753,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Rodent.strain_F1 C6/129P": {
+            "mean": 0.20641803989592367,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Rodent.strain_ICR": {
+            "mean": 0.0017346053772766695,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Coil_RT": {
+            "mean": 0.4358196010407632,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "fMRI.sequence_GE-EPI": {
+            "mean": 0.3152645273200347,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "fMRI.sequence_ME-EPI": {
+            "mean": 0.016912402428447527,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "fMRI.sequence_SE-EPI": {
+            "mean": 0.45316565481352994,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Dex": {
+            "mean": 0.002168256721595837,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Dexiso": {
+            "mean": 0.047267996530789246,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Hal": {
+            "mean": 0.016045099739809193,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Iso": {
+            "mean": 0.06461405030355594,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Med": {
+            "mean": 0.03252385082393756,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Mediso": {
+            "mean": 0.11188204683434519,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Propofol": {
+            "mean": 0.002168256721595837,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Ventilation_Yes": {
+            "mean": 0.12272333044232438,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "head-plate_Yes": {
+            "mean": 0.6227233304423244,
+            "min": 0.0,
+            "max": 1.0
+        }
+    }
+}

@@ -1079,13 +1079,28 @@ fig, ax = plt.subplots(figsize=(180 * MM, 120 * MM))
 
 for i, component in enumerate(components):
 
-    # Alzheimer
     values_alzheimer = (
         Alzheimer[component]
         .dropna()
         .astype(float)
     )
 
+    values_tg = (
+        TG[component]
+        .dropna()
+        .astype(float)
+    )
+
+    ax.hlines(
+        y=i,
+        xmin=x_min,
+        xmax=x_max,
+        color="lightgray",
+        linewidth=0.6,
+        zorder=0
+    )
+
+    # Alzheimer
     if len(values_alzheimer) >= 2:
 
         kde = gaussian_kde(values_alzheimer)
@@ -1100,7 +1115,8 @@ for i, component in enumerate(components):
                 i,
                 i + density,
                 color="steelblue",
-                alpha=0.25
+                alpha=0.25,
+                zorder=1
             )
 
             ax.plot(
@@ -1108,17 +1124,21 @@ for i, component in enumerate(components):
                 i + density,
                 color="steelblue",
                 linewidth=1.2,
-                label="Alzheimer" if i == 0 else None
+                label="Alzheimer" if i == 0 else None,
+                zorder=2
             )
 
+        ax.scatter(
+            values_alzheimer,
+            [i] * len(values_alzheimer),
+            color="steelblue",
+            s=10,
+            alpha=0.5,
+            edgecolors="none",
+            zorder=3
+        )
 
     # 3xTG
-    values_tg = (
-        TG[component]
-        .dropna()
-        .astype(float)
-    )
-
     if len(values_tg) >= 2:
 
         kde = gaussian_kde(values_tg)
@@ -1133,7 +1153,8 @@ for i, component in enumerate(components):
                 i,
                 i + density,
                 color="sandybrown",
-                alpha=0.25
+                alpha=0.25,
+                zorder=1
             )
 
             ax.plot(
@@ -1141,18 +1162,19 @@ for i, component in enumerate(components):
                 i + density,
                 color="sandybrown",
                 linewidth=1.2,
-                label="3xTG" if i == 0 else None
+                label="3xTG" if i == 0 else None,
+                zorder=2
             )
 
-
-    ax.hlines(
-        y=i,
-        xmin=x_min,
-        xmax=x_max,
-        color="lightgray",
-        linewidth=0.6,
-        zorder=0
-    )
+        ax.scatter(
+            values_tg,
+            [i] * len(values_tg),
+            color="sandybrown",
+            s=10,
+            alpha=0.5,
+            edgecolors="none",
+            zorder=3
+        )
 
 ax.set_yticks(range(len(components)))
 ax.set_yticklabels(components)
@@ -1174,7 +1196,7 @@ ax.legend(
 plt.tight_layout()
 
 plt.savefig(
-    fig_dir / "Alzheimer_3xTG_ridgeline_components.svg",
+    fig_dir / "Alzheimer_3xTG_ridgeline_components_dots.svg",
     format="svg",
     bbox_inches="tight"
 )

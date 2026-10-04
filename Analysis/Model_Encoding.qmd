@@ -1,0 +1,440 @@
+# Make a modelling dataframe
+```{python}
+from pathlib import Path
+import pandas as pd
+import numpy as np
+
+current_dir = Path.cwd().parent
+
+combined_path = (
+    current_dir
+    / "results"
+    / "combined_dataset"
+    / "Combined_dataset.csv"
+)
+
+model_df = pd.read_csv(combined_path)
+
+print("Combined dataset shape:", model_df.shape)
+```
+```{python}
+
+```
+
+```{python}
+# ============================================================
+# CLEAN METADATA BEFORE ENCODING
+# ============================================================
+
+# ------------------------------------------------------------
+# Sex
+# ------------------------------------------------------------
+
+model_df["Sex"] = (
+    model_df["Sex"]
+    .astype("string")
+    .str.strip()
+    .str.upper()
+)
+
+model_df["Sex"] = model_df["Sex"].replace({
+    "FEMALE": "F",
+    "MALE": "M",
+    "MISSING": "Missing"
+})
+
+
+# ------------------------------------------------------------
+# Rodent strain
+# ------------------------------------------------------------
+
+model_df["Rodent.strain"] = (
+    model_df["Rodent.strain"]
+    .astype("string")
+    .str.strip()
+)
+
+# Merge all C57 variants
+model_df.loc[
+    model_df["Rodent.strain"].str.contains(
+        "C57",
+        case=False,
+        na=False
+    ),
+    "Rodent.strain"
+] = "C57BL/6"
+
+model_df["Rodent.strain"] = model_df["Rodent.strain"].replace({
+    "missing": "Missing",
+    "MISSING": "Missing"
+})
+
+
+# ------------------------------------------------------------
+# MRI field strength
+# ------------------------------------------------------------
+
+model_df["MRI"] = pd.to_numeric(
+    model_df["MRI"],
+    errors="coerce"
+)
+
+
+# ------------------------------------------------------------
+# Coil
+# ------------------------------------------------------------
+
+model_df["Coil"] = (
+    model_df["Coil"]
+    .astype("string")
+    .str.strip()
+    .str.lower()
+)
+
+model_df["Coil"] = model_df["Coil"].replace({
+    "y": "Cryo",
+    "cryo": "Cryo",
+    "n": "RT",
+    "rt": "RT",
+    "missing": "Missing"
+})
+
+
+# ------------------------------------------------------------
+# fMRI sequence
+# ------------------------------------------------------------
+
+model_df["fMRI.sequence"] = (
+    model_df["fMRI.sequence"]
+    .astype("string")
+    .str.strip()
+    .str.upper()
+)
+
+model_df["fMRI.sequence"] = model_df["fMRI.sequence"].replace({
+    "GE EPI": "GE-EPI",
+    "SE EPI": "SE-EPI",
+    "ME EPI": "ME-EPI",
+    "MISSING": "Missing"
+})
+
+
+# ------------------------------------------------------------
+# Anesthesia
+# ------------------------------------------------------------
+
+model_df["Anesthesia"] = (
+    model_df["Anesthesia"]
+    .astype("string")
+    .str.strip()
+    .str.lower()
+)
+
+model_df["Anesthesia"] = model_df["Anesthesia"].replace({
+    "awake": "Awake",
+    "iso": "Iso",
+    "dex": "Dex",
+    "dexiso": "Dexiso",
+    "med": "Med",
+    "mediso": "Mediso",
+    "hal": "Hal",
+    "propofol": "Propofol",
+    "missing": "Missing"
+})
+
+
+# ------------------------------------------------------------
+# Ventilation
+# ------------------------------------------------------------
+
+model_df["Ventilation"] = (
+    model_df["Ventilation"]
+    .astype("string")
+    .str.strip()
+    .str.lower()
+)
+
+model_df["Ventilation"] = model_df["Ventilation"].replace({
+    "y": "Yes",
+    "yes": "Yes",
+    "n": "No",
+    "no": "No",
+    "missing": "Missing"
+})
+
+
+# ------------------------------------------------------------
+# Head plate
+# ------------------------------------------------------------
+
+model_df["head-plate"] = (
+    model_df["head-plate"]
+    .astype("string")
+    .str.strip()
+    .str.lower()
+)
+
+model_df["head-plate"] = model_df["head-plate"].replace({
+    "y": "Yes",
+    "yes": "Yes",
+    "n": "No",
+    "no": "No",
+    "missing": "Missing"
+})
+
+
+# ============================================================
+# NUMERIC COVARIATES
+# ============================================================
+
+numeric_covariates = [
+    "Age(week)",
+    "MRI",
+    "MRI T.R.",
+    "MRI T.E.",
+    "FD average",
+    "FD maximum",
+    "tSNR"
+]
+
+for col in numeric_covariates:
+    model_df[col] = pd.to_numeric(
+        model_df[col],
+        errors="coerce"
+    )
+
+
+# ============================================================
+# CATEGORICAL COVARIATES
+# ============================================================
+
+categorical_covariates = [
+    "Sex",
+    "Rodent.strain",
+    "Coil",
+    "fMRI.sequence",
+    "Anesthesia",
+    "Ventilation",
+    "head-plate"
+]
+
+
+# ============================================================
+# VARIABLES INTENTIONALLY EXCLUDED
+# ============================================================
+
+# Session:
+# excluded for now; could later be tested as a batch effect
+
+# Anesthesia amount:
+# excluded because the values/protocol interpretation are inconsistent
+
+# Habituation:
+# excluded because all values are missing
+
+
+# ============================================================
+# CHECK CLEANED VALUES
+# ============================================================
+
+for col in categorical_covariates:
+
+    print("\n" + col)
+
+    print(
+        model_df[col]
+        .value_counts(dropna=False)
+    )
+```
+
+
+```{python}
+# ============================================================
+# DUMMY ENCODING
+# ============================================================
+
+encoded_covariates = numeric_covariates.copy()
+
+encoding_table = []
+
+for col in categorical_covariates:
+
+    # Get categories
+    categories = (
+        model_df[col]
+        .dropna()
+        .unique()
+        .tolist()
+    )
+
+    # Sort categories, but keep Missing at the end
+    categories = sorted(
+        [x for x in categories if x != "Missing"]
+    )
+
+    if "Missing" in model_df[col].values:
+        categories.append("Missing")
+
+    # First category becomes reference
+    reference = categories[0]
+
+    print("\n" + col)
+    print("Reference:", reference)
+    print("Categories:", categories)
+
+    # Set category order explicitly
+    model_df[col] = pd.Categorical(
+        model_df[col],
+        categories=categories
+    )
+
+    # Create dummy variables
+    dummies = pd.get_dummies(
+        model_df[col],
+        prefix=col,
+        drop_first=True,
+        dtype=float
+    )
+
+    # Add dummy columns to dataframe
+    model_df = pd.concat(
+        [model_df, dummies],
+        axis=1
+    )
+
+    # Add new dummy columns to covariate list
+    encoded_covariates.extend(
+        dummies.columns.tolist()
+    )
+
+    # Add reference category to encoding table
+    encoding_table.append([
+        col,
+        reference,
+        "Reference"
+    ])
+
+    # Add encoded categories to encoding table
+    for dummy in dummies.columns:
+
+        category = dummy.replace(
+            col + "_",
+            ""
+        )
+
+        encoding_table.append([
+            col,
+            category,
+            dummy
+        ])
+
+
+# ============================================================
+# FINAL COVARIATES
+# ============================================================
+
+covariates = encoded_covariates
+
+
+# ============================================================
+# BATCH EFFECTS
+# ============================================================
+
+batch_effects = [
+    "Dataset_name"
+]
+
+
+# ============================================================
+# ENCODING TABLE
+# ============================================================
+
+encoding_table = pd.DataFrame(
+    encoding_table,
+    columns=[
+        "Variable",
+        "Category",
+        "Encoding"
+    ]
+)
+
+
+# ============================================================
+# CHECK RESULTS
+# ============================================================
+
+print("\n======================================")
+print("FINAL MODEL SETUP")
+print("======================================")
+
+print("\nNumber of rows:")
+print(len(model_df))
+
+print("\nNumber of numeric covariates:")
+print(len(numeric_covariates))
+
+print("\nNumber of categorical variables:")
+print(len(categorical_covariates))
+
+print("\nTotal number of encoded covariates:")
+print(len(covariates))
+
+print("\nNumeric covariates:")
+print(numeric_covariates)
+
+print("\nEncoded covariates:")
+print(covariates)
+
+print("\nBatch effects:")
+print(batch_effects)
+
+print("\nResponse variables:")
+print(response_vars)
+
+print("\nEncoding table:")
+display(encoding_table)
+```
+
+```{python}
+# ============================================================
+# CREATE CLEAN FINAL MODELLING DATAFRAME
+# ============================================================
+
+model_columns = (
+    id_columns
+    + batch_effects
+    + covariates
+    + response_vars
+)
+
+final_model_df = model_df[
+    model_columns
+]
+
+print("Final modelling dataframe shape:")
+print(final_model_df.shape)
+
+print("\nColumns:")
+print(final_model_df.columns.tolist())
+
+
+# ============================================================
+# SAVE MODELLING DATA
+# ============================================================
+
+output_dir = current_dir / "results" / "combined_dataset"
+
+final_model_df.to_csv(
+    output_dir / "Model_dataframe.csv",
+    index=False
+)
+
+encoding_table.to_csv(
+    output_dir / "Encoding_table.csv",
+    index=False
+)
+
+print("\nSaved:")
+print(output_dir / "Model_dataframe.csv")
+print(output_dir / "Encoding_table.csv")
+```

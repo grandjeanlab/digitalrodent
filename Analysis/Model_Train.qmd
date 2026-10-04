@@ -83,7 +83,7 @@ model = NormativeModel(
     evaluate_model=True,
     saveresults=True,
     saveplots=True,
-    save_dir=(
+    save_dir=str(
         current_dir
         / "results"
         / "normative_model"

@@ -1,0 +1,1237 @@
+## Setup
+```{python}
+from pathlib import Path
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Find the digitalrodent folder
+root = Path.cwd().parent
+
+# Figures directory
+fig_dir = root / "results" / "figures"
+fig_dir.mkdir(parents=True, exist_ok=True)
+
+# Load combined dataset
+Combined_dataset = pd.read_csv(
+    root / "results" / "combined_dataset" / "Combined_dataset.csv"
+)
+
+# Millimetres to inches for figure sizes
+MM = 1 / 25.4
+
+# Figure settings
+plt.rcParams.update({
+    "font.family": "Arial",
+    "font.size": 6,
+    "axes.labelsize": 8,
+    "axes.titlesize": 8,
+    "xtick.labelsize": 6,
+    "ytick.labelsize": 6,
+    "legend.fontsize": 6,
+    "legend.title_fontsize": 6
+})
+
+print(Combined_dataset.shape)
+```
+
+
+
+```{python}
+
+# --------------------------------------------------
+# FIGURE 1: Acquisition protocol landscape
+# One point = one unique acquisition protocol within a dataset
+#
+# x = TR
+# y = TE
+# bubble size = number of scans using that protocol
+# fill colour = MRI field strength
+# marker = fMRI sequence
+# edge colour = awake / anesthetized
+# --------------------------------------------------
+
+df = Combined_dataset.copy()
+
+# Numeric variables
+df["MRI T.R."] = pd.to_numeric(
+    df["MRI T.R."],
+    errors="coerce"
+)
+
+df["MRI T.E."] = pd.to_numeric(
+    df["MRI T.E."],
+    errors="coerce"
+)
+
+# Extract MRI field strength
+df["MRI_T"] = pd.to_numeric(
+    df["MRI"]
+    .astype(str)
+    .str.extract(r"(\d+(?:\.\d+)?)")[0],
+    errors="coerce"
+)
+
+# Clean categorical columns
+for col in [
+    "Coil",
+    "fMRI.sequence",
+    "Anesthesia",
+    "Ventilation",
+    "head-plate",
+    "Habituation"
+]:
+    df[col] = (
+        df[col]
+        .astype(str)
+        .str.strip()
+        .replace(["nan", "NA", ""], np.nan)
+    )
+
+# --------------------------------------------------
+# Awake / anesthetized grouping
+# --------------------------------------------------
+
+df["State"] = "Anesthetized"
+
+awake_mask = (
+    df["Anesthesia"]
+    .fillna("")
+    .str.lower()
+    .str.contains("awake")
+)
+
+df.loc[awake_mask, "State"] = "Awake"
+
+# Unknown if anesthesia itself is missing
+df.loc[df["Anesthesia"].isna(), "State"] = "Unknown"
+
+# --------------------------------------------------
+# Create unique acquisition protocols
+# --------------------------------------------------
+
+protocol_columns = [
+    "Dataset_name",
+    "MRI_T",
+    "Coil",
+    "fMRI.sequence",
+    "MRI T.R.",
+    "MRI T.E.",
+    "Anesthesia",
+    "Anesthesia amount",
+    "Ventilation",
+    "head-plate",
+    "Habituation",
+    "State"
+]
+
+protocols = (
+    df
+    .groupby(
+        protocol_columns,
+        dropna=False
+    )
+    .agg(
+        N_scans=("Scan_id", "count"),
+        N_animals=("Participant_Id", "nunique")
+    )
+    .reset_index()
+)
+
+# Need TR and TE for the scatter
+protocols = protocols.dropna(
+    subset=["MRI T.R.", "MRI T.E."]
+).copy()
+
+# --------------------------------------------------
+# Short dataset labels
+# --------------------------------------------------
+
+dataset_codes = {
+    "Awake": "AW",
+    "Awake_Rest": "AR",
+    "Douglas": "DO",
+    "Env_Enrichment": "EE",
+    "Florida": "FL",
+    "Longitudinal": "LO",
+    "3xTG": "3T",
+    "Multicenter": "MC",
+    "Psilocybin": "PS",
+    "Psilocybin_Pilot": "PP",
+    "MPTP": "MP",
+    "Sexdifference": "SD",
+    "NDUFS4": "ND",
+    "Propofol": "PR",
+    "Alvino": "AL"
+}
+
+protocols["Label"] = (
+    protocols["Dataset_name"]
+    .map(dataset_codes)
+    .fillna(protocols["Dataset_name"])
+)
+
+# --------------------------------------------------
+# Marker per sequence
+# --------------------------------------------------
+
+sequence_levels = (
+    protocols["fMRI.sequence"]
+    .fillna("Unknown")
+    .unique()
+)
+
+markers = [
+    "o", "s", "^", "D", "v",
+    "P", "X", "<", ">"
+]
+
+sequence_marker = {
+    sequence: markers[i % len(markers)]
+    for i, sequence in enumerate(sequence_levels)
+}
+
+# --------------------------------------------------
+# Bubble size
+# --------------------------------------------------
+
+sizes = (
+    45 +
+    280 *
+    protocols["N_scans"] /
+    protocols["N_scans"].max()
+)
+
+# --------------------------------------------------
+# Plot
+# --------------------------------------------------
+
+fig, ax = plt.subplots(
+    figsize=(190 * MM, 130 * MM)
+)
+
+# State edge colours
+state_edge = {
+    "Awake": "steelblue",
+    "Anesthetized": "sandybrown",
+    "Unknown": "gray"
+}
+
+# Plot per sequence so markers differ
+for sequence in sequence_levels:
+
+    temp = protocols[
+        protocols["fMRI.sequence"].fillna("Unknown") == sequence
+    ]
+
+    for idx, row in temp.iterrows():
+
+        ax.scatter(
+            row["MRI T.R."],
+            row["MRI T.E."],
+            s=sizes.loc[idx],
+            c=[row["MRI_T"]],
+            cmap="viridis",
+            vmin=protocols["MRI_T"].min(),
+            vmax=protocols["MRI_T"].max(),
+            marker=sequence_marker[sequence],
+            edgecolor=state_edge[row["State"]],
+            linewidth=1.5,
+            alpha=0.75,
+            zorder=3
+        )
+
+        ax.annotate(
+            row["Label"],
+            (
+                row["MRI T.R."],
+                row["MRI T.E."]
+            ),
+            xytext=(4, 4),
+            textcoords="offset points",
+            fontsize=6,
+            fontweight="bold"
+        )
+
+# --------------------------------------------------
+# MRI colour bar
+# --------------------------------------------------
+
+sm = plt.cm.ScalarMappable(
+    cmap="viridis",
+    norm=plt.Normalize(
+        protocols["MRI_T"].min(),
+        protocols["MRI_T"].max()
+    )
+)
+
+sm.set_array([])
+
+cbar = plt.colorbar(
+    sm,
+    ax=ax,
+    pad=0.02
+)
+
+cbar.set_label("MRI field strength (T)")
+
+# --------------------------------------------------
+# Sequence legend
+# --------------------------------------------------
+
+sequence_handles = []
+
+for sequence in sequence_levels:
+
+    sequence_handles.append(
+        plt.Line2D(
+            [0], [0],
+            marker=sequence_marker[sequence],
+            linestyle="",
+            markerfacecolor="white",
+            markeredgecolor="black",
+            markersize=6,
+            label=str(sequence)
+        )
+    )
+
+legend1 = ax.legend(
+    handles=sequence_handles,
+    title="fMRI sequence",
+    loc="upper left",
+    frameon=False
+)
+
+ax.add_artist(legend1)
+
+# --------------------------------------------------
+# State legend
+# --------------------------------------------------
+
+state_handles = []
+
+for state in [
+    "Awake",
+    "Anesthetized",
+    "Unknown"
+]:
+
+    state_handles.append(
+        plt.Line2D(
+            [0], [0],
+            marker="o",
+            linestyle="",
+            markerfacecolor="white",
+            markeredgecolor=state_edge[state],
+            markeredgewidth=1.5,
+            markersize=6,
+            label=state
+        )
+    )
+
+ax.legend(
+    handles=state_handles,
+    title="State",
+    loc="lower right",
+    frameon=False
+)
+
+# --------------------------------------------------
+# Styling
+# --------------------------------------------------
+
+ax.set_xlabel("Repetition time, TR")
+ax.set_ylabel("Echo time, TE")
+ax.set_title("Acquisition protocol landscape")
+
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+
+plt.tight_layout()
+
+plt.savefig(
+    fig_dir / "figure1_acquisition_protocols.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+
+# Also print the protocol summary so you can inspect
+# exactly what each plotted point represents
+print(
+    protocols[
+        [
+            "Dataset_name",
+            "MRI_T",
+            "Coil",
+            "fMRI.sequence",
+            "MRI T.R.",
+            "MRI T.E.",
+            "Anesthesia",
+            "Anesthesia amount",
+            "Ventilation",
+            "head-plate",
+            "Habituation",
+            "N_scans"
+        ]
+    ]
+)
+```
+
+
+```{python}
+# --------------------------------------------------
+# FIGURE 2: QC plot
+# x = mean FD
+# y = tSNR
+# size = maximum FD
+# colour = MRI field strength
+# --------------------------------------------------
+
+df = Combined_dataset.copy()
+
+for col in ["FD average", "FD maximum", "tSNR"]:
+    df[col] = pd.to_numeric(df[col], errors="coerce")
+
+df["MRI_T"] = pd.to_numeric(
+    df["MRI"].astype(str).str.extract(r"(\d+(?:\.\d+)?)")[0],
+    errors="coerce"
+)
+
+plot_df = df.dropna(
+    subset=["FD average", "FD maximum", "tSNR"]
+).copy()
+
+fig, ax = plt.subplots(figsize=(180 * MM, 130 * MM))
+
+if len(plot_df) == 0:
+
+    print("No scans currently have FD average + FD maximum + tSNR together.")
+
+else:
+
+    sizes = 20 + 220 * (
+        plot_df["FD maximum"] /
+        plot_df["FD maximum"].max()
+    )
+
+    sc = ax.scatter(
+        plot_df["FD average"],
+        plot_df["tSNR"],
+        s=sizes,
+        c=plot_df["MRI_T"],
+        cmap="viridis",
+        alpha=0.5,
+        edgecolor="none"
+    )
+
+    cbar = plt.colorbar(sc, ax=ax)
+    cbar.set_label("MRI field strength (T)")
+
+    medians = (
+        plot_df
+        .groupby("Dataset_name")
+        .agg(
+            FD_mean=("FD average", "median"),
+            tSNR=("tSNR", "median")
+        )
+    )
+
+    ax.scatter(
+        medians["FD_mean"],
+        medians["tSNR"],
+        s=55,
+        color="sandybrown",
+        edgecolor="black",
+        linewidth=0.5,
+        zorder=3
+    )
+
+    for dataset, row in medians.iterrows():
+        ax.annotate(
+            dataset,
+            (row["FD_mean"], row["tSNR"]),
+            xytext=(4, 4),
+            textcoords="offset points",
+            fontsize=5.8
+        )
+
+    ax.set_xlabel("Mean FD")
+    ax.set_ylabel("tSNR")
+    ax.set_title("Motion and signal quality")
+
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+    plt.tight_layout()
+
+    plt.savefig(
+        fig_dir / "figure2_qc_tsnr.svg",
+        format="svg",
+        bbox_inches="tight"
+    )
+
+    plt.show()
+
+```
+
+
+```{python} --------------------------------------------------
+# FIGURE 3: Dataset composition
+# Bars = number of animals by sex
+# Right side = aligned mini-table
+# --------------------------------------------------
+
+df = Combined_dataset.copy()
+df["Age(week)"] = pd.to_numeric(df["Age(week)"], errors="coerce")
+
+# One row per unique animal
+animals = (
+    df
+    .dropna(subset=["Participant_Id"])
+    .drop_duplicates(subset=["Dataset_name", "Participant_Id"])
+    .copy()
+)
+
+animals["Sex_clean"] = (
+    animals["Sex"]
+    .astype(str)
+    .str.upper()
+    .str.strip()
+)
+
+# Number of scans
+scan_counts = (
+    df.groupby("Dataset_name")["Scan_id"]
+    .count()
+    .rename("N_scans")
+)
+
+# Number of animals
+animal_counts = (
+    animals.groupby("Dataset_name")["Participant_Id"]
+    .nunique()
+    .rename("N_animals")
+)
+
+# Mean age
+mean_age = (
+    animals.groupby("Dataset_name")["Age(week)"]
+    .mean()
+    .rename("Mean_age")
+)
+
+# Sex counts
+sex_counts = (
+    animals[animals["Sex_clean"].isin(["F", "M"])]
+    .groupby(["Dataset_name", "Sex_clean"])
+    .size()
+    .unstack(fill_value=0)
+)
+
+if "F" not in sex_counts.columns:
+    sex_counts["F"] = 0
+
+if "M" not in sex_counts.columns:
+    sex_counts["M"] = 0
+
+# Strain
+strain_summary = (
+    animals.groupby("Dataset_name")["Rodent.strain"]
+    .apply(
+        lambda x: ", ".join(
+            sorted(
+                [
+                    s
+                    for s in x.dropna().astype(str).str.strip().unique()
+                    if s.lower() not in ["", "na", "nan"]
+                ]
+            )
+        )
+    )
+    .rename("Strain")
+)
+
+# Combine
+summary = pd.concat(
+    [
+        scan_counts,
+        animal_counts,
+        mean_age,
+        sex_counts[["F", "M"]],
+        strain_summary
+    ],
+    axis=1
+)
+
+summary["F"] = summary["F"].fillna(0)
+summary["M"] = summary["M"].fillna(0)
+
+summary["Known_sex"] = summary["F"] + summary["M"]
+
+summary["Unknown_sex"] = (
+    summary["N_animals"] -
+    summary["Known_sex"]
+)
+
+summary["Strain"] = summary["Strain"].fillna("NA")
+
+summary.loc[
+    summary["Strain"] == "",
+    "Strain"
+] = "NA"
+
+# Smallest at top, largest at bottom
+summary = summary.sort_values(
+    "N_animals",
+    ascending=True
+)
+
+y = np.arange(len(summary))
+
+# --------------------------------------------------
+# Figure
+# --------------------------------------------------
+
+fig, ax = plt.subplots(
+    figsize=(210 * MM, 125 * MM)
+)
+
+# Female
+ax.barh(
+    y,
+    summary["F"],
+    color="sandybrown",
+    label="Female"
+)
+
+# Male
+ax.barh(
+    y,
+    summary["M"],
+    left=summary["F"],
+    color="steelblue",
+    label="Male"
+)
+
+# Unknown sex
+if (summary["Unknown_sex"] > 0).any():
+    ax.barh(
+        y,
+        summary["Unknown_sex"],
+        left=summary["F"] + summary["M"],
+        color="lightgray",
+        label="Sex unknown"
+    )
+
+# Dataset labels
+ax.set_yticks(y)
+ax.set_yticklabels(summary.index)
+
+# --------------------------------------------------
+# X axis stops at Multicenter
+# --------------------------------------------------
+
+if "Multicenter" in summary.index:
+    x_max_plot = summary.loc[
+        "Multicenter",
+        "N_animals"
+    ]
+else:
+    x_max_plot = summary["N_animals"].max()
+
+ax.set_xlim(0, x_max_plot)
+
+# --------------------------------------------------
+# Mini-table
+# Same y-coordinate as the bars
+# --------------------------------------------------
+
+# Positions relative to the right side of the graph
+x_scans = x_max_plot * 1.04
+x_age = x_max_plot * 1.25
+x_strain = x_max_plot * 1.48
+
+# Headers
+ax.text(
+    x_scans,
+    -0.9,
+    "Scans",
+    fontweight="bold",
+    fontsize=6,
+    ha="left",
+    clip_on=False
+)
+
+ax.text(
+    x_age,
+    -0.9,
+    "Mean age",
+    fontweight="bold",
+    fontsize=6,
+    ha="left",
+    clip_on=False
+)
+
+ax.text(
+    x_strain,
+    -0.9,
+    "Strain",
+    fontweight="bold",
+    fontsize=6,
+    ha="left",
+    clip_on=False
+)
+
+# Values
+for yi, dataset in enumerate(summary.index):
+
+    row = summary.loc[dataset]
+
+    # Scan number
+    ax.text(
+        x_scans,
+        yi,
+        str(int(row["N_scans"])),
+        va="center",
+        ha="left",
+        fontsize=6,
+        clip_on=False
+    )
+
+    # Mean age
+    if pd.isna(row["Mean_age"]):
+        age_text = "NA"
+    else:
+        age_text = f'{row["Mean_age"]:.1f}'
+
+    ax.text(
+        x_age,
+        yi,
+        age_text,
+        va="center",
+        ha="left",
+        fontsize=6,
+        clip_on=False
+    )
+
+    # Strain
+    ax.text(
+        x_strain,
+        yi,
+        row["Strain"],
+        va="center",
+        ha="left",
+        fontsize=5.5,
+        clip_on=False
+    )
+
+# --------------------------------------------------
+# Styling
+# --------------------------------------------------
+
+ax.set_xlabel("Number of animals")
+ax.set_title("Dataset composition")
+ax.invert_yaxis()
+
+ax.legend(
+    frameon=False,
+    loc="upper right"
+)
+
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+
+# Extra physical space on right for mini-table
+plt.subplots_adjust(
+    left=0.16,
+    right=0.58,
+    top=0.92,
+    bottom=0.12
+)
+
+plt.savefig(
+    fig_dir / "figure3_dataset_composition.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+```
+
+
+
+## Old code 
+This code generates a heatmap to visualize the mean component values for each dataset. To see which datasets may have generally higher or lower values.
+```{python}
+from matplotlib.colors import LinearSegmentedColormap
+
+components = [f"comp{i}" for i in range(1, 19)]
+
+Combined_dataset[components] = Combined_dataset[components].apply(
+    pd.to_numeric,
+    errors="coerce"
+)
+
+
+# ============================================================
+# 1. RAW COMPONENT HEATMAP
+# ============================================================
+
+heatmap_data = (
+    Combined_dataset
+    .groupby("Dataset_name")[components]
+    .median()
+)
+
+cmap = LinearSegmentedColormap.from_list(
+    "steelblue_sandybrown",
+    ["steelblue", "lightblue", "wheat", "sandybrown"]
+)
+
+fig, ax = plt.subplots(figsize=(180 * MM, 100 * MM))
+
+im = ax.imshow(
+    heatmap_data.values,
+    aspect="auto",
+    cmap=cmap
+)
+
+ax.set_xticks(range(len(components)))
+ax.set_xticklabels(
+    components,
+    rotation=45,
+    ha="right"
+)
+
+ax.set_yticks(range(len(heatmap_data.index)))
+ax.set_yticklabels(heatmap_data.index)
+
+ax.set_xlabel("Component")
+ax.set_ylabel("Dataset")
+ax.set_title("Median component value per dataset")
+
+cbar = plt.colorbar(im, ax=ax)
+cbar.set_label("Median value")
+
+plt.tight_layout()
+
+plt.savefig(
+    fig_dir / "component_heatmap.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+
+
+# ============================================================
+# 2. STANDARDIZED COMPONENT HEATMAP
+# ============================================================
+
+heatmap_z = heatmap_data.sub(
+    heatmap_data.mean(axis=1),
+    axis=0
+)
+
+heatmap_z = heatmap_z.div(
+    heatmap_data.std(axis=1).replace(0, np.nan),
+    axis=0
+)
+
+limit = np.nanmax(np.abs(heatmap_z.values))
+
+fig, ax = plt.subplots(figsize=(180 * MM, 100 * MM))
+
+im = ax.imshow(
+    heatmap_z.values,
+    aspect="auto",
+    cmap=cmap,
+    vmin=-limit,
+    vmax=limit
+)
+
+ax.set_xticks(range(len(components)))
+ax.set_xticklabels(
+    components,
+    rotation=45,
+    ha="right"
+)
+
+ax.set_yticks(range(len(heatmap_z.index)))
+ax.set_yticklabels(heatmap_z.index)
+
+ax.set_xlabel("Component")
+ax.set_ylabel("Dataset")
+ax.set_title("Relative component pattern per dataset")
+
+cbar = plt.colorbar(im, ax=ax)
+cbar.set_label("Z-score")
+
+plt.tight_layout()
+
+plt.savefig(
+    fig_dir / "component_heatmap_zscore.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+```
+
+Ridgeline plots for each component across datasets.
+```{python}
+from scipy.stats import gaussian_kde
+
+components = [f"comp{i}" for i in range(1, 19)]
+
+# Possibility to isolate/remove a specific dataset
+plot_data = Combined_dataset
+# plot_data = Combined_dataset[Combined_dataset["Dataset_name"] != "Alvino"]
+
+# Make sure component columns are numeric
+plot_data[components] = plot_data[components].apply(pd.to_numeric, errors="coerce")
+
+cutoff = 1.5
+
+# Order datasets by overall mean across all components
+dataset_order = (
+    plot_data
+    .groupby("Dataset_name")[components]
+    .mean()
+    .mean(axis=1)
+    .sort_values(ascending=False)
+    .index
+)
+
+# Shared x-range, but plot only up to cutoff
+x_min = plot_data[components].min().min()
+x = np.linspace(x_min, cutoff, 300)
+
+# 18 distinct colors
+colors = plt.cm.tab20(np.linspace(0, 1, len(components)))
+
+fig, ax = plt.subplots(figsize=(180 * MM, 120 * MM))
+
+above_cutoff = []
+
+for i, dataset in enumerate(dataset_order):
+
+    ax.hlines(
+        y=i,
+        xmin=x_min,
+        xmax=cutoff,
+        color="lightgray",
+        linewidth=0.6,
+        zorder=1
+    )
+
+    for j, component in enumerate(components):
+
+        values = (
+            plot_data.loc[
+                plot_data["Dataset_name"] == dataset,
+                component
+            ]
+            .dropna()
+            .astype(float)
+        )
+
+        if len(values) < 2:
+            continue
+
+        kde = gaussian_kde(values)
+        density = kde(x)
+
+        if density.max() == 0:
+            continue
+
+        density = density / density.max() * 0.75
+
+        ax.plot(
+            x,
+            i + density,
+            color=colors[j],
+            alpha=0.7,
+            linewidth=0.9,
+            label=component if i == 0 else None,
+            zorder=2
+        )
+
+        ax.fill_between(
+            x,
+            i,
+            i + density,
+            color=colors[j],
+            alpha=0.08,
+            zorder=2
+        )
+
+        n_above = (values > cutoff).sum()
+
+        if n_above > 0:
+            above_cutoff.append([
+                dataset,
+                component,
+                n_above,
+                values.max()
+            ])
+
+            ax.scatter(
+                [cutoff],
+                [i + 0.72],
+                color="red",
+                s=8,
+                zorder=4
+            )
+
+ax.set_yticks(range(len(dataset_order)))
+ax.set_yticklabels(dataset_order)
+
+ax.set_xlim(x_min, cutoff)
+ax.set_xlabel("DR value")
+ax.set_ylabel("Dataset")
+ax.set_title("Overlapping DR distributions of all 18 components per dataset")
+
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+
+ax.legend(
+    title="Component",
+    frameon=False,
+    ncol=3,
+    bbox_to_anchor=(1.02, 1),
+    loc="upper left"
+)
+
+plt.tight_layout()
+
+plt.savefig(
+    fig_dir / "ridgeline_all_components_overlapping_cutoff_1_5.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+
+
+# ============================================================
+# TABLE OF VALUES ABOVE CUTOFF
+# ============================================================
+
+above_cutoff_df = pd.DataFrame(
+    above_cutoff,
+    columns=["Dataset_name", "Component", "N_above_1.5", "Max_value"]
+)
+
+if len(above_cutoff_df) == 0:
+    print("No values above 1.5 were found.")
+else:
+    above_cutoff_df = above_cutoff_df.sort_values(
+        ["N_above_1.5", "Max_value"],
+        ascending=[False, False]
+    )
+    print(above_cutoff_df.to_string(index=False))
+```
+
+
+Following code does everything that has already been done for the datasets for the normative model for the Alzheimer dataset.
+## Alzheimer 
+```{python}
+from scipy.stats import gaussian_kde
+
+Alzheimer = pd.read_csv(
+    root / "data" / "Alzheimer" / "Alzheimer_MetaData.tsv",
+    sep="\t"
+)
+
+components = [f"comp{i}" for i in range(1, 19)]
+
+TG = Combined_dataset[
+    Combined_dataset["Dataset_name"] == "3xTG"
+]
+
+Alzheimer[components] = Alzheimer[components].apply(
+    pd.to_numeric,
+    errors="coerce"
+)
+
+TG[components] = TG[components].apply(
+    pd.to_numeric,
+    errors="coerce"
+)
+
+# Shared x-range based on the actual data
+all_values = pd.concat(
+    [
+        Alzheimer[components].stack(),
+        TG[components].stack()
+    ]
+)
+
+x_min = all_values.min()
+x_max = all_values.max()
+
+x = np.linspace(x_min, x_max, 300)
+
+fig, ax = plt.subplots(figsize=(180 * MM, 120 * MM))
+
+for i, component in enumerate(components):
+
+    # Alzheimer
+    values_alzheimer = (
+        Alzheimer[component]
+        .dropna()
+        .astype(float)
+    )
+
+    if len(values_alzheimer) >= 2:
+
+        kde = gaussian_kde(values_alzheimer)
+        density = kde(x)
+
+        if density.max() > 0:
+
+            density = density / density.max() * 0.75
+
+            ax.fill_between(
+                x,
+                i,
+                i + density,
+                color="steelblue",
+                alpha=0.25
+            )
+
+            ax.plot(
+                x,
+                i + density,
+                color="steelblue",
+                linewidth=1.2,
+                label="Alzheimer" if i == 0 else None
+            )
+
+
+    # 3xTG
+    values_tg = (
+        TG[component]
+        .dropna()
+        .astype(float)
+    )
+
+    if len(values_tg) >= 2:
+
+        kde = gaussian_kde(values_tg)
+        density = kde(x)
+
+        if density.max() > 0:
+
+            density = density / density.max() * 0.75
+
+            ax.fill_between(
+                x,
+                i,
+                i + density,
+                color="sandybrown",
+                alpha=0.25
+            )
+
+            ax.plot(
+                x,
+                i + density,
+                color="sandybrown",
+                linewidth=1.2,
+                label="3xTG" if i == 0 else None
+            )
+
+
+    ax.hlines(
+        y=i,
+        xmin=x_min,
+        xmax=x_max,
+        color="lightgray",
+        linewidth=0.6,
+        zorder=0
+    )
+
+ax.set_yticks(range(len(components)))
+ax.set_yticklabels(components)
+
+ax.set_xlim(x_min, x_max)
+
+ax.set_xlabel("DR value")
+ax.set_ylabel("Component")
+ax.set_title("Alzheimer and 3xTG component distributions")
+
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+
+ax.legend(
+    frameon=False,
+    loc="upper right"
+)
+
+plt.tight_layout()
+
+plt.savefig(
+    fig_dir / "Alzheimer_3xTG_ridgeline_components.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+```
+
+
+## statistical test 
+
+```{python}
+from scipy.stats import mannwhitneyu
+from statsmodels.stats.multitest import multipletests
+
+results = []
+
+for component in components:
+
+    alz = Alzheimer[component].dropna().astype(float)
+    tg = TG[component].dropna().astype(float)
+
+    stat, p = mannwhitneyu(
+        alz,
+        tg,
+        alternative="two-sided"
+    )
+
+    results.append([
+        component,
+        len(alz),
+        len(tg),
+        alz.median(),
+        tg.median(),
+        stat,
+        p
+    ])
+
+results = pd.DataFrame(
+    results,
+    columns=[
+        "Component",
+        "N_Alzheimer",
+        "N_3xTG",
+        "Median_Alzheimer",
+        "Median_3xTG",
+        "U",
+        "p"
+    ]
+)
+
+results["p_FDR"] = multipletests(
+    results["p"],
+    method="fdr_bh"
+)[1]
+
+print(
+    results.sort_values("p_FDR").to_string(index=False)
+)
+
+```

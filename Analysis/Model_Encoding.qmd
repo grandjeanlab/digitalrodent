@@ -1,5 +1,7 @@
 # Make a modelling dataframe
 ```{python}
+# Make a modelling dataframe
+
 from pathlib import Path
 import pandas as pd
 import numpy as np
@@ -16,9 +18,26 @@ combined_path = (
 model_df = pd.read_csv(combined_path)
 
 print("Combined dataset shape:", model_df.shape)
-```
-```{python}
 
+
+# ============================================================
+# IDS AND RESPONSE VARIABLES
+# ============================================================
+
+id_columns = [
+    "Scan_id",
+    "Participant_Id"
+]
+
+components = [f"comp{i}" for i in range(1, 19)]
+
+response_vars = components
+
+for component in response_vars:
+    model_df[component] = pd.to_numeric(
+        model_df[component],
+        errors="coerce"
+    )
 ```
 
 ```{python}
@@ -205,6 +224,99 @@ for col in numeric_covariates:
 
 
 # ============================================================
+# HANDLE MISSING NUMERIC VALUES
+# ============================================================
+
+original_missing = {}
+
+all_missing_numeric = []
+numeric_missing_indicators = []
+
+for col in numeric_covariates:
+
+    # Save original missingness BEFORE changing anything
+    original_missing[col] = {
+        "N_missing": model_df[col].isna().sum(),
+        "Percent_missing": model_df[col].isna().mean() * 100
+    }
+
+    # Entire variable missing
+    if model_df[col].isna().all():
+
+        all_missing_numeric.append(col)
+
+    # Partially missing
+    elif model_df[col].isna().any():
+
+        missing_col = col + "_Missing"
+
+        model_df[missing_col] = (
+            model_df[col]
+            .isna()
+            .astype(float)
+        )
+
+        numeric_missing_indicators.append(missing_col)
+
+        # First fill using dataset-specific median
+        model_df[col] = model_df[col].fillna(
+            model_df
+            .groupby("Dataset_name")[col]
+            .transform("median")
+        )
+
+        # If an entire dataset had no values,
+        # use the global median
+        model_df[col] = model_df[col].fillna(
+            model_df[col].median()
+        )
+
+
+# Remove completely empty variables from modelling
+for col in all_missing_numeric:
+    numeric_covariates.remove(col)
+
+
+# ============================================================
+# NUMERIC MISSINGNESS SUMMARY
+# ============================================================
+
+missing_summary = []
+
+for col in original_missing:
+
+    if col in all_missing_numeric:
+
+        action = "Excluded - all values missing"
+
+    elif col + "_Missing" in numeric_missing_indicators:
+
+        action = "Imputed + missing indicator"
+
+    else:
+
+        action = "No missing values"
+
+    missing_summary.append([
+        col,
+        original_missing[col]["N_missing"],
+        original_missing[col]["Percent_missing"],
+        action
+    ])
+
+
+missing_summary = pd.DataFrame(
+    missing_summary,
+    columns=[
+        "Variable",
+        "N_missing",
+        "Percent_missing",
+        "Action"
+    ]
+)
+
+display(missing_summary)
+# ============================================================
 # CATEGORICAL COVARIATES
 # ============================================================
 
@@ -245,6 +357,13 @@ for col in categorical_covariates:
         model_df[col]
         .value_counts(dropna=False)
     )
+
+
+print("\nNumeric missing indicators:")
+print(numeric_missing_indicators)
+
+print("\nRemaining NaNs in numeric covariates:")
+print(model_df[numeric_covariates].isna().sum())
 ```
 
 
@@ -253,7 +372,10 @@ for col in categorical_covariates:
 # DUMMY ENCODING
 # ============================================================
 
-encoded_covariates = numeric_covariates.copy()
+encoded_covariates = (
+    numeric_covariates
+    + numeric_missing_indicators
+)
 
 encoding_table = []
 
@@ -370,19 +492,16 @@ print("======================================")
 print("\nNumber of rows:")
 print(len(model_df))
 
-print("\nNumber of numeric covariates:")
-print(len(numeric_covariates))
+print("\nNumeric covariates:")
+print(numeric_covariates)
 
-print("\nNumber of categorical variables:")
-print(len(categorical_covariates))
+print("\nNumeric missing indicators:")
+print(numeric_missing_indicators)
 
 print("\nTotal number of encoded covariates:")
 print(len(covariates))
 
-print("\nNumeric covariates:")
-print(numeric_covariates)
-
-print("\nEncoded covariates:")
+print("\nCovariates:")
 print(covariates)
 
 print("\nBatch effects:")
@@ -416,6 +535,9 @@ print(final_model_df.shape)
 
 print("\nColumns:")
 print(final_model_df.columns.tolist())
+
+print("\nRemaining NaNs in model covariates:")
+print(final_model_df[covariates].isna().sum().sum())
 
 
 # ============================================================

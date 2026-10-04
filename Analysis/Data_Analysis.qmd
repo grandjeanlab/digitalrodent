@@ -761,9 +761,6 @@ plt.show()
 ```
 
 
-
-## Old code 
-This code generates a heatmap to visualize the mean component values for each dataset. To see which datasets may have generally higher or lower values.
 ```{python}
 from matplotlib.colors import LinearSegmentedColormap
 

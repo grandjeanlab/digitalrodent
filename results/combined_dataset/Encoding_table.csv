@@ -1,20 +1,16 @@
 Variable,Category,Encoding
 Sex,F,Reference
 Sex,M,Sex_M
-Sex,Missing,Sex_Missing
 Rodent.strain,129S2/SvPas,Reference
 Rodent.strain,C57BL/6,Rodent.strain_C57BL/6
 Rodent.strain,F1 C6/129P,Rodent.strain_F1 C6/129P
 Rodent.strain,ICR,Rodent.strain_ICR
-Rodent.strain,Missing,Rodent.strain_Missing
 Coil,Cryo,Reference
 Coil,RT,Coil_RT
-Coil,Missing,Coil_Missing
 fMRI.sequence,EPI,Reference
 fMRI.sequence,GE-EPI,fMRI.sequence_GE-EPI
 fMRI.sequence,ME-EPI,fMRI.sequence_ME-EPI
 fMRI.sequence,SE-EPI,fMRI.sequence_SE-EPI
-fMRI.sequence,Missing,fMRI.sequence_Missing
 Anesthesia,Awake,Reference
 Anesthesia,Dex,Anesthesia_Dex
 Anesthesia,Dexiso,Anesthesia_Dexiso
@@ -23,10 +19,7 @@ Anesthesia,Iso,Anesthesia_Iso
 Anesthesia,Med,Anesthesia_Med
 Anesthesia,Mediso,Anesthesia_Mediso
 Anesthesia,Propofol,Anesthesia_Propofol
-Anesthesia,Missing,Anesthesia_Missing
 Ventilation,No,Reference
 Ventilation,Yes,Ventilation_Yes
-Ventilation,Missing,Ventilation_Missing
 head-plate,No,Reference
 head-plate,Yes,head-plate_Yes
-head-plate,Missing,head-plate_Missing

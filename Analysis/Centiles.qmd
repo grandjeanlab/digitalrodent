@@ -1,0 +1,136 @@
+```{python}
+from pathlib import Path
+import pandas as pd
+
+from pcntoolkit import (
+    NormativeModel,
+    NormData,
+    plot_centiles
+)
+
+
+# ============================================================
+# PATHS
+# ============================================================
+
+current_dir = Path.cwd().parent
+
+model_dir = (
+    current_dir
+    / "results"
+    / "normative_model"
+    / "BLR"
+)
+
+plot_dir = (
+    model_dir
+    / "centile_plots"
+)
+
+plot_dir.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+
+# ============================================================
+# LOAD MODEL
+# ============================================================
+
+model = NormativeModel.load(
+    str(model_dir)
+)
+
+print("BLR model loaded")
+
+
+# ============================================================
+# LOAD MODELLING DATA
+# ============================================================
+
+model_df = pd.read_csv(
+    current_dir
+    / "results"
+    / "combined_dataset"
+    / "Model_dataframe.csv"
+)
+
+response_vars = [
+    f"comp{i}" for i in range(1, 19)
+]
+
+batch_effects = [
+    "Dataset_name"
+]
+
+covariates = [
+    col for col in model_df.columns
+    if col not in (
+        [
+            "Scan_id",
+            "Participant_Id",
+            "Dataset_name"
+        ]
+        + response_vars
+    )
+]
+
+
+# ============================================================
+# CREATE NORMDATA FOR SCATTER DATA
+# ============================================================
+
+norm_data = NormData.from_dataframe(
+    name="DigitalRodent",
+    dataframe=model_df,
+    covariates=covariates,
+    batch_effects=batch_effects,
+    response_vars=response_vars,
+    remove_Nan=False
+)
+
+
+# ============================================================
+# CONTINUOUS COVARIATES
+# ============================================================
+
+continuous_covariates = [
+    "Age(week)",
+    "MRI",
+    "MRI T.R.",
+    "MRI T.E.",
+    "FD average",
+    "FD maximum"
+]
+
+continuous_covariates = [
+    col for col in continuous_covariates
+    if col in covariates
+]
+
+
+# ============================================================
+# CENTILE PLOTS
+# ============================================================
+
+for covariate in continuous_covariates:
+
+    print("\nPlotting:", covariate)
+
+    figures = plot_centiles(
+        model,
+        scatter_data=norm_data,
+        covariate=covariate,
+        centiles=[
+            0.05,
+            0.50,
+            0.95
+        ],
+        save_dir=str(plot_dir)
+    )
+
+print("\nCentile plots saved to:")
+print(plot_dir)
+
+```
+

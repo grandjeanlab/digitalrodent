@@ -1,0 +1,71 @@
+Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
+	sub-COMR194c-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006781644945	0.01045986286	
+	sub-COMR194c-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005912076804	0.008258959638	
+	sub-COMR194f-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006689003051	0.01124431599	
+	sub-COMR194f-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005662397096	0.008491416815	
+	sub-COMR202d-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006610692586	0.01136247689	
+	sub-COMR202d-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005027803051	0.007219245443	
+	sub-COMR221c-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006957535238	0.01234956292	
+	sub-COMR221c-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.00539714751	0.007304642596	
+	sub-COMR221f-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006533582185	0.01103733963	
+	sub-COMR221f-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.007405271613	0.01148441683	
+	sub-COMR232a-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006514585254	0.01148424684	
+	sub-COMR232a-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.00730801025	0.01210899581	
+	sub-COMR232b-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.00625340415	0.01094740197	
+	sub-COMR232b-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005586623699	0.008105802556	
+	sub-COMR232f-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006609371853	0.01192559386	
+	sub-COMR232f-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.01588135941	0.02450982504	
+	sub-COMR233a-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006790735728	0.01131208539	
+	sub-COMR233a-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.00495559382	0.007445689855	
+	sub-COMR233f-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006066126532	0.00915076444	
+	sub-COMR233f-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006184094202	0.009131706992	
+	sub-COMR242d-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.007208143494	0.01295326493	
+	sub-COMR242d-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4		GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005411119114	0.00787074051	
+	sub-COMR242i-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.01165833024	0.02276302441	
+	sub-COMR242i-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006164358552	0.00908395751	
+	sub-COMR291e-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.007028199342	0.01191076189	
+	sub-COMR291e-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.009031700241	0.01441111041	
+	sub-COMR291f-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006650687115	0.01077592585	
+	sub-COMR291f-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005329959736	0.008332619761	
+	sub-COMR291h-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006466664459	0.01086708417	
+	sub-COMR291h-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.00531176287	0.007826652955	
+	sub-COMR301d-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.00699299565	0.01230016291	
+	sub-COMR301d-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005443385684	0.008259885892	
+	sub-COMR301f-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.007266408663	0.0136034071	
+	sub-COMR301f-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005197976636	0.007541750601	
+	sub-COMR321a-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006293259638	0.01084044655	
+	sub-COMR321a-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.01029000114	0.01779318002	
+	sub-COMR331a-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006467121616	0.01059784086	
+	sub-COMR331a-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.00629170758	0.01010338842	
+	sub-COMR331b-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006226668865	0.01058852322	
+	sub-COMR331b-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.00542792689	0.00866648249	
+	sub-COMR331c-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006336350346	0.01089696007	
+	sub-COMR331c-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006329979123	0.009953942743	
+	sub-COMR331e-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006642047789	0.01072006715	
+	sub-COMR331e-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005647157189	0.007619075833	
+	sub-COMR332d-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.00553220869	0.008048521467	
+	sub-COMR332d-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.0190391148	0.03045744918	
+	sub-COMR332f-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.0165821076	0.03214168533	
+	sub-COMR332f-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006179281605	0.01049556659	
+	sub-COMR341a-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.007328455548	0.0140908665	
+	sub-COMR341a-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006078508574	0.009074525256	
+	sub-COMR351b-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.008844874546	0.01618385277	
+	sub-COMR351b-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006488833054	0.01121144437	
+	sub-COMR351i-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006772109984	0.01222422083	
+	sub-COMR351i-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005687852899	0.008026803792	
+	sub-COMR381a-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005864821541	0.009260105225	
+	sub-COMR381a-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005121743906	0.007819942765	
+	sub-COMR381e-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.007108138437	0.01151155154	
+	sub-COMR381e-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005809468462	0.008460002805	
+	sub-COMR381g-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005804865877	0.008679664322	
+	sub-COMR381g-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006073004774	0.009837422719	
+	sub-COMR381h-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.009145202964	0.01588153583	
+	sub-COMR381h-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.007883307668	0.01262444251	
+	sub-COMR391b-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.007075240353	0.0114813693	
+	sub-COMR391b-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.005519084716	0.008404037783	
+	sub-COMR421b-PND30	1	Longitudinal_in_vivo_MRI	M	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.007473605779	0.0123083312	
+	sub-COMR421b-PND90	2	Longitudinal_in_vivo_MRI	M	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.008197130228	0.01259542892	
+	sub-COMR421f-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.007109974847	0.01299713849	
+	sub-COMR421f-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.004911227186	0.007102097003	
+	sub-COMR431c-PND30	1	Longitudinal_in_vivo_MRI	F	4	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.008106713008	0.01431838265	
+	sub-COMR431c-PND90	2	Longitudinal_in_vivo_MRI	F	12	C57BL/6	9.4	n	GE-EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.4–0.65% ISO	n	n		0.006217238071	0.009072026555	

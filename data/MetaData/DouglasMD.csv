@@ -1,0 +1,21 @@
+Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
+	sub-MFC054	1	Douglas hypercapnia	M	11	C57BL/6	7		GE-EPI	1000	15	iso		n	n		0.006935861071	0.01204568385	
+	sub-MFC055	1	Douglas hypercapnia	M	11	C57BL/6	7		GE-EPI	1000	15	iso		n	n		0.00967930513	0.01822208663	
+	sub-MFC056	1	Douglas hypercapnia	M	11	C57BL/6	7		GE-EPI	1000	15	iso		n	n		0.009053884498	0.0179751394	
+	sub-MFC057	1	Douglas hypercapnia	M	11	C57BL/6	7		GE-EPI	1000	15	iso		n	n		0.005167729657	0.009135519224	
+	sub-MFC058	1	Douglas hypercapnia	M	11	C57BL/6	7		GE-EPI	1000	15	iso		n	n		0.006706872591	0.01231160065	
+	sub-MFC059	1	Douglas hypercapnia	M	11	C57BL/6	7		GE-EPI	1000	15	dexiso		n	n				
+	sub-MFC060	1	Douglas hypercapnia	M	11	C57BL/6	7		GE-EPI	1000	15	dexiso		n	n				
+	sub-MFC061	1	Douglas hypercapnia	M	11	C57BL/6	7		GE-EPI	1000	15	dexiso		n	n				
+	sub-MFC062	1	Douglas hypercapnia	M	11	C57BL/6	7		GE-EPI	1000	15	dexiso		n	n				
+	sub-MFC063	1	Douglas hypercapnia	M	11	C57BL/6	7		GE-EPI	1000	15	dexiso		n	n				
+	sub-MFC064	1	Douglas hypercapnia	M	12	C57BL/6	7		GE-EPI	1000	15	dex		n	n				
+	sub-MFC065	1	Douglas hypercapnia	M	12	C57BL/6	7		GE-EPI	1000	15	dex		n	n				
+	sub-MFC066	1	Douglas hypercapnia	M	12	C57BL/6	7		GE-EPI	1000	15	dex		n	n				
+	sub-MFC067	1	Douglas hypercapnia	M	12	C57BL/6	7		GE-EPI	1000	15	dex		n	n				
+	sub-MFC068	1	Douglas hypercapnia	M	12	C57BL/6	7		GE-EPI	1000	15	dex		n	n				
+	sub-MFC059	2	Douglas hypercapnia	M	12	C57BL/6	7		GE-EPI	1000	15	dexiso		n	n				
+	sub-MFC060	2	Douglas hypercapnia	M	12	C57BL/6	7		GE-EPI	1000	15	dexiso		n	n				
+	sub-MFC061	2	Douglas hypercapnia	M	12	C57BL/6	7		GE-EPI	1000	15	dexiso		n	n				
+	sub-MFC062	2	Douglas hypercapnia	M	12	C57BL/6	7		GE-EPI	1000	15	dexiso		n	n				
+	sub-MFC063	2	Douglas hypercapnia	M	12	C57BL/6	7		GE-EPI	1000	15	dexiso		n	n				

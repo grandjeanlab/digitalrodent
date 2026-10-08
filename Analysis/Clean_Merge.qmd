@@ -205,8 +205,6 @@ Combined_dataset.to_csv(
 print(Combined_dataset.shape)
 ```
 
-Adding columms
-
 ```{python}
 # ============================================================
 # CLEAN COMBINED DATASET
@@ -248,6 +246,11 @@ Combined_dataset.loc[
     "Rodent.strain"
 ] = "C57BL/6"
 
+Combined_dataset["Rodent.strain"] = Combined_dataset["Rodent.strain"].replace({
+    "missing": "C57BL/6",
+    "na": "C57BL/6",
+    "n/a": "C57BL/6"
+})
 
 # ------------------------------------------------------------
 # MRI field strength
@@ -300,12 +303,14 @@ Combined_dataset["fMRI.sequence"] = (
     .str.upper()
 )
 
-Combined_dataset["fMRI.sequence"] = Combined_dataset["fMRI.sequence"].replace({
-    "GE EPI": "GE-EPI",
-    "SE EPI": "SE-EPI",
-    "ME EPI": "ME-EPI"
-})
-
+Combined_dataset["fMRI.sequence"] = (
+    Combined_dataset["fMRI.sequence"].replace({
+        "EPI": "GE-EPI",
+        "GE EPI": "GE-EPI",
+        "SE EPI": "SE-EPI",
+        "ME EPI": "ME-EPI"
+    })
+)
 
 # ------------------------------------------------------------
 # Anesthesia
@@ -444,8 +449,137 @@ print(Combined_dataset.shape)
 
 
 ```{python}
-remove last subjects that had bad were exludin in aqwui diston 
-and also thing that are clearly missing 
+# ============================================================
+# REMOVE EXCLUDED SCANS
+# ============================================================
+
+exclude = pd.read_csv(
+    root / "data" / "Exclude.tsv",
+    sep="\t",
+    dtype=str
+)
+
+exclude.columns = exclude.columns.str.strip()
 
 
+def exclusion_id(dataset, subject):
+
+    subject = str(subject).strip().lower()
+
+    # Keep Longitudinal age information as part of the ID
+    if dataset == "Longitudinal":
+        subject = subject.replace("_ses-", "-")
+
+    # Remove session, run, task and anatomical suffixes
+    subject = re.sub(r"_ses-?\d+.*$", "", subject)
+    subject = re.sub(r"_run-\d+.*$", "", subject)
+    subject = re.sub(r"_task-.*$", "", subject)
+    subject = re.sub(r"_t2w$", "", subject)
+
+    subject = subject.removeprefix("sub-")
+
+    if subject.isdigit():
+        subject = subject.lstrip("0") or "0"
+
+    return subject
+
+
+# Awake_Rest: add missing run numbers
+# Assumes rows within each subject/session are ordered run 1, 2, 3
+awake_rest = (
+    (Combined_dataset["Dataset_name"] == "Awake_Rest")
+    & ~Combined_dataset["Scan_id"].str.contains(
+        r"_run-\d+",
+        na=False
+    )
+)
+
+ids = (
+    Combined_dataset.loc[awake_rest, "Scan_id"]
+    .str.strip()
+)
+
+runs = ids.groupby(ids, sort=False).cumcount() + 1
+
+Combined_dataset.loc[awake_rest, "Scan_id"] = (
+    ids + "_run-" + runs.astype(str)
+)
+
+
+# Get scan IDs, sessions and runs
+scan_ids = Combined_dataset["Scan_id"].astype(str).str.strip()
+
+scan_sessions = pd.to_numeric(
+    Combined_dataset["Session"],
+    errors="coerce"
+)
+
+scan_runs = pd.to_numeric(
+    scan_ids.str.extract(r"_run-(\d+)", expand=False),
+    errors="coerce"
+)
+
+remove = pd.Series(False, index=Combined_dataset.index)
+
+
+# Match exclusions
+for dataset in exclude["Dataset"].dropna().unique():
+
+    dataset_rows = Combined_dataset["Dataset_name"] == dataset
+
+    subject_ids = scan_ids.apply(
+        lambda x: exclusion_id(dataset, x)
+    )
+
+    for subject in exclude.loc[
+        exclude["Dataset"] == dataset, "Subject"
+    ].dropna():
+
+        subject = subject.strip()
+        subject_id = exclusion_id(dataset, subject)
+
+        match = dataset_rows & (subject_ids == subject_id)
+
+        session = re.search(r"_ses-?(\d+)", subject, re.IGNORECASE)
+        run = re.search(r"_run-(\d+)", subject, re.IGNORECASE)
+
+        if session:
+            match = match & (
+                scan_sessions == int(session.group(1))
+            )
+
+        if run:
+            match = match & (
+                scan_runs == int(run.group(1))
+            )
+
+        remove = remove | match
+
+
+# Show removals
+print("\nRemoved scans per dataset:")
+print(
+    Combined_dataset.loc[remove]
+    .groupby("Dataset_name")
+    .size()
+)
+
+print("\nTotal scans removed:", remove.sum())
+
+
+# Remove excluded scans
+Combined_dataset = (
+    Combined_dataset.loc[~remove]
+    .reset_index(drop=True)
+)
+
+
+# Save
+Combined_dataset.to_csv(
+    out_dir / "Combined_dataset.csv",
+    index=False
+)
+
+print("\nSaved Combined_dataset.csv")
+print("Remaining shape:", Combined_dataset.shape)
 ```

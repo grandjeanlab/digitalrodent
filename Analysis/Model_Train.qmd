@@ -7,6 +7,7 @@ from pcntoolkit import (
     BLR,
     NormativeModel,
     NormData,
+    plot_centiles,
     plot_qq
 )
 
@@ -101,10 +102,9 @@ model.fit_predict(
     test
 )
 
-#plots
 
 # ============================================================
-# PLOTS
+# PLOT DIRECTORY
 # ============================================================
 
 plot_dir = (
@@ -120,14 +120,17 @@ plot_dir.mkdir(
     exist_ok=True
 )
 
+
+# ============================================================
+# CENTILE PLOTS
+# ============================================================
+
 continuous_covariates = [
     "Age(week)",
     "MRI",
     "MRI T.R.",
-    "MRI T.E.",
     "FD average",
-    "FD maximum",
-    "tSNR"
+    "FD maximum"
 ]
 
 # Only keep covariates that are actually present
@@ -174,27 +177,30 @@ for covariate in continuous_covariates:
 
 
 # ============================================================
-# QQ PLOT
+# QQ PLOTS
 # ============================================================
 
-plt.figure(figsize=(5, 5))
+qq_dir = (
+    current_dir
+    / "results"
+    / "normative_model"
+    / "BLR"
+    / "plots"
+    / "qq"
+)
+
+qq_dir.mkdir(
+    parents=True,
+    exist_ok=True
+)
 
 plot_qq(
     test,
-    plot_id_line=True
+    plot_id_line=True,
+    save_dir=str(qq_dir)
 )
 
-plt.title("QQ plot")
-plt.tight_layout()
 
-plt.savefig(
-    plot_dir / "qq_plot.png",
-    dpi=300,
-    bbox_inches="tight"
-)
-
-plt.show()
-plt.close()
 # ============================================================
 # RESULTS
 # ============================================================
@@ -204,12 +210,4 @@ display(train.get_statistics_df())
 
 print("\nTest statistics:")
 display(test.get_statistics_df())
-
-plot_qq(
-    test,
-    plot_id_line=True
-)
-
-plt.show()
-
 ```

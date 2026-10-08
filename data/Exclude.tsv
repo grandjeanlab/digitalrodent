@@ -1,4 +1,5 @@
 Subject	Dataset	Comment
+sub-25	Alvino	Misreg
 sub-0100203_ses-1_run-1	Awake	from temporal features you can see there is something bad in the back and in the front; temporal voxel 1079 peak
 sub-0100206_ses-1_run-1	Awake	from temporal features you can see there is something bad in the back and in the front
 sub-0100502_ses-2_run-1	Awake	bold inhco mask problem, anat2atals misreg, temporal feature misreg
@@ -60,11 +61,64 @@ sub-0300511_ses-1_run-3	Awake	in temporal feature there are 3 huge peak at the e
 sub-0300511_ses-5_run-2	Awake	EPI2atlas blurry (little bit), in temporal feature there is a peak
 sub-0300511_ses-5_run-3	Awake	EPI2atlas blurry (little bit), in temporal feature there is a huge peak in the middle
 sub-0300512_ses-1_run-4	Awake	EPI2atlas blurry (little bit)
+sub-0100500_ses-1	Awake	fslorient. 1 anat img per subj, in ses-1. 
+sub-0100500_ses-3	Awake	fslorient
+sub-0100500_ses-4	Awake	fslorient
+sub-0100500_ses-5	Awake	fslorient
+sub-0100501_ses-1	Awake	fslorient. 1 anat img per subj, in ses-1 only keep T2 anat img. 
+sub-0100502_ses-2	Awake	fslorient. only keep T2 anat img
+sub-0100502_ses-3	Awake	fslorient. only keep T2 anat img
+sub-0100504_ses-2	Awake	fslorient
+sub-0100504_ses-3	Awake	fslorient
+sub-0100507_ses-1	Awake	fslorient
+sub-0100508_ses-1	Awake	fslorient
+sub-0100509_ses-1	Awake	fslorient
+sub-0100510_ses-1	Awake	fslorient
+sub-0100511_ses-1	Awake	fslorient
+sub-0100606_ses-2	Awake	3dresample
+sub-0100900_ses-1	Awake	3dresample
+sub-0100900_ses-2	Awake	3dresample
+sub-0100901_ses-1	Awake	3dresample
+sub-0100901_ses-2	Awake	3dresample
+sub-0100901_ses-3	Awake	3dresample
+sub-0100902_ses-1	Awake	3dresample
+sub-0100902_ses-2	Awake	3dresample
+sub-0100902_ses-3	Awake	3dresample
+sub-0100903_ses-1	Awake	3dresample
+sub-0100903_ses-2	Awake	3dresample
+sub-0100903_ses-3	Awake	3dresample
+sub-0100903_ses-4	Awake	3dresample
+sub-0100904_ses-1	Awake	3dresample
+sub-0100904_ses-2	Awake	3dresample
+sub-0100904_ses-3	Awake	3dresample
+sub-0100904_ses-4	Awake	3dresample
+sub-0101000_ses-1	Awake	sordino; 3dresample
+sub-0101001_ses-1	Awake	sordino; 3dresample
+sub-0101002_ses-1	Awake	sordino; 3dresample
+sub-0101003_ses-1	Awake	sordino; 3dresample
+sub-0101004_ses-1	Awake	sordino; 3dresample
+sub-0101005_ses-1	Awake	sordino; 3dresample
+sub-0101006_ses-1	Awake	sordino; 3dresample
+sub-0101007_ses-1	Awake	sordino; 3dresample
+sub-0101008_ses-1	Awake	sordino; 3dresample
+sub-0101009_ses-1	Awake	sordino; 3dresample
+sub-0300303_ses-4	Awake	fslchpixdim
+sub-0101209_ses-1	Awake	
+sub-0101224_ses-1	Awake	
+sub-0101500_ses-1	Awake	
+sub-0101501_ses-1	Awake	
+sub-0101504_ses-1	Awake	
 jgrAesAWc11L_ses-1_run-2	Awake_Rest	Bad registration
 jgrAesAWc11L_ses-1_run-3	Awake_Rest	Bad registration
 jgrAesAWc11L_ses-2_run-1	Awake_Rest	Bad registration
 jgrAesAWc21R_ses-1_run-2	Awake_Rest	Bad registration
 jgrAesMEDISOc11L_ses-1_run-1	Awake_Rest	Bad registration
+sub-42	Env_Enrichment	
+sub-COMR242i-PND90	Longitudinal	fsloriented
+sub-COMR341a-PND90	Longitudinal	fsloriented
+sub-COMR381a-PND30	Longitudinal	fsloriented
+sub-COMR381h-PND30	Longitudinal	fsloriented
+sub-COMR381h-PND90	Longitudinal	fsloriented
 170	Multicenter	Blurry scans
 173	Multicenter	Blurry scans
 179	Multicenter	Blurry scans
@@ -74,13 +128,16 @@ jgrAesMEDISOc11L_ses-1_run-1	Awake_Rest	Bad registration
 203	Multicenter	Outer edge artifact
 204	Multicenter	Outer edge artifact
 222	Multicenter	Outer edge artifact
+31	Multicenter	data is the same BIDS_raw
+33	Multicenter	data is the same BIDS_raw
+35	Multicenter	data is the same BIDS_raw
+132	Multicenter	data is the same BIDS_raw
 sub-399233_ses-1_t2w	NDUFS4	Bad registration
 sub-405017_ses1_T2w	NDUFS4	Bad registration
 sub-405221_ses1_T2w	NDUFS4	Bad registration
-sub-42	Env_Enrichment	
 3	Propofol	
 4	Propofol	
 5	Propofol	
 6	Propofol	
 11	Propofol	
-sub-25  Alvino  Misreg
+9	Propofol	fsloriented

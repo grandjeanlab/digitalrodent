@@ -1,6 +1,9 @@
+# Centile plots
+
 ```{python}
 from pathlib import Path
 import pandas as pd
+import matplotlib.pyplot as plt
 
 from pcntoolkit import (
     NormativeModel,
@@ -59,6 +62,12 @@ response_vars = [
     f"comp{i}" for i in range(1, 19)
 ]
 
+selected_responses = [
+    "comp2",
+    "comp10",
+    "comp11"
+]
+
 batch_effects = [
     "Dataset_name"
 ]
@@ -91,46 +100,108 @@ norm_data = NormData.from_dataframe(
 
 
 # ============================================================
-# CONTINUOUS COVARIATES
+# AGE CENTILES
 # ============================================================
 
-continuous_covariates = [
-    "Age(week)",
-    "MRI",
-    "MRI T.R.",
-    "MRI T.E.",
-    "FD average",
-    "FD maximum"
-]
+age_dir = plot_dir / "Age"
+age_dir.mkdir(
+    parents=True,
+    exist_ok=True
+)
 
-continuous_covariates = [
-    col for col in continuous_covariates
-    if col in covariates
-]
+age_figures = plot_centiles(
+    model,
+    scatter_data=norm_data,
+    covariate="Age(week)",
+    response_vars=selected_responses,
+    centiles=[
+        0.05,
+        0.50,
+        0.95
+    ]
+)
 
+for component, fig in zip(
+    selected_responses,
+    age_figures
+):
 
-# ============================================================
-# CENTILE PLOTS
-# ============================================================
+    ax = fig.axes[0]
 
-for covariate in continuous_covariates:
+    ax.set_xlabel("Age (weeks)")
+    ax.set_ylabel("DR value")
+    ax.set_title(f"{component} by age")
 
-    print("\nPlotting:", covariate)
+    fig.tight_layout()
 
-    figures = plot_centiles(
-        model,
-        scatter_data=norm_data,
-        covariate=covariate,
-        centiles=[
-            0.05,
-            0.50,
-            0.95
-        ],
-        save_dir=str(plot_dir)
+    fig.savefig(
+        age_dir / f"{component}_Age.png",
+        dpi=300,
+        bbox_inches="tight"
     )
 
-print("\nCentile plots saved to:")
-print(plot_dir)
+    plt.show()
+    plt.close(fig)
 
+
+# ============================================================
+# SEX CENTILES
+# ============================================================
+
+sex_dir = plot_dir / "Sex"
+sex_dir.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+sex_figures = plot_centiles(
+    model,
+    scatter_data=norm_data,
+    covariate="Sex_M",
+    response_vars=selected_responses,
+    centiles=[
+        0.05,
+        0.50,
+        0.95
+    ]
+)
+
+for component, fig in zip(
+    selected_responses,
+    sex_figures
+):
+
+    ax = fig.axes[0]
+
+    ax.set_xticks([0, 1])
+    ax.set_xticklabels([
+        "Female",
+        "Male"
+    ])
+
+    ax.set_xlabel("Sex")
+    ax.set_ylabel("DR value")
+    ax.set_title(f"{component} by sex")
+
+    fig.tight_layout()
+
+    fig.savefig(
+        sex_dir / f"{component}_Sex.png",
+        dpi=300,
+        bbox_inches="tight"
+    )
+
+    plt.show()
+    plt.close(fig)
+
+
+# ============================================================
+# DONE
+# ============================================================
+
+print("\nSaved age centile plots to:")
+print(age_dir)
+
+print("\nSaved sex centile plots to:")
+print(sex_dir)
 ```
-

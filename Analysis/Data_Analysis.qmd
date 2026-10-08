@@ -5,22 +5,71 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Find the digitalrodent folder
+# ============================================================
+# PATHS
+# ============================================================
+
 root = Path.cwd().parent
 
-# Figures directory
 fig_dir = root / "results" / "figures"
 fig_dir.mkdir(parents=True, exist_ok=True)
 
-# Load combined dataset
 Combined_dataset = pd.read_csv(
     root / "results" / "combined_dataset" / "Combined_dataset.csv"
 )
 
-# Millimetres to inches for figure sizes
+Alzheimer = pd.read_csv(
+    root / "data" / "Alzheimer" / "Alzheimer.csv",
+)
+
+# ============================================================
+# COLOURS
+# ============================================================
+
+# ============================================================
+# CONSISTENT COLOUR SCHEME
+# ============================================================
+
+BLUE = "#4682B4"       # Steelblue
+ORANGE = "#F4A460"     # Sandybrown
+GREEN = "#6D9F8C"      # Sage green
+
+GREY = "#D3D3D3"
+DARK = "#39434B"
+
+# Component colours for Figure 3
+component_colors = {
+    "comp2": BLUE,
+    "comp10": ORANGE,
+    "comp11": GREEN
+}
+# ============================================================
+# COMPONENTS
+# ============================================================
+
+selected_components = ["comp2", "comp10", "comp11"]
+
+component_names = {
+    "comp2": "Somatosensory cortex",
+    "comp10": "DMN-associated cortex (Cg1 + RS)",
+    "comp11": "Ventral hippocampus"
+}
+
+for component in selected_components:
+    Combined_dataset[component] = pd.to_numeric(
+        Combined_dataset[component], errors="coerce"
+    )
+    Alzheimer[component] = pd.to_numeric(
+        Alzheimer[component], errors="coerce"
+    )
+
+Combined_dataset["FD average"] = pd.to_numeric(
+    Combined_dataset["FD average"], errors="coerce"
+)
+
+#Figure settings 
 MM = 1 / 25.4
 
-# Figure settings
 plt.rcParams.update({
     "font.family": "Arial",
     "font.size": 6,
@@ -33,724 +82,102 @@ plt.rcParams.update({
 })
 
 print(Combined_dataset.shape)
+print("Alzheimer:", Alzheimer.shape)
 ```
 
-two plots for acquisition
+# Information about the dataset 
 ```{python}
 # ============================================================
-# FIGURE 1A: Scanner / acquisition timing
-#
-# x = TR
-# y = MRI field strength
-# colour = dataset
-# marker = fMRI sequence
+# FIGURE 1B: Dataset composition
+# Main bars = number of scans by sex
+# Small rounded bars = sex proportions
+# Right side = N animals, mean age, strain
 # ============================================================
+
+from matplotlib.lines import Line2D
 
 df = Combined_dataset.copy()
 
-df["MRI"] = pd.to_numeric(
-    df["MRI"],
-    errors="coerce"
+df["Age(week)"] = pd.to_numeric(
+    df["Age(week)"], errors="coerce"
 )
 
-df["MRI T.R."] = pd.to_numeric(
-    df["MRI T.R."],
-    errors="coerce"
-)
+# ------------------------------------------------------------
+# Unique animals
+# ------------------------------------------------------------
 
-
-plot1 = (
-    df[
-        [
-            "Dataset_name",
-            "MRI",
-            "MRI T.R.",
-            "fMRI.sequence"
-        ]
-    ]
-    .drop_duplicates()
-    .dropna(
-        subset=[
-            "MRI",
-            "MRI T.R."
-        ]
-    )
-    .copy()
-)
-
-
-# --------------------------------------------------
-# Colours per dataset
-# --------------------------------------------------
-
-dataset_levels = (
-    plot1["Dataset_name"]
-    .unique()
-)
-
-cmap = plt.get_cmap("tab20")
-
-dataset_colors = {
-    dataset: cmap(i % 20)
-    for i, dataset in enumerate(dataset_levels)
-}
-
-
-# --------------------------------------------------
-# Markers per sequence
-# --------------------------------------------------
-
-sequence_levels = (
-    plot1["fMRI.sequence"]
-    .fillna("Unknown")
-    .unique()
-)
-
-markers = [
-    "o", "s", "^", "D", "v",
-    "P", "X", "<", ">"
-]
-
-sequence_marker = {
-    sequence: markers[i % len(markers)]
-    for i, sequence in enumerate(sequence_levels)
-}
-
-
-# --------------------------------------------------
-# Small jitter for overlapping points
-# --------------------------------------------------
-
-plot1 = plot1.reset_index(drop=True)
-
-rng = np.random.default_rng(42)
-
-plot1["TR_plot"] = (
-    plot1["MRI T.R."]
-    + rng.uniform(
-        -20,
-        20,
-        size=len(plot1)
-    )
-)
-
-plot1["MRI_plot"] = (
-    plot1["MRI"]
-    + rng.uniform(
-        -0.08,
-        0.08,
-        size=len(plot1)
-    )
-)
-
-
-# --------------------------------------------------
-# Plot
-# --------------------------------------------------
-
-fig, ax = plt.subplots(
-    figsize=(190 * MM, 125 * MM)
-)
-
-
-for _, row in plot1.iterrows():
-
-    sequence = (
-        row["fMRI.sequence"]
-        if pd.notna(row["fMRI.sequence"])
-        else "Unknown"
-    )
-
-    ax.scatter(
-        row["TR_plot"],
-        row["MRI_plot"],
-        s=70,
-        color=dataset_colors[
-            row["Dataset_name"]
-        ],
-        marker=sequence_marker[
-            sequence
-        ],
-        edgecolor="black",
-        linewidth=0.4,
-        alpha=0.85
-    )
-
-
-# --------------------------------------------------
-# Dataset legend
-# --------------------------------------------------
-
-dataset_handles = []
-
-for dataset in dataset_levels:
-
-    dataset_handles.append(
-        plt.Line2D(
-            [0], [0],
-            marker="o",
-            linestyle="",
-            markerfacecolor=
-                dataset_colors[dataset],
-            markeredgecolor="none",
-            markersize=6,
-            label=dataset
-        )
-    )
-
-legend_dataset = ax.legend(
-    handles=dataset_handles,
-    title="Dataset",
-    loc="upper left",
-    bbox_to_anchor=(1.02, 1),
-    frameon=False
-)
-
-ax.add_artist(
-    legend_dataset
-)
-
-
-# --------------------------------------------------
-# Sequence legend
-# --------------------------------------------------
-
-sequence_handles = []
-
-for sequence in sequence_levels:
-
-    sequence_handles.append(
-        plt.Line2D(
-            [0], [0],
-            marker=
-                sequence_marker[sequence],
-            linestyle="",
-            markerfacecolor="white",
-            markeredgecolor="black",
-            markersize=6,
-            label=str(sequence)
-        )
-    )
-
-ax.legend(
-    handles=sequence_handles,
-    title="fMRI sequence",
-    loc="lower left",
-    bbox_to_anchor=(1.02, 0),
-    frameon=False
-)
-
-
-# --------------------------------------------------
-# Styling
-# --------------------------------------------------
-
-ax.set_xlabel(
-    "Repetition time, TR"
-)
-
-ax.set_ylabel(
-    "MRI field strength (T)"
-)
-
-ax.set_title(
-    "Scanner and acquisition timing"
-)
-
-ax.spines["top"].set_visible(False)
-ax.spines["right"].set_visible(False)
-
-plt.tight_layout()
-
-plt.savefig(
-    fig_dir / "figure1A_scanner_acquisition.svg",
-    format="svg",
-    bbox_inches="tight"
-)
-
-plt.show()
-```
-
-
-```{python}
-# ============================================================
-# FIGURE 1B: Acquisition setup by dataset
-#
-# Rows = datasets
-# Columns = Cryo coil / Awake / Ventilated
-# Dot = feature occurs in that dataset
-# ============================================================
-
-setup = Combined_dataset[
-    [
-        "Dataset_name",
-        "Coil",
-        "Anesthesia",
-        "Ventilation"
-    ]
-].copy()
-
-
-# --------------------------------------------------
-# Create simple yes/no features
-# --------------------------------------------------
-
-setup["Cryo"] = (
-    setup["Coil"] == "Cryo"
-)
-
-setup["Awake"] = (
-    setup["Anesthesia"]
-    .astype("string")
-    .str.lower()
-    == "awake"
-)
-
-setup["Ventilated"] = (
-    setup["Ventilation"]
-    .astype("string")
-    .str.lower()
-    == "yes"
-)
-
-
-# --------------------------------------------------
-# Dataset summary
-# --------------------------------------------------
-
-setup_summary = (
-    setup
-    .groupby("Dataset_name")[
-        [
-            "Cryo",
-            "Awake",
-            "Ventilated"
-        ]
-    ]
-    .max()
-)
-
-
-# Keep same dataset order as Figure 1A
-setup_summary = setup_summary.reindex(
-    dataset_levels
-)
-
-
-# --------------------------------------------------
-# Plot
-# --------------------------------------------------
-
-features = [
-    "Cryo",
-    "Awake",
-    "Ventilated"
-]
-
-fig, ax = plt.subplots(
-    figsize=(120 * MM, 120 * MM)
-)
-
-
-for y, dataset in enumerate(
-    setup_summary.index
-):
-
-    for x, feature in enumerate(features):
-
-        value = setup_summary.loc[
-            dataset,
-            feature
-        ]
-
-        if value:
-
-            ax.scatter(
-                x,
-                y,
-                s=90,
-                color=dataset_colors[
-                    dataset
-                ],
-                edgecolor="black",
-                linewidth=0.4
-            )
-
-        else:
-
-            ax.scatter(
-                x,
-                y,
-                s=35,
-                facecolor="white",
-                edgecolor="lightgray",
-                linewidth=0.7
-            )
-
-
-# --------------------------------------------------
-# Axes
-# --------------------------------------------------
-
-ax.set_xticks(
-    range(len(features))
-)
-
-ax.set_xticklabels(
-    features
-)
-
-ax.set_yticks(
-    range(len(setup_summary.index))
-)
-
-ax.set_yticklabels(
-    setup_summary.index
-)
-
-ax.invert_yaxis()
-
-ax.set_title(
-    "Acquisition setup by dataset"
-)
-
-ax.set_xlabel("")
-ax.set_ylabel("")
-
-
-# --------------------------------------------------
-# Grid
-# --------------------------------------------------
-
-ax.set_xticks(
-    np.arange(-0.5, len(features), 1),
-    minor=True
-)
-
-ax.set_yticks(
-    np.arange(
-        -0.5,
-        len(setup_summary.index),
-        1
-    ),
-    minor=True
-)
-
-ax.grid(
-    which="minor",
-    color="lightgray",
-    linewidth=0.5
-)
-
-ax.tick_params(
-    which="minor",
-    bottom=False,
-    left=False
-)
-
-
-# --------------------------------------------------
-# Styling
-# --------------------------------------------------
-
-ax.spines["top"].set_visible(False)
-ax.spines["right"].set_visible(False)
-ax.spines["bottom"].set_visible(False)
-ax.spines["left"].set_visible(False)
-
-plt.tight_layout()
-
-plt.savefig(
-    fig_dir / "figure1B_acquisition_setup.svg",
-    format="svg",
-    bbox_inches="tight"
-)
-
-plt.show()
-```
-
-
-```{python}
-# --------------------------------------------------
-# FIGURE 2A: Motion QC - full range
-# --------------------------------------------------
-
-df = Combined_dataset.copy()
-
-for col in ["FD average", "FD maximum"]:
-    df[col] = pd.to_numeric(
-        df[col],
-        errors="coerce"
-    )
-
-plot_df = df.dropna(
-    subset=["FD average", "FD maximum"]
-).copy()
-
-
-# Dataset colours
-dataset_levels = (
-    plot_df["Dataset_name"]
-    .unique()
-)
-
-cmap = plt.get_cmap("tab20")
-
-dataset_colors = {
-    dataset: cmap(i % 20)
-    for i, dataset in enumerate(dataset_levels)
-}
-
-
-# Dataset medians
-medians = (
-    plot_df
-    .groupby("Dataset_name")
-    .agg(
-        FD_mean=("FD average", "median"),
-        FD_max=("FD maximum", "median")
-    )
-)
-
-
-# --------------------------------------------------
-# Full plot
-# --------------------------------------------------
-
-fig, ax = plt.subplots(
-    figsize=(180 * MM, 130 * MM)
-)
-
-for dataset in dataset_levels:
-
-    temp = plot_df[
-        plot_df["Dataset_name"] == dataset
-    ]
-
-    ax.scatter(
-        temp["FD average"],
-        temp["FD maximum"],
-        s=22,
-        color=dataset_colors[dataset],
-        alpha=0.35,
-        edgecolor="none"
-    )
-
-
-for dataset, row in medians.iterrows():
-
-    ax.scatter(
-        row["FD_mean"],
-        row["FD_max"],
-        s=60,
-        color=dataset_colors[dataset],
-        edgecolor="black",
-        linewidth=1,
-        zorder=3
-    )
-
-    ax.annotate(
-        dataset,
-        (
-            row["FD_mean"],
-            row["FD_max"]
-        ),
-        xytext=(4, 4),
-        textcoords="offset points",
-        fontsize=5.8
-    )
-
-
-ax.set_xlabel("Mean FD")
-ax.set_ylabel("Maximum FD")
-ax.set_title("Motion quality")
-
-ax.spines["top"].set_visible(False)
-ax.spines["right"].set_visible(False)
-
-plt.tight_layout()
-
-plt.savefig(
-    fig_dir / "figure2A_qc_full.svg",
-    format="svg",
-    bbox_inches="tight"
-)
-
-plt.show()
-```
-Zoom for the graph above 
-
-```{python}
-# --------------------------------------------------
-# FIGURE 2B: Motion QC - zoomed low-motion region
-# --------------------------------------------------
-
-# Smaller scope
-x1, x2 = 0.00, 0.025
-y1, y2 = 0.00, 0.040
-
-
-zoom_df = plot_df[
-    (plot_df["FD average"] >= x1)
-    &
-    (plot_df["FD average"] <= x2)
-    &
-    (plot_df["FD maximum"] >= y1)
-    &
-    (plot_df["FD maximum"] <= y2)
-].copy()
-
-
-fig, ax = plt.subplots(
-    figsize=(90 * MM, 75 * MM)
-)
-
-
-for dataset in dataset_levels:
-
-    temp = zoom_df[
-        zoom_df["Dataset_name"] == dataset
-    ]
-
-    ax.scatter(
-        temp["FD average"],
-        temp["FD maximum"],
-        s=20,
-        color=dataset_colors[dataset],
-        alpha=0.45,
-        edgecolor="none"
-    )
-
-
-# Only median labels that fall inside zoom
-for dataset, row in medians.iterrows():
-
-    if (
-        x1 <= row["FD_mean"] <= x2
-        and
-        y1 <= row["FD_max"] <= y2
-    ):
-
-        ax.scatter(
-            row["FD_mean"],
-            row["FD_max"],
-            s=50,
-            color=dataset_colors[dataset],
-            edgecolor="black",
-            linewidth=0.8,
-            zorder=3
-        )
-
-        ax.annotate(
-            dataset,
-            (
-                row["FD_mean"],
-                row["FD_max"]
-            ),
-            xytext=(3, 3),
-            textcoords="offset points",
-            fontsize=5
-        )
-
-
-ax.set_xlim(x1, x2)
-ax.set_ylim(y1, y2)
-
-ax.set_xlabel("Mean FD")
-ax.set_ylabel("Maximum FD")
-ax.set_title("Low-motion datasets")
-
-ax.spines["top"].set_visible(False)
-ax.spines["right"].set_visible(False)
-
-plt.tight_layout()
-
-plt.savefig(
-    fig_dir / "figure2B_qc_zoom.svg",
-    format="svg",
-    bbox_inches="tight"
-)
-
-plt.show()
-```
-
-```{python} --------------------------------------------------
-# FIGURE 3: Dataset composition
-# Bars = number of animals by sex
-# Right side = aligned mini-table
-# --------------------------------------------------
-
-df = Combined_dataset.copy()
-df["Age(week)"] = pd.to_numeric(df["Age(week)"], errors="coerce")
-
-# One row per unique animal
 animals = (
     df
     .dropna(subset=["Participant_Id"])
     .drop_duplicates(subset=["Dataset_name", "Participant_Id"])
-    .copy()
 )
 
-animals["Sex_clean"] = (
-    animals["Sex"]
-    .astype(str)
+# ------------------------------------------------------------
+# Sex
+# ------------------------------------------------------------
+
+df["Sex_clean"] = (
+    df["Sex"]
+    .astype("string")
     .str.upper()
     .str.strip()
+    .replace({"FEMALE": "F", "MALE": "M"})
 )
 
-# Number of scans
+# ------------------------------------------------------------
+# Counts
+# ------------------------------------------------------------
+
 scan_counts = (
     df.groupby("Dataset_name")["Scan_id"]
     .count()
     .rename("N_scans")
 )
 
-# Number of animals
 animal_counts = (
     animals.groupby("Dataset_name")["Participant_Id"]
     .nunique()
     .rename("N_animals")
 )
 
-# Mean age
 mean_age = (
     animals.groupby("Dataset_name")["Age(week)"]
     .mean()
     .rename("Mean_age")
 )
 
-# Sex counts
 sex_counts = (
-    animals[animals["Sex_clean"].isin(["F", "M"])]
+    df[df["Scan_id"].notna()]
     .groupby(["Dataset_name", "Sex_clean"])
     .size()
     .unstack(fill_value=0)
 )
 
-if "F" not in sex_counts.columns:
-    sex_counts["F"] = 0
+for sex in ["F", "M"]:
+    if sex not in sex_counts.columns:
+        sex_counts[sex] = 0
 
-if "M" not in sex_counts.columns:
-    sex_counts["M"] = 0
-
+# ------------------------------------------------------------
 # Strain
+# ------------------------------------------------------------
+
 strain_summary = (
     animals.groupby("Dataset_name")["Rodent.strain"]
     .apply(
         lambda x: ", ".join(
-            sorted(
-                [
-                    s
-                    for s in x.dropna().astype(str).str.strip().unique()
-                    if s.lower() not in ["", "na", "nan"]
-                ]
-            )
+            sorted([
+                s for s in x.dropna().astype(str).str.strip().unique()
+                if s.lower() not in ["", "na", "nan"]
+            ])
         )
     )
     .rename("Strain")
 )
 
+# ------------------------------------------------------------
 # Combine
+# ------------------------------------------------------------
+
 summary = pd.concat(
     [
         scan_counts,
@@ -765,31 +192,24 @@ summary = pd.concat(
 summary["F"] = summary["F"].fillna(0)
 summary["M"] = summary["M"].fillna(0)
 
-summary["Known_sex"] = summary["F"] + summary["M"]
-
 summary["Unknown_sex"] = (
-    summary["N_animals"] -
-    summary["Known_sex"]
+    summary["N_scans"] - summary["F"] - summary["M"]
 )
 
 summary["Strain"] = summary["Strain"].fillna("NA")
-
-summary.loc[
-    summary["Strain"] == "",
-    "Strain"
-] = "NA"
+summary.loc[summary["Strain"] == "", "Strain"] = "NA"
 
 # Smallest at top, largest at bottom
 summary = summary.sort_values(
-    "N_animals",
+    "N_scans",
     ascending=True
 )
 
 y = np.arange(len(summary))
 
-# --------------------------------------------------
+# ------------------------------------------------------------
 # Figure
-# --------------------------------------------------
+# ------------------------------------------------------------
 
 fig, ax = plt.subplots(
     figsize=(210 * MM, 125 * MM)
@@ -812,8 +232,9 @@ ax.barh(
     label="Male"
 )
 
-# Unknown sex
+# Unknown
 if (summary["Unknown_sex"] > 0).any():
+
     ax.barh(
         y,
         summary["Unknown_sex"],
@@ -822,63 +243,126 @@ if (summary["Unknown_sex"] > 0).any():
         label="Sex unknown"
     )
 
-# Dataset labels
 ax.set_yticks(y)
 ax.set_yticklabels(summary.index)
 
-# --------------------------------------------------
-# X axis stops at Multicenter
-# --------------------------------------------------
+x_max_plot = summary["N_scans"].max()
 
-if "Multicenter" in summary.index:
-    x_max_plot = summary.loc[
-        "Multicenter",
-        "N_animals"
-    ]
-else:
-    x_max_plot = summary["N_animals"].max()
+# ------------------------------------------------------------
+# Small rounded sex bars AFTER each main bar
+# Up to and including Psilocybin_Pilot
+# ------------------------------------------------------------
 
-ax.set_xlim(0, x_max_plot)
+datasets = list(summary.index)
 
-# --------------------------------------------------
-# Mini-table
-# Same y-coordinate as the bars
-# --------------------------------------------------
+mini_gap = x_max_plot * 0.05
+mini_width = x_max_plot * 0.045
+mini_height = 3.5  # Line thickness in points
 
-# Positions relative to the right side of the graph
-x_scans = x_max_plot * 1.04
-x_age = x_max_plot * 1.25
-x_strain = x_max_plot * 1.48
+if "Psilocybin_Pilot" in datasets:
+
+    last_row = datasets.index("Psilocybin_Pilot")
+
+    for i in range(last_row + 1):
+
+        row = summary.iloc[i]
+
+        total = row["N_scans"]
+
+        if total == 0:
+            continue
+
+        # Mini-bar starts after the actual bar
+        x_start = total + mini_gap
+        x_end = x_start + mini_width
+
+        # Background
+        ax.plot(
+            [x_start, x_end],
+            [i, i],
+            color="lightgray",
+            linewidth=mini_height,
+            solid_capstyle="round",
+            zorder=5
+        )
+
+        proportions = [
+            (row["F"] / total, "sandybrown"),
+            (row["M"] / total, "steelblue"),
+            (row["Unknown_sex"] / total, "lightgray")
+        ]
+
+        x = x_start
+        visible_segments = []
+
+        for proportion, color in proportions:
+
+            if proportion <= 0:
+                continue
+
+            next_x = x + mini_width * proportion
+
+            ax.plot(
+                [x, next_x],
+                [i, i],
+                color=color,
+                linewidth=mini_height,
+                solid_capstyle="butt",
+                zorder=6
+            )
+
+            visible_segments.append(color)
+            x = next_x
+
+        # Rounded coloured ends
+        if visible_segments:
+
+            ax.plot(
+                x_start, i,
+                marker="o",
+                markersize=mini_height,
+                color=visible_segments[0],
+                markeredgewidth=0,
+                zorder=7
+            )
+
+            ax.plot(
+                x_end, i,
+                marker="o",
+                markersize=mini_height,
+                color=visible_segments[-1],
+                markeredgewidth=0,
+                zorder=7
+            )
+
+# Keep miniature bars inside the plotting area
+ax.set_xlim(0, x_max_plot * 1.06)
+
+# ------------------------------------------------------------
+# Mini-table on right
+# ------------------------------------------------------------
+
+x_animals = x_max_plot * 1.10
+x_age = x_max_plot * 1.32
+x_strain = x_max_plot * 1.55
 
 # Headers
 ax.text(
-    x_scans,
-    -0.9,
-    "Scans",
-    fontweight="bold",
-    fontsize=6,
-    ha="left",
-    clip_on=False
+    x_animals, -0.9, "N animals",
+    fontweight="bold", fontsize=6,
+    ha="left", clip_on=False
 )
 
 ax.text(
-    x_age,
-    -0.9,
-    "Mean age",
-    fontweight="bold",
-    fontsize=6,
-    ha="left",
-    clip_on=False
+    x_age, -0.9, "Mean age",
+    fontweight="bold", fontsize=6,
+    ha="left", clip_on=False
 )
 
 ax.text(
-    x_strain,
-    -0.9,
-    "Strain",
-    fontweight="bold",
-    fontsize=6,
-    ha="left",
-    clip_on=False
+    x_strain, -0.9, "Strain",
+    fontweight="bold", fontsize=6,
+    ha="left", clip_on=False
 )
 
 # Values
@@ -886,50 +370,39 @@ for yi, dataset in enumerate(summary.index):
 
     row = summary.loc[dataset]
 
-    # Scan number
     ax.text(
-        x_scans,
-        yi,
-        str(int(row["N_scans"])),
-        va="center",
-        ha="left",
-        fontsize=6,
-        clip_on=False
+        x_animals, yi,
+        str(int(row["N_animals"])),
+        va="center", ha="left",
+        fontsize=6, clip_on=False
     )
 
-    # Mean age
     if pd.isna(row["Mean_age"]):
         age_text = "NA"
     else:
         age_text = f'{row["Mean_age"]:.1f}'
 
     ax.text(
-        x_age,
-        yi,
+        x_age, yi,
         age_text,
-        va="center",
-        ha="left",
-        fontsize=6,
-        clip_on=False
+        va="center", ha="left",
+        fontsize=6, clip_on=False
     )
 
-    # Strain
     ax.text(
-        x_strain,
-        yi,
+        x_strain, yi,
         row["Strain"],
-        va="center",
-        ha="left",
-        fontsize=5.5,
-        clip_on=False
+        va="center", ha="left",
+        fontsize=5.5, clip_on=False
     )
 
-# --------------------------------------------------
+# ------------------------------------------------------------
 # Styling
-# --------------------------------------------------
+# ------------------------------------------------------------
 
-ax.set_xlabel("Number of animals")
+ax.set_xlabel("Number of scans")
 ax.set_title("Dataset composition")
+
 ax.invert_yaxis()
 
 ax.legend(
@@ -940,7 +413,6 @@ ax.legend(
 ax.spines["top"].set_visible(False)
 ax.spines["right"].set_visible(False)
 
-# Extra physical space on right for mini-table
 plt.subplots_adjust(
     left=0.16,
     right=0.58,
@@ -949,7 +421,7 @@ plt.subplots_adjust(
 )
 
 plt.savefig(
-    fig_dir / "figure3_dataset_composition.svg",
+    fig_dir / "figure1B_dataset_composition.svg",
     format="svg",
     bbox_inches="tight"
 )
@@ -959,169 +431,311 @@ plt.show()
 
 
 ```{python}
-from matplotlib.colors import LinearSegmentedColormap
-
-components = [f"comp{i}" for i in range(1, 19)]
-
-Combined_dataset[components] = Combined_dataset[components].apply(
-    pd.to_numeric,
-    errors="coerce"
-)
-
-
 # ============================================================
-# 1. RAW COMPONENT HEATMAP
+# FIGURE 2: Mean FD vs DR value
+# Components 2, 10 and 11
+# Full range + zoom
 # ============================================================
 
-heatmap_data = (
-    Combined_dataset
-    .groupby("Dataset_name")[components]
-    .median()
-)
+from matplotlib.lines import Line2D
+from matplotlib.patches import Rectangle
 
-cmap = LinearSegmentedColormap.from_list(
-    "steelblue_sandybrown",
-    ["steelblue", "lightblue", "wheat", "sandybrown"]
-)
+components = ["comp2", "comp10", "comp11"]
+letters = ["A", "B", "C"]
 
-fig, ax = plt.subplots(figsize=(180 * MM, 100 * MM))
+component_labels = {
+    "comp2": "Somatosensory cortex (C2)",
+    "comp10": "DMN-associated cortex (C10)",
+    "comp11": "Ventral hippocampus (C11)"
+}
 
-im = ax.imshow(
-    heatmap_data.values,
-    aspect="auto",
-    cmap=cmap
-)
+# ------------------------------------------------------------
+# Dataset colours
+# ------------------------------------------------------------
 
-ax.set_xticks(range(len(components)))
-ax.set_xticklabels(
-    components,
-    rotation=45,
-    ha="right"
-)
-
-ax.set_yticks(range(len(heatmap_data.index)))
-ax.set_yticklabels(heatmap_data.index)
-
-ax.set_xlabel("Component")
-ax.set_ylabel("Dataset")
-ax.set_title("Median component value per dataset")
-
-cbar = plt.colorbar(im, ax=ax)
-cbar.set_label("Median value")
-
-plt.tight_layout()
-
-plt.savefig(
-    fig_dir / "component_heatmap.svg",
-    format="svg",
-    bbox_inches="tight"
-)
-
-plt.show()
-
-
-# ============================================================
-# 2. STANDARDIZED COMPONENT HEATMAP
-# ============================================================
-
-heatmap_z = heatmap_data.sub(
-    heatmap_data.mean(axis=1),
-    axis=0
-)
-
-heatmap_z = heatmap_z.div(
-    heatmap_data.std(axis=1).replace(0, np.nan),
-    axis=0
-)
-
-limit = np.nanmax(np.abs(heatmap_z.values))
-
-fig, ax = plt.subplots(figsize=(180 * MM, 100 * MM))
-
-im = ax.imshow(
-    heatmap_z.values,
-    aspect="auto",
-    cmap=cmap,
-    vmin=-limit,
-    vmax=limit
-)
-
-ax.set_xticks(range(len(components)))
-ax.set_xticklabels(
-    components,
-    rotation=45,
-    ha="right"
-)
-
-ax.set_yticks(range(len(heatmap_z.index)))
-ax.set_yticklabels(heatmap_z.index)
-
-ax.set_xlabel("Component")
-ax.set_ylabel("Dataset")
-ax.set_title("Relative component pattern per dataset")
-
-cbar = plt.colorbar(im, ax=ax)
-cbar.set_label("Z-score")
-
-plt.tight_layout()
-
-plt.savefig(
-    fig_dir / "component_heatmap_zscore.svg",
-    format="svg",
-    bbox_inches="tight"
-)
-
-plt.show()
-```
-
-Ridgeline plots for each component across datasets.
-```{python}
-from scipy.stats import gaussian_kde
-
-components = [f"comp{i}" for i in range(1, 19)]
-
-# Possibility to isolate/remove a specific dataset
-plot_data = Combined_dataset
-# plot_data = Combined_dataset[Combined_dataset["Dataset_name"] != "Alvino"]
-
-# Make sure component columns are numeric
-plot_data[components] = plot_data[components].apply(pd.to_numeric, errors="coerce")
-
-cutoff = 1.5
-
-# Order datasets by overall mean across all components
 dataset_order = (
-    plot_data
-    .groupby("Dataset_name")[components]
-    .mean()
-    .mean(axis=1)
-    .sort_values(ascending=False)
+    Combined_dataset
+    .groupby("Dataset_name")["Scan_id"]
+    .count()
+    .sort_values()
     .index
+    .tolist()
 )
 
-# Shared x-range, but plot only up to cutoff
-x_min = plot_data[components].min().min()
-x = np.linspace(x_min, cutoff, 300)
+cmap = plt.get_cmap("tab20")
 
-# 18 distinct colors
-colors = plt.cm.tab20(np.linspace(0, 1, len(components)))
+color_indices = [
+    0, 2, 4, 6, 8, 10, 12, 14, 16, 18,
+    1, 3, 5, 7, 9, 11, 13, 15, 17, 19
+]
 
-fig, ax = plt.subplots(figsize=(180 * MM, 120 * MM))
+dataset_colors = {}
 
-above_cutoff = []
+for i, dataset in enumerate(dataset_order):
+    dataset_colors[dataset] = cmap(
+        color_indices[i % len(color_indices)]
+    )
+
+# ------------------------------------------------------------
+# Generate figures
+# ------------------------------------------------------------
+
+for j, component in enumerate(components):
+
+    plot_df = Combined_dataset[
+        ["Dataset_name", "FD average", component]
+    ].copy()
+
+    plot_df["FD average"] = pd.to_numeric(
+        plot_df["FD average"], errors="coerce"
+    )
+
+    plot_df[component] = pd.to_numeric(
+        plot_df[component], errors="coerce"
+    )
+
+    plot_df = plot_df.replace(
+        [np.inf, -np.inf], np.nan
+    ).dropna(
+        subset=["FD average", component]
+    )
+
+    if plot_df.empty:
+        continue
+
+    # Zoom range from non-Awake datasets
+    reference = plot_df[
+        plot_df["Dataset_name"] != "Awake"
+    ]
+
+    if len(reference) < 5:
+        reference = plot_df
+
+    x_zoom = max(
+        reference["FD average"].quantile(0.98) * 1.05,
+        0.001
+    )
+
+    y_min = min(
+        0,
+        reference[component].quantile(0.01)
+    )
+
+    y_zoom = reference[component].quantile(0.98) * 1.05
+
+    if y_zoom <= y_min:
+        y_zoom = y_min + 0.01
+
+    # --------------------------------------------------------
+    # Full and zoom plots
+    # --------------------------------------------------------
+
+    for view in ["full", "zoom"]:
+
+        fig, ax = plt.subplots(
+            figsize=(190 * MM, 125 * MM)
+        )
+
+        for dataset in dataset_order:
+
+            temp = plot_df[
+                plot_df["Dataset_name"] == dataset
+            ]
+
+            if len(temp) == 0:
+                continue
+
+            color = dataset_colors[dataset]
+
+            # Individual scans
+            ax.scatter(
+                temp["FD average"],
+                temp[component],
+                s=17,
+                color=color,
+                alpha=0.35,
+                edgecolors="none"
+            )
+
+            # Dataset median
+            ax.scatter(
+                temp["FD average"].median(),
+                temp[component].median(),
+                s=55,
+                color=color,
+                marker="D",
+                edgecolor="black",
+                linewidth=0.5,
+                zorder=4
+            )
+
+        # ----------------------------------------------------
+        # Axes
+        # ----------------------------------------------------
+
+        if view == "zoom":
+
+            ax.set_xlim(0, x_zoom)
+            ax.set_ylim(y_min, y_zoom)
+
+            title = (
+                "Mean FD vs DR value — "
+                + component_labels[component]
+                + " (zoom)"
+            )
+
+        else:
+
+            ax.set_xlim(left=0)
+
+            title = (
+                "Mean FD vs DR value, "
+                + component_labels[component]
+            )
+
+            zoom_box = Rectangle(
+                (0, y_min),
+                x_zoom,
+                y_zoom - y_min,
+                fill=False,
+                edgecolor="black",
+                linestyle="--",
+                linewidth=1
+            )
+
+            ax.add_patch(zoom_box)
+
+        ax.set_xlabel("Mean framewise displacement (mm)")
+        ax.set_ylabel("DR value")
+
+        ax.set_title(
+            title,
+            color="black",
+            fontsize=8
+        )
+
+        # ----------------------------------------------------
+        # Legend
+        # ----------------------------------------------------
+
+        handles = []
+
+        for dataset in dataset_order:
+
+            if dataset not in plot_df["Dataset_name"].values:
+                continue
+
+            handles.append(
+                Line2D(
+                    [0], [0],
+                    marker="o",
+                    linestyle="",
+                    color=dataset_colors[dataset],
+                    markersize=5,
+                    label=dataset
+                )
+            )
+
+        ax.legend(
+            handles=handles,
+            title="Dataset",
+            frameon=False,
+            loc="upper left",
+            bbox_to_anchor=(1.02, 1),
+            fontsize=6
+        )
+
+        # ----------------------------------------------------
+        # Styling
+        # ----------------------------------------------------
+
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+
+        ax.grid(alpha=0.12)
+        ax.set_axisbelow(True)
+
+        plt.tight_layout()
+
+        plt.savefig(
+            fig_dir / f"figure2{letters[j]}_{component}_{view}.svg",
+            format="svg",
+            bbox_inches="tight"
+        )
+
+        plt.show()
+```
+
+
+```{python}
+# ============================================================
+# FIGURE 3: Ridgeline with medians
+# Rows = datasets
+# Curves = Components 2, 10 and 11
+# ============================================================
+
+from scipy.stats import gaussian_kde
+from matplotlib.lines import Line2D
+
+# ------------------------------------------------------------
+# Prepare data
+# ------------------------------------------------------------
+
+plot_data = Combined_dataset[
+    ["Dataset_name"] + components
+].copy()
+
+for component in components:
+    plot_data[component] = pd.to_numeric(
+        plot_data[component],
+        errors="coerce"
+    )
+
+plot_data[components] = plot_data[components].replace(
+    [np.inf, -np.inf],
+    np.nan
+)
+
+dataset_order = (
+    Combined_dataset
+    .groupby("Dataset_name")["Scan_id"]
+    .count()
+    .sort_values()
+    .index
+    .tolist()
+)
+# ------------------------------------------------------------
+# DR value cutoff
+# ------------------------------------------------------------
+
+x_min = 0
+x_max = 0.8
+
+x = np.linspace(x_min, x_max, 600)
+
+# ------------------------------------------------------------
+# Figure
+# ------------------------------------------------------------
+
+fig, ax = plt.subplots(
+    figsize=(210 * MM, 170 * MM)
+)
+
+ridge_height = 0.75
 
 for i, dataset in enumerate(dataset_order):
 
+    # Dataset baseline
     ax.hlines(
         y=i,
-        xmin=x_min,
-        xmax=cutoff,
+        xmin=x.min(),
+        xmax=x.max(),
         color="lightgray",
         linewidth=0.6,
         zorder=1
     )
 
-    for j, component in enumerate(components):
+    for component in components:
 
         values = (
             plot_data.loc[
@@ -1129,275 +743,263 @@ for i, dataset in enumerate(dataset_order):
                 component
             ]
             .dropna()
-            .astype(float)
+            .to_numpy(dtype=float)
         )
 
-        if len(values) < 2:
+        if len(values) == 0:
             continue
 
-        kde = gaussian_kde(values)
-        density = kde(x)
+        color = component_colors[component]
+        median = np.median(values)
 
-        if density.max() == 0:
-            continue
+        # ----------------------------------------------------
+        # KDE distribution
+        # ----------------------------------------------------
 
-        density = density / density.max() * 0.75
+        if len(values) >= 2 and np.std(values) > 0:
 
-        ax.plot(
-            x,
-            i + density,
-            color=colors[j],
-            alpha=0.7,
-            linewidth=0.9,
-            label=component if i == 0 else None,
-            zorder=2
-        )
+            try:
+                kde = gaussian_kde(values)
+                density = kde(x)
 
-        ax.fill_between(
-            x,
-            i,
-            i + density,
-            color=colors[j],
-            alpha=0.08,
-            zorder=2
-        )
+            except np.linalg.LinAlgError:
+                continue
 
-        n_above = (values > cutoff).sum()
+            if density.max() == 0:
+                continue
 
-        if n_above > 0:
-            above_cutoff.append([
-                dataset,
-                component,
-                n_above,
-                values.max()
-            ])
-
-            ax.scatter(
-                [cutoff],
-                [i + 0.72],
-                color="red",
-                s=8,
-                zorder=4
+            # Normalize curve height
+            density = (
+                density / density.max()
+                * ridge_height
             )
+
+            # Filled distribution
+            ax.fill_between(
+                x,
+                i,
+                i - density,
+                color=color,
+                alpha=0.12,
+                zorder=2
+            )
+
+            # Distribution outline
+            ax.plot(
+                x,
+                i - density,
+                color=color,
+                linewidth=1.3,
+                alpha=0.85,
+                zorder=3
+            )
+
+            # ------------------------------------------------
+            # Median line
+            # ------------------------------------------------
+
+            median_height = np.interp(
+                median, x, density
+            )
+
+            ax.vlines(
+                median,
+                i - max(median_height, 0.16),
+                i,
+                color=color,
+                linewidth=2.5,
+                zorder=5
+            )
+
+        else:
+
+            # Single or constant value
+            ax.vlines(
+                median,
+                i - 0.45,
+                i,
+                color=color,
+                linewidth=2.5,
+                zorder=5
+            )
+
+# ------------------------------------------------------------
+# Axes
+# ------------------------------------------------------------
 
 ax.set_yticks(range(len(dataset_order)))
 ax.set_yticklabels(dataset_order)
 
-ax.set_xlim(x_min, cutoff)
+# Smallest at top
+ax.set_ylim(
+    len(dataset_order) - 0.5,
+    -1.0
+)
+
+ax.set_xlim(x.min(), x.max())
+
 ax.set_xlabel("DR value")
 ax.set_ylabel("Dataset")
-ax.set_title("Overlapping DR distributions of all 18 components per dataset")
+
+ax.set_title(
+    "DR distributions of selected brain networks",
+    color="black",
+    pad=12
+)
+
+# ------------------------------------------------------------
+# Legend
+# ------------------------------------------------------------
+
+handles = []
+
+for component in components:
+
+    handles.append(
+        Line2D(
+            [0], [0],
+            color=component_colors[component],
+            linewidth=2.5,
+            label=component_labels[component]
+        )
+    )
+
+ax.legend(
+    handles=handles,
+    frameon=False,
+    loc="upper left",
+    bbox_to_anchor=(1.01, 1),
+    title="Brain network"
+)
+
+# ------------------------------------------------------------
+# Styling
+# ------------------------------------------------------------
 
 ax.spines["top"].set_visible(False)
 ax.spines["right"].set_visible(False)
+ax.spines["left"].set_visible(False)
 
-ax.legend(
-    title="Component",
-    frameon=False,
-    ncol=1,
-    bbox_to_anchor=(1.02, 1),
-    loc="upper left"
-)
+ax.tick_params(axis="y", length=0)
 
 plt.tight_layout()
 
 plt.savefig(
-    fig_dir / "ridgeline_all_components_overlapping_cutoff_1_5.svg",
+    fig_dir / "figure3_ridgeline_three_components_medians.svg",
     format="svg",
     bbox_inches="tight"
 )
 
 plt.show()
-
-
-# ============================================================
-# TABLE OF VALUES ABOVE CUTOFF
-# ============================================================
-
-above_cutoff_df = pd.DataFrame(
-    above_cutoff,
-    columns=["Dataset_name", "Component", "N_above_1.5", "Max_value"]
-)
-
-if len(above_cutoff_df) == 0:
-    print("No values above 1.5 were found.")
-else:
-    above_cutoff_df = above_cutoff_df.sort_values(
-        ["N_above_1.5", "Max_value"],
-        ascending=[False, False]
-    )
-    print(above_cutoff_df.to_string(index=False))
 ```
 
-
-Following code does everything that has already been done for the datasets for the normative model for the Alzheimer dataset.
-## Alzheimer 
 ```{python}
-from scipy.stats import gaussian_kde
-
-Alzheimer = pd.read_csv(
-    root / "data" / "Alzheimer" / "Alzheimer_MetaData.tsv",
-    sep="\t"
-)
-
-components = [f"comp{i}" for i in range(1, 19)]
+# ============================================================
+# FIGURE 4A: Alzheimer vs 3xTG
+# Components 2, 10 and 11
+# ============================================================
 
 TG = Combined_dataset[
     Combined_dataset["Dataset_name"] == "3xTG"
 ]
 
-Alzheimer[components] = Alzheimer[components].apply(
-    pd.to_numeric,
-    errors="coerce"
+components = ["comp2", "comp10", "comp11"]
+
+component_labels = {
+    "comp2": "Somatosensory cortex (C2)",
+    "comp10": "DMN-associated cortex (C10)",
+    "comp11": "Ventral hippocampus (C11)"
+}
+
+fig, axes = plt.subplots(
+    1, 3,
+    figsize=(210 * MM, 95 * MM)
 )
 
-TG[components] = TG[components].apply(
-    pd.to_numeric,
-    errors="coerce"
-)
+rng = np.random.default_rng(42)
 
-# Shared x-range based on the actual data
-all_values = pd.concat(
-    [
-        Alzheimer[components].stack(),
-        TG[components].stack()
+for ax, component in zip(axes, components):
+
+    groups = [
+        ("3xTG", TG, BLUE),
+        ("Alzheimer", Alzheimer, ORANGE)
     ]
-)
 
-x_min = all_values.min()
-x_max = all_values.max()
+    for i, (name, df, color) in enumerate(groups):
 
-x = np.linspace(x_min, x_max, 300)
+        values = (
+            pd.to_numeric(df[component], errors="coerce")
+            .dropna()
+            .to_numpy(dtype=float)
+        )
 
-fig, ax = plt.subplots(figsize=(180 * MM, 120 * MM))
+        if len(values) == 0:
+            continue
 
-for i, component in enumerate(components):
+        # Violin
+        if len(values) >= 2 and np.std(values) > 0:
 
-    values_alzheimer = (
-        Alzheimer[component]
-        .dropna()
-        .astype(float)
-    )
-
-    values_tg = (
-        TG[component]
-        .dropna()
-        .astype(float)
-    )
-
-    ax.hlines(
-        y=i,
-        xmin=x_min,
-        xmax=x_max,
-        color="lightgray",
-        linewidth=0.6,
-        zorder=0
-    )
-
-    # Alzheimer
-    if len(values_alzheimer) >= 2:
-
-        kde = gaussian_kde(values_alzheimer)
-        density = kde(x)
-
-        if density.max() > 0:
-
-            density = density / density.max() * 0.75
-
-            ax.fill_between(
-                x,
-                i,
-                i + density,
-                color="steelblue",
-                alpha=0.25,
-                zorder=1
+            violin = ax.violinplot(
+                values,
+                positions=[i],
+                widths=0.7,
+                showextrema=False
             )
 
-            ax.plot(
-                x,
-                i + density,
-                color="steelblue",
-                linewidth=1.2,
-                label="Alzheimer" if i == 0 else None,
-                zorder=2
-            )
+            for body in violin["bodies"]:
+                body.set_facecolor(color)
+                body.set_edgecolor(color)
+                body.set_alpha(0.45)
+
+        # Individual measurements
+        jitter = rng.uniform(-0.15, 0.15, len(values))
 
         ax.scatter(
-            values_alzheimer,
-            [i] * len(values_alzheimer),
-            color="steelblue",
-            s=10,
-            alpha=0.5,
+            i + jitter,
+            values,
+            s=12,
+            color=color,
+            alpha=0.65,
             edgecolors="none",
+            zorder=2
+        )
+
+        # Median
+        ax.plot(
+            [i - 0.22, i + 0.22],
+            [np.median(values)] * 2,
+            color=DARK,
+            linewidth=1.8,
             zorder=3
         )
 
-    # 3xTG
-    if len(values_tg) >= 2:
+    ax.set_xticks([0, 1])
+    ax.set_xticklabels(["3xTG", "Alzheimer"])
+    ax.set_xlim(-0.6, 1.6)
 
-        kde = gaussian_kde(values_tg)
-        density = kde(x)
+    ax.set_title(component_labels[component])
+    ax.set_ylabel("DR value")
 
-        if density.max() > 0:
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
 
-            density = density / density.max() * 0.75
+    ax.grid(axis="y", alpha=0.12)
+    ax.set_axisbelow(True)
 
-            ax.fill_between(
-                x,
-                i,
-                i + density,
-                color="sandybrown",
-                alpha=0.25,
-                zorder=1
-            )
-
-            ax.plot(
-                x,
-                i + density,
-                color="sandybrown",
-                linewidth=1.2,
-                label="3xTG" if i == 0 else None,
-                zorder=2
-            )
-
-        ax.scatter(
-            values_tg,
-            [i] * len(values_tg),
-            color="sandybrown",
-            s=10,
-            alpha=0.5,
-            edgecolors="none",
-            zorder=3
-        )
-
-ax.set_yticks(range(len(components)))
-ax.set_yticklabels(components)
-
-ax.set_xlim(x_min, x_max)
-
-ax.set_xlabel("DR value")
-ax.set_ylabel("Component")
-ax.set_title("Alzheimer and 3xTG component distributions")
-
-ax.spines["top"].set_visible(False)
-ax.spines["right"].set_visible(False)
-
-ax.legend(
-    frameon=False,
-    loc="upper right"
+fig.suptitle(
+    "Functional network measurements in Alzheimer and 3xTG datasets",
+    fontsize=10
 )
 
 plt.tight_layout()
 
 plt.savefig(
-    fig_dir / "Alzheimer_3xTG_ridgeline_components_dots.svg",
-    format="svg",
+    fig_dir / "figure4A_Alzheimer_3xTG.svg",
     bbox_inches="tight"
 )
 
 plt.show()
 ```
-
 
 ## statistical test 
 

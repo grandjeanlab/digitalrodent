@@ -1,7 +1,5 @@
 # Make a modelling dataframe
 ```{python}
-# Make a modelling dataframe
-
 from pathlib import Path
 import pandas as pd
 import numpy as np
@@ -101,6 +99,7 @@ model_df["MRI"] = pd.to_numeric(
 
 # ------------------------------------------------------------
 # Coil
+# Missing / N.A. = no cryocoil = RT
 # ------------------------------------------------------------
 
 model_df["Coil"] = (
@@ -112,11 +111,17 @@ model_df["Coil"] = (
 
 model_df["Coil"] = model_df["Coil"].replace({
     "y": "Cryo",
+    "yes": "Cryo",
     "cryo": "Cryo",
     "n": "RT",
+    "no": "RT",
     "rt": "RT",
-    "missing": "Missing"
+    "missing": "RT",
+    "na": "RT",
+    "n/a": "RT"
 })
+
+model_df["Coil"] = model_df["Coil"].fillna("RT")
 
 
 # ------------------------------------------------------------
@@ -131,6 +136,7 @@ model_df["fMRI.sequence"] = (
 )
 
 model_df["fMRI.sequence"] = model_df["fMRI.sequence"].replace({
+    "EPI": "GE-EPI",
     "GE EPI": "GE-EPI",
     "SE EPI": "SE-EPI",
     "ME EPI": "ME-EPI",
@@ -140,6 +146,7 @@ model_df["fMRI.sequence"] = model_df["fMRI.sequence"].replace({
 
 # ------------------------------------------------------------
 # Anesthesia
+# Missing / N.A. = Awake
 # ------------------------------------------------------------
 
 model_df["Anesthesia"] = (
@@ -158,12 +165,17 @@ model_df["Anesthesia"] = model_df["Anesthesia"].replace({
     "mediso": "Mediso",
     "hal": "Hal",
     "propofol": "Propofol",
-    "missing": "Missing"
+    "missing": "Awake",
+    "na": "Awake",
+    "n/a": "Awake"
 })
+
+model_df["Anesthesia"] = model_df["Anesthesia"].fillna("Awake")
 
 
 # ------------------------------------------------------------
 # Ventilation
+# Missing / N.A. = No
 # ------------------------------------------------------------
 
 model_df["Ventilation"] = (
@@ -178,28 +190,12 @@ model_df["Ventilation"] = model_df["Ventilation"].replace({
     "yes": "Yes",
     "n": "No",
     "no": "No",
-    "missing": "Missing"
+    "missing": "No",
+    "na": "No",
+    "n/a": "No"
 })
 
-
-# ------------------------------------------------------------
-# Head plate
-# ------------------------------------------------------------
-
-model_df["head-plate"] = (
-    model_df["head-plate"]
-    .astype("string")
-    .str.strip()
-    .str.lower()
-)
-
-model_df["head-plate"] = model_df["head-plate"].replace({
-    "y": "Yes",
-    "yes": "Yes",
-    "n": "No",
-    "no": "No",
-    "missing": "Missing"
-})
+model_df["Ventilation"] = model_df["Ventilation"].fillna("No")
 
 
 # ============================================================
@@ -210,10 +206,8 @@ numeric_covariates = [
     "Age(week)",
     "MRI",
     "MRI T.R.",
-    "MRI T.E.",
     "FD average",
-    "FD maximum",
-    "tSNR"
+    "FD maximum"
 ]
 
 for col in numeric_covariates:
@@ -316,6 +310,8 @@ missing_summary = pd.DataFrame(
 )
 
 display(missing_summary)
+
+
 # ============================================================
 # CATEGORICAL COVARIATES
 # ============================================================
@@ -326,8 +322,7 @@ categorical_covariates = [
     "Coil",
     "fMRI.sequence",
     "Anesthesia",
-    "Ventilation",
-    "head-plate"
+    "Ventilation"
 ]
 
 

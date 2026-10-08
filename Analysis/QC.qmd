@@ -1,0 +1,115 @@
+```{python}
+from matplotlib.colors import LinearSegmentedColormap
+
+components = [f"comp{i}" for i in range(1, 19)]
+
+Combined_dataset[components] = Combined_dataset[components].apply(
+    pd.to_numeric,
+    errors="coerce"
+)
+
+
+# ============================================================
+# 1. RAW COMPONENT HEATMAP
+# ============================================================
+
+heatmap_data = (
+    Combined_dataset
+    .groupby("Dataset_name")[components]
+    .median()
+)
+
+cmap = LinearSegmentedColormap.from_list(
+    "steelblue_sandybrown",
+    ["steelblue", "lightblue", "wheat", "sandybrown"]
+)
+
+fig, ax = plt.subplots(figsize=(180 * MM, 100 * MM))
+
+im = ax.imshow(
+    heatmap_data.values,
+    aspect="auto",
+    cmap=cmap
+)
+
+ax.set_xticks(range(len(components)))
+ax.set_xticklabels(
+    components,
+    rotation=45,
+    ha="right"
+)
+
+ax.set_yticks(range(len(heatmap_data.index)))
+ax.set_yticklabels(heatmap_data.index)
+
+ax.set_xlabel("Component")
+ax.set_ylabel("Dataset")
+ax.set_title("Median component value per dataset")
+
+cbar = plt.colorbar(im, ax=ax)
+cbar.set_label("Median value")
+
+plt.tight_layout()
+
+plt.savefig(
+    fig_dir / "component_heatmap.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+
+
+# ============================================================
+# 2. STANDARDIZED COMPONENT HEATMAP
+# ============================================================
+
+heatmap_z = heatmap_data.sub(
+    heatmap_data.mean(axis=1),
+    axis=0
+)
+
+heatmap_z = heatmap_z.div(
+    heatmap_data.std(axis=1).replace(0, np.nan),
+    axis=0
+)
+
+limit = np.nanmax(np.abs(heatmap_z.values))
+
+fig, ax = plt.subplots(figsize=(180 * MM, 100 * MM))
+
+im = ax.imshow(
+    heatmap_z.values,
+    aspect="auto",
+    cmap=cmap,
+    vmin=-limit,
+    vmax=limit
+)
+
+ax.set_xticks(range(len(components)))
+ax.set_xticklabels(
+    components,
+    rotation=45,
+    ha="right"
+)
+
+ax.set_yticks(range(len(heatmap_z.index)))
+ax.set_yticklabels(heatmap_z.index)
+
+ax.set_xlabel("Component")
+ax.set_ylabel("Dataset")
+ax.set_title("Relative component pattern per dataset")
+
+cbar = plt.colorbar(im, ax=ax)
+cbar.set_label("Z-score")
+
+plt.tight_layout()
+
+plt.savefig(
+    fig_dir / "component_heatmap_zscore.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+```

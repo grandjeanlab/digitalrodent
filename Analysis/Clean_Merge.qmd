@@ -184,15 +184,10 @@ first_columns = [
     "Coil",
     "fMRI.sequence",
     "MRI T.R.",
-    "MRI T.E.",
     "Anesthesia",
-    "Anesthesia amount",
     "Ventilation",
-    "head-plate",
-    "Habituation",
     "FD average",
     "FD maximum",
-    "tSNR"
 ]
 
 components = [f"comp{i}" for i in range(1, 19)]
@@ -208,4 +203,249 @@ Combined_dataset.to_csv(
 )
 
 print(Combined_dataset.shape)
+```
+
+Adding columms
+
+```{python}
+# ============================================================
+# CLEAN COMBINED DATASET
+# ============================================================
+
+# ------------------------------------------------------------
+# Sex
+# ------------------------------------------------------------
+
+Combined_dataset["Sex"] = (
+    Combined_dataset["Sex"]
+    .astype("string")
+    .str.strip()
+    .str.upper()
+)
+
+Combined_dataset["Sex"] = Combined_dataset["Sex"].replace({
+    "FEMALE": "F",
+    "MALE": "M"
+})
+
+
+# ------------------------------------------------------------
+# Rodent strain
+# ------------------------------------------------------------
+
+Combined_dataset["Rodent.strain"] = (
+    Combined_dataset["Rodent.strain"]
+    .astype("string")
+    .str.strip()
+)
+
+Combined_dataset.loc[
+    Combined_dataset["Rodent.strain"].str.contains(
+        "C57",
+        case=False,
+        na=False
+    ),
+    "Rodent.strain"
+] = "C57BL/6"
+
+
+# ------------------------------------------------------------
+# MRI field strength
+# ------------------------------------------------------------
+
+Combined_dataset["MRI"] = pd.to_numeric(
+    Combined_dataset["MRI"],
+    errors="coerce"
+)
+
+
+# ------------------------------------------------------------
+# Coil
+# Missing / N.A. = no cryocoil = RT
+# ------------------------------------------------------------
+
+Combined_dataset["Coil"] = (
+    Combined_dataset["Coil"]
+    .astype("string")
+    .str.strip()
+    .str.lower()
+)
+
+Combined_dataset["Coil"] = Combined_dataset["Coil"].replace({
+    "y": "Cryo",
+    "yes": "Cryo",
+    "cryo": "Cryo",
+    "n": "RT",
+    "no": "RT",
+    "rt": "RT",
+    "missing": "RT",
+    "na": "RT",
+    "n/a": "RT"
+})
+
+Combined_dataset["Coil"] = (
+    Combined_dataset["Coil"]
+    .fillna("RT")
+)
+
+
+# ------------------------------------------------------------
+# fMRI sequence
+# ------------------------------------------------------------
+
+Combined_dataset["fMRI.sequence"] = (
+    Combined_dataset["fMRI.sequence"]
+    .astype("string")
+    .str.strip()
+    .str.upper()
+)
+
+Combined_dataset["fMRI.sequence"] = Combined_dataset["fMRI.sequence"].replace({
+    "GE EPI": "GE-EPI",
+    "SE EPI": "SE-EPI",
+    "ME EPI": "ME-EPI"
+})
+
+
+# ------------------------------------------------------------
+# Anesthesia
+# Missing / N.A. = Awake
+# ------------------------------------------------------------
+
+Combined_dataset["Anesthesia"] = (
+    Combined_dataset["Anesthesia"]
+    .astype("string")
+    .str.strip()
+    .str.lower()
+)
+
+Combined_dataset["Anesthesia"] = Combined_dataset["Anesthesia"].replace({
+    "awake": "Awake",
+    "iso": "Iso",
+    "dex": "Dex",
+    "dexiso": "Dexiso",
+    "med": "Med",
+    "mediso": "Mediso",
+    "hal": "Hal",
+    "propofol": "Propofol",
+    "missing": "Awake",
+    "na": "Awake",
+    "n/a": "Awake"
+})
+
+Combined_dataset["Anesthesia"] = (
+    Combined_dataset["Anesthesia"]
+    .fillna("Awake")
+)
+
+
+# ------------------------------------------------------------
+# Ventilation
+# Missing / N.A. = No
+# ------------------------------------------------------------
+
+Combined_dataset["Ventilation"] = (
+    Combined_dataset["Ventilation"]
+    .astype("string")
+    .str.strip()
+    .str.lower()
+)
+
+Combined_dataset["Ventilation"] = Combined_dataset["Ventilation"].replace({
+    "y": "Yes",
+    "yes": "Yes",
+    "n": "No",
+    "no": "No",
+    "missing": "No",
+    "na": "No",
+    "n/a": "No"
+})
+
+Combined_dataset["Ventilation"] = (
+    Combined_dataset["Ventilation"]
+    .fillna("No")
+)
+
+
+# ------------------------------------------------------------
+# Numeric columns
+# ------------------------------------------------------------
+
+numeric_columns = [
+    "Age(week)",
+    "MRI",
+    "MRI T.R.",
+    "FD average",
+    "FD maximum"
+]
+
+for col in numeric_columns:
+    Combined_dataset[col] = pd.to_numeric(
+        Combined_dataset[col],
+        errors="coerce"
+    )
+
+
+# ============================================================
+# CHECK CLEANED VALUES
+# ============================================================
+
+categorical_columns = [
+    "Sex",
+    "Rodent.strain",
+    "Coil",
+    "fMRI.sequence",
+    "Anesthesia",
+    "Ventilation"
+]
+
+for col in categorical_columns:
+    print("\n" + col)
+    print(
+        Combined_dataset[col]
+        .value_counts(dropna=False)
+    )
+
+
+print("\nMissing required metadata:")
+
+required_columns = [
+    "Age(week)",
+    "Sex",
+    "MRI",
+    "MRI T.R."
+]
+
+for col in required_columns:
+    print("\n" + col)
+
+    print(
+        Combined_dataset[
+            Combined_dataset[col].isna()
+        ]
+        .groupby("Dataset_name")
+        .size()
+    )
+
+
+# ============================================================
+# SAVE CLEAN COMBINED DATASET
+# ============================================================
+
+Combined_dataset.to_csv(
+    out_dir / "Combined_dataset.csv",
+    index=False
+)
+
+print("\nSaved cleaned Combined_dataset.csv")
+print(Combined_dataset.shape)
+```
+
+
+
+```{python}
+remove last subjects that had bad were exludin in aqwui diston 
+and also thing that are clearly missing 
+
+
 ```

@@ -35,148 +35,73 @@ plt.rcParams.update({
 print(Combined_dataset.shape)
 ```
 
-
-
+two plots for acquisition
 ```{python}
-
-# --------------------------------------------------
-# FIGURE 1: Acquisition protocol landscape
-# One point = one unique acquisition protocol within a dataset
+# ============================================================
+# FIGURE 1A: Scanner / acquisition timing
 #
 # x = TR
-# y = TE
-# bubble size = number of scans using that protocol
-# fill colour = MRI field strength
+# y = MRI field strength
+# colour = dataset
 # marker = fMRI sequence
-# edge colour = awake / anesthetized
-# --------------------------------------------------
+# ============================================================
 
 df = Combined_dataset.copy()
 
-# Numeric variables
+df["MRI"] = pd.to_numeric(
+    df["MRI"],
+    errors="coerce"
+)
+
 df["MRI T.R."] = pd.to_numeric(
     df["MRI T.R."],
     errors="coerce"
 )
 
-df["MRI T.E."] = pd.to_numeric(
-    df["MRI T.E."],
-    errors="coerce"
-)
 
-# Extract MRI field strength
-df["MRI_T"] = pd.to_numeric(
-    df["MRI"]
-    .astype(str)
-    .str.extract(r"(\d+(?:\.\d+)?)")[0],
-    errors="coerce"
-)
-
-# Clean categorical columns
-for col in [
-    "Coil",
-    "fMRI.sequence",
-    "Anesthesia",
-    "Ventilation",
-    "head-plate",
-    "Habituation"
-]:
-    df[col] = (
-        df[col]
-        .astype(str)
-        .str.strip()
-        .replace(["nan", "NA", ""], np.nan)
+plot1 = (
+    df[
+        [
+            "Dataset_name",
+            "MRI",
+            "MRI T.R.",
+            "fMRI.sequence"
+        ]
+    ]
+    .drop_duplicates()
+    .dropna(
+        subset=[
+            "MRI",
+            "MRI T.R."
+        ]
     )
-
-# --------------------------------------------------
-# Awake / anesthetized grouping
-# --------------------------------------------------
-
-df["State"] = "Anesthetized"
-
-awake_mask = (
-    df["Anesthesia"]
-    .fillna("")
-    .str.lower()
-    .str.contains("awake")
+    .copy()
 )
 
-df.loc[awake_mask, "State"] = "Awake"
-
-# Unknown if anesthesia itself is missing
-df.loc[df["Anesthesia"].isna(), "State"] = "Unknown"
 
 # --------------------------------------------------
-# Create unique acquisition protocols
+# Colours per dataset
 # --------------------------------------------------
 
-protocol_columns = [
-    "Dataset_name",
-    "MRI_T",
-    "Coil",
-    "fMRI.sequence",
-    "MRI T.R.",
-    "MRI T.E.",
-    "Anesthesia",
-    "Anesthesia amount",
-    "Ventilation",
-    "head-plate",
-    "Habituation",
-    "State"
-]
-
-protocols = (
-    df
-    .groupby(
-        protocol_columns,
-        dropna=False
-    )
-    .agg(
-        N_scans=("Scan_id", "count"),
-        N_animals=("Participant_Id", "nunique")
-    )
-    .reset_index()
+dataset_levels = (
+    plot1["Dataset_name"]
+    .unique()
 )
 
-# Need TR and TE for the scatter
-protocols = protocols.dropna(
-    subset=["MRI T.R.", "MRI T.E."]
-).copy()
+cmap = plt.get_cmap("tab20")
 
-# --------------------------------------------------
-# Short dataset labels
-# --------------------------------------------------
-
-dataset_codes = {
-    "Awake": "AW",
-    "Awake_Rest": "AR",
-    "Douglas": "DO",
-    "Env_Enrichment": "EE",
-    "Florida": "FL",
-    "Longitudinal": "LO",
-    "3xTG": "3T",
-    "Multicenter": "MC",
-    "Psilocybin": "PS",
-    "Psilocybin_Pilot": "PP",
-    "MPTP": "MP",
-    "Sexdifference": "SD",
-    "NDUFS4": "ND",
-    "Propofol": "PR",
-    "Alvino": "AL"
+dataset_colors = {
+    dataset: cmap(i % 20)
+    for i, dataset in enumerate(dataset_levels)
 }
 
-protocols["Label"] = (
-    protocols["Dataset_name"]
-    .map(dataset_codes)
-    .fillna(protocols["Dataset_name"])
-)
 
 # --------------------------------------------------
-# Marker per sequence
+# Markers per sequence
 # --------------------------------------------------
 
 sequence_levels = (
-    protocols["fMRI.sequence"]
+    plot1["fMRI.sequence"]
     .fillna("Unknown")
     .unique()
 )
@@ -191,89 +116,100 @@ sequence_marker = {
     for i, sequence in enumerate(sequence_levels)
 }
 
+
 # --------------------------------------------------
-# Bubble size
+# Small jitter for overlapping points
 # --------------------------------------------------
 
-sizes = (
-    45 +
-    280 *
-    protocols["N_scans"] /
-    protocols["N_scans"].max()
+plot1 = plot1.reset_index(drop=True)
+
+rng = np.random.default_rng(42)
+
+plot1["TR_plot"] = (
+    plot1["MRI T.R."]
+    + rng.uniform(
+        -20,
+        20,
+        size=len(plot1)
+    )
 )
+
+plot1["MRI_plot"] = (
+    plot1["MRI"]
+    + rng.uniform(
+        -0.08,
+        0.08,
+        size=len(plot1)
+    )
+)
+
 
 # --------------------------------------------------
 # Plot
 # --------------------------------------------------
 
 fig, ax = plt.subplots(
-    figsize=(190 * MM, 130 * MM)
+    figsize=(190 * MM, 125 * MM)
 )
 
-# State edge colours
-state_edge = {
-    "Awake": "steelblue",
-    "Anesthetized": "sandybrown",
-    "Unknown": "gray"
-}
 
-# Plot per sequence so markers differ
-for sequence in sequence_levels:
+for _, row in plot1.iterrows():
 
-    temp = protocols[
-        protocols["fMRI.sequence"].fillna("Unknown") == sequence
-    ]
-
-    for idx, row in temp.iterrows():
-
-        ax.scatter(
-            row["MRI T.R."],
-            row["MRI T.E."],
-            s=sizes.loc[idx],
-            c=[row["MRI_T"]],
-            cmap="viridis",
-            vmin=protocols["MRI_T"].min(),
-            vmax=protocols["MRI_T"].max(),
-            marker=sequence_marker[sequence],
-            edgecolor=state_edge[row["State"]],
-            linewidth=1.5,
-            alpha=0.75,
-            zorder=3
-        )
-
-        ax.annotate(
-            row["Label"],
-            (
-                row["MRI T.R."],
-                row["MRI T.E."]
-            ),
-            xytext=(4, 4),
-            textcoords="offset points",
-            fontsize=6,
-            fontweight="bold"
-        )
-
-# --------------------------------------------------
-# MRI colour bar
-# --------------------------------------------------
-
-sm = plt.cm.ScalarMappable(
-    cmap="viridis",
-    norm=plt.Normalize(
-        protocols["MRI_T"].min(),
-        protocols["MRI_T"].max()
+    sequence = (
+        row["fMRI.sequence"]
+        if pd.notna(row["fMRI.sequence"])
+        else "Unknown"
     )
+
+    ax.scatter(
+        row["TR_plot"],
+        row["MRI_plot"],
+        s=70,
+        color=dataset_colors[
+            row["Dataset_name"]
+        ],
+        marker=sequence_marker[
+            sequence
+        ],
+        edgecolor="black",
+        linewidth=0.4,
+        alpha=0.85
+    )
+
+
+# --------------------------------------------------
+# Dataset legend
+# --------------------------------------------------
+
+dataset_handles = []
+
+for dataset in dataset_levels:
+
+    dataset_handles.append(
+        plt.Line2D(
+            [0], [0],
+            marker="o",
+            linestyle="",
+            markerfacecolor=
+                dataset_colors[dataset],
+            markeredgecolor="none",
+            markersize=6,
+            label=dataset
+        )
+    )
+
+legend_dataset = ax.legend(
+    handles=dataset_handles,
+    title="Dataset",
+    loc="upper left",
+    bbox_to_anchor=(1.02, 1),
+    frameon=False
 )
 
-sm.set_array([])
-
-cbar = plt.colorbar(
-    sm,
-    ax=ax,
-    pad=0.02
+ax.add_artist(
+    legend_dataset
 )
 
-cbar.set_label("MRI field strength (T)")
 
 # --------------------------------------------------
 # Sequence legend
@@ -286,7 +222,8 @@ for sequence in sequence_levels:
     sequence_handles.append(
         plt.Line2D(
             [0], [0],
-            marker=sequence_marker[sequence],
+            marker=
+                sequence_marker[sequence],
             linestyle="",
             markerfacecolor="white",
             markeredgecolor="black",
@@ -295,54 +232,30 @@ for sequence in sequence_levels:
         )
     )
 
-legend1 = ax.legend(
+ax.legend(
     handles=sequence_handles,
     title="fMRI sequence",
-    loc="upper left",
+    loc="lower left",
+    bbox_to_anchor=(1.02, 0),
     frameon=False
 )
 
-ax.add_artist(legend1)
-
-# --------------------------------------------------
-# State legend
-# --------------------------------------------------
-
-state_handles = []
-
-for state in [
-    "Awake",
-    "Anesthetized",
-    "Unknown"
-]:
-
-    state_handles.append(
-        plt.Line2D(
-            [0], [0],
-            marker="o",
-            linestyle="",
-            markerfacecolor="white",
-            markeredgecolor=state_edge[state],
-            markeredgewidth=1.5,
-            markersize=6,
-            label=state
-        )
-    )
-
-ax.legend(
-    handles=state_handles,
-    title="State",
-    loc="lower right",
-    frameon=False
-)
 
 # --------------------------------------------------
 # Styling
 # --------------------------------------------------
 
-ax.set_xlabel("Repetition time, TR")
-ax.set_ylabel("Echo time, TE")
-ax.set_title("Acquisition protocol landscape")
+ax.set_xlabel(
+    "Repetition time, TR"
+)
+
+ax.set_ylabel(
+    "MRI field strength (T)"
+)
+
+ax.set_title(
+    "Scanner and acquisition timing"
+)
 
 ax.spines["top"].set_visible(False)
 ax.spines["right"].set_visible(False)
@@ -350,132 +263,416 @@ ax.spines["right"].set_visible(False)
 plt.tight_layout()
 
 plt.savefig(
-    fig_dir / "figure1_acquisition_protocols.svg",
+    fig_dir / "figure1A_scanner_acquisition.svg",
     format="svg",
     bbox_inches="tight"
 )
 
 plt.show()
+```
 
-# Also print the protocol summary so you can inspect
-# exactly what each plotted point represents
-print(
-    protocols[
+
+```{python}
+# ============================================================
+# FIGURE 1B: Acquisition setup by dataset
+#
+# Rows = datasets
+# Columns = Cryo coil / Awake / Ventilated
+# Dot = feature occurs in that dataset
+# ============================================================
+
+setup = Combined_dataset[
+    [
+        "Dataset_name",
+        "Coil",
+        "Anesthesia",
+        "Ventilation"
+    ]
+].copy()
+
+
+# --------------------------------------------------
+# Create simple yes/no features
+# --------------------------------------------------
+
+setup["Cryo"] = (
+    setup["Coil"] == "Cryo"
+)
+
+setup["Awake"] = (
+    setup["Anesthesia"]
+    .astype("string")
+    .str.lower()
+    == "awake"
+)
+
+setup["Ventilated"] = (
+    setup["Ventilation"]
+    .astype("string")
+    .str.lower()
+    == "yes"
+)
+
+
+# --------------------------------------------------
+# Dataset summary
+# --------------------------------------------------
+
+setup_summary = (
+    setup
+    .groupby("Dataset_name")[
         [
-            "Dataset_name",
-            "MRI_T",
-            "Coil",
-            "fMRI.sequence",
-            "MRI T.R.",
-            "MRI T.E.",
-            "Anesthesia",
-            "Anesthesia amount",
-            "Ventilation",
-            "head-plate",
-            "Habituation",
-            "N_scans"
+            "Cryo",
+            "Awake",
+            "Ventilated"
         ]
     ]
+    .max()
 )
+
+
+# Keep same dataset order as Figure 1A
+setup_summary = setup_summary.reindex(
+    dataset_levels
+)
+
+
+# --------------------------------------------------
+# Plot
+# --------------------------------------------------
+
+features = [
+    "Cryo",
+    "Awake",
+    "Ventilated"
+]
+
+fig, ax = plt.subplots(
+    figsize=(120 * MM, 120 * MM)
+)
+
+
+for y, dataset in enumerate(
+    setup_summary.index
+):
+
+    for x, feature in enumerate(features):
+
+        value = setup_summary.loc[
+            dataset,
+            feature
+        ]
+
+        if value:
+
+            ax.scatter(
+                x,
+                y,
+                s=90,
+                color=dataset_colors[
+                    dataset
+                ],
+                edgecolor="black",
+                linewidth=0.4
+            )
+
+        else:
+
+            ax.scatter(
+                x,
+                y,
+                s=35,
+                facecolor="white",
+                edgecolor="lightgray",
+                linewidth=0.7
+            )
+
+
+# --------------------------------------------------
+# Axes
+# --------------------------------------------------
+
+ax.set_xticks(
+    range(len(features))
+)
+
+ax.set_xticklabels(
+    features
+)
+
+ax.set_yticks(
+    range(len(setup_summary.index))
+)
+
+ax.set_yticklabels(
+    setup_summary.index
+)
+
+ax.invert_yaxis()
+
+ax.set_title(
+    "Acquisition setup by dataset"
+)
+
+ax.set_xlabel("")
+ax.set_ylabel("")
+
+
+# --------------------------------------------------
+# Grid
+# --------------------------------------------------
+
+ax.set_xticks(
+    np.arange(-0.5, len(features), 1),
+    minor=True
+)
+
+ax.set_yticks(
+    np.arange(
+        -0.5,
+        len(setup_summary.index),
+        1
+    ),
+    minor=True
+)
+
+ax.grid(
+    which="minor",
+    color="lightgray",
+    linewidth=0.5
+)
+
+ax.tick_params(
+    which="minor",
+    bottom=False,
+    left=False
+)
+
+
+# --------------------------------------------------
+# Styling
+# --------------------------------------------------
+
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+ax.spines["bottom"].set_visible(False)
+ax.spines["left"].set_visible(False)
+
+plt.tight_layout()
+
+plt.savefig(
+    fig_dir / "figure1B_acquisition_setup.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
 ```
 
 
 ```{python}
 # --------------------------------------------------
-# FIGURE 2: QC plot
-# x = mean FD
-# y = tSNR
-# size = maximum FD
-# colour = MRI field strength
+# FIGURE 2A: Motion QC - full range
 # --------------------------------------------------
 
 df = Combined_dataset.copy()
 
-for col in ["FD average", "FD maximum", "tSNR"]:
-    df[col] = pd.to_numeric(df[col], errors="coerce")
-
-df["MRI_T"] = pd.to_numeric(
-    df["MRI"].astype(str).str.extract(r"(\d+(?:\.\d+)?)")[0],
-    errors="coerce"
-)
-
-plot_df = df.dropna(
-    subset=["FD average", "FD maximum", "tSNR"]
-).copy()
-
-fig, ax = plt.subplots(figsize=(180 * MM, 130 * MM))
-
-if len(plot_df) == 0:
-
-    print("No scans currently have FD average + FD maximum + tSNR together.")
-
-else:
-
-    sizes = 20 + 220 * (
-        plot_df["FD maximum"] /
-        plot_df["FD maximum"].max()
+for col in ["FD average", "FD maximum"]:
+    df[col] = pd.to_numeric(
+        df[col],
+        errors="coerce"
     )
 
-    sc = ax.scatter(
-        plot_df["FD average"],
-        plot_df["tSNR"],
-        s=sizes,
-        c=plot_df["MRI_T"],
-        cmap="viridis",
-        alpha=0.5,
+plot_df = df.dropna(
+    subset=["FD average", "FD maximum"]
+).copy()
+
+
+# Dataset colours
+dataset_levels = (
+    plot_df["Dataset_name"]
+    .unique()
+)
+
+cmap = plt.get_cmap("tab20")
+
+dataset_colors = {
+    dataset: cmap(i % 20)
+    for i, dataset in enumerate(dataset_levels)
+}
+
+
+# Dataset medians
+medians = (
+    plot_df
+    .groupby("Dataset_name")
+    .agg(
+        FD_mean=("FD average", "median"),
+        FD_max=("FD maximum", "median")
+    )
+)
+
+
+# --------------------------------------------------
+# Full plot
+# --------------------------------------------------
+
+fig, ax = plt.subplots(
+    figsize=(180 * MM, 130 * MM)
+)
+
+for dataset in dataset_levels:
+
+    temp = plot_df[
+        plot_df["Dataset_name"] == dataset
+    ]
+
+    ax.scatter(
+        temp["FD average"],
+        temp["FD maximum"],
+        s=22,
+        color=dataset_colors[dataset],
+        alpha=0.35,
         edgecolor="none"
     )
 
-    cbar = plt.colorbar(sc, ax=ax)
-    cbar.set_label("MRI field strength (T)")
 
-    medians = (
-        plot_df
-        .groupby("Dataset_name")
-        .agg(
-            FD_mean=("FD average", "median"),
-            tSNR=("tSNR", "median")
-        )
-    )
+for dataset, row in medians.iterrows():
 
     ax.scatter(
-        medians["FD_mean"],
-        medians["tSNR"],
-        s=55,
-        color="sandybrown",
+        row["FD_mean"],
+        row["FD_max"],
+        s=60,
+        color=dataset_colors[dataset],
         edgecolor="black",
-        linewidth=0.5,
+        linewidth=1,
         zorder=3
     )
 
-    for dataset, row in medians.iterrows():
-        ax.annotate(
-            dataset,
-            (row["FD_mean"], row["tSNR"]),
-            xytext=(4, 4),
-            textcoords="offset points",
-            fontsize=5.8
-        )
-
-    ax.set_xlabel("Mean FD")
-    ax.set_ylabel("tSNR")
-    ax.set_title("Motion and signal quality")
-
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-
-    plt.tight_layout()
-
-    plt.savefig(
-        fig_dir / "figure2_qc_tsnr.svg",
-        format="svg",
-        bbox_inches="tight"
+    ax.annotate(
+        dataset,
+        (
+            row["FD_mean"],
+            row["FD_max"]
+        ),
+        xytext=(4, 4),
+        textcoords="offset points",
+        fontsize=5.8
     )
 
-    plt.show()
 
+ax.set_xlabel("Mean FD")
+ax.set_ylabel("Maximum FD")
+ax.set_title("Motion quality")
+
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+
+plt.tight_layout()
+
+plt.savefig(
+    fig_dir / "figure2A_qc_full.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
 ```
+Zoom for the graph above 
 
+```{python}
+# --------------------------------------------------
+# FIGURE 2B: Motion QC - zoomed low-motion region
+# --------------------------------------------------
+
+# Smaller scope
+x1, x2 = 0.00, 0.025
+y1, y2 = 0.00, 0.040
+
+
+zoom_df = plot_df[
+    (plot_df["FD average"] >= x1)
+    &
+    (plot_df["FD average"] <= x2)
+    &
+    (plot_df["FD maximum"] >= y1)
+    &
+    (plot_df["FD maximum"] <= y2)
+].copy()
+
+
+fig, ax = plt.subplots(
+    figsize=(90 * MM, 75 * MM)
+)
+
+
+for dataset in dataset_levels:
+
+    temp = zoom_df[
+        zoom_df["Dataset_name"] == dataset
+    ]
+
+    ax.scatter(
+        temp["FD average"],
+        temp["FD maximum"],
+        s=20,
+        color=dataset_colors[dataset],
+        alpha=0.45,
+        edgecolor="none"
+    )
+
+
+# Only median labels that fall inside zoom
+for dataset, row in medians.iterrows():
+
+    if (
+        x1 <= row["FD_mean"] <= x2
+        and
+        y1 <= row["FD_max"] <= y2
+    ):
+
+        ax.scatter(
+            row["FD_mean"],
+            row["FD_max"],
+            s=50,
+            color=dataset_colors[dataset],
+            edgecolor="black",
+            linewidth=0.8,
+            zorder=3
+        )
+
+        ax.annotate(
+            dataset,
+            (
+                row["FD_mean"],
+                row["FD_max"]
+            ),
+            xytext=(3, 3),
+            textcoords="offset points",
+            fontsize=5
+        )
+
+
+ax.set_xlim(x1, x2)
+ax.set_ylim(y1, y2)
+
+ax.set_xlabel("Mean FD")
+ax.set_ylabel("Maximum FD")
+ax.set_title("Low-motion datasets")
+
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+
+plt.tight_layout()
+
+plt.savefig(
+    fig_dir / "figure2B_qc_zoom.svg",
+    format="svg",
+    bbox_inches="tight"
+)
+
+plt.show()
+```
 
 ```{python} --------------------------------------------------
 # FIGURE 3: Dataset composition
@@ -997,7 +1194,7 @@ ax.spines["right"].set_visible(False)
 ax.legend(
     title="Component",
     frameon=False,
-    ncol=3,
+    ncol=1,
     bbox_to_anchor=(1.02, 1),
     loc="upper left"
 )
@@ -1223,20 +1420,17 @@ for component in components:
 
     results.append([
         component,
-        len(alz),
-        len(tg),
         alz.median(),
         tg.median(),
         stat,
         p
     ])
 
+
 results = pd.DataFrame(
     results,
     columns=[
         "Component",
-        "N_Alzheimer",
-        "N_3xTG",
         "Median_Alzheimer",
         "Median_3xTG",
         "U",
@@ -1244,13 +1438,55 @@ results = pd.DataFrame(
     ]
 )
 
+
+# FDR correction
 results["p_FDR"] = multipletests(
     results["p"],
     method="fdr_bh"
 )[1]
 
-print(
-    results.sort_values("p_FDR").to_string(index=False)
+
+# Direction only if significant
+results["Direction"] = "Normal"
+
+results.loc[
+    (results["p_FDR"] < 0.05)
+    &
+    (
+        results["Median_Alzheimer"]
+        >
+        results["Median_3xTG"]
+    ),
+    "Direction"
+] = "Higher"
+
+results.loc[
+    (results["p_FDR"] < 0.05)
+    &
+    (
+        results["Median_Alzheimer"]
+        <
+        results["Median_3xTG"]
+    ),
+    "Direction"
+] = "Lower"
+
+
+# Sort numerically by component
+results["Component_number"] = (
+    results["Component"]
+    .str.extract(r"(\d+)")
+    .astype(int)
 )
 
+results = (
+    results
+    .sort_values("Component_number")
+    .drop(columns="Component_number")
+)
+
+
+print(
+    results.to_string(index=False)
+)
 ```

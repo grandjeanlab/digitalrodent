@@ -1,256 +1,256 @@
 Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
-	sub-001	1	7_Cryo_mediso_v	M	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.00434073724	0.00841875561	
-	sub-002	1	7_Cryo_mediso_v	M	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.006868971982	0.01446924905	
-	sub-003	1	7_Cryo_mediso_v	M	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.004805405828	0.009413081244	
-	sub-004	1	7_Cryo_mediso_v	M	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.004391320916	0.008151504712	
-	sub-005	1	7_Cryo_mediso_v	M	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.004319339152	0.008383598712	
-	sub-006	1	7_Cryo_mediso_v	M	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.004474733114	0.00825084776	
-	sub-007	1	7_Cryo_mediso_v	M	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.004616573705	0.008885533926	
-	sub-008	1	7_Cryo_mediso_v	M	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.003879020413	0.007040541544	
-	sub-009	1	7_Cryo_mediso_v	F	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.004263006768	0.008161539954	
-	sub-010	1	7_Cryo_mediso_v	F	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.003966624861	0.006564959649	
-	sub-011	1	7_Cryo_mediso_v	F	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.003774979961	0.006684586702	
-	sub-012	1	7_Cryo_mediso_v	F	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.003652074274	0.006066842537	
-	sub-013	1	7_Cryo_mediso_v	F	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.003955947988	0.007306404623	
-	sub-014	1	7_Cryo_mediso_v	M	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.005002680296	0.01011821595	
-	sub-015	1	7_Cryo_mediso_v	M	12	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.004231607131	0.007158022422	
-	sub-016	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.007170263327	0.01105985256	
-	sub-017	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.006377216287	0.00945271478	
-	sub-018	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.006863532899	0.009820615866	
-	sub-019	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.00877567847	0.01364497643	
-	sub-020	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.007380476818	0.016570147	
-	sub-021	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.006242331578	0.009114502836	
-	sub-022	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.009013204967	0.0132493965	
-	sub-023	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.005953929397	0.009037392903	
-	sub-024	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.005791914149	0.009922982187	
-	sub-025	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.00657744669	0.01106215173	
-	sub-026	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.008829678227	0.01169556093	
-	sub-027	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.005972838767	0.008209046389	
-	sub-028	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.006768442893	0.01030220139	
-	sub-029	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.006159011932	0.009347239948	
-	sub-030	1	94_Cryo_mediso_v	M	12	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso	y			0.005006510027	0.007768139055	
-	sub-031	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.007730924006	0.01177546826	
-	sub-032	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006875135439	0.01004240463	
-	sub-033	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.007678198908	0.01153491252	
-	sub-034	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.008164736046	0.01296967184	
-	sub-035	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.008126143041	0.0131133258	
-	sub-036	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.00784362785	0.01147391947	
-	sub-037	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006611174716	0.00966198664	
-	sub-038	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.008469401014	0.01369331348	
-	sub-039	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.009040147342	0.01572161939	
-	sub-040	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.007464903831	0.01191360416	
-	sub-041	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.008492774778	0.01478095819	
-	sub-042	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.009907196383	0.01692225154	
-	sub-043	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.007748879101	0.01258316897	
-	sub-044	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.007622971152	0.01258431926	
-	sub-045	1	7_Cryo_med_f1		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.008466303309	0.0145366339	
-	sub-046	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.009932014555	0.02067078517	
-	sub-047	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.01735000582	0.03789148872	
-	sub-048	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.01232224451	0.02563897022	
-	sub-049	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.01043171327	0.02207619421	
-	sub-050	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.007567176635	0.01543061138	
-	sub-051	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.01536155801	0.02556109513	
-	sub-052	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.01112640318	0.02275062302	
-	sub-053	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.00556295171	0.0060840277	
-	sub-054	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.009773145901	0.0212095432	
-	sub-055	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.009037169794	0.01818195945	
-	sub-056	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.00990274876	0.01954825124	
-	sub-057	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.0142944734	0.03033350913	
-	sub-058	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.007250453845	0.01350475527	
-	sub-059	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.007154402852	0.01340317617	
-	sub-060	1	7_RT_halo_v	M	12	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.01657559629	0.03633753522	
-	sub-061	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.009903678327	0.01512429155	
-	sub-062	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.009004734169	0.01497945715	
-	sub-063	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.01195967599	0.0207217595	
-	sub-064	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.0108824826	0.01871805778	
-	sub-065	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.01417168053	0.02631535713	
-	sub-066	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.01047719812	0.01754661508	
-	sub-067	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.009576040858	0.0172923237	
-	sub-068	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.03922094987	0.07387236	
-	sub-069	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.01135869941	0.02071846484	
-	sub-070	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.01290784501	0.02219212864	
-	sub-071	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.009805735902	0.01705441345	
-	sub-072	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.01022399093	0.0160215198	
-	sub-073	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.01360410733	0.02582435869	
-	sub-074	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.009346487944	0.01667664347	
-	sub-075	1	94_Cryo_med_f		12	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p	n			0.01055867233	0.0193083265	
-	sub-076	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.007303835091	0.009634507568	
-	sub-077	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.007328303631	0.009618388662	
-	sub-078	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.00894360234	0.01085714825	
-	sub-079	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.007859582267	0.009734652434	
-	sub-080	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.007597478503	0.009617290888	
-	sub-081	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.007683568887	0.009818086906	
-	sub-082	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.008075832322	0.01022171377	
-	sub-083	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.008056606005	0.009810288206	
-	sub-084	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.00719206575	0.008817617921	
-	sub-085	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.00902701635	0.0112027542	
-	sub-086	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.008246565903	0.01082608672	
-	sub-087	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.008518133902	0.0110903349	
-	sub-088	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.007590389906	0.009883622894	
-	sub-089	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.008548999203	0.01142120322	
-	sub-090	1	94_RT_mediso_f1		12	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	0.3 mg/kg med bolus, s.c., 0.3% iso	n			0.007209486142	0.01077738817	
-	sub-091	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01416493636	0.0291624151	
-	sub-092	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01340295048	0.02794559311	
-	sub-093	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01399244982	0.02848942391	
-	sub-094	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01183373264	0.02395533392	
-	sub-095	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01320490859	0.02703446765	
-	sub-096	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01403551797	0.02932009205	
-	sub-097	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01121933475	0.02242078391	
-	sub-098	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01268920201	0.02608014396	
-	sub-099	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01351789557	0.02768590296	
-	sub-100	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01303797224	0.02711887064	
-	sub-101	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.0127444357	0.02581775694	
-	sub-102	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01376682494	0.02787027233	
-	sub-103	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.009400235631	0.01852956492	
-	sub-104	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01051073776	0.02054880855	
-	sub-105	1	117_Cryo_mediso_v	F	12	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso	y			0.01315931118	0.0262319743	
-	sub-106	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004571183139	0.007421905092	
-	sub-107	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004427552253	0.007434218139	
-	sub-108	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004748089694	0.007561807685	
-	sub-109	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004806171621	0.008394206638	
-	sub-110	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.005081502649	0.008507294607	
-	sub-111	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.00597806243	0.009360077202	
-	sub-112	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004750784846	0.007881874923	
-	sub-113	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004934136987	0.008902339036	
-	sub-114	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004470264841	0.007883865647	
-	sub-115	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.00501325881	0.00854398695	
-	sub-116	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004864918565	0.008603983209	
-	sub-117	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004678864785	0.007880429048	
-	sub-118	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.005731171327	0.01021097435	
-	sub-119	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004793390664	0.007715315412	
-	sub-120	1	94_RT_iso_v	F	12	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.005706020007	0.008917823893	
-	sub-121	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.006448448823	0.01156412576	
-	sub-122	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.005538228853	0.008309936503	
-	sub-123	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.005205512961	0.008009074691	
-	sub-124	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.00577599488	0.009439171297	
-	sub-125	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.005259943951	0.008689595323	
-	sub-126	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.006266431213	0.009656436533	
-	sub-127	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.008562485841	0.01424547409	
-	sub-128	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.008054041938	0.01255816342	
-	sub-129	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.004986881999	0.007018941569	
-	sub-130	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.005679726101	0.008742345056	
-	sub-131	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.004931463214	0.00729976945	
-	sub-132	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.005900467826	0.007962446774	
-	sub-133	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.004818277697	0.007466766064	
-	sub-134	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.006141278197	0.01017890661	
-	sub-135	1	47_RT_iso_f		12	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.006447641418	0.01027815993	
-	sub-136	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.009726266021	0.01422283837	
-	sub-137	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.009960928341	0.01510466231	
-	sub-138	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.009223233873	0.01296421364	
-	sub-139	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.008816622153	0.01332639087	
-	sub-140	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.008093498796	0.01239694387	
-	sub-141	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.008697758023	0.01351819538	
-	sub-142	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.01049524495	0.01589968891	
-	sub-143	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.009272132693	0.01356490663	
-	sub-144	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.01207533324	0.01923186611	
-	sub-145	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.01069795698	0.01567041037	
-	sub-146	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.01160949885	0.01734910561	
-	sub-147	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.009131988807	0.01368243015	
-	sub-148	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.006075429317	0.009416010917	
-	sub-149	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.01039641856	0.01565954754	
-	sub-150	1	94_RT_mediso_f2	M	12	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso	n			0.008445185715	0.01211958517	
-	sub-151	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.006030336162	0.009969512832	
-	sub-152	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.01495133855	0.02023299761	
-	sub-153	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.02944095404	0.05451888004	
-	sub-154	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.02295683217	0.02991504332	
-	sub-155	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.008120845893	0.01335105451	
-	sub-156	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.01282439175	0.01960123224	
-	sub-157	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.005607561743	0.009487282431	
-	sub-158	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.01089928828	0.01799171598	
-	sub-159	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.005784708082	0.008867755674	
-	sub-160	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.009418595854	0.01370373638	
-	sub-161	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.01930646498	0.03122592146	
-	sub-162	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.006082297989	0.01008480425	
-	sub-163	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.006264652116	0.0109074268	
-	sub-164	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007278216398	0.01195230826	
-	sub-165	1	94_Cryo_iso_f		12	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.0133404761	0.01906287473	
-	sub-166	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01244142492	0.02086447109	
-	sub-167	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01266853571	0.02024178111	
-	sub-168	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01309739321	0.02089017139	
-	sub-169	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01201652021	0.01982854784	
-	sub-170	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01265758414	0.02009862437	
-	sub-171	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.008946686541	0.01544136748	
-	sub-172	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01323948092	0.0215873483	
-	sub-173	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01009245982	0.01728222129	
-	sub-174	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01073229645	0.01741274644	
-	sub-175	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.0100005041	0.01682429638	
-	sub-176	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01206326781	0.01972432054	
-	sub-177	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01310296057	0.0228389097	
-	sub-178	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01237949072	0.02102495376	
-	sub-179	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01094544652	0.01866779339	
-	sub-180	1	7_RT_iso_f		12	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01318489559	0.02095021984	
-	sub-181	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006667760431	0.0116533435	
-	sub-182	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.007281787245	0.01358005862	
-	sub-183	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006985088689	0.01191006864	
-	sub-184	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006788486652	0.01154230841	
-	sub-185	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006177457812	0.01083194114	
-	sub-186	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006604289711	0.01054751716	
-	sub-187	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006386896974	0.01050598935	
-	sub-188	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006768898686	0.01125702174	
-	sub-189	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006813143833	0.01126159183	
-	sub-190	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.005834757357	0.009575048884	
-	sub-191	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.007199792896	0.01176488106	
-	sub-192	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006594742688	0.01106676484	
-	sub-193	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006412119162	0.01082524531	
-	sub-194	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.007522976753	0.01202299698	
-	sub-195	1	7_Cryo_med_f2		12	C57BL/6J	7	Cryo	EPI	2000	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.006254056584	0.01073228047	
-	sub-196	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.01850020026	0.03037390652	
-	sub-197	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.01667770279	0.02842045792	
-	sub-198	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.01249751695	0.02170377214	
-	sub-199	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.01548085368	0.02649852869	
-	sub-200	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.018338619	0.03133574514	
-	sub-201	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.01354015442	0.02264010902	
-	sub-202	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.01195617793	0.02039470837	
-	sub-203	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.0207906409	0.03839845686	
-	sub-204	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.02112040936	0.03967079726	
-	sub-205	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.01340179629	0.02417862101	
-	sub-206	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.01145137439	0.01877394165	
-	sub-207	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.02541070162	0.04956298727	
-	sub-208	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.01126843224	0.01985968192	
-	sub-209	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.01336836845	0.02433541462	
-	sub-210	1	7_Cryo_aw_f		12	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.01252030008	0.02249692952	
-	sub-211	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.008154337525	0.01263586657	
-	sub-212	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.008717058942	0.01372111884	
-	sub-213	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.0081225293	0.0119416923	
-	sub-214	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.00837632661	0.01344295942	
-	sub-215	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.007144557472	0.01073984033	
-	sub-216	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.008444517041	0.01302994034	
-	sub-217	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.008323197458	0.01265942017	
-	sub-218	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.009140667888	0.01351380418	
-	sub-219	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.008998665104	0.01443081795	
-	sub-220	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.007378096906	0.01120341224	
-	sub-221	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.00859171001	0.01177184954	
-	sub-222	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.1159979416	0.1750761821	
-	sub-223	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.009456060322	0.01482168701	
-	sub-224	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01001314748	0.01585807036	
-	sub-225	1	7_Cryo_med_f3		12	C57BL/6J	7	Cryo	EPI	1700	10	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.009743518897	0.01426750153	
-	sub-226	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007510676038	0.01284698574	
-	sub-227	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.01963257406	0.03384795447	
-	sub-228	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.01024675758	0.01687089806	
-	sub-229	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007635879271	0.01192960706	
-	sub-230	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.01933771855	0.02877373935	
-	sub-231	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.01171331316	0.02046135546	
-	sub-232	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007537366776	0.01183220353	
-	sub-233	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.01064803733	0.01569490469	
-	sub-234	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.006505710247	0.009658533672	
-	sub-235	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007130786886	0.01076879391	
-	sub-236	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007166754727	0.0109460142	
-	sub-237	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007538455045	0.01333469532	
-	sub-238	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.01327056857	0.02230392011	
-	sub-239	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007674103051	0.01243918776	
-	sub-240	1	117_Cryo_iso_f	M	12	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.005410671878	0.008414737079	
-	sub-241	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01081852659	0.01798448504	
-	sub-242	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01088026791	0.01811000607	
-	sub-243	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01201908558	0.02145887282	
-	sub-244	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01027015087	0.01673096946	
-	sub-245	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.009714580137	0.01631827828	
-	sub-246	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01039516809	0.0168404414	
-	sub-247	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.008695836799	0.01388805545	
-	sub-248	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01143573697	0.01965438225	
-	sub-249	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01018983235	0.01670047921	
-	sub-250	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.008691236904	0.01386446376	
-	sub-251	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01054120966	0.01772088027	
-	sub-252	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01089032416	0.01698780141	
-	sub-253	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01158649163	0.01916893125	
-	sub-254	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01051807848	0.01832842948	
-	sub-255	1	7_RT_med_f		12	C57BL/6J	7	RT	EPI	2000	15	Med	0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c.	n			0.01193504672	0.02052508587	
+	sub-001	1	7_Cryo_mediso_v	M	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.004340737	0.008418756	
+	sub-002	1	7_Cryo_mediso_v	M	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.006868972	0.014469249	
+	sub-003	1	7_Cryo_mediso_v	M	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.004805406	0.009413081	
+	sub-004	1	7_Cryo_mediso_v	M	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.004391321	0.008151505	
+	sub-005	1	7_Cryo_mediso_v	M	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.004319339	0.008383599	
+	sub-006	1	7_Cryo_mediso_v	M	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.004474733	0.008250848	
+	sub-007	1	7_Cryo_mediso_v	M	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.004616574	0.008885534	
+	sub-008	1	7_Cryo_mediso_v	M	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.00387902	0.007040542	
+	sub-009	1	7_Cryo_mediso_v	F	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.004263007	0.00816154	
+	sub-010	1	7_Cryo_mediso_v	F	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.003966625	0.00656496	
+	sub-011	1	7_Cryo_mediso_v	F	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.00377498	0.006684587	
+	sub-012	1	7_Cryo_mediso_v	F	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.003652074	0.006066843	
+	sub-013	1	7_Cryo_mediso_v	F	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.003955948	0.007306405	
+	sub-014	1	7_Cryo_mediso_v	M	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.00500268	0.010118216	
+	sub-015	1	7_Cryo_mediso_v	M	7	C57BL/6J	7	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.004231607	0.007158022	
+	sub-016	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.007170263	0.011059853	
+	sub-017	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.006377216	0.009452715	
+	sub-018	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.006863533	0.009820616	
+	sub-019	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.008775678	0.013644976	
+	sub-020	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.007380477	0.016570147	
+	sub-021	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.006242332	0.009114503	
+	sub-022	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.009013205	0.013249397	
+	sub-023	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.005953929	0.009037393	
+	sub-024	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.005791914	0.009922982	
+	sub-025	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.006577447	0.011062152	
+	sub-026	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.008829678	0.011695561	
+	sub-027	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.005972839	0.008209046	
+	sub-028	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.006768443	0.010302201	
+	sub-029	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.006159012	0.00934724	
+	sub-030	1	94_Cryo_mediso_v	M	7	C57BL/6J	9.4	Cryo	EPI	1000	9.2	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0.5% iso"	y			0.00500651	0.007768139	
+	sub-031	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.007730924	0.011775468	
+	sub-032	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.006875135	0.010042405	
+	sub-033	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.007678199	0.011534913	
+	sub-034	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008164736	0.012969672	
+	sub-035	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008126143	0.013113326	
+	sub-036	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.007843628	0.011473919	
+	sub-037	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.006611175	0.009661987	
+	sub-038	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008469401	0.013693313	
+	sub-039	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.009040147	0.015721619	
+	sub-040	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.007464904	0.011913604	
+	sub-041	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008492775	0.014780958	
+	sub-042	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.009907196	0.016922252	
+	sub-043	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.007748879	0.012583169	
+	sub-044	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.007622971	0.012584319	
+	sub-045	1	7_Cryo_med_f1		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008466303	0.014536634	
+	sub-046	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.009932015	0.020670785	
+	sub-047	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.017350006	0.037891489	
+	sub-048	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.012322245	0.02563897	
+	sub-049	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.010431713	0.022076194	
+	sub-050	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.007567177	0.015430611	
+	sub-051	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.015361558	0.025561095	
+	sub-052	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.011126403	0.022750623	
+	sub-053	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.005562952	0.006084028	
+	sub-054	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.009773146	0.021209543	
+	sub-055	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.00903717	0.018181959	
+	sub-056	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.009902749	0.019548251	
+	sub-057	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.014294473	0.030333509	
+	sub-058	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.007250454	0.013504755	
+	sub-059	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.007154403	0.013403176	
+	sub-060	1	7_RT_halo_v	M	7	C57BL/6J	7	RT	EPI	1200	15	Hal	0.75% halothane	y			0.016575596	0.036337535	
+	sub-061	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.009903678	0.015124292	
+	sub-062	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.009004734	0.014979457	
+	sub-063	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.011959676	0.02072176	
+	sub-064	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.010882483	0.018718058	
+	sub-065	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.014171681	0.026315357	
+	sub-066	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.010477198	0.017546615	
+	sub-067	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.009576041	0.017292324	
+	sub-068	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.03922095	0.07387236	
+	sub-069	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.011358699	0.020718465	
+	sub-070	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.012907845	0.022192129	
+	sub-071	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.009805736	0.017054413	
+	sub-072	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.010223991	0.01602152	
+	sub-073	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.013604107	0.025824359	
+	sub-074	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.009346488	0.016676643	
+	sub-075	1	94_Cryo_med_f		7	C57BL/6J	9.4	Cryo	EPI	1300	18	Med	"0.4 mg/kg med bolus + 0.8 mg/kg med infusion, i.p"	n			0.010558672	0.019308327	
+	sub-076	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.007303835	0.009634508	
+	sub-077	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.007328304	0.009618389	
+	sub-078	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.008943602	0.010857148	
+	sub-079	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.007859582	0.009734652	
+	sub-080	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.007597479	0.009617291	
+	sub-081	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.007683569	0.009818087	
+	sub-082	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.008075832	0.010221714	
+	sub-083	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.008056606	0.009810288	
+	sub-084	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.007192066	0.008817618	
+	sub-085	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.009027016	0.011202754	
+	sub-086	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.008246566	0.010826087	
+	sub-087	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.008518134	0.011090335	
+	sub-088	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.00759039	0.009883623	
+	sub-089	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.008548999	0.011421203	
+	sub-090	1	94_RT_mediso_f1		7	C57BL/6J	9.4	RT	EPI	2000	15	Mediso	"0.3 mg/kg med bolus, s.c., 0.3% iso"	n			0.007209486	0.010777388	
+	sub-091	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.014164936	0.029162415	
+	sub-092	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.01340295	0.027945593	
+	sub-093	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.01399245	0.028489424	
+	sub-094	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.011833733	0.023955334	
+	sub-095	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.013204909	0.027034468	
+	sub-096	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.014035518	0.029320092	
+	sub-097	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.011219335	0.022420784	
+	sub-098	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.012689202	0.026080144	
+	sub-099	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.013517896	0.027685903	
+	sub-100	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.013037972	0.027118871	
+	sub-101	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.012744436	0.025817757	
+	sub-102	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.013766825	0.027870272	
+	sub-103	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.009400236	0.018529565	
+	sub-104	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.010510738	0.020548809	
+	sub-105	1	117_Cryo_mediso_v	F	7	C57BL/6J	11.75	Cryo	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, s.c., 0.5% iso"	y			0.013159311	0.026231974	
+	sub-106	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004571183	0.007421905	
+	sub-107	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004427552	0.007434218	
+	sub-108	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.00474809	0.007561808	
+	sub-109	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004806172	0.008394207	
+	sub-110	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.005081503	0.008507295	
+	sub-111	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.005978062	0.009360077	
+	sub-112	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004750785	0.007881875	
+	sub-113	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004934137	0.008902339	
+	sub-114	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004470265	0.007883866	
+	sub-115	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.005013259	0.008543987	
+	sub-116	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004864919	0.008603983	
+	sub-117	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004678865	0.007880429	
+	sub-118	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.005731171	0.010210974	
+	sub-119	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.004793391	0.007715315	
+	sub-120	1	94_RT_iso_v	F	7	C57BL/6J	9.4	RT	EPI	1500	17	Iso	1% isoflurane	y			0.00570602	0.008917824	
+	sub-121	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.006448449	0.011564126	
+	sub-122	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.005538229	0.008309937	
+	sub-123	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.005205513	0.008009075	
+	sub-124	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.005775995	0.009439171	
+	sub-125	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.005259944	0.008689595	
+	sub-126	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.006266431	0.009656437	
+	sub-127	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.008562486	0.014245474	
+	sub-128	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.008054042	0.012558163	
+	sub-129	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.004986882	0.007018942	
+	sub-130	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.005679726	0.008742345	
+	sub-131	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.004931463	0.007299769	
+	sub-132	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.005900468	0.007962447	
+	sub-133	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.004818278	0.007466766	
+	sub-134	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.006141278	0.010178907	
+	sub-135	1	47_RT_iso_f		7	C57BL/6J	4.7	RT	EPI	2000	25	Iso	1% isoflurane	n			0.006447641	0.01027816	
+	sub-136	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.009726266	0.014222838	
+	sub-137	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.009960928	0.015104662	
+	sub-138	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.009223234	0.012964214	
+	sub-139	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.008816622	0.013326391	
+	sub-140	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.008093499	0.012396944	
+	sub-141	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.008697758	0.013518195	
+	sub-142	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.010495245	0.015899689	
+	sub-143	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.009272133	0.013564907	
+	sub-144	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.012075333	0.019231866	
+	sub-145	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.010697957	0.01567041	
+	sub-146	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.011609499	0.017349106	
+	sub-147	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.009131989	0.01368243	
+	sub-148	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.006075429	0.009416011	
+	sub-149	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.010396419	0.015659548	
+	sub-150	1	94_RT_mediso_f2	M	7	C57BL/6J	9.4	RT	EPI	1000	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, 0.3% iso"	n			0.008445186	0.012119585	
+	sub-151	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.006030336	0.009969513	
+	sub-152	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.014951339	0.020232998	
+	sub-153	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.029440954	0.05451888	
+	sub-154	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.022956832	0.029915043	
+	sub-155	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.008120846	0.013351055	
+	sub-156	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.012824392	0.019601232	
+	sub-157	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.005607562	0.009487282	
+	sub-158	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.010899288	0.017991716	
+	sub-159	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.005784708	0.008867756	
+	sub-160	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.009418596	0.013703736	
+	sub-161	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.019306465	0.031225921	
+	sub-162	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.006082298	0.010084804	
+	sub-163	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.006264652	0.010907427	
+	sub-164	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007278216	0.011952308	
+	sub-165	1	94_Cryo_iso_f		7	C57BL/6J	9.4	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.013340476	0.019062875	
+	sub-166	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.012441425	0.020864471	
+	sub-167	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.012668536	0.020241781	
+	sub-168	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.013097393	0.020890171	
+	sub-169	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01201652	0.019828548	
+	sub-170	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.012657584	0.020098624	
+	sub-171	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.008946687	0.015441367	
+	sub-172	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.013239481	0.021587348	
+	sub-173	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.01009246	0.017282221	
+	sub-174	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.010732296	0.017412746	
+	sub-175	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.010000504	0.016824296	
+	sub-176	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.012063268	0.019724321	
+	sub-177	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.013102961	0.02283891	
+	sub-178	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.012379491	0.021024954	
+	sub-179	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.010945447	0.018667793	
+	sub-180	1	7_RT_iso_f		7	C57BL/6J	7	RT	EPI	2000	15	Iso	1% isoflurane	n			0.013184896	0.02095022	
+	sub-181	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.00666776	0.011653344	
+	sub-182	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.007281787	0.013580059	
+	sub-183	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.006985089	0.011910069	
+	sub-184	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.006788487	0.011542308	
+	sub-185	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.006177458	0.010831941	
+	sub-186	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.00660429	0.010547517	
+	sub-187	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.006386897	0.010505989	
+	sub-188	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.006768899	0.011257022	
+	sub-189	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.006813144	0.011261592	
+	sub-190	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.005834757	0.009575049	
+	sub-191	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.007199793	0.011764881	
+	sub-192	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.006594743	0.011066765	
+	sub-193	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.006412119	0.010825245	
+	sub-194	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.007522977	0.012022997	
+	sub-195	1	7_Cryo_med_f2		7	C57BL/6J	7	Cryo	EPI	2000	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.006254057	0.01073228	
+	sub-196	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.0185002	0.030373907	
+	sub-197	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.016677703	0.028420458	
+	sub-198	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.012497517	0.021703772	
+	sub-199	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.015480854	0.026498529	
+	sub-200	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.018338619	0.031335745	
+	sub-201	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.013540154	0.022640109	
+	sub-202	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.011956178	0.020394708	
+	sub-203	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.020790641	0.038398457	
+	sub-204	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.021120409	0.039670797	
+	sub-205	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.013401796	0.024178621	
+	sub-206	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.011451374	0.018773942	
+	sub-207	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.025410702	0.049562987	
+	sub-208	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.011268432	0.019859682	
+	sub-209	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.013368368	0.024335415	
+	sub-210	1	7_Cryo_aw_f		7	C57BL/6J	7	Cryo	EPI	1500	15	Awake		n			0.0125203	0.02249693	
+	sub-211	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008154338	0.012635867	
+	sub-212	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008717059	0.013721119	
+	sub-213	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008122529	0.011941692	
+	sub-214	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008376327	0.013442959	
+	sub-215	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.007144557	0.01073984	
+	sub-216	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008444517	0.01302994	
+	sub-217	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008323197	0.01265942	
+	sub-218	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.009140668	0.013513804	
+	sub-219	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008998665	0.014430818	
+	sub-220	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.007378097	0.011203412	
+	sub-221	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.00859171	0.01177185	
+	sub-222	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.115997942	0.175076182	
+	sub-223	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.00945606	0.014821687	
+	sub-224	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.010013147	0.01585807	
+	sub-225	1	7_Cryo_med_f3		7	C57BL/6J	7	Cryo	EPI	1700	10	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.009743519	0.014267502	
+	sub-226	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007510676	0.012846986	
+	sub-227	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.019632574	0.033847954	
+	sub-228	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.010246758	0.016870898	
+	sub-229	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007635879	0.011929607	
+	sub-230	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.019337719	0.028773739	
+	sub-231	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.011713313	0.020461355	
+	sub-232	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007537367	0.011832204	
+	sub-233	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.010648037	0.015694905	
+	sub-234	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.00650571	0.009658534	
+	sub-235	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007130787	0.010768794	
+	sub-236	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007166755	0.010946014	
+	sub-237	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007538455	0.013334695	
+	sub-238	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.013270569	0.02230392	
+	sub-239	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.007674103	0.012439188	
+	sub-240	1	117_Cryo_iso_f	M	7	C57BL/6J	11.75	Cryo	EPI	1000	10	Iso	1.25% isoflurane	n			0.005410672	0.008414737	
+	sub-241	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.010818527	0.017984485	
+	sub-242	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.010880268	0.018110006	
+	sub-243	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.012019086	0.021458873	
+	sub-244	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.010270151	0.016730969	
+	sub-245	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.00971458	0.016318278	
+	sub-246	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.010395168	0.016840441	
+	sub-247	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008695837	0.013888055	
+	sub-248	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.011435737	0.019654382	
+	sub-249	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.010189832	0.016700479	
+	sub-250	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.008691237	0.013864464	
+	sub-251	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.01054121	0.01772088	
+	sub-252	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.010890324	0.016987801	
+	sub-253	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.011586492	0.019168931	
+	sub-254	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.010518078	0.018328429	
+	sub-255	1	7_RT_med_f		7	C57BL/6J	7	RT	EPI	2000	15	Med	"0.3 mg/kg med bolus + 0.6 mg/kg med infusion, s.c."	n			0.011935047	0.020525086	

@@ -1,61 +1,61 @@
 Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
-	sub-C09S001	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.00455423189	0.00800266219	
-	sub-C09S002	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004348607829	0.007144027213	
-	sub-C09S003	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.003781597913	0.006066778987	
-	sub-C09S004	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004555624655	0.007817628917	
-	sub-C09S005	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.00486862042	0.009373934774	
-	sub-C02S006	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.01065723564	0.01851137805	
-	sub-C02S007	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004123689061	0.006650905159	
-	sub-C02S008	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004885911072	0.007391612337	
-	sub-C02S009	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004465477622	0.008024837567	
-	sub-C02S010	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.00624177302	0.01218392329	
-	sub-C08S011	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004862162139	0.009100203261	
-	sub-C08S012	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.005660573741	0.01029606447	
-	sub-C08S013	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.005183015363	0.009574065568	
-	sub-C08S014	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004604188915	0.007682471124	
-	sub-C01S015	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.003812673848	0.006201216364	
-	sub-C01S016	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004827251763	0.00856944699	
-	sub-C01S017	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.00522413522	0.009362307601	
-	sub-C01S018	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004556718144	0.008213619305	
-	sub-C01S019	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.006036713508	0.01125228645	
-	sub-C03S020	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.006382580913	0.01166763242	
-	sub-C03S021	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.005125903192	0.008416991516	
-	sub-C03S022	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004280116085	0.007315266317	
-	sub-C03S023	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.005012374457	0.01001619178	
-	sub-C03S024	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004055975365	0.006833569738	
-	sub-C04S025	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.003551669005	0.005730417691	
-	sub-C04S026	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.003909741707	0.00640096641	
-	sub-C04S027	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004298373705	0.007664623015	
-	sub-C04S028	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004730235675	0.008958093516	
-	sub-C04S029	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.00792398091	0.01547038946	
-	sub-C05S030	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004686039396	0.008462008125	
-	sub-C05S031	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004227628127	0.007495346155	
-	sub-C05S032	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004736668315	0.007816433886	
-	sub-C06S033	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.005047326034	0.009095221924	
-	sub-C06S034	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.003676532164	0.006099765504	
-	sub-C06S035	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004111523257	0.007499952301	
-	sub-C06S036	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.00389253727	0.006704814922	
-	sub-C07S037	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.007292783002	0.01461086855	
-	sub-C07S038	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.003891607582	0.006439425715	
-	sub-C07S039	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.003687655292	0.006116623337	
-	sub-C07S040	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004217822802	0.007578573128	
-	sub-C10S041	2	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.01190445694	0.0197127711	
-	sub-C11S042	2	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.02931768049	0.05011654887	
-	sub-C11S043	2	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.006400215008	0.01194746085	
-	sub-C11S044	2	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.006679923316	0.01179746009	
-	sub-C11S045	2	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.006880586181	0.01177854562	
-	sub-C10S046	2	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.006243617003	0.009790021893	
-	sub-C10S047	2	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004168895047	0.006769365265	
-	sub-C10S048	2	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004244284265	0.006856650756	
-	sub-C10S049	2	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.01031348761	0.0169137196	
-	sub-C10S050	2	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.00396964625	0.006319023014	
-	sub-C13S051	2	Sex-differences	F	16	C57BL	7	RT	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004587622082	0.007957145997	
-	sub-C13S052	2	Sex-differences	F	16	C57BL	7	RT	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.003900909295	0.006135027287	
-	sub-C13S053	2	Sex-differences	F	16	C57BL	7	RT	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.007174884736	0.01227936153	
-	sub-C13S054	2	Sex-differences	F	16	C57BL	7	RT	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.007859420468	0.01460975049	
-	sub-C13S055	2	Sex-differences	F	16	C57BL	7	RT	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.00395402871	0.006085978567	
-	sub-C12S056	2	Sex-differences	M	16	C57BL	7	RT	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.01141135476	0.0202293693	
-	sub-C12S057	2	Sex-differences	M	16	C57BL	7	RT	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.03666148801	0.06421548025	
-	sub-C12S058	2	Sex-differences	M	16	C57BL	7	RT	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.006638317296	0.01230238542	
-	sub-C12S059	2	Sex-differences	M	16	C57BL	7	RT	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.004340618215	0.006527519306	
-	sub-C12S060	2	Sex-differences	M	16	C57BL	7	RT	GE-EPI	1000		Dexiso	0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso				0.008740039768	0.01420601789	
+	sub-C09S001	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004554232	0.008002662	
+	sub-C09S002	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004348608	0.007144027	
+	sub-C09S003	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.003781598	0.006066779	
+	sub-C09S004	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004555625	0.007817629	
+	sub-C09S005	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.00486862	0.009373935	
+	sub-C02S006	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.010657236	0.018511378	
+	sub-C02S007	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004123689	0.006650905	
+	sub-C02S008	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004885911	0.007391612	
+	sub-C02S009	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004465478	0.008024838	
+	sub-C02S010	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.006241773	0.012183923	
+	sub-C08S011	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004862162	0.009100203	
+	sub-C08S012	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.005660574	0.010296064	
+	sub-C08S013	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.005183015	0.009574066	
+	sub-C08S014	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004604189	0.007682471	
+	sub-C01S015	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.003812674	0.006201216	
+	sub-C01S016	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004827252	0.008569447	
+	sub-C01S017	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.005224135	0.009362308	
+	sub-C01S018	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004556718	0.008213619	
+	sub-C01S019	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.006036714	0.011252286	
+	sub-C03S020	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.006382581	0.011667632	
+	sub-C03S021	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.005125903	0.008416992	
+	sub-C03S022	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004280116	0.007315266	
+	sub-C03S023	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.005012374	0.010016192	
+	sub-C03S024	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004055975	0.00683357	
+	sub-C04S025	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.003551669	0.005730418	
+	sub-C04S026	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.003909742	0.006400966	
+	sub-C04S027	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004298374	0.007664623	
+	sub-C04S028	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004730236	0.008958094	
+	sub-C04S029	1	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.007923981	0.015470389	
+	sub-C05S030	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004686039	0.008462008	
+	sub-C05S031	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004227628	0.007495346	
+	sub-C05S032	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004736668	0.007816434	
+	sub-C06S033	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.005047326	0.009095222	
+	sub-C06S034	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.003676532	0.006099766	
+	sub-C06S035	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004111523	0.007499952	
+	sub-C06S036	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.003892537	0.006704815	
+	sub-C07S037	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.007292783	0.014610869	
+	sub-C07S038	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.003891608	0.006439426	
+	sub-C07S039	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.003687655	0.006116623	
+	sub-C07S040	1	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004217823	0.007578573	
+	sub-C10S041	2	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.011904457	0.019712771	
+	sub-C11S042	2	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.02931768	0.050116549	
+	sub-C11S043	2	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.006400215	0.011947461	
+	sub-C11S044	2	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.006679923	0.01179746	
+	sub-C11S045	2	Sex-differences	M	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.006880586	0.011778546	
+	sub-C10S046	2	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.006243617	0.009790022	
+	sub-C10S047	2	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004168895	0.006769365	
+	sub-C10S048	2	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004244284	0.006856651	
+	sub-C10S049	2	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.010313488	0.01691372	
+	sub-C10S050	2	Sex-differences	F	16	C57BL	7	n	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.003969646	0.006319023	
+	sub-C13S051	2	Sex-differences	F	16	C57BL	7	RT	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004587622	0.007957146	
+	sub-C13S052	2	Sex-differences	F	16	C57BL	7	RT	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.003900909	0.006135027	
+	sub-C13S053	2	Sex-differences	F	16	C57BL	7	RT	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.007174885	0.012279362	
+	sub-C13S054	2	Sex-differences	F	16	C57BL	7	RT	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.00785942	0.01460975	
+	sub-C13S055	2	Sex-differences	F	16	C57BL	7	RT	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.003954029	0.006085979	
+	sub-C12S056	2	Sex-differences	M	16	C57BL	7	RT	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.011411355	0.020229369	
+	sub-C12S057	2	Sex-differences	M	16	C57BL	7	RT	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.036661488	0.06421548	
+	sub-C12S058	2	Sex-differences	M	16	C57BL	7	RT	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.006638317	0.012302385	
+	sub-C12S059	2	Sex-differences	M	16	C57BL	7	RT	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.004340618	0.006527519	
+	sub-C12S060	2	Sex-differences	M	16	C57BL	7	RT	GE-EPI	1000		Dexiso	"0.05 mg/kg med bolus + 0.025 mg/kg med infusion, i.p., 0,5% iso"	n			0.00874004	0.014206018	

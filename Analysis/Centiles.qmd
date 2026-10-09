@@ -1,21 +1,13 @@
 # Centile plots
 
 ```{python}
-# ============================================================
-# CENTILE PLOTS
-# Age and Sex for comp2, comp10, comp11
-# Save to results/figures
-# ============================================================
-
 from pathlib import Path
+
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from pcntoolkit import (
-    NormativeModel,
-    NormData,
-    plot_centiles
-)
+from pcntoolkit import NormativeModel, NormData
 
 
 # ============================================================
@@ -31,45 +23,25 @@ model_dir = (
     / "BLR"
 )
 
-figure_dir = (
+fig_dir = (
     current_dir
     / "results"
     / "figures"
 )
 
-figure_dir.mkdir(
-    parents=True,
-    exist_ok=True
-)
-
-age_dir = figure_dir / "centiles_age"
-sex_dir = figure_dir / "centiles_sex"
-
-age_dir.mkdir(
-    parents=True,
-    exist_ok=True
-)
-
-sex_dir.mkdir(
+fig_dir.mkdir(
     parents=True,
     exist_ok=True
 )
 
 
 # ============================================================
-# LOAD MODEL
+# LOAD MODEL + MODELLING DATA
 # ============================================================
 
 model = NormativeModel.load(
     str(model_dir)
 )
-
-print("BLR model loaded")
-
-
-# ============================================================
-# LOAD MODELLING DATA
-# ============================================================
 
 model_df = pd.read_csv(
     current_dir
@@ -80,43 +52,128 @@ model_df = pd.read_csv(
 
 
 # ============================================================
-# DEFINE VARIABLES
+# VARIABLES
 # ============================================================
 
-response_vars = [
-    f"comp{i}" for i in range(1, 19)
+covariates = [
+    str(x)
+    for x in model.covariates
 ]
 
-selected_responses = [
+response_vars = [
+    str(x)
+    for x in model.response_vars
+]
+
+wanted = [
     "comp2",
     "comp10",
     "comp11"
 ]
 
-batch_effects = [
-    "Dataset_name"
-]
 
-covariates = [
-    col for col in model_df.columns
-    if col not in (
-        [
-            "Scan_id",
-            "Participant_Id",
-            "Dataset_name"
-        ]
-        + response_vars
+# Batch effects used by the trained model
+if model.has_batch_effect:
+    batch_effects = list(
+        model.batch_effect_counts.keys()
     )
+else:
+    batch_effects = []
+
+
+# ============================================================
+# CHOOSE ONE REAL REFERENCE PROFILE
+#
+# Important:
+# We copy an ACTUAL animal/scan instead of setting all
+# categorical dummy variables to 0.5.
+# ============================================================
+
+reference_df = model_df.copy()
+
+# Use most common batch level
+for be in batch_effects:
+
+    reference_level = (
+        model_df[be]
+        .mode()
+        .iloc[0]
+    )
+
+    reference_df = reference_df[
+        reference_df[be] == reference_level
+    ]
+
+
+reference_df = reference_df.dropna(
+    subset=covariates + batch_effects
+)
+
+
+# Choose animal closest to median age
+median_age = (
+    reference_df["Age(week)"]
+    .median()
+)
+
+reference_index = (
+    (
+        reference_df["Age(week)"]
+        - median_age
+    )
+    .abs()
+    .idxmin()
+)
+
+reference_row = reference_df.loc[
+    reference_index
 ]
 
 
 # ============================================================
-# CREATE NORMDATA
+# FUNCTION TO CREATE VALID SYNTHETIC DATA
 # ============================================================
 
-norm_data = NormData.from_dataframe(
-    name="DigitalRodent",
-    dataframe=model_df,
+def make_reference_dataframe(n):
+
+    synthetic = pd.DataFrame(
+        {
+            col: [reference_row[col]] * n
+            for col in covariates + batch_effects
+        }
+    )
+
+    # Response values themselves are irrelevant when
+    # computing model centiles
+    for response in response_vars:
+        synthetic[response] = 0.0
+
+    return synthetic
+
+
+# ============================================================
+# AGE CENTILES
+# ============================================================
+
+age_min = model_df["Age(week)"].min()
+age_max = model_df["Age(week)"].max()
+
+age_values = np.linspace(
+    age_min,
+    age_max,
+    150
+)
+
+age_df = make_reference_dataframe(
+    len(age_values)
+)
+
+age_df["Age(week)"] = age_values
+
+
+age_data = NormData.from_dataframe(
+    name="Age_centiles",
+    dataframe=age_df,
     covariates=covariates,
     batch_effects=batch_effects,
     response_vars=response_vars,
@@ -124,76 +181,277 @@ norm_data = NormData.from_dataframe(
 )
 
 
-# ============================================================
-# AGE CENTILE PLOTS
-# ============================================================
-
-age_figures = plot_centiles(
-    model,
-    scatter_data=norm_data,
-    covariate="Age(week)",
-    response_vars=selected_responses,
-    centiles=[0.05, 0.50, 0.95]
+model.compute_centiles(
+    age_data,
+    centiles=[
+        0.05,
+        0.50,
+        0.95
+    ],
+    recompute=True
 )
 
-for component, fig in zip(
-    selected_responses,
-    age_figures
-):
-    ax = fig.axes[0]
+
+# ============================================================
+# SAVE AGE PLOTS
+# ============================================================
+
+x_age = (
+    age_data.X
+    .sel(covariates="Age(week)")
+    .values
+    .squeeze()
+)
+
+
+for component in wanted:
+
+    lower = (
+        age_data.centiles
+        .sel(
+            response_vars=component,
+            centile=0.05
+        )
+        .values
+        .squeeze()
+    )
+
+    median = (
+        age_data.centiles
+        .sel(
+            response_vars=component,
+            centile=0.50
+        )
+        .values
+        .squeeze()
+    )
+
+    upper = (
+        age_data.centiles
+        .sel(
+            response_vars=component,
+            centile=0.95
+        )
+        .values
+        .squeeze()
+    )
+
+
+    fig, ax = plt.subplots(
+        figsize=(5, 4)
+    )
+
+    ax.fill_between(
+        x_age,
+        lower,
+        upper,
+        alpha=0.15
+    )
+
+    ax.plot(
+        x_age,
+        lower,
+        linestyle="--",
+        linewidth=1
+    )
+
+    ax.plot(
+        x_age,
+        median,
+        linewidth=1.5
+    )
+
+    ax.plot(
+        x_age,
+        upper,
+        linestyle="--",
+        linewidth=1
+    )
 
     ax.set_xlabel("Age (weeks)")
     ax.set_ylabel("DR value")
-    ax.set_title(f"{component} by age")
+    ax.set_title(component)
+
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
 
     fig.tight_layout()
 
     fig.savefig(
-        age_dir / f"{component}_Age.png",
-        dpi=300,
+        fig_dir / f"{component}_Age_centiles.svg",
+        format="svg",
         bbox_inches="tight"
     )
 
-    plt.show()
     plt.close(fig)
 
 
 # ============================================================
-# SEX CENTILE PLOTS
+# SEX CENTILES
+#
+# Female  = Sex_M 0, Sex_Missing 0
+# Male    = Sex_M 1, Sex_Missing 0
+# Missing = Sex_M 0, Sex_Missing 1
 # ============================================================
 
-sex_figures = plot_centiles(
-    model,
-    scatter_data=norm_data,
-    covariate="Sex_M",
-    response_vars=selected_responses,
-    centiles=[0.05, 0.50, 0.95]
+sex_df = make_reference_dataframe(3)
+
+sex_df["Sex_M"] = [
+    0,
+    1,
+    0
+]
+
+sex_df["Sex_Missing"] = [
+    0,
+    0,
+    1
+]
+
+
+sex_data = NormData.from_dataframe(
+    name="Sex_centiles",
+    dataframe=sex_df,
+    covariates=covariates,
+    batch_effects=batch_effects,
+    response_vars=response_vars,
+    remove_Nan=False
 )
 
-for component, fig in zip(
-    selected_responses,
-    sex_figures
-):
-    ax = fig.axes[0]
 
-    ax.set_xticks([0, 1])
-    ax.set_xticklabels([
-        "Female",
-        "Male"
-    ])
+model.compute_centiles(
+    sex_data,
+    centiles=[
+        0.05,
+        0.50,
+        0.95
+    ],
+    recompute=True
+)
+
+
+# ============================================================
+# SAVE SEX PLOTS
+# ============================================================
+
+sex_names = [
+    "Female",
+    "Male",
+    "Missing"
+]
+
+x_sex = np.arange(3)
+
+
+for component in wanted:
+
+    lower = (
+        sex_data.centiles
+        .sel(
+            response_vars=component,
+            centile=0.05
+        )
+        .values
+        .squeeze()
+    )
+
+    median = (
+        sex_data.centiles
+        .sel(
+            response_vars=component,
+            centile=0.50
+        )
+        .values
+        .squeeze()
+    )
+
+    upper = (
+        sex_data.centiles
+        .sel(
+            response_vars=component,
+            centile=0.95
+        )
+        .values
+        .squeeze()
+    )
+
+
+    fig, ax = plt.subplots(
+        figsize=(5, 4)
+    )
+
+
+    # 5th–95th centile range
+    for i in range(3):
+
+        ax.vlines(
+            x_sex[i],
+            lower[i],
+            upper[i],
+            linewidth=1.5
+        )
+
+        ax.hlines(
+            lower[i],
+            x_sex[i] - 0.08,
+            x_sex[i] + 0.08,
+            linewidth=1
+        )
+
+        ax.hlines(
+            upper[i],
+            x_sex[i] - 0.08,
+            x_sex[i] + 0.08,
+            linewidth=1
+        )
+
+        ax.scatter(
+            x_sex[i],
+            median[i],
+            s=30,
+            zorder=3
+        )
+
+
+    ax.set_xticks(
+        x_sex
+    )
+
+    ax.set_xticklabels(
+        sex_names
+    )
 
     ax.set_xlabel("Sex")
     ax.set_ylabel("DR value")
-    ax.set_title(f"{component} by sex")
+    ax.set_title(component)
+
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
 
     fig.tight_layout()
 
     fig.savefig(
-        sex_dir / f"{component}_Sex.png",
-        dpi=300,
+        fig_dir / f"{component}_Sex_centiles.svg",
+        format="svg",
         bbox_inches="tight"
     )
 
-    plt.show()
     plt.close(fig)
+
+
+# ============================================================
+# DONE
+# ============================================================
+
+print("Saved:")
+
+for component in wanted:
+
+    print(
+        fig_dir / f"{component}_Age_centiles.svg"
+    )
+
+    print(
+        fig_dir / f"{component}_Sex_centiles.svg"
+    )
 ```

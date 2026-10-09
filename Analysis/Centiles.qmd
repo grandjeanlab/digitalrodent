@@ -1,6 +1,12 @@
 # Centile plots
 
 ```{python}
+# ============================================================
+# CENTILE PLOTS
+# Age and Sex for comp2, comp10, comp11
+# Save to results/figures
+# ============================================================
+
 from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -25,12 +31,26 @@ model_dir = (
     / "BLR"
 )
 
-plot_dir = (
-    model_dir
-    / "centile_plots"
+figure_dir = (
+    current_dir
+    / "results"
+    / "figures"
 )
 
-plot_dir.mkdir(
+figure_dir.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+age_dir = figure_dir / "centiles_age"
+sex_dir = figure_dir / "centiles_sex"
+
+age_dir.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+sex_dir.mkdir(
     parents=True,
     exist_ok=True
 )
@@ -57,6 +77,11 @@ model_df = pd.read_csv(
     / "combined_dataset"
     / "Model_dataframe.csv"
 )
+
+
+# ============================================================
+# DEFINE VARIABLES
+# ============================================================
 
 response_vars = [
     f"comp{i}" for i in range(1, 19)
@@ -86,7 +111,7 @@ covariates = [
 
 
 # ============================================================
-# CREATE NORMDATA FOR SCATTER DATA
+# CREATE NORMDATA
 # ============================================================
 
 norm_data = NormData.from_dataframe(
@@ -100,32 +125,21 @@ norm_data = NormData.from_dataframe(
 
 
 # ============================================================
-# AGE CENTILES
+# AGE CENTILE PLOTS
 # ============================================================
-
-age_dir = plot_dir / "Age"
-age_dir.mkdir(
-    parents=True,
-    exist_ok=True
-)
 
 age_figures = plot_centiles(
     model,
     scatter_data=norm_data,
     covariate="Age(week)",
     response_vars=selected_responses,
-    centiles=[
-        0.05,
-        0.50,
-        0.95
-    ]
+    centiles=[0.05, 0.50, 0.95]
 )
 
 for component, fig in zip(
     selected_responses,
     age_figures
 ):
-
     ax = fig.axes[0]
 
     ax.set_xlabel("Age (weeks)")
@@ -145,32 +159,21 @@ for component, fig in zip(
 
 
 # ============================================================
-# SEX CENTILES
+# SEX CENTILE PLOTS
 # ============================================================
-
-sex_dir = plot_dir / "Sex"
-sex_dir.mkdir(
-    parents=True,
-    exist_ok=True
-)
 
 sex_figures = plot_centiles(
     model,
     scatter_data=norm_data,
     covariate="Sex_M",
     response_vars=selected_responses,
-    centiles=[
-        0.05,
-        0.50,
-        0.95
-    ]
+    centiles=[0.05, 0.50, 0.95]
 )
 
 for component, fig in zip(
     selected_responses,
     sex_figures
 ):
-
     ax = fig.axes[0]
 
     ax.set_xticks([0, 1])
@@ -193,15 +196,4 @@ for component, fig in zip(
 
     plt.show()
     plt.close(fig)
-
-
-# ============================================================
-# DONE
-# ============================================================
-
-print("\nSaved age centile plots to:")
-print(age_dir)
-
-print("\nSaved sex centile plots to:")
-print(sex_dir)
 ```

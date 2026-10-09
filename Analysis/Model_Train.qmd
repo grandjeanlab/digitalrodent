@@ -1,13 +1,16 @@
+---
+title: "Digital Rodent BLR Model"
+format: gfm
+---
+
 ```{python}
 from pathlib import Path
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from pcntoolkit import (
     BLR,
     NormativeModel,
     NormData,
-    plot_centiles,
     plot_qq
 )
 
@@ -27,6 +30,18 @@ model_df = pd.read_csv(
     / "Model_dataframe.csv"
 )
 
+model_dir = (
+    current_dir
+    / "results"
+    / "normative_model"
+    / "BLR"
+)
+
+model_dir.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
 pcntoolkit.util.output.Output.set_show_messages(False)
 
 
@@ -34,7 +49,9 @@ pcntoolkit.util.output.Output.set_show_messages(False)
 # DEFINE MODEL VARIABLES
 # ============================================================
 
-response_vars = [f"comp{i}" for i in range(1, 19)]
+response_vars = [
+    f"comp{i}" for i in range(1, 19)
+]
 
 batch_effects = [
     "Dataset_name"
@@ -43,10 +60,36 @@ batch_effects = [
 covariates = [
     col for col in model_df.columns
     if col not in (
-        ["Scan_id", "Participant_Id", "Dataset_name"]
+        [
+            "Scan_id",
+            "Participant_Id",
+            "Dataset_name"
+        ]
         + response_vars
     )
 ]
+
+
+print("Rows:", len(model_df))
+print("Covariates:", len(covariates))
+print(covariates)
+print("Batch effects:", batch_effects)
+print("Responses:", response_vars)
+
+
+# ============================================================
+# CHECK DATA
+# ============================================================
+
+print(
+    "Missing covariate values:",
+    model_df[covariates].isna().sum().sum()
+)
+
+print(
+    "Missing response values:",
+    model_df[response_vars].isna().sum().sum()
+)
 
 
 # ============================================================
@@ -84,12 +127,7 @@ model = NormativeModel(
     evaluate_model=True,
     saveresults=True,
     saveplots=True,
-    save_dir=str(
-        current_dir
-        / "results"
-        / "normative_model"
-        / "BLR"
-    )
+    save_dir=str(model_dir)
 )
 
 
@@ -104,87 +142,11 @@ model.fit_predict(
 
 
 # ============================================================
-# PLOT DIRECTORY
-# ============================================================
-
-plot_dir = (
-    current_dir
-    / "results"
-    / "normative_model"
-    / "BLR"
-    / "plots"
-)
-
-plot_dir.mkdir(
-    parents=True,
-    exist_ok=True
-)
-
-
-# ============================================================
-# CENTILE PLOTS
-# ============================================================
-
-continuous_covariates = [
-    "Age(week)",
-    "MRI",
-    "MRI T.R.",
-    "FD average",
-    "FD maximum"
-]
-
-# Only keep covariates that are actually present
-continuous_covariates = [
-    col for col in continuous_covariates
-    if col in covariates
-]
-
-for covariate in continuous_covariates:
-
-    plt.figure(figsize=(6, 4))
-
-    plot_centiles(
-        model,
-        scatter_data=train,
-        centiles=[0.05, 0.5, 0.95],
-        covariate=covariate,
-        scatter_kwargs={
-            "s": 10,
-            "alpha": 0.4
-        }
-    )
-
-    plt.title(f"Centile plot: {covariate}")
-    plt.tight_layout()
-
-    safe_name = (
-        covariate
-        .replace(" ", "_")
-        .replace(".", "_")
-        .replace("/", "_")
-        .replace("(", "")
-        .replace(")", "")
-    )
-
-    plt.savefig(
-        plot_dir / f"centiles_{safe_name}.png",
-        dpi=300,
-        bbox_inches="tight"
-    )
-
-    plt.show()
-    plt.close()
-
-
-# ============================================================
 # QQ PLOTS
 # ============================================================
 
 qq_dir = (
-    current_dir
-    / "results"
-    / "normative_model"
-    / "BLR"
+    model_dir
     / "plots"
     / "qq"
 )
@@ -205,9 +167,26 @@ plot_qq(
 # RESULTS
 # ============================================================
 
+train_stats = train.get_statistics_df()
+test_stats = test.get_statistics_df()
+
 print("\nTrain statistics:")
-display(train.get_statistics_df())
+display(train_stats)
 
 print("\nTest statistics:")
-display(test.get_statistics_df())
+display(test_stats)
+
+train_stats.to_csv(
+    model_dir / "Train_statistics.csv",
+    index=False
+)
+
+test_stats.to_csv(
+    model_dir / "Test_statistics.csv",
+    index=False
+)
+
+print("\nBLR training finished.")
+print("Saved to:")
+print(model_dir)
 ```

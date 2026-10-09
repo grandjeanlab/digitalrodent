@@ -1,0 +1,6 @@
+Variable,N_missing,Percent_missing,Action
+Age(week),218,10.792079207920793,Dataset median / global median + missing indicator
+MRI,173,8.564356435643566,Dataset median / global median + missing indicator
+MRI T.R.,173,8.564356435643566,Dataset median / global median + missing indicator
+FD average,201,9.950495049504951,Dataset median / global median + missing indicator
+FD maximum,201,9.950495049504951,Dataset median / global median + missing indicator

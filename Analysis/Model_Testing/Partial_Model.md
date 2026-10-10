@@ -1,0 +1,128 @@
+# Digital Rodent Partial BLR Model
+
+
+from pathlib import Path import pandas as pd
+
+from pcntoolkit import ( BLR, NormativeModel, NormData, plot_qq )
+
+import pcntoolkit.util.output
+
+# ============================================================
+
+# SETUP
+
+# ============================================================
+
+current_dir = Path.cwd().parent.parent
+
+model_df = pd.read_csv( current_dir / “results” / “combined_dataset” /
+“Partial_Model” / “Partial_Model_dataframe.csv” )
+
+model_dir = ( current_dir / “results” / “normative_model” /
+“Partial_BLR” )
+
+model_dir.mkdir( parents=True, exist_ok=True )
+
+pcntoolkit.util.output.Output.set_show_messages(False)
+
+# ============================================================
+
+# DEFINE MODEL VARIABLES
+
+# ============================================================
+
+response_vars = \[ “comp2”, “comp10”, “comp11”\]
+
+batch_effects = \[\]
+
+covariates = \[ col for col in model_df.columns if col not in ( \[
+“Scan_id”, “Participant_Id”, “Session”, “Dataset_name” \] +
+response_vars )\]
+
+print(“Rows:”, len(model_df))
+
+print(“:”) print(covariates)
+
+print(“effects:”) print(batch_effects)
+
+print(“:”) print(response_vars)
+
+# ============================================================
+
+# CHECK DATA
+
+# ============================================================
+
+print( “covariate values:”, model_df\[covariates\] .isna() .sum() .sum()
+)
+
+print( “Missing response values:”, model_df\[response_vars\] .isna()
+.sum() .sum() )
+
+# ============================================================
+
+# CREATE NORMDATA
+
+# ============================================================
+
+norm_data = NormData.from_dataframe( name=“DigitalRodent_Partial”,
+dataframe=model_df, covariates=covariates, batch_effects=batch_effects,
+response_vars=response_vars, remove_Nan=False )
+
+# ============================================================
+
+# TRAIN / TEST SPLIT
+
+# ============================================================
+
+train, test = norm_data.train_test_split()
+
+# ============================================================
+
+# BLR MODEL
+
+# ============================================================
+
+model = NormativeModel( BLR( heteroskedastic=True ),
+inscaler=“standardize”, outscaler=“standardize”, savemodel=True,
+evaluate_model=True, saveresults=True, saveplots=True,
+save_dir=str(model_dir) )
+
+# ============================================================
+
+# FIT MODEL
+
+# ============================================================
+
+model.fit_predict( train, test )
+
+# ============================================================
+
+# QQ PLOTS
+
+# ============================================================
+
+qq_dir = ( model_dir / “plots” / “qq” )
+
+qq_dir.mkdir( parents=True, exist_ok=True )
+
+plot_qq( test, plot_id_line=True, save_dir=str(qq_dir) )
+
+# ============================================================
+
+# RESULTS
+
+# ============================================================
+
+train_stats = train.get_statistics_df() test_stats =
+test.get_statistics_df()
+
+print(“statistics:”) display(train_stats)
+
+print(“statistics:”) display(test_stats)
+
+train_stats.to_csv( model_dir / “Train_statistics.csv”, index=False )
+
+test_stats.to_csv( model_dir / “Test_statistics.csv”, index=False )
+
+print(“BLR training finished.”) print(“Saved to:”) print(model_dir)

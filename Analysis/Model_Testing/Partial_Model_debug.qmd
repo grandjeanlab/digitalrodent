@@ -1,0 +1,219 @@
+---
+title: "Digital Rodent Partial BLR Model"
+format: gfm
+---
+
+```{python}
+
+from pathlib import Path
+import pandas as pd
+
+from pcntoolkit import (
+    BLR,
+    NormativeModel,
+    NormData,
+    plot_qq
+)
+
+import pcntoolkit.util.output
+
+
+print("PYTHON CHUNK STARTED")
+
+
+# ============================================================
+# HARD-CODED PATHS
+# ============================================================
+
+input_file = Path(
+    "/home/traaffneu/dansch/Documents/digital_rodent/digitalrodent/"
+    "results/combined_dataset/Partial_Model/Partial_Model_dataframe.csv"
+)
+
+model_dir = Path(
+    "/home/traaffneu/dansch/Documents/digital_rodent/digitalrodent/"
+    "results/normative_model/Model_Testing/Partial_Model"
+)
+
+model_dir.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+
+# ============================================================
+# LOAD DATA
+# ============================================================
+
+print("Loading:", input_file)
+
+model_df = pd.read_csv(input_file)
+
+print("Loaded rows:", len(model_df))
+print("Columns:")
+print(model_df.columns.tolist())
+
+pcntoolkit.util.output.Output.set_show_messages(False)
+
+
+# ============================================================
+# MODEL VARIABLES
+# ============================================================
+
+response_vars = [
+    "comp2",
+    "comp10",
+    "comp11"
+]
+
+batch_effects = []
+
+covariates = [
+    col for col in model_df.columns
+    if col not in (
+        [
+            "Scan_id",
+            "Participant_Id",
+            "Session",
+            "Dataset_name"
+        ]
+        + response_vars
+    )
+]
+
+print("\nResponses:")
+print(response_vars)
+
+print("\nCovariates:")
+print(covariates)
+
+print("\nBatch effects:")
+print(batch_effects)
+
+
+# ============================================================
+# CHECK DATA
+# ============================================================
+
+print(
+    "\nMissing covariates:",
+    model_df[covariates].isna().sum().sum()
+)
+
+print(
+    "Missing responses:",
+    model_df[response_vars].isna().sum().sum()
+)
+
+print("\nUnique values per covariate:")
+for col in covariates:
+    print(col, model_df[col].nunique(dropna=False))
+
+
+# ============================================================
+# NORMDATA
+# ============================================================
+
+print("\nCreating NormData...")
+
+norm_data = NormData.from_dataframe(
+    name="DigitalRodent_Partial",
+    dataframe=model_df,
+    covariates=covariates,
+    batch_effects=batch_effects,
+    response_vars=response_vars,
+    remove_Nan=False
+)
+
+print("NormData created")
+
+
+# ============================================================
+# TRAIN / TEST SPLIT
+# ============================================================
+
+print("Creating train/test split...")
+
+train, test = norm_data.train_test_split()
+
+print("Train/test split created")
+
+
+# ============================================================
+# MODEL
+# ============================================================
+
+print("Creating BLR model...")
+
+model = NormativeModel(
+    BLR(
+        heteroskedastic=True
+    ),
+    inscaler="standardize",
+    outscaler="standardize",
+    savemodel=True,
+    evaluate_model=True,
+    saveresults=True,
+    saveplots=True,
+    save_dir=str(model_dir)
+)
+
+print("BLR model created")
+
+
+# ============================================================
+# FIT
+# ============================================================
+
+print("\nSTARTING FIT")
+
+model.fit_predict(
+    train,
+    test
+)
+
+print("FIT FINISHED")
+
+
+# ============================================================
+# QQ
+# ============================================================
+
+qq_dir = model_dir / "plots" / "qq"
+qq_dir.mkdir(parents=True, exist_ok=True)
+
+plot_qq(
+    test,
+    plot_id_line=True,
+    save_dir=str(qq_dir)
+)
+
+
+# ============================================================
+# STATISTICS
+# ============================================================
+
+train_stats = train.get_statistics_df()
+test_stats = test.get_statistics_df()
+
+train_stats.to_csv(
+    model_dir / "Train_statistics.csv",
+    index=False
+)
+
+test_stats.to_csv(
+    model_dir / "Test_statistics.csv",
+    index=False
+)
+
+print("\nTrain statistics:")
+display(train_stats)
+
+print("\nTest statistics:")
+display(test_stats)
+
+print("\nDONE")
+print("Saved to:")
+print(model_dir)
+
+```

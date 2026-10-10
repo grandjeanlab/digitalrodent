@@ -1,0 +1,530 @@
+---
+title: "Partial Model Encoding"
+format: gfm
+---
+
+```{python}
+from pathlib import Path
+import pandas as pd
+
+
+# ============================================================
+# PATHS
+# ============================================================
+
+current_dir = Path.cwd().parent.parent.parent
+
+input_path = (
+    current_dir
+    / "results"
+    / "combined_dataset"
+    / "Combined_dataset.csv"
+)
+
+output_dir = (
+    current_dir
+    / "results"
+    / "combined_dataset"
+    / "Partial_Model"
+)
+
+output_dir.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+
+# ============================================================
+# LOAD DATA
+# ============================================================
+
+df = pd.read_csv(input_path)
+
+print("Original rows:", len(df))
+
+
+# ============================================================
+# WANTED VARIABLES ONLY
+# ============================================================
+
+id_columns = [
+    "Scan_id",
+    "Participant_Id",
+    "Session",
+    "Dataset_name"
+]
+
+response_vars = [
+    "comp2",
+    "comp10",
+    "comp11"
+]
+
+numeric_covariates = [
+    "Age(week)",
+    "MRI",
+    "MRI T.R."
+]
+
+categorical_covariates = [
+    "Sex",
+    "Rodent.strain",
+    "Coil",
+    "fMRI.sequence",
+    "Anesthesia",
+    "Ventilation"
+]
+
+wanted_columns = (
+    id_columns
+    + numeric_covariates
+    + categorical_covariates
+    + response_vars
+)
+
+df = df[wanted_columns].copy()
+
+print("Columns kept:")
+print(df.columns.tolist())
+
+
+# ============================================================
+# CLEAN BASIC VALUES
+# ============================================================
+
+for col in numeric_covariates + response_vars:
+    df[col] = pd.to_numeric(
+        df[col],
+        errors="coerce"
+    )
+
+for col in categorical_covariates:
+    df[col] = (
+        df[col]
+        .astype("string")
+        .str.strip()
+    )
+
+    df[col] = df[col].replace({
+        "": pd.NA,
+        "NA": pd.NA,
+        "N/A": pd.NA,
+        "Missing": pd.NA,
+        "missing": pd.NA,
+        "MISSING": pd.NA
+    })
+
+
+# ============================================================
+# STANDARDIZE CATEGORIES
+# ============================================================
+
+df["Sex"] = (
+    df["Sex"]
+    .str.upper()
+    .replace({
+        "FEMALE": "F",
+        "MALE": "M"
+    })
+)
+
+df["Rodent.strain"] = (
+    df["Rodent.strain"]
+    .replace({
+        "C57BL6": "C57BL/6",
+        "C57BL6J": "C57BL/6",
+        "C57BL/6J": "C57BL/6"
+    })
+)
+
+df["Coil"] = (
+    df["Coil"]
+    .str.lower()
+    .replace({
+        "rt": "RT",
+        "cryo": "Cryo",
+        "n": "RT",
+        "no": "RT",
+        "y": "Cryo",
+        "yes": "Cryo"
+    })
+)
+
+df["fMRI.sequence"] = (
+    df["fMRI.sequence"]
+    .str.upper()
+    .replace({
+        "EPI": "GE-EPI",
+        "GE EPI": "GE-EPI",
+        "SE EPI": "SE-EPI",
+        "ME EPI": "ME-EPI"
+    })
+)
+
+df["Anesthesia"] = (
+    df["Anesthesia"]
+    .str.lower()
+    .replace({
+        "awake": "Awake",
+        "iso": "Iso",
+        "dex": "Dex",
+        "dexiso": "Dexiso",
+        "med": "Med",
+        "mediso": "Mediso",
+        "hal": "Hal",
+        "propofol": "Propofol"
+    })
+)
+
+df["Ventilation"] = (
+    df["Ventilation"]
+    .str.lower()
+    .replace({
+        "n": "No",
+        "no": "No",
+        "y": "Yes",
+        "yes": "Yes"
+    })
+)
+
+
+# ============================================================
+# MISSING VALUES BEFORE INFERENCE
+# ============================================================
+
+required_columns = (
+    numeric_covariates
+    + categorical_covariates
+    + response_vars
+)
+
+missing_before = (
+    df[required_columns]
+    .isna()
+    .sum()
+)
+
+
+# ============================================================
+# INFER FROM SAME PARTICIPANT
+# ============================================================
+
+inferable_columns = (
+    numeric_covariates
+    + categorical_covariates
+)
+
+
+def fill_if_unique(series):
+    observed = (
+        series
+        .dropna()
+        .unique()
+    )
+
+    if len(observed) == 1:
+        return series.fillna(observed[0])
+
+    return series
+
+
+for col in inferable_columns:
+    df[col] = (
+        df
+        .groupby(
+            "Participant_Id",
+            dropna=False
+        )[col]
+        .transform(fill_if_unique)
+    )
+
+
+# ============================================================
+# MISSING VALUES AFTER INFERENCE
+# ============================================================
+
+missing_after = (
+    df[required_columns]
+    .isna()
+    .sum()
+)
+
+inferred_counts = (
+    missing_before
+    - missing_after
+)
+
+
+# ============================================================
+# DELETE ROWS STILL MISSING WANTED MODEL VALUES
+# ============================================================
+
+delete_mask = (
+    df[required_columns]
+    .isna()
+    .any(axis=1)
+)
+
+deleted_rows = df.loc[
+    delete_mask
+].copy()
+
+model_df = df.loc[
+    ~delete_mask
+].copy()
+
+
+# ============================================================
+# DELETION SUMMARY
+# ============================================================
+
+deletion_summary = pd.DataFrame({
+    "Variable": required_columns,
+    "Missing_before_inference": [
+        missing_before[col]
+        for col in required_columns
+    ],
+    "Inferred_from_participant": [
+        inferred_counts[col]
+        for col in required_columns
+    ],
+    "Missing_after_inference": [
+        missing_after[col]
+        for col in required_columns
+    ]
+})
+
+print("\nMissing-value summary:")
+display(deletion_summary)
+
+print("\nRows before:", len(df))
+print("Rows deleted:", delete_mask.sum())
+print("Rows retained:", len(model_df))
+
+print("\nDeleted rows by dataset:")
+display(
+    deleted_rows["Dataset_name"]
+    .value_counts()
+    .rename_axis("Dataset_name")
+    .reset_index(name="N_deleted")
+)
+
+
+# ============================================================
+# ENCODE BINARY VARIABLES
+# ============================================================
+
+model_df["Sex_encoded"] = (
+    model_df["Sex"]
+    .map({
+        "F": 0.0,
+        "M": 1.0
+    })
+)
+
+model_df["Coil_encoded"] = (
+    model_df["Coil"]
+    .map({
+        "RT": 0.0,
+        "Cryo": 1.0
+    })
+)
+
+model_df["Ventilation_encoded"] = (
+    model_df["Ventilation"]
+    .map({
+        "No": 0.0,
+        "Yes": 1.0
+    })
+)
+
+encoding_table = [
+    ["Sex", "F", "0"],
+    ["Sex", "M", "1"],
+    ["Coil", "RT", "0"],
+    ["Coil", "Cryo", "1"],
+    ["Ventilation", "No", "0"],
+    ["Ventilation", "Yes", "1"]
+]
+
+
+# ============================================================
+# DUMMY ENCODE MULTI-CATEGORY VARIABLES
+# ============================================================
+
+dummy_settings = {
+    "Rodent.strain": "C57BL/6",
+    "fMRI.sequence": "GE-EPI",
+    "Anesthesia": "Awake"
+}
+
+dummy_columns = []
+
+
+for col, reference in dummy_settings.items():
+
+    categories = sorted(
+        model_df[col]
+        .dropna()
+        .unique()
+        .tolist()
+    )
+
+    if reference not in categories:
+        raise ValueError(
+            f"Reference category {reference} not found in {col}"
+        )
+
+    ordered_categories = (
+        [reference]
+        + [
+            x for x in categories
+            if x != reference
+        ]
+    )
+
+    model_df[col] = pd.Categorical(
+        model_df[col],
+        categories=ordered_categories
+    )
+
+    dummies = pd.get_dummies(
+        model_df[col],
+        prefix=col,
+        drop_first=True,
+        dtype=float
+    )
+
+    model_df = pd.concat(
+        [model_df, dummies],
+        axis=1
+    )
+
+    dummy_columns.extend(
+        dummies.columns.tolist()
+    )
+
+    encoding_table.append([
+        col,
+        reference,
+        "Reference"
+    ])
+
+    for dummy in dummies.columns:
+        category = dummy.replace(
+            col + "_",
+            ""
+        )
+
+        encoding_table.append([
+            col,
+            category,
+            dummy
+        ])
+
+
+# ============================================================
+# FINAL MODEL COVARIATES
+# ============================================================
+
+covariates = (
+    numeric_covariates
+    + [
+        "Sex_encoded",
+        "Coil_encoded",
+        "Ventilation_encoded"
+    ]
+    + dummy_columns
+)
+
+
+# ============================================================
+# FINAL DATAFRAME
+# ============================================================
+
+final_columns = (
+    id_columns
+    + covariates
+    + response_vars
+)
+
+partial_model_df = (
+    model_df[final_columns]
+    .copy()
+)
+
+
+# ============================================================
+# FINAL CHECKS
+# ============================================================
+
+remaining_missing = (
+    partial_model_df[
+        covariates
+        + response_vars
+    ]
+    .isna()
+    .sum()
+    .sum()
+)
+
+if remaining_missing != 0:
+    raise ValueError(
+        f"{remaining_missing} missing values remain."
+    )
+
+encoding_table = pd.DataFrame(
+    encoding_table,
+    columns=[
+        "Variable",
+        "Category",
+        "Encoding"
+    ]
+)
+
+
+# ============================================================
+# SAVE
+# ============================================================
+
+partial_model_df.to_csv(
+    output_dir
+    / "Partial_Model_dataframe.csv",
+    index=False
+)
+
+encoding_table.to_csv(
+    output_dir
+    / "Partial_Encoding_table.csv",
+    index=False
+)
+
+deletion_summary.to_csv(
+    output_dir
+    / "Partial_Deletion_summary.csv",
+    index=False
+)
+
+deleted_rows.to_csv(
+    output_dir
+    / "Partial_Deleted_rows.csv",
+    index=False
+)
+
+
+print("\n======================================")
+print("PARTIAL MODEL DATASET COMPLETE")
+print("======================================")
+
+print("\nFinal shape:")
+print(partial_model_df.shape)
+
+print("\nResponses:")
+print(response_vars)
+
+print("\nCovariates:")
+print(covariates)
+
+print("\nSaved to:")
+print(output_dir)
+```

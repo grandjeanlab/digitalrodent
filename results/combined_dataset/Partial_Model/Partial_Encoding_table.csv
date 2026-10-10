@@ -1,0 +1,21 @@
+Variable,Category,Encoding
+Sex,F,0
+Sex,M,1
+Coil,RT,0
+Coil,Cryo,1
+Ventilation,No,0
+Ventilation,Yes,1
+Rodent.strain,C57BL/6,Reference
+Rodent.strain,F1 C6/129P,Rodent.strain_F1 C6/129P
+Rodent.strain,ICR,Rodent.strain_ICR
+fMRI.sequence,GE-EPI,Reference
+fMRI.sequence,ME-EPI,fMRI.sequence_ME-EPI
+fMRI.sequence,SE-EPI,fMRI.sequence_SE-EPI
+Anesthesia,Awake,Reference
+Anesthesia,Dex,Anesthesia_Dex
+Anesthesia,Dexiso,Anesthesia_Dexiso
+Anesthesia,Hal,Anesthesia_Hal
+Anesthesia,Iso,Anesthesia_Iso
+Anesthesia,Med,Anesthesia_Med
+Anesthesia,Mediso,Anesthesia_Mediso
+Anesthesia,Propofol,Anesthesia_Propofol

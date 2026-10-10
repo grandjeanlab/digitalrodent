@@ -1,166 +1,166 @@
 Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
-	sub-jgrAesAWc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc22R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc22R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc22R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc22R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc22R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesAWc22R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						awake		n					
-	sub-jgrAesISOc11L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc22R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc22R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc22R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc22R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc22R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc22R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc2NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc2NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc2NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc2NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc2NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesISOc2NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						iso		n					
-	sub-jgrAesMEDISOc11L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc22r_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc22r_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc22r_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc22r_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc22r_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc22r_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc2NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc2NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc2NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc2NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc2NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
-	sub-jgrAesMEDISOc2NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6						mediso		n					
+	sub-jgrAesAWc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc22R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc22R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc22R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc22R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc22R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesAWc22R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	awake		n					
+	sub-jgrAesISOc11L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc22R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc22R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc22R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc22R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc22R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc22R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc2NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc2NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc2NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc2NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc2NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesISOc2NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	iso		n					
+	sub-jgrAesMEDISOc11L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc11R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc12R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc12R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc1NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc1NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21R1L_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21R1L_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21R_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc21R_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc22r_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc22r_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc22r_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc22r_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc22r_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc22r_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc2NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc2NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc2NT_ses-1	1	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc2NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc2NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					
+	sub-jgrAesMEDISOc2NT_ses-2	2	Mouse_rest_awake	F	12	C57BL/6	11.7		EPI	1200	15	mediso		n					

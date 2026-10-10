@@ -18,26 +18,29 @@ import pcntoolkit.util.output
 
 
 # ============================================================
-# FIND PROJECT ROOT
+# PATHS
 # ============================================================
 
-here = Path.cwd()
+input_dir = Path(
+    "/home/traaffneu/dansch/Documents/digital_rodent/digitalrodent/"
+    "results/combined_dataset/Partial_Model"
+)
 
-candidates = [
-    here,
-    here.parent,
-    here.parent.parent
-]
+output_root = Path(
+    "/home/traaffneu/dansch/Documents/digital_rodent/digitalrodent/"
+    "results/normative_model/Model_Testing"
+)
 
-current_dir = next(
-    p for p in candidates
-    if (
-        p
-        / "results"
-        / "combined_dataset"
-        / "Partial_Model"
-        / "Partial_Model_dataframe.csv"
-    ).exists()
+model_name = "Partial_Model"
+
+model_dir = (
+    output_root
+    / model_name
+)
+
+model_dir.mkdir(
+    parents=True,
+    exist_ok=True
 )
 
 
@@ -46,23 +49,8 @@ current_dir = next(
 # ============================================================
 
 model_df = pd.read_csv(
-    current_dir
-    / "results"
-    / "combined_dataset"
-    / "Partial_Model"
+    input_dir
     / "Partial_Model_dataframe.csv"
-)
-
-model_dir = (
-    current_dir
-    / "results"
-    / "normative_model"
-    / "Partial_BLR"
-)
-
-model_dir.mkdir(
-    parents=True,
-    exist_ok=True
 )
 
 pcntoolkit.util.output.Output.set_show_messages(False)
@@ -94,21 +82,23 @@ covariates = [
 ]
 
 
-print("Rows:", len(model_df))
+# ============================================================
+# CHECK MODEL SETUP
+# ============================================================
+
+print("Model:", model_name)
+
+print("\nRows:")
+print(len(model_df))
+
+print("\nResponses:")
+print(response_vars)
 
 print("\nCovariates:")
 print(covariates)
 
 print("\nBatch effects:")
 print(batch_effects)
-
-print("\nResponses:")
-print(response_vars)
-
-
-# ============================================================
-# CHECK DATA
-# ============================================================
 
 print(
     "\nMissing covariate values:",
@@ -223,6 +213,12 @@ test_stats.to_csv(
     index=False
 )
 
-print("\nPartial BLR training finished.")
-print("Saved to:")
+
+# ============================================================
+# DONE
+# ============================================================
+
+print("\nBLR training finished.")
+
+print("\nSaved to:")
 print(model_dir)

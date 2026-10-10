@@ -18,10 +18,32 @@ import pcntoolkit.util.output
 
 
 # ============================================================
-# SETUP
+# FIND PROJECT ROOT
 # ============================================================
 
-current_dir = Path.cwd().parent.parent
+here = Path.cwd()
+
+candidates = [
+    here,
+    here.parent,
+    here.parent.parent
+]
+
+current_dir = next(
+    p for p in candidates
+    if (
+        p
+        / "results"
+        / "combined_dataset"
+        / "Partial_Model"
+        / "Partial_Model_dataframe.csv"
+    ).exists()
+)
+
+
+# ============================================================
+# LOAD DATA
+# ============================================================
 
 model_df = pd.read_csv(
     current_dir

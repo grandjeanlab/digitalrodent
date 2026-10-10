@@ -1,0 +1,150 @@
+{
+    "model": {
+        "name": "comp8",
+        "type": "BLR",
+        "is_fitted": true,
+        "is_from_dict": false,
+        "transfered": false,
+        "ptk_version": "1.1.2",
+        "_name": "comp8",
+        "n_iter": 100,
+        "tol": 0.001,
+        "ard": false,
+        "optimizer": "l-bfgs-b",
+        "l_bfgs_b_l": 0.1,
+        "l_bfgs_b_epsilon": 0.1,
+        "l_bfgs_b_norm": "l2",
+        "fixed_effect": false,
+        "fixed_effect_slope": false,
+        "fixed_effect_slope_indices": null,
+        "heteroskedastic": true,
+        "fixed_effect_var": false,
+        "fixed_effect_var_slope": false,
+        "fixed_effect_var_slope_indices": null,
+        "warp_name": null,
+        "n_gamma": 0,
+        "warp_params": null,
+        "warp_reparam": false,
+        "gamma": null,
+        "basis_function_mean": {
+            "is_fitted": true,
+            "basis_name": "linear",
+            "min": {
+                "0": -1.2766156775040403,
+                "1": -0.35404546235623724
+            },
+            "max": {
+                "0": 6.732773242023789,
+                "1": 2.824496021908648
+            },
+            "compute_min": true,
+            "compute_max": true,
+            "basis_column": [
+                0,
+                1
+            ],
+            "basis_function": "LinearBasisFunction"
+        },
+        "basis_function_var": {
+            "is_fitted": true,
+            "basis_name": "linear",
+            "min": {
+                "0": -1.2766156775040403,
+                "1": -0.35404546235623724
+            },
+            "max": {
+                "0": 6.732773242023789,
+                "1": 2.824496021908648
+            },
+            "compute_min": true,
+            "compute_max": true,
+            "basis_column": [
+                0,
+                1
+            ],
+            "basis_function": "LinearBasisFunction"
+        },
+        "models_variance": true,
+        "hyp0": null,
+        "hyp": [
+            -0.06507970033671738,
+            0.14454566426044946,
+            0.019917106440817678,
+            1.0043743327869947
+        ],
+        "be_maps": {
+            "dummy_batch_effect": {
+                "0.0": 0
+            }
+        },
+        "D": 3,
+        "var_D": 3,
+        "n_hyp": 4,
+        "N": 1616,
+        "Sigma_a": [
+            [
+                0.33141817487292946,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                0.33141817487292946,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                0.33141817487292946
+            ]
+        ],
+        "Lambda_a": [
+            [
+                3.0173360298764984,
+                0.0,
+                0.0
+            ],
+            [
+                0.0,
+                3.0173360298764984,
+                0.0
+            ],
+            [
+                0.0,
+                0.0,
+                3.0173360298764984
+            ]
+        ],
+        "A": [
+            [
+                1291.1550446264919,
+                -23.97980854584992,
+                -99.15098756153519
+            ],
+            [
+                -23.97980854584991,
+                2390.782900799875,
+                289.9115396499025
+            ],
+            [
+                -99.15098756153515,
+                289.9115396499026,
+                1674.5707754510738
+            ]
+        ],
+        "m": [
+            0.07012359828286041,
+            -0.2230447722169307,
+            0.0008971605163195697
+        ],
+        "nlZ": 2248.538890873004
+    },
+    "outscaler": {
+        "scaler_type": "standardize",
+        "adjust_outliers": false,
+        "m": 0.17687995420792077,
+        "s": 0.1182374764685833,
+        "min": 0.008632,
+        "max": 0.879394
+    }
+}

@@ -29,10 +29,7 @@ model_dir = Path(
     "results/normative_model/Model_Testing/Partial_Model"
 )
 
-plot_dir = (
-    model_dir
-    / "centiles_svg"
-)
+plot_dir = model_dir / "centiles_svg"
 
 plot_dir.mkdir(
     parents=True,
@@ -41,7 +38,53 @@ plot_dir.mkdir(
 
 
 # ============================================================
-# LOAD TRAINED MODEL + DATA
+# FIGURE STYLE
+# ============================================================
+
+MM = 1 / 25.4
+
+plt.rcParams.update({
+    "font.family": "Liberation Sans",
+    "font.size": 6,
+    "axes.labelsize": 8,
+    "axes.titlesize": 8,
+    "xtick.labelsize": 6,
+    "ytick.labelsize": 6,
+    "legend.fontsize": 6,
+    "svg.fonttype": "none"
+})
+
+
+# ============================================================
+# COLOURS
+# ============================================================
+
+BLUE = "#4682B4"
+ORANGE = "#F4A460"
+GREEN = "#6D9F8C"
+
+DARK = "#39434B"
+
+component_colors = {
+    "comp2": BLUE,
+    "comp10": ORANGE,
+    "comp11": GREEN
+}
+
+
+# ============================================================
+# COMPONENT NAMES
+# ============================================================
+
+component_labels = {
+    "comp2": "Somatosensory cortex",
+    "comp10": "DMN-associated cortex",
+    "comp11": "Ventral hippocampus"
+}
+
+
+# ============================================================
+# LOAD MODEL + DATA
 # ============================================================
 
 model = NormativeModel.load(
@@ -99,6 +142,12 @@ reference_row = reference_pool.loc[
 ]
 
 
+print("\nReference profile:")
+print(
+    reference_row[covariates]
+)
+
+
 def make_reference_dataframe(n):
 
     df = pd.DataFrame(
@@ -115,7 +164,7 @@ def make_reference_dataframe(n):
 
 
 # ============================================================
-# CREATE NORMDATA
+# NORMDATA
 # ============================================================
 
 def to_normdata(
@@ -134,7 +183,7 @@ def to_normdata(
 
 
 # ============================================================
-# COMPUTE CENTILES
+# CENTILES
 # ============================================================
 
 def get_centiles(data):
@@ -219,6 +268,209 @@ def centile_values(
 
 
 # ============================================================
+# AXIS STYLE
+# ============================================================
+
+def style_axis(ax):
+
+    ax.spines["top"].set_visible(
+        False
+    )
+
+    ax.spines["right"].set_visible(
+        False
+    )
+
+    ax.spines["left"].set_color(
+        DARK
+    )
+
+    ax.spines["bottom"].set_color(
+        DARK
+    )
+
+    ax.tick_params(
+        colors=DARK,
+        width=0.6
+    )
+
+    ax.xaxis.label.set_color(
+        DARK
+    )
+
+    ax.yaxis.label.set_color(
+        DARK
+    )
+
+    ax.title.set_color(
+        DARK
+    )
+
+
+# ============================================================
+# LEGEND
+# ============================================================
+
+def add_legend(ax):
+
+    ax.legend(
+        frameon=False,
+        loc="lower center",
+        bbox_to_anchor=(
+            0.5,
+            1.02
+        ),
+        ncol=5,
+        fontsize=6,
+        handlelength=1.5,
+        columnspacing=1.0,
+        borderaxespad=0
+    )
+
+
+# ============================================================
+# CENTILE SHADING
+# ============================================================
+
+def add_centile_shading(
+    ax,
+    x,
+    c05,
+    c25,
+    c50,
+    c75,
+    c95,
+    color
+):
+
+    # --------------------------------------------------------
+    # 5–25
+    # --------------------------------------------------------
+
+    ax.fill_between(
+        x,
+        c05,
+        c25,
+        color=color,
+        alpha=0.08,
+        zorder=2
+    )
+
+    # --------------------------------------------------------
+    # 25–50
+    # --------------------------------------------------------
+
+    ax.fill_between(
+        x,
+        c25,
+        c50,
+        color=color,
+        alpha=0.20,
+        zorder=2
+    )
+
+    # --------------------------------------------------------
+    # 50–75
+    # --------------------------------------------------------
+
+    ax.fill_between(
+        x,
+        c50,
+        c75,
+        color=color,
+        alpha=0.20,
+        zorder=2
+    )
+
+    # --------------------------------------------------------
+    # 75–95
+    # --------------------------------------------------------
+
+    ax.fill_between(
+        x,
+        c75,
+        c95,
+        color=color,
+        alpha=0.08,
+        zorder=2
+    )
+
+    # --------------------------------------------------------
+    # CENTILE LINES
+    # --------------------------------------------------------
+
+    ax.plot(
+        x,
+        c05,
+        color=color,
+        linestyle="--",
+        linewidth=0.8,
+        alpha=0.75,
+        label="5th",
+        zorder=3
+    )
+
+    ax.plot(
+        x,
+        c25,
+        color=color,
+        linestyle=":",
+        linewidth=0.9,
+        alpha=0.85,
+        label="25th",
+        zorder=3
+    )
+
+    ax.plot(
+        x,
+        c50,
+        color=color,
+        linewidth=1.5,
+        label="50th",
+        zorder=4
+    )
+
+    ax.plot(
+        x,
+        c75,
+        color=color,
+        linestyle=":",
+        linewidth=0.9,
+        alpha=0.85,
+        label="75th",
+        zorder=3
+    )
+
+    ax.plot(
+        x,
+        c95,
+        color=color,
+        linestyle="--",
+        linewidth=0.8,
+        alpha=0.75,
+        label="95th",
+        zorder=3
+    )
+
+
+# ============================================================
+# SAFE FILENAME
+# ============================================================
+
+def safe_name(text):
+
+    return (
+        text
+        .replace(" ", "_")
+        .replace("-", "_")
+        .replace("/", "_")
+        .replace(".", "_")
+        .replace("(", "")
+        .replace(")", "")
+    )
+
+
+# ============================================================
 # CONTINUOUS CENTILE PLOTS
 # ============================================================
 
@@ -267,6 +519,10 @@ for variable, xlabel in continuous_variables.items():
 
     for component in response_vars:
 
+        color = component_colors[
+            component
+        ]
+
         (
             c05,
             c25,
@@ -279,7 +535,10 @@ for variable, xlabel in continuous_variables.items():
         )
 
         fig, ax = plt.subplots(
-            figsize=(5, 4)
+            figsize=(
+                85 * MM,
+                65 * MM
+            )
         )
 
         # ----------------------------------------------------
@@ -289,74 +548,26 @@ for variable, xlabel in continuous_variables.items():
         ax.scatter(
             model_df[variable],
             model_df[component],
-            s=10,
-            alpha=0.20,
-            linewidth=0
+            s=7,
+            color=color,
+            alpha=0.35,
+            linewidth=0,
+            zorder=1
         )
 
         # ----------------------------------------------------
-        # 5–95 CENTILE BAND
+        # CENTILES
         # ----------------------------------------------------
 
-        ax.fill_between(
+        add_centile_shading(
+            ax,
             x_values,
             c05,
-            c95,
-            alpha=0.12
-        )
-
-        # ----------------------------------------------------
-        # 25–75 CENTILE BAND
-        # ----------------------------------------------------
-
-        ax.fill_between(
-            x_values,
             c25,
-            c75,
-            alpha=0.25
-        )
-
-        # ----------------------------------------------------
-        # CENTILE LINES
-        # ----------------------------------------------------
-
-        ax.plot(
-            x_values,
-            c05,
-            linestyle="--",
-            linewidth=1,
-            label="5th"
-        )
-
-        ax.plot(
-            x_values,
-            c25,
-            linestyle=":",
-            linewidth=1,
-            label="25th"
-        )
-
-        ax.plot(
-            x_values,
             c50,
-            linewidth=1.8,
-            label="50th"
-        )
-
-        ax.plot(
-            x_values,
             c75,
-            linestyle=":",
-            linewidth=1,
-            label="75th"
-        )
-
-        ax.plot(
-            x_values,
             c95,
-            linestyle="--",
-            linewidth=1,
-            label="95th"
+            color
         )
 
         ax.set_xlabel(
@@ -368,44 +579,40 @@ for variable, xlabel in continuous_variables.items():
         )
 
         ax.set_title(
-            component
+            component_labels[
+                component
+            ],
+            pad=18
         )
 
-        ax.legend(
-            frameon=False,
-            fontsize=7
+        add_legend(
+            ax
         )
 
-        ax.spines[
-            "top"
-        ].set_visible(False)
-
-        ax.spines[
-            "right"
-        ].set_visible(False)
+        style_axis(
+            ax
+        )
 
         fig.tight_layout()
 
-        safe_variable = (
-            variable
-            .replace(" ", "_")
-            .replace(".", "_")
-            .replace("(", "")
-            .replace(")", "")
+        filename = (
+            f"{safe_name(component_labels[component])}_"
+            f"{safe_name(variable)}_centiles.svg"
         )
 
         fig.savefig(
-            plot_dir
-            / f"{component}_{safe_variable}_centiles.svg",
+            plot_dir / filename,
             format="svg",
             bbox_inches="tight"
         )
 
-        plt.close(fig)
+        plt.close(
+            fig
+        )
 
 
 # ============================================================
-# HELPERS FOR CATEGORICAL VARIABLES
+# CATEGORICAL HELPERS
 # ============================================================
 
 def observed_binary_labels(
@@ -488,6 +695,10 @@ def categorical_centile_plot(
 
     for component in response_vars:
 
+        color = component_colors[
+            component
+        ]
+
         (
             c05,
             c25,
@@ -499,13 +710,15 @@ def categorical_centile_plot(
             component
         )
 
+        width_mm = max(
+            85,
+            len(labels) * 18
+        )
+
         fig, ax = plt.subplots(
             figsize=(
-                max(
-                    5,
-                    len(labels) * 0.9
-                ),
-                4
+                width_mm * MM,
+                65 * MM
             )
         )
 
@@ -526,9 +739,7 @@ def categorical_centile_plot(
                 component
             ].astype(float)
 
-            if len(
-                yvals
-            ) > 0:
+            if len(yvals) > 0:
 
                 jitter = rng.normal(
                     loc=0,
@@ -543,63 +754,67 @@ def categorical_centile_plot(
                     )
                     + jitter,
                     yvals,
-                    s=10,
-                    alpha=0.20,
+                    s=8,
+                    color=color,
+                    alpha=0.40,
                     linewidth=0,
                     zorder=1
                 )
 
         # ----------------------------------------------------
-        # CENTILES
+        # CENTILE SHADING
+        # ----------------------------------------------------
+
+        add_centile_shading(
+            ax,
+            x,
+            c05,
+            c25,
+            c50,
+            c75,
+            c95,
+            color
+        )
+
+        # ----------------------------------------------------
+        # CATEGORY CENTILE MARKERS
         # ----------------------------------------------------
 
         for i in range(
             len(labels)
         ):
 
-            # 5th–95th
+            # 5–95
             ax.vlines(
                 x[i],
                 c05[i],
                 c95[i],
-                linewidth=1.2,
-                zorder=2
+                color=color,
+                linewidth=0.8,
+                alpha=0.8,
+                zorder=4
             )
 
-            # 25th–75th
+            # 25–75
             ax.vlines(
                 x[i],
                 c25[i],
                 c75[i],
-                linewidth=5,
-                alpha=0.65,
-                zorder=3
-            )
-
-            # 5th
-            ax.hlines(
-                c05[i],
-                x[i] - 0.08,
-                x[i] + 0.08,
-                linewidth=1,
-                zorder=3
-            )
-
-            # 95th
-            ax.hlines(
-                c95[i],
-                x[i] - 0.08,
-                x[i] + 0.08,
-                linewidth=1,
-                zorder=3
+                color=color,
+                linewidth=3,
+                alpha=0.60,
+                zorder=5
             )
 
             # median
             ax.scatter(
                 x[i],
                 c50[i],
-                s=35,
-                zorder=4
+                s=20,
+                color=color,
+                edgecolor=DARK,
+                linewidth=0.4,
+                zorder=6
             )
 
         ax.set_xticks(
@@ -625,33 +840,42 @@ def categorical_centile_plot(
         )
 
         ax.set_title(
-            component
+            component_labels[
+                component
+            ],
+            pad=18
         )
 
-        ax.spines[
-            "top"
-        ].set_visible(False)
+        add_legend(
+            ax
+        )
 
-        ax.spines[
-            "right"
-        ].set_visible(False)
+        style_axis(
+            ax
+        )
 
         fig.tight_layout()
 
+        filename = (
+            f"{safe_name(component_labels[component])}_"
+            f"{safe_name(name)}_centiles.svg"
+        )
+
         fig.savefig(
-            plot_dir
-            / f"{component}_{name}_centiles.svg",
+            plot_dir / filename,
             format="svg",
             bbox_inches="tight"
         )
 
-        plt.close(fig)
+        plt.close(
+            fig
+        )
 
 
 # ============================================================
 # SEX
 # Female = 0
-# Male   = 1
+# Male = 1
 # ============================================================
 
 if "Sex_encoded" in covariates:
@@ -685,7 +909,7 @@ if "Sex_encoded" in covariates:
 
 # ============================================================
 # COIL
-# RT   = 0
+# RT = 0
 # Cryo = 1
 # ============================================================
 
@@ -720,7 +944,7 @@ if "Coil_encoded" in covariates:
 
 # ============================================================
 # VENTILATION
-# No  = 0
+# No = 0
 # Yes = 1
 # ============================================================
 
@@ -953,5 +1177,12 @@ if anesthesia_dummy_cols:
 # ============================================================
 
 print("\nDONE")
-print("All centile plots saved as SVG in:")
-print(plot_dir)
+
+print(
+    "All centile plots saved as SVG in:"
+)
+
+print(
+    plot_dir
+)
+```

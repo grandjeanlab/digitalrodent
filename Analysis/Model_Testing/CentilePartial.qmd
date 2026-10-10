@@ -74,17 +74,16 @@ print(plot_dir)
 
 
 # ============================================================
-# HELPER: VALID REFERENCE PROFILE
-#
-# Use an actual row as the reference profile.
-# Choose the row closest to the median Age.
+# REFERENCE PROFILE
 # ============================================================
 
 reference_pool = model_df.dropna(
     subset=covariates
 ).copy()
 
-median_age = reference_pool["Age(week)"].median()
+median_age = reference_pool[
+    "Age(week)"
+].median()
 
 reference_index = (
     (
@@ -115,7 +114,14 @@ def make_reference_dataframe(n):
     return df
 
 
-def to_normdata(name, dataframe):
+# ============================================================
+# CREATE NORMDATA
+# ============================================================
+
+def to_normdata(
+    name,
+    dataframe
+):
 
     return NormData.from_dataframe(
         name=name,
@@ -127,13 +133,19 @@ def to_normdata(name, dataframe):
     )
 
 
+# ============================================================
+# COMPUTE CENTILES
+# ============================================================
+
 def get_centiles(data):
 
     model.compute_centiles(
         data,
         centiles=[
             0.05,
+            0.25,
             0.50,
+            0.75,
             0.95
         ],
         recompute=True
@@ -142,9 +154,12 @@ def get_centiles(data):
     return data
 
 
-def centile_values(data, component):
+def centile_values(
+    data,
+    component
+):
 
-    lower = (
+    c05 = (
         data.centiles
         .sel(
             response_vars=component,
@@ -154,7 +169,17 @@ def centile_values(data, component):
         .squeeze()
     )
 
-    median = (
+    c25 = (
+        data.centiles
+        .sel(
+            response_vars=component,
+            centile=0.25
+        )
+        .values
+        .squeeze()
+    )
+
+    c50 = (
         data.centiles
         .sel(
             response_vars=component,
@@ -164,7 +189,17 @@ def centile_values(data, component):
         .squeeze()
     )
 
-    upper = (
+    c75 = (
+        data.centiles
+        .sel(
+            response_vars=component,
+            centile=0.75
+        )
+        .values
+        .squeeze()
+    )
+
+    c95 = (
         data.centiles
         .sel(
             response_vars=component,
@@ -174,7 +209,13 @@ def centile_values(data, component):
         .squeeze()
     )
 
-    return lower, median, upper
+    return (
+        c05,
+        c25,
+        c50,
+        c75,
+        c95
+    )
 
 
 # ============================================================
@@ -193,8 +234,13 @@ for variable, xlabel in continuous_variables.items():
     if variable not in covariates:
         continue
 
-    x_min = model_df[variable].min()
-    x_max = model_df[variable].max()
+    x_min = model_df[
+        variable
+    ].min()
+
+    x_max = model_df[
+        variable
+    ].max()
 
     x_values = np.linspace(
         x_min,
@@ -206,7 +252,9 @@ for variable, xlabel in continuous_variables.items():
         len(x_values)
     )
 
-    synthetic_df[variable] = x_values
+    synthetic_df[
+        variable
+    ] = x_values
 
     centile_data = to_normdata(
         name=f"{variable}_centiles",
@@ -219,7 +267,13 @@ for variable, xlabel in continuous_variables.items():
 
     for component in response_vars:
 
-        lower, median, upper = centile_values(
+        (
+            c05,
+            c25,
+            c50,
+            c75,
+            c95
+        ) = centile_values(
             centile_data,
             component
         )
@@ -228,39 +282,107 @@ for variable, xlabel in continuous_variables.items():
             figsize=(5, 4)
         )
 
+        # ----------------------------------------------------
+        # OBSERVED SCANS
+        # ----------------------------------------------------
+
+        ax.scatter(
+            model_df[variable],
+            model_df[component],
+            s=10,
+            alpha=0.20,
+            linewidth=0
+        )
+
+        # ----------------------------------------------------
+        # 5–95 CENTILE BAND
+        # ----------------------------------------------------
+
         ax.fill_between(
             x_values,
-            lower,
-            upper,
-            alpha=0.18
+            c05,
+            c95,
+            alpha=0.12
         )
+
+        # ----------------------------------------------------
+        # 25–75 CENTILE BAND
+        # ----------------------------------------------------
+
+        ax.fill_between(
+            x_values,
+            c25,
+            c75,
+            alpha=0.25
+        )
+
+        # ----------------------------------------------------
+        # CENTILE LINES
+        # ----------------------------------------------------
 
         ax.plot(
             x_values,
-            lower,
+            c05,
             linestyle="--",
-            linewidth=1
+            linewidth=1,
+            label="5th"
         )
 
         ax.plot(
             x_values,
-            median,
-            linewidth=1.5
+            c25,
+            linestyle=":",
+            linewidth=1,
+            label="25th"
         )
 
         ax.plot(
             x_values,
-            upper,
+            c50,
+            linewidth=1.8,
+            label="50th"
+        )
+
+        ax.plot(
+            x_values,
+            c75,
+            linestyle=":",
+            linewidth=1,
+            label="75th"
+        )
+
+        ax.plot(
+            x_values,
+            c95,
             linestyle="--",
-            linewidth=1
+            linewidth=1,
+            label="95th"
         )
 
-        ax.set_xlabel(xlabel)
-        ax.set_ylabel("DR value")
-        ax.set_title(component)
+        ax.set_xlabel(
+            xlabel
+        )
 
-        ax.spines["top"].set_visible(False)
-        ax.spines["right"].set_visible(False)
+        ax.set_ylabel(
+            "DR value"
+        )
+
+        ax.set_title(
+            component
+        )
+
+        ax.legend(
+            frameon=False,
+            fontsize=7
+        )
+
+        ax.spines[
+            "top"
+        ].set_visible(False)
+
+        ax.spines[
+            "right"
+        ].set_visible(False)
 
         fig.tight_layout()
 
@@ -283,24 +405,73 @@ for variable, xlabel in continuous_variables.items():
 
 
 # ============================================================
-# HELPER: CATEGORICAL CENTILE PLOTS
+# HELPERS FOR CATEGORICAL VARIABLES
+# ============================================================
+
+def observed_binary_labels(
+    column,
+    mapping
+):
+
+    return model_df[
+        column
+    ].map(
+        mapping
+    )
+
+
+def observed_from_dummies(
+    dummy_cols,
+    reference_label,
+    prefix_to_remove
+):
+
+    labels = pd.Series(
+        [reference_label] * len(model_df),
+        index=model_df.index,
+        dtype="object"
+    )
+
+    for dummy in dummy_cols:
+
+        label = dummy.replace(
+            prefix_to_remove,
+            ""
+        )
+
+        labels.loc[
+            model_df[dummy] == 1
+        ] = label
+
+    return labels
+
+
+# ============================================================
+# CATEGORICAL CENTILE PLOTS
 # ============================================================
 
 def categorical_centile_plot(
     name,
     labels,
     profiles,
-    xlabel
+    xlabel,
+    observed_labels
 ):
 
     synthetic_df = make_reference_dataframe(
         len(labels)
     )
 
-    for i, profile in enumerate(profiles):
+    for i, profile in enumerate(
+        profiles
+    ):
 
         for col, value in profile.items():
-            synthetic_df.loc[i, col] = value
+
+            synthetic_df.loc[
+                i,
+                col
+            ] = value
 
     centile_data = to_normdata(
         name=f"{name}_centiles",
@@ -317,58 +488,153 @@ def categorical_centile_plot(
 
     for component in response_vars:
 
-        lower, median, upper = centile_values(
+        (
+            c05,
+            c25,
+            c50,
+            c75,
+            c95
+        ) = centile_values(
             centile_data,
             component
         )
 
         fig, ax = plt.subplots(
-            figsize=(max(5, len(labels) * 0.8), 4)
+            figsize=(
+                max(
+                    5,
+                    len(labels) * 0.9
+                ),
+                4
+            )
         )
 
-        for i in range(len(labels)):
+        # ----------------------------------------------------
+        # OBSERVED SCANS
+        # ----------------------------------------------------
 
+        rng = np.random.default_rng(
+            42
+        )
+
+        for i, label in enumerate(
+            labels
+        ):
+
+            yvals = model_df.loc[
+                observed_labels == label,
+                component
+            ].astype(float)
+
+            if len(
+                yvals
+            ) > 0:
+
+                jitter = rng.normal(
+                    loc=0,
+                    scale=0.06,
+                    size=len(yvals)
+                )
+
+                ax.scatter(
+                    np.full(
+                        len(yvals),
+                        x[i]
+                    )
+                    + jitter,
+                    yvals,
+                    s=10,
+                    alpha=0.20,
+                    linewidth=0,
+                    zorder=1
+                )
+
+        # ----------------------------------------------------
+        # CENTILES
+        # ----------------------------------------------------
+
+        for i in range(
+            len(labels)
+        ):
+
+            # 5th–95th
             ax.vlines(
                 x[i],
-                lower[i],
-                upper[i],
-                linewidth=1.5
+                c05[i],
+                c95[i],
+                linewidth=1.2,
+                zorder=2
             )
 
-            ax.hlines(
-                lower[i],
-                x[i] - 0.08,
-                x[i] + 0.08,
-                linewidth=1
-            )
-
-            ax.hlines(
-                upper[i],
-                x[i] - 0.08,
-                x[i] + 0.08,
-                linewidth=1
-            )
-
-            ax.scatter(
+            # 25th–75th
+            ax.vlines(
                 x[i],
-                median[i],
-                s=30,
+                c25[i],
+                c75[i],
+                linewidth=5,
+                alpha=0.65,
                 zorder=3
             )
 
-        ax.set_xticks(x)
-        ax.set_xticklabels(
-            labels,
-            rotation=35 if len(labels) > 4 else 0,
-            ha="right" if len(labels) > 4 else "center"
+            # 5th
+            ax.hlines(
+                c05[i],
+                x[i] - 0.08,
+                x[i] + 0.08,
+                linewidth=1,
+                zorder=3
+            )
+
+            # 95th
+            ax.hlines(
+                c95[i],
+                x[i] - 0.08,
+                x[i] + 0.08,
+                linewidth=1,
+                zorder=3
+            )
+
+            # median
+            ax.scatter(
+                x[i],
+                c50[i],
+                s=35,
+                zorder=4
+            )
+
+        ax.set_xticks(
+            x
         )
 
-        ax.set_xlabel(xlabel)
-        ax.set_ylabel("DR value")
-        ax.set_title(component)
+        ax.set_xticklabels(
+            labels,
+            rotation=35
+            if len(labels) > 4
+            else 0,
+            ha="right"
+            if len(labels) > 4
+            else "center"
+        )
 
-        ax.spines["top"].set_visible(False)
-        ax.spines["right"].set_visible(False)
+        ax.set_xlabel(
+            xlabel
+        )
+
+        ax.set_ylabel(
+            "DR value"
+        )
+
+        ax.set_title(
+            component
+        )
+
+        ax.spines[
+            "top"
+        ].set_visible(False)
+
+        ax.spines[
+            "right"
+        ].set_visible(False)
 
         fig.tight_layout()
 
@@ -390,6 +656,14 @@ def categorical_centile_plot(
 
 if "Sex_encoded" in covariates:
 
+    obs_labels = observed_binary_labels(
+        "Sex_encoded",
+        {
+            0.0: "Female",
+            1.0: "Male"
+        }
+    )
+
     categorical_centile_plot(
         name="Sex",
         labels=[
@@ -404,7 +678,8 @@ if "Sex_encoded" in covariates:
                 "Sex_encoded": 1.0
             }
         ],
-        xlabel="Sex"
+        xlabel="Sex",
+        observed_labels=obs_labels
     )
 
 
@@ -415,6 +690,14 @@ if "Sex_encoded" in covariates:
 # ============================================================
 
 if "Coil_encoded" in covariates:
+
+    obs_labels = observed_binary_labels(
+        "Coil_encoded",
+        {
+            0.0: "RT",
+            1.0: "Cryo"
+        }
+    )
 
     categorical_centile_plot(
         name="Coil",
@@ -430,7 +713,8 @@ if "Coil_encoded" in covariates:
                 "Coil_encoded": 1.0
             }
         ],
-        xlabel="Coil"
+        xlabel="Coil",
+        observed_labels=obs_labels
     )
 
 
@@ -441,6 +725,14 @@ if "Coil_encoded" in covariates:
 # ============================================================
 
 if "Ventilation_encoded" in covariates:
+
+    obs_labels = observed_binary_labels(
+        "Ventilation_encoded",
+        {
+            0.0: "No",
+            1.0: "Yes"
+        }
+    )
 
     categorical_centile_plot(
         name="Ventilation",
@@ -456,20 +748,22 @@ if "Ventilation_encoded" in covariates:
                 "Ventilation_encoded": 1.0
             }
         ],
-        xlabel="Ventilation"
+        xlabel="Ventilation",
+        observed_labels=obs_labels
     )
 
 
 # ============================================================
 # STRAIN
-#
 # Reference = C57BL/6
-# Other categories are represented by their dummy columns.
 # ============================================================
 
 strain_dummy_cols = [
-    col for col in covariates
-    if col.startswith("Rodent.strain_")
+    col
+    for col in covariates
+    if col.startswith(
+        "Rodent.strain_"
+    )
 ]
 
 if strain_dummy_cols:
@@ -497,7 +791,9 @@ if strain_dummy_cols:
             for col in strain_dummy_cols
         }
 
-        profile[dummy] = 1.0
+        profile[
+            dummy
+        ] = 1.0
 
         strain_labels.append(
             label
@@ -507,23 +803,32 @@ if strain_dummy_cols:
             profile
         )
 
+    obs_labels = observed_from_dummies(
+        dummy_cols=strain_dummy_cols,
+        reference_label="C57BL/6",
+        prefix_to_remove="Rodent.strain_"
+    )
+
     categorical_centile_plot(
         name="Rodent_strain",
         labels=strain_labels,
         profiles=strain_profiles,
-        xlabel="Rodent strain"
+        xlabel="Rodent strain",
+        observed_labels=obs_labels
     )
 
 
 # ============================================================
 # fMRI SEQUENCE
-#
 # Reference = GE-EPI
 # ============================================================
 
 sequence_dummy_cols = [
-    col for col in covariates
-    if col.startswith("fMRI.sequence_")
+    col
+    for col in covariates
+    if col.startswith(
+        "fMRI.sequence_"
+    )
 ]
 
 if sequence_dummy_cols:
@@ -551,7 +856,9 @@ if sequence_dummy_cols:
             for col in sequence_dummy_cols
         }
 
-        profile[dummy] = 1.0
+        profile[
+            dummy
+        ] = 1.0
 
         sequence_labels.append(
             label
@@ -561,23 +868,32 @@ if sequence_dummy_cols:
             profile
         )
 
+    obs_labels = observed_from_dummies(
+        dummy_cols=sequence_dummy_cols,
+        reference_label="GE-EPI",
+        prefix_to_remove="fMRI.sequence_"
+    )
+
     categorical_centile_plot(
         name="fMRI_sequence",
         labels=sequence_labels,
         profiles=sequence_profiles,
-        xlabel="fMRI sequence"
+        xlabel="fMRI sequence",
+        observed_labels=obs_labels
     )
 
 
 # ============================================================
 # ANESTHESIA
-#
 # Reference = Awake
 # ============================================================
 
 anesthesia_dummy_cols = [
-    col for col in covariates
-    if col.startswith("Anesthesia_")
+    col
+    for col in covariates
+    if col.startswith(
+        "Anesthesia_"
+    )
 ]
 
 if anesthesia_dummy_cols:
@@ -605,7 +921,9 @@ if anesthesia_dummy_cols:
             for col in anesthesia_dummy_cols
         }
 
-        profile[dummy] = 1.0
+        profile[
+            dummy
+        ] = 1.0
 
         anesthesia_labels.append(
             label
@@ -615,11 +933,18 @@ if anesthesia_dummy_cols:
             profile
         )
 
+    obs_labels = observed_from_dummies(
+        dummy_cols=anesthesia_dummy_cols,
+        reference_label="Awake",
+        prefix_to_remove="Anesthesia_"
+    )
+
     categorical_centile_plot(
         name="Anesthesia",
         labels=anesthesia_labels,
         profiles=anesthesia_profiles,
-        xlabel="Anesthesia"
+        xlabel="Anesthesia",
+        observed_labels=obs_labels
     )
 
 
@@ -630,4 +955,3 @@ if anesthesia_dummy_cols:
 print("\nDONE")
 print("All centile plots saved as SVG in:")
 print(plot_dir)
-```

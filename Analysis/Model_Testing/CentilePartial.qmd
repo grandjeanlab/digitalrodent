@@ -1,0 +1,633 @@
+---
+title: "Digital Rodent Partial Model Centiles"
+format: gfm
+---
+
+```{python}
+from pathlib import Path
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from pcntoolkit import (
+    NormativeModel,
+    NormData
+)
+
+
+# ============================================================
+# PATHS
+# ============================================================
+
+input_file = Path(
+    "/home/traaffneu/dansch/Documents/digital_rodent/digitalrodent/"
+    "results/combined_dataset/Partial_Model/Partial_Model_dataframe.csv"
+)
+
+model_dir = Path(
+    "/home/traaffneu/dansch/Documents/digital_rodent/digitalrodent/"
+    "results/normative_model/Model_Testing/Partial_Model"
+)
+
+plot_dir = (
+    model_dir
+    / "centiles_svg"
+)
+
+plot_dir.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+
+# ============================================================
+# LOAD TRAINED MODEL + DATA
+# ============================================================
+
+model = NormativeModel.load(
+    str(model_dir)
+)
+
+model_df = pd.read_csv(
+    input_file
+)
+
+response_vars = [
+    "comp2",
+    "comp10",
+    "comp11"
+]
+
+covariates = [
+    str(x)
+    for x in model.covariates
+]
+
+batch_effects = []
+
+
+print("Loaded trained model")
+print("Responses:", response_vars)
+print("Covariates:", covariates)
+print("Saving SVGs to:")
+print(plot_dir)
+
+
+# ============================================================
+# HELPER: VALID REFERENCE PROFILE
+#
+# Use an actual row as the reference profile.
+# Choose the row closest to the median Age.
+# ============================================================
+
+reference_pool = model_df.dropna(
+    subset=covariates
+).copy()
+
+median_age = reference_pool["Age(week)"].median()
+
+reference_index = (
+    (
+        reference_pool["Age(week)"]
+        - median_age
+    )
+    .abs()
+    .idxmin()
+)
+
+reference_row = reference_pool.loc[
+    reference_index
+]
+
+
+def make_reference_dataframe(n):
+
+    df = pd.DataFrame(
+        {
+            col: [reference_row[col]] * n
+            for col in covariates
+        }
+    )
+
+    for response in response_vars:
+        df[response] = 0.0
+
+    return df
+
+
+def to_normdata(name, dataframe):
+
+    return NormData.from_dataframe(
+        name=name,
+        dataframe=dataframe,
+        covariates=covariates,
+        batch_effects=batch_effects,
+        response_vars=response_vars,
+        remove_Nan=False
+    )
+
+
+def get_centiles(data):
+
+    model.compute_centiles(
+        data,
+        centiles=[
+            0.05,
+            0.50,
+            0.95
+        ],
+        recompute=True
+    )
+
+    return data
+
+
+def centile_values(data, component):
+
+    lower = (
+        data.centiles
+        .sel(
+            response_vars=component,
+            centile=0.05
+        )
+        .values
+        .squeeze()
+    )
+
+    median = (
+        data.centiles
+        .sel(
+            response_vars=component,
+            centile=0.50
+        )
+        .values
+        .squeeze()
+    )
+
+    upper = (
+        data.centiles
+        .sel(
+            response_vars=component,
+            centile=0.95
+        )
+        .values
+        .squeeze()
+    )
+
+    return lower, median, upper
+
+
+# ============================================================
+# CONTINUOUS CENTILE PLOTS
+# ============================================================
+
+continuous_variables = {
+    "Age(week)": "Age (weeks)",
+    "MRI": "MRI field strength (T)",
+    "MRI T.R.": "TR"
+}
+
+
+for variable, xlabel in continuous_variables.items():
+
+    if variable not in covariates:
+        continue
+
+    x_min = model_df[variable].min()
+    x_max = model_df[variable].max()
+
+    x_values = np.linspace(
+        x_min,
+        x_max,
+        150
+    )
+
+    synthetic_df = make_reference_dataframe(
+        len(x_values)
+    )
+
+    synthetic_df[variable] = x_values
+
+    centile_data = to_normdata(
+        name=f"{variable}_centiles",
+        dataframe=synthetic_df
+    )
+
+    centile_data = get_centiles(
+        centile_data
+    )
+
+    for component in response_vars:
+
+        lower, median, upper = centile_values(
+            centile_data,
+            component
+        )
+
+        fig, ax = plt.subplots(
+            figsize=(5, 4)
+        )
+
+        ax.fill_between(
+            x_values,
+            lower,
+            upper,
+            alpha=0.18
+        )
+
+        ax.plot(
+            x_values,
+            lower,
+            linestyle="--",
+            linewidth=1
+        )
+
+        ax.plot(
+            x_values,
+            median,
+            linewidth=1.5
+        )
+
+        ax.plot(
+            x_values,
+            upper,
+            linestyle="--",
+            linewidth=1
+        )
+
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel("DR value")
+        ax.set_title(component)
+
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+
+        fig.tight_layout()
+
+        safe_variable = (
+            variable
+            .replace(" ", "_")
+            .replace(".", "_")
+            .replace("(", "")
+            .replace(")", "")
+        )
+
+        fig.savefig(
+            plot_dir
+            / f"{component}_{safe_variable}_centiles.svg",
+            format="svg",
+            bbox_inches="tight"
+        )
+
+        plt.close(fig)
+
+
+# ============================================================
+# HELPER: CATEGORICAL CENTILE PLOTS
+# ============================================================
+
+def categorical_centile_plot(
+    name,
+    labels,
+    profiles,
+    xlabel
+):
+
+    synthetic_df = make_reference_dataframe(
+        len(labels)
+    )
+
+    for i, profile in enumerate(profiles):
+
+        for col, value in profile.items():
+            synthetic_df.loc[i, col] = value
+
+    centile_data = to_normdata(
+        name=f"{name}_centiles",
+        dataframe=synthetic_df
+    )
+
+    centile_data = get_centiles(
+        centile_data
+    )
+
+    x = np.arange(
+        len(labels)
+    )
+
+    for component in response_vars:
+
+        lower, median, upper = centile_values(
+            centile_data,
+            component
+        )
+
+        fig, ax = plt.subplots(
+            figsize=(max(5, len(labels) * 0.8), 4)
+        )
+
+        for i in range(len(labels)):
+
+            ax.vlines(
+                x[i],
+                lower[i],
+                upper[i],
+                linewidth=1.5
+            )
+
+            ax.hlines(
+                lower[i],
+                x[i] - 0.08,
+                x[i] + 0.08,
+                linewidth=1
+            )
+
+            ax.hlines(
+                upper[i],
+                x[i] - 0.08,
+                x[i] + 0.08,
+                linewidth=1
+            )
+
+            ax.scatter(
+                x[i],
+                median[i],
+                s=30,
+                zorder=3
+            )
+
+        ax.set_xticks(x)
+        ax.set_xticklabels(
+            labels,
+            rotation=35 if len(labels) > 4 else 0,
+            ha="right" if len(labels) > 4 else "center"
+        )
+
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel("DR value")
+        ax.set_title(component)
+
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+
+        fig.tight_layout()
+
+        fig.savefig(
+            plot_dir
+            / f"{component}_{name}_centiles.svg",
+            format="svg",
+            bbox_inches="tight"
+        )
+
+        plt.close(fig)
+
+
+# ============================================================
+# SEX
+# Female = 0
+# Male   = 1
+# ============================================================
+
+if "Sex_encoded" in covariates:
+
+    categorical_centile_plot(
+        name="Sex",
+        labels=[
+            "Female",
+            "Male"
+        ],
+        profiles=[
+            {
+                "Sex_encoded": 0.0
+            },
+            {
+                "Sex_encoded": 1.0
+            }
+        ],
+        xlabel="Sex"
+    )
+
+
+# ============================================================
+# COIL
+# RT   = 0
+# Cryo = 1
+# ============================================================
+
+if "Coil_encoded" in covariates:
+
+    categorical_centile_plot(
+        name="Coil",
+        labels=[
+            "RT",
+            "Cryo"
+        ],
+        profiles=[
+            {
+                "Coil_encoded": 0.0
+            },
+            {
+                "Coil_encoded": 1.0
+            }
+        ],
+        xlabel="Coil"
+    )
+
+
+# ============================================================
+# VENTILATION
+# No  = 0
+# Yes = 1
+# ============================================================
+
+if "Ventilation_encoded" in covariates:
+
+    categorical_centile_plot(
+        name="Ventilation",
+        labels=[
+            "No",
+            "Yes"
+        ],
+        profiles=[
+            {
+                "Ventilation_encoded": 0.0
+            },
+            {
+                "Ventilation_encoded": 1.0
+            }
+        ],
+        xlabel="Ventilation"
+    )
+
+
+# ============================================================
+# STRAIN
+#
+# Reference = C57BL/6
+# Other categories are represented by their dummy columns.
+# ============================================================
+
+strain_dummy_cols = [
+    col for col in covariates
+    if col.startswith("Rodent.strain_")
+]
+
+if strain_dummy_cols:
+
+    strain_labels = [
+        "C57BL/6"
+    ]
+
+    strain_profiles = [
+        {
+            col: 0.0
+            for col in strain_dummy_cols
+        }
+    ]
+
+    for dummy in strain_dummy_cols:
+
+        label = dummy.replace(
+            "Rodent.strain_",
+            ""
+        )
+
+        profile = {
+            col: 0.0
+            for col in strain_dummy_cols
+        }
+
+        profile[dummy] = 1.0
+
+        strain_labels.append(
+            label
+        )
+
+        strain_profiles.append(
+            profile
+        )
+
+    categorical_centile_plot(
+        name="Rodent_strain",
+        labels=strain_labels,
+        profiles=strain_profiles,
+        xlabel="Rodent strain"
+    )
+
+
+# ============================================================
+# fMRI SEQUENCE
+#
+# Reference = GE-EPI
+# ============================================================
+
+sequence_dummy_cols = [
+    col for col in covariates
+    if col.startswith("fMRI.sequence_")
+]
+
+if sequence_dummy_cols:
+
+    sequence_labels = [
+        "GE-EPI"
+    ]
+
+    sequence_profiles = [
+        {
+            col: 0.0
+            for col in sequence_dummy_cols
+        }
+    ]
+
+    for dummy in sequence_dummy_cols:
+
+        label = dummy.replace(
+            "fMRI.sequence_",
+            ""
+        )
+
+        profile = {
+            col: 0.0
+            for col in sequence_dummy_cols
+        }
+
+        profile[dummy] = 1.0
+
+        sequence_labels.append(
+            label
+        )
+
+        sequence_profiles.append(
+            profile
+        )
+
+    categorical_centile_plot(
+        name="fMRI_sequence",
+        labels=sequence_labels,
+        profiles=sequence_profiles,
+        xlabel="fMRI sequence"
+    )
+
+
+# ============================================================
+# ANESTHESIA
+#
+# Reference = Awake
+# ============================================================
+
+anesthesia_dummy_cols = [
+    col for col in covariates
+    if col.startswith("Anesthesia_")
+]
+
+if anesthesia_dummy_cols:
+
+    anesthesia_labels = [
+        "Awake"
+    ]
+
+    anesthesia_profiles = [
+        {
+            col: 0.0
+            for col in anesthesia_dummy_cols
+        }
+    ]
+
+    for dummy in anesthesia_dummy_cols:
+
+        label = dummy.replace(
+            "Anesthesia_",
+            ""
+        )
+
+        profile = {
+            col: 0.0
+            for col in anesthesia_dummy_cols
+        }
+
+        profile[dummy] = 1.0
+
+        anesthesia_labels.append(
+            label
+        )
+
+        anesthesia_profiles.append(
+            profile
+        )
+
+    categorical_centile_plot(
+        name="Anesthesia",
+        labels=anesthesia_labels,
+        profiles=anesthesia_profiles,
+        xlabel="Anesthesia"
+    )
+
+
+# ============================================================
+# DONE
+# ============================================================
+
+print("\nDONE")
+print("All centile plots saved as SVG in:")
+print(plot_dir)
+```

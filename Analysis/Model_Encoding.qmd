@@ -1,321 +1,62 @@
-# Make a modelling dataframe
-
+---
+title: "Model Encoding"
+format: gfm
+jupyter: python3
+execute:
+  echo: true
+  warning: true
+  message: true
+---
 ```{python}
 from pathlib import Path
 import pandas as pd
-import numpy as np
-
-current_dir = Path.cwd().parent
-
-combined_path = (
-    current_dir
-    / "results"
-    / "combined_dataset"
-    / "Combined_dataset.csv"
-)
-
-output_dir = (
-    current_dir
-    / "results"
-    / "combined_dataset"
-)
-
-model_df = pd.read_csv(combined_path)
-
-print("Combined dataset shape:", model_df.shape)
 
 
 # ============================================================
-# IDS AND RESPONSE VARIABLES
+# PATHS
+# ============================================================
+
+current_dir = Path.cwd().parent
+
+input_path = current_dir / "results" / "combined_dataset" / "Combined_dataset.csv"
+
+output_dir = current_dir / "results" / "combined_dataset"
+
+output_dir.mkdir(
+    parents=True,
+    exist_ok=True
+)
+
+
+# ============================================================
+# LOAD DATA
+# ============================================================
+
+df = pd.read_csv(input_path)
+
+print("Original rows:", len(df))
+
+
+# ============================================================
+# WANTED VARIABLES ONLY
 # ============================================================
 
 id_columns = [
     "Scan_id",
-    "Participant_Id"
+    "Participant_Id",
+    "Session",
+    "Dataset_name"
 ]
 
-response_vars = [f"comp{i}" for i in range(1, 19)]
-
-for col in response_vars:
-    model_df[col] = pd.to_numeric(
-        model_df[col],
-        errors="coerce"
-    )
-
-print("Rows with missing response data:", model_df[response_vars].isna().any(axis=1).sum())
-```
-
-```{python}
-# ============================================================
-# CLEAN CATEGORICAL METADATA
-# ============================================================
-
-# ------------------------------------------------------------
-# Sex
-# Keep genuinely missing values as an explicit Missing category
-# ------------------------------------------------------------
-
-model_df["Sex"] = (
-    model_df["Sex"]
-    .astype("string")
-    .str.strip()
-    .str.upper()
-    .replace({
-        "FEMALE": "F",
-        "MALE": "M",
-        "MISSING": "Missing",
-        "NA": "Missing",
-        "N/A": "Missing"
-    })
-    .fillna("Missing")
-)
-
-
-# ------------------------------------------------------------
-# Rodent strain
-# Keep genuinely missing values as an explicit Missing category
-# ------------------------------------------------------------
-
-model_df["Rodent.strain"] = (
-    model_df["Rodent.strain"]
-    .astype("string")
-    .str.strip()
-)
-
-model_df.loc[
-    model_df["Rodent.strain"].str.contains(
-        "C57",
-        case=False,
-        na=False
-    ),
-    "Rodent.strain"
-] = "C57BL/6"
-
-model_df["Rodent.strain"] = (
-    model_df["Rodent.strain"]
-    .replace({
-        "missing": "Missing",
-        "MISSING": "Missing",
-        "NA": "Missing",
-        "N/A": "Missing"
-    })
-    .fillna("Missing")
-)
-
-
-# ------------------------------------------------------------
-# Coil
-# Missing / N.A. = no cryocoil = RT
-# ------------------------------------------------------------
-
-model_df["Coil"] = (
-    model_df["Coil"]
-    .astype("string")
-    .str.strip()
-    .str.lower()
-    .replace({
-        "y": "Cryo",
-        "yes": "Cryo",
-        "cryo": "Cryo",
-        "n": "RT",
-        "no": "RT",
-        "rt": "RT",
-        "missing": "RT",
-        "na": "RT",
-        "n/a": "RT"
-    })
-    .fillna("RT")
-)
-
-
-# ------------------------------------------------------------
-# fMRI sequence
-# Plain EPI = GE-EPI.
-# Truly missing values stay Missing unless corrected upstream.
-# ------------------------------------------------------------
-
-model_df["fMRI.sequence"] = (
-    model_df["fMRI.sequence"]
-    .astype("string")
-    .str.strip()
-    .str.upper()
-    .replace({
-        "EPI": "GE-EPI",
-        "GE EPI": "GE-EPI",
-        "GE-EPI": "GE-EPI",
-        "SE EPI": "SE-EPI",
-        "SE-EPI": "SE-EPI",
-        "ME EPI": "ME-EPI",
-        "ME-EPI": "ME-EPI",
-        "MISSING": "Missing",
-        "NA": "Missing",
-        "N/A": "Missing"
-    })
-    .fillna("Missing")
-)
-
-
-# ------------------------------------------------------------
-# Anesthesia
-# Missing / N.A. = Awake
-# ------------------------------------------------------------
-
-model_df["Anesthesia"] = (
-    model_df["Anesthesia"]
-    .astype("string")
-    .str.strip()
-    .str.lower()
-    .replace({
-        "awake": "Awake",
-        "iso": "Iso",
-        "dex": "Dex",
-        "dexiso": "Dexiso",
-        "med": "Med",
-        "mediso": "Mediso",
-        "hal": "Hal",
-        "propofol": "Propofol",
-        "missing": "Awake",
-        "na": "Awake",
-        "n/a": "Awake"
-    })
-    .fillna("Awake")
-)
-
-
-# ------------------------------------------------------------
-# Ventilation
-# Missing / N.A. = No
-# ------------------------------------------------------------
-
-model_df["Ventilation"] = (
-    model_df["Ventilation"]
-    .astype("string")
-    .str.strip()
-    .str.lower()
-    .replace({
-        "y": "Yes",
-        "yes": "Yes",
-        "n": "No",
-        "no": "No",
-        "missing": "No",
-        "na": "No",
-        "n/a": "No"
-    })
-    .fillna("No")
-)
-```
-
-```{python}
-# ============================================================
-# NUMERIC COVARIATES
-# ============================================================
+response_vars = [
+    f"comp{i}" for i in range(1, 19)
+]
 
 numeric_covariates = [
     "Age(week)",
     "MRI",
-    "MRI T.R.",
-    "FD average",
-    "FD maximum"
+    "MRI T.R."
 ]
-
-for col in numeric_covariates:
-    model_df[col] = pd.to_numeric(
-        model_df[col],
-        errors="coerce"
-    )
-
-
-# ============================================================
-# HANDLE MISSING NUMERIC VALUES
-# ============================================================
-
-original_missing = {}
-all_missing_numeric = []
-numeric_missing_indicators = []
-
-for col in numeric_covariates:
-
-    original_missing[col] = {
-        "N_missing": model_df[col].isna().sum(),
-        "Percent_missing": model_df[col].isna().mean() * 100
-    }
-
-    if model_df[col].isna().all():
-        all_missing_numeric.append(col)
-        continue
-
-    if model_df[col].isna().any():
-
-        missing_col = col + "_Missing"
-
-        model_df[missing_col] = (
-            model_df[col]
-            .isna()
-            .astype(float)
-        )
-
-        numeric_missing_indicators.append(missing_col)
-
-        # Dataset-specific median first
-        model_df[col] = model_df[col].fillna(
-            model_df
-            .groupby("Dataset_name")[col]
-            .transform("median")
-        )
-
-        # Global median if an entire dataset has no value
-        model_df[col] = model_df[col].fillna(
-            model_df[col].median()
-        )
-
-
-numeric_covariates = [
-    col for col in numeric_covariates
-    if col not in all_missing_numeric
-]
-
-
-# ============================================================
-# NUMERIC MISSINGNESS SUMMARY
-# ============================================================
-
-missing_summary = []
-
-for col in original_missing:
-
-    if col in all_missing_numeric:
-        action = "Excluded - all values missing"
-
-    elif col + "_Missing" in numeric_missing_indicators:
-        action = "Dataset median / global median + missing indicator"
-
-    else:
-        action = "No missing values"
-
-    missing_summary.append([
-        col,
-        original_missing[col]["N_missing"],
-        original_missing[col]["Percent_missing"],
-        action
-    ])
-
-missing_summary = pd.DataFrame(
-    missing_summary,
-    columns=[
-        "Variable",
-        "N_missing",
-        "Percent_missing",
-        "Action"
-    ]
-)
-
-display(missing_summary)
-```
-
-```{python}
-# ============================================================
-# CATEGORICAL COVARIATES
-# ============================================================
 
 categorical_covariates = [
     "Sex",
@@ -326,85 +67,317 @@ categorical_covariates = [
     "Ventilation"
 ]
 
-
-# Explicit reference categories.
-# This avoids the reference changing simply because alphabetic
-# order or available categories change.
-reference_levels = {
-    "Sex": "F",
-    "Rodent.strain": "C57BL/6",
-    "Coil": "RT",
-    "fMRI.sequence": "GE-EPI",
-    "Anesthesia": "Awake",
-    "Ventilation": "No"
-}
-
-
-# ============================================================
-# CHECK CLEANED VALUES BEFORE ENCODING
-# ============================================================
-
-for col in categorical_covariates:
-
-    print("\n" + col)
-    print(model_df[col].value_counts(dropna=False))
-
-print("\nNumeric missing indicators:")
-print(numeric_missing_indicators)
-
-print("\nRemaining NaNs in numeric covariates:")
-print(model_df[numeric_covariates].isna().sum())
-```
-
-```{python}
-# ============================================================
-# DUMMY ENCODING
-# ============================================================
-
-encoded_covariates = (
-    numeric_covariates.copy()
-    + numeric_missing_indicators.copy()
+wanted_columns = (
+    id_columns
+    + numeric_covariates
+    + categorical_covariates
+    + response_vars
 )
 
-encoding_table = []
+df = df[wanted_columns].copy()
+
+print("Columns kept:")
+print(df.columns.tolist())
+
+
+# ============================================================
+# CLEAN BASIC VALUES
+# ============================================================
+
+for col in numeric_covariates + response_vars:
+    df[col] = pd.to_numeric(
+        df[col],
+        errors="coerce"
+    )
 
 for col in categorical_covariates:
+    df[col] = (
+        df[col]
+        .astype("string")
+        .str.strip()
+    )
 
-    reference = reference_levels[col]
+    df[col] = df[col].replace({
+        "": pd.NA,
+        "NA": pd.NA,
+        "N/A": pd.NA,
+        "Missing": pd.NA,
+        "missing": pd.NA,
+        "MISSING": pd.NA
+    })
 
+
+# ============================================================
+# STANDARDIZE CATEGORIES
+# ============================================================
+
+df["Sex"] = (
+    df["Sex"]
+    .str.upper()
+    .replace({
+        "FEMALE": "F",
+        "MALE": "M"
+    })
+)
+
+df["Rodent.strain"] = (
+    df["Rodent.strain"]
+    .replace({
+        "C57BL6": "C57BL/6",
+        "C57BL6J": "C57BL/6",
+        "C57BL/6J": "C57BL/6"
+    })
+)
+
+df["Coil"] = (
+    df["Coil"]
+    .str.lower()
+    .replace({
+        "rt": "RT",
+        "cryo": "Cryo",
+        "n": "RT",
+        "no": "RT",
+        "y": "Cryo",
+        "yes": "Cryo"
+    })
+)
+
+df["fMRI.sequence"] = (
+    df["fMRI.sequence"]
+    .str.upper()
+    .replace({
+        "EPI": "GE-EPI",
+        "GE EPI": "GE-EPI",
+        "SE EPI": "SE-EPI",
+        "ME EPI": "ME-EPI"
+    })
+)
+
+df["Anesthesia"] = (
+    df["Anesthesia"]
+    .str.lower()
+    .replace({
+        "awake": "Awake",
+        "iso": "Iso",
+        "dex": "Dex",
+        "dexiso": "Dexiso",
+        "med": "Med",
+        "mediso": "Mediso",
+        "hal": "Hal",
+        "propofol": "Propofol"
+    })
+)
+
+df["Ventilation"] = (
+    df["Ventilation"]
+    .str.lower()
+    .replace({
+        "n": "No",
+        "no": "No",
+        "y": "Yes",
+        "yes": "Yes"
+    })
+)
+
+
+# ============================================================
+# MISSING VALUES BEFORE INFERENCE
+# ============================================================
+
+required_columns = (
+    numeric_covariates
+    + categorical_covariates
+    + response_vars
+)
+
+missing_before = (
+    df[required_columns]
+    .isna()
+    .sum()
+)
+
+
+# ============================================================
+# INFER FROM SAME PARTICIPANT
+# ============================================================
+
+inferable_columns = (
+    numeric_covariates
+    + categorical_covariates
+)
+
+
+def fill_if_unique(series):
     observed = (
+        series
+        .dropna()
+        .unique()
+    )
+
+    if len(observed) == 1:
+        return series.fillna(observed[0])
+
+    return series
+
+
+for col in inferable_columns:
+    df[col] = (
+        df
+        .groupby(
+            ["Participant_Id", "Dataset_name"],
+            dropna=False
+        )[col]
+        .transform(fill_if_unique)
+    )
+
+
+# ============================================================
+# MISSING VALUES AFTER INFERENCE
+# ============================================================
+
+missing_after = (
+    df[required_columns]
+    .isna()
+    .sum()
+)
+
+inferred_counts = (
+    missing_before
+    - missing_after
+)
+
+
+# ============================================================
+# DELETE ROWS STILL MISSING WANTED MODEL VALUES
+# ============================================================
+
+delete_mask = (
+    df[required_columns]
+    .isna()
+    .any(axis=1)
+)
+
+deleted_rows = df.loc[
+    delete_mask
+].copy()
+
+model_df = df.loc[
+    ~delete_mask
+].copy()
+
+
+# ============================================================
+# DELETION SUMMARY
+# ============================================================
+
+deletion_summary = pd.DataFrame({
+    "Variable": required_columns,
+    "Missing_before_inference": [
+        missing_before[col]
+        for col in required_columns
+    ],
+    "Inferred_from_participant": [
+        inferred_counts[col]
+        for col in required_columns
+    ],
+    "Missing_after_inference": [
+        missing_after[col]
+        for col in required_columns
+    ]
+})
+
+print("\nMissing-value summary:")
+display(deletion_summary)
+
+print("\nRows before:", len(df))
+print("Rows deleted:", delete_mask.sum())
+print("Rows retained:", len(model_df))
+
+print("\nDeleted rows by dataset:")
+display(
+    deleted_rows["Dataset_name"]
+    .value_counts()
+    .rename_axis("Dataset_name")
+    .reset_index(name="N_deleted")
+)
+
+
+# ============================================================
+# ENCODE BINARY VARIABLES
+# ============================================================
+
+model_df["Sex_encoded"] = (
+    model_df["Sex"]
+    .map({
+        "F": 0.0,
+        "M": 1.0
+    })
+)
+
+model_df["Coil_encoded"] = (
+    model_df["Coil"]
+    .map({
+        "RT": 0.0,
+        "Cryo": 1.0
+    })
+)
+
+model_df["Ventilation_encoded"] = (
+    model_df["Ventilation"]
+    .map({
+        "No": 0.0,
+        "Yes": 1.0
+    })
+)
+
+encoding_table = [
+    ["Sex", "F", "0"],
+    ["Sex", "M", "1"],
+    ["Coil", "RT", "0"],
+    ["Coil", "Cryo", "1"],
+    ["Ventilation", "No", "0"],
+    ["Ventilation", "Yes", "1"]
+]
+
+
+# ============================================================
+# DUMMY ENCODE MULTI-CATEGORY VARIABLES
+# ============================================================
+
+dummy_settings = {
+    "Rodent.strain": "C57BL/6",
+    "fMRI.sequence": "GE-EPI",
+    "Anesthesia": "Awake"
+}
+
+dummy_columns = []
+
+
+for col, reference in dummy_settings.items():
+
+    categories = sorted(
         model_df[col]
         .dropna()
         .unique()
         .tolist()
     )
 
-    if reference not in observed:
+    if reference not in categories:
         raise ValueError(
-            f"Reference category '{reference}' not found for {col}. "
-            f"Observed categories: {observed}"
+            f"Reference category {reference} not found in {col}"
         )
 
-    # Reference first, Missing last, everything else in between
-    other_categories = sorted(
-        [
-            value for value in observed
-            if value not in [reference, "Missing"]
+    ordered_categories = (
+        [reference]
+        + [
+            x for x in categories
+            if x != reference
         ]
     )
 
-    categories = [reference] + other_categories
-
-    if "Missing" in observed:
-        categories.append("Missing")
-
-    print("\n" + col)
-    print("Reference:", reference)
-    print("Categories:", categories)
-
     model_df[col] = pd.Categorical(
         model_df[col],
-        categories=categories
+        categories=ordered_categories
     )
 
     dummies = pd.get_dummies(
@@ -419,7 +392,7 @@ for col in categorical_covariates:
         axis=1
     )
 
-    encoded_covariates.extend(
+    dummy_columns.extend(
         dummies.columns.tolist()
     )
 
@@ -430,11 +403,9 @@ for col in categorical_covariates:
     ])
 
     for dummy in dummies.columns:
-
         category = dummy.replace(
             col + "_",
-            "",
-            1
+            ""
         )
 
         encoding_table.append([
@@ -445,14 +416,54 @@ for col in categorical_covariates:
 
 
 # ============================================================
-# FINAL MODEL VARIABLES
+# FINAL MODEL COVARIATES
 # ============================================================
 
-covariates = encoded_covariates
+covariates = (
+    numeric_covariates
+    + [
+        "Sex_encoded",
+        "Coil_encoded",
+        "Ventilation_encoded"
+    ]
+    + dummy_columns
+)
 
-batch_effects = [
-    "Dataset_name"
-]
+
+# ============================================================
+# FINAL DATAFRAME
+# ============================================================
+
+final_columns = (
+    id_columns
+    + covariates
+    + response_vars
+)
+
+partial_model_df = (
+    model_df[final_columns]
+    .copy()
+)
+
+
+# ============================================================
+# FINAL CHECKS
+# ============================================================
+
+remaining_missing = (
+    partial_model_df[
+        covariates
+        + response_vars
+    ]
+    .isna()
+    .sum()
+    .sum()
+)
+
+if remaining_missing != 0:
+    raise ValueError(
+        f"{remaining_missing} missing values remain."
+    )
 
 encoding_table = pd.DataFrame(
     encoding_table,
@@ -462,107 +473,17 @@ encoding_table = pd.DataFrame(
         "Encoding"
     ]
 )
-```
-
-```{python}
-# ============================================================
-# VALIDATE ENCODING
-# ============================================================
-
-print("\n======================================")
-print("FINAL MODEL SETUP")
-print("======================================")
-
-print("\nNumber of rows:")
-print(len(model_df))
-
-print("\nNumeric covariates:")
-print(numeric_covariates)
-
-print("\nNumeric missing indicators:")
-print(numeric_missing_indicators)
-
-print("\nTotal number of encoded covariates:")
-print(len(covariates))
-
-print("\nCovariates:")
-print(covariates)
-
-print("\nBatch effects:")
-print(batch_effects)
-
-print("\nResponse variables:")
-print(response_vars)
-
-print("\nEncoding table:")
-display(encoding_table)
-
-
-# Explicit check for Sex encoding
-sex_dummy_columns = [
-    col for col in covariates
-    if col.startswith("Sex_")
-]
-
-print("\nSex dummy columns:")
-print(sex_dummy_columns)
-
-print("\nSex encoding check:")
-print(
-    model_df[
-        ["Sex"] + sex_dummy_columns
-    ]
-    .drop_duplicates()
-    .sort_values("Sex")
-)
-```
-
-```{python}
-# ============================================================
-# CREATE FINAL MODELLING DATAFRAME
-# ============================================================
-
-model_columns = (
-    id_columns
-    + batch_effects
-    + covariates
-    + response_vars
-)
-
-final_model_df = model_df[
-    model_columns
-].copy()
-
-
-# ============================================================
-# FINAL SAFETY CHECKS
-# ============================================================
-
-if final_model_df[covariates].isna().any().any():
-    raise ValueError("NaNs remain in model covariates")
-
-if final_model_df[response_vars].isna().any().any():
-    raise ValueError("NaNs remain in response variables")
-
-if final_model_df.columns.duplicated().any():
-    raise ValueError("Duplicate columns found in Model_dataframe")
-
-
-print("Final modelling dataframe shape:")
-print(final_model_df.shape)
-
-print("\nColumns:")
-print(final_model_df.columns.tolist())
-
-print("\nRemaining NaNs in model covariates:")
-print(final_model_df[covariates].isna().sum().sum())
 
 
 # ============================================================
 # SAVE
 # ============================================================
 
-final_model_df.to_csv(
+# ============================================================
+# SAVE
+# ============================================================
+
+partial_model_df.to_csv(
     output_dir / "Model_dataframe.csv",
     index=False
 )
@@ -572,13 +493,13 @@ encoding_table.to_csv(
     index=False
 )
 
-missing_summary.to_csv(
-    output_dir / "Missingness_summary.csv",
+deletion_summary.to_csv(
+    output_dir / "Deletion_summary.csv",
     index=False
 )
 
-print("\nSaved:")
-print(output_dir / "Model_dataframe.csv")
-print(output_dir / "Encoding_table.csv")
-print(output_dir / "Missingness_summary.csv")
+deleted_rows.to_csv(
+    output_dir / "Deleted_rows.csv",
+    index=False
+)
 ```

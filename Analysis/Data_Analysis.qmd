@@ -1,3 +1,13 @@
+---
+title: "Data Analysis"
+format: gfm
+jupyter: python3
+execute:
+  echo: true
+  warning: true
+  message: true
+---
+
 ## Setup
 ```{python}
 from pathlib import Path
@@ -11,7 +21,7 @@ import matplotlib.pyplot as plt
 
 root = Path.cwd().parent
 
-fig_dir = root / "results" / "figures"
+fig_dir = root / "results" / "Figures_Analysis"
 fig_dir.mkdir(parents=True, exist_ok=True)
 
 Combined_dataset = pd.read_csv(
@@ -89,9 +99,6 @@ print("Alzheimer:", Alzheimer.shape)
 ```{python}
 # ============================================================
 # FIGURE 1B: Dataset composition
-# Main bars = number of scans by sex
-# Small rounded bars = sex proportions
-# Right side = N animals, mean age, strain
 # ============================================================
 
 from matplotlib.lines import Line2D
@@ -102,20 +109,13 @@ df["Age(week)"] = pd.to_numeric(
     df["Age(week)"], errors="coerce"
 )
 
-# ------------------------------------------------------------
 # Unique animals
-# ------------------------------------------------------------
-
 animals = (
-    df
-    .dropna(subset=["Participant_Id"])
+    df.dropna(subset=["Participant_Id"])
     .drop_duplicates(subset=["Dataset_name", "Participant_Id"])
 )
 
-# ------------------------------------------------------------
 # Sex
-# ------------------------------------------------------------
-
 df["Sex_clean"] = (
     df["Sex"]
     .astype("string")
@@ -124,10 +124,7 @@ df["Sex_clean"] = (
     .replace({"FEMALE": "F", "MALE": "M"})
 )
 
-# ------------------------------------------------------------
 # Counts
-# ------------------------------------------------------------
-
 scan_counts = (
     df.groupby("Dataset_name")["Scan_id"]
     .count()
@@ -157,10 +154,7 @@ for sex in ["F", "M"]:
     if sex not in sex_counts.columns:
         sex_counts[sex] = 0
 
-# ------------------------------------------------------------
 # Strain
-# ------------------------------------------------------------
-
 strain_summary = (
     animals.groupby("Dataset_name")["Rodent.strain"]
     .apply(
@@ -174,10 +168,11 @@ strain_summary = (
     .rename("Strain")
 )
 
-# ------------------------------------------------------------
-# Combine
-# ------------------------------------------------------------
+strain_summary = strain_summary.apply(
+    lambda x: "Mixed" if len(x.split(", ")) > 1 else x
+)
 
+# Combine
 summary = pd.concat(
     [
         scan_counts,
@@ -191,50 +186,35 @@ summary = pd.concat(
 
 summary["F"] = summary["F"].fillna(0)
 summary["M"] = summary["M"].fillna(0)
-
-summary["Unknown_sex"] = (
-    summary["N_scans"] - summary["F"] - summary["M"]
-)
+summary["Unknown_sex"] = summary["N_scans"] - summary["F"] - summary["M"]
 
 summary["Strain"] = summary["Strain"].fillna("NA")
 summary.loc[summary["Strain"] == "", "Strain"] = "NA"
 
-# Smallest at top, largest at bottom
-summary = summary.sort_values(
-    "N_scans",
-    ascending=True
-)
+summary = summary.sort_values("N_scans", ascending=True)
 
 y = np.arange(len(summary))
 
-# ------------------------------------------------------------
-# Figure
-# ------------------------------------------------------------
+# ============================================================
+# FIGURE
+# ============================================================
 
-fig, ax = plt.subplots(
-    figsize=(210 * MM, 125 * MM)
-)
+fig, ax = plt.subplots(figsize=(220 * MM, 140 * MM))
 
-# Female
 ax.barh(
-    y,
-    summary["F"],
+    y, summary["F"],
     color="sandybrown",
     label="Female"
 )
 
-# Male
 ax.barh(
-    y,
-    summary["M"],
+    y, summary["M"],
     left=summary["F"],
     color="steelblue",
     label="Male"
 )
 
-# Unknown
 if (summary["Unknown_sex"] > 0).any():
-
     ax.barh(
         y,
         summary["Unknown_sex"],
@@ -244,20 +224,19 @@ if (summary["Unknown_sex"] > 0).any():
     )
 
 ax.set_yticks(y)
-ax.set_yticklabels(summary.index)
+ax.set_yticklabels(summary.index, fontsize=8)
 
 x_max_plot = summary["N_scans"].max()
 
-# ------------------------------------------------------------
-# Small rounded sex bars AFTER each main bar
-# Up to and including Psilocybin_Pilot
-# ------------------------------------------------------------
+# ============================================================
+# SMALL SEX PROPORTION BARS
+# ============================================================
 
 datasets = list(summary.index)
 
 mini_gap = x_max_plot * 0.05
 mini_width = x_max_plot * 0.045
-mini_height = 3.5  # Line thickness in points
+mini_height = 3.5
 
 if "Psilocybin_Pilot" in datasets:
 
@@ -266,20 +245,16 @@ if "Psilocybin_Pilot" in datasets:
     for i in range(last_row + 1):
 
         row = summary.iloc[i]
-
         total = row["N_scans"]
 
         if total == 0:
             continue
 
-        # Mini-bar starts after the actual bar
         x_start = total + mini_gap
         x_end = x_start + mini_width
 
-        # Background
         ax.plot(
-            [x_start, x_end],
-            [i, i],
+            [x_start, x_end], [i, i],
             color="lightgray",
             linewidth=mini_height,
             solid_capstyle="round",
@@ -303,8 +278,7 @@ if "Psilocybin_Pilot" in datasets:
             next_x = x + mini_width * proportion
 
             ax.plot(
-                [x, next_x],
-                [i, i],
+                [x, next_x], [i, i],
                 color=color,
                 linewidth=mini_height,
                 solid_capstyle="butt",
@@ -314,9 +288,7 @@ if "Psilocybin_Pilot" in datasets:
             visible_segments.append(color)
             x = next_x
 
-        # Rounded coloured ends
         if visible_segments:
-
             ax.plot(
                 x_start, i,
                 marker="o",
@@ -335,12 +307,11 @@ if "Psilocybin_Pilot" in datasets:
                 zorder=7
             )
 
-# Keep miniature bars inside the plotting area
 ax.set_xlim(0, x_max_plot * 1.06)
 
-# ------------------------------------------------------------
-# Mini-table on right
-# ------------------------------------------------------------
+# ============================================================
+# TABLE ON RIGHT
+# ============================================================
 
 x_animals = x_max_plot * 1.10
 x_age = x_max_plot * 1.32
@@ -349,19 +320,19 @@ x_strain = x_max_plot * 1.55
 # Headers
 ax.text(
     x_animals, -0.9, "N animals",
-    fontweight="bold", fontsize=6,
+    fontweight="bold", fontsize=8,
     ha="left", clip_on=False
 )
 
 ax.text(
     x_age, -0.9, "Mean age",
-    fontweight="bold", fontsize=6,
+    fontweight="bold", fontsize=8,
     ha="left", clip_on=False
 )
 
 ax.text(
     x_strain, -0.9, "Strain",
-    fontweight="bold", fontsize=6,
+    fontweight="bold", fontsize=8,
     ha="left", clip_on=False
 )
 
@@ -374,40 +345,46 @@ for yi, dataset in enumerate(summary.index):
         x_animals, yi,
         str(int(row["N_animals"])),
         va="center", ha="left",
-        fontsize=6, clip_on=False
+        fontsize=8, clip_on=False
     )
 
-    if pd.isna(row["Mean_age"]):
-        age_text = "NA"
-    else:
-        age_text = f'{row["Mean_age"]:.1f}'
+    age_text = (
+        "NA" if pd.isna(row["Mean_age"])
+        else f'{row["Mean_age"]:.1f}'
+    )
 
     ax.text(
         x_age, yi,
         age_text,
         va="center", ha="left",
-        fontsize=6, clip_on=False
+        fontsize=8, clip_on=False
     )
 
     ax.text(
         x_strain, yi,
         row["Strain"],
         va="center", ha="left",
-        fontsize=5.5, clip_on=False
+        fontsize=7.5, clip_on=False
     )
 
-# ------------------------------------------------------------
-# Styling
-# ------------------------------------------------------------
+# ============================================================
+# STYLING
+# ============================================================
 
-ax.set_xlabel("Number of scans")
-ax.set_title("Dataset composition")
+ax.set_xlabel("Number of scans", fontsize=10)
+ax.set_title("Dataset composition", fontsize=12)
+
+ax.tick_params(axis="x", labelsize=8)
+ax.tick_params(axis="y", length=0)
 
 ax.invert_yaxis()
 
 ax.legend(
     frameon=False,
-    loc="upper right"
+    loc="upper right",
+    fontsize=8,
+    handlelength=1.8,
+    labelspacing=0.7
 )
 
 ax.spines["top"].set_visible(False)
@@ -1014,14 +991,14 @@ TG = Combined_dataset[
 components = ["comp2", "comp10", "comp11"]
 
 component_labels = {
-    "comp2": "Somatosensory cortex (C2)",
-    "comp10": "DMN-associated cortex (C10)",
-    "comp11": "Ventral hippocampus (C11)"
+    "comp2": "Somatosensory cortex",
+    "comp10": "DMN-associated cortex",
+    "comp11": "Ventral hippocampus"
 }
 
 fig, axes = plt.subplots(
     1, 3,
-    figsize=(210 * MM, 95 * MM)
+    figsize=(225 * MM, 110 * MM)
 )
 
 rng = np.random.default_rng(42)
@@ -1029,9 +1006,11 @@ rng = np.random.default_rng(42)
 for ax, component in zip(axes, components):
 
     groups = [
-        ("3xTG", TG, BLUE),
+        ("Healthy", TG, BLUE),
         ("Alzheimer", Alzheimer, ORANGE)
     ]
+
+    labels = []
 
     for i, (name, df, color) in enumerate(groups):
 
@@ -1040,6 +1019,8 @@ for ax, component in zip(axes, components):
             .dropna()
             .to_numpy(dtype=float)
         )
+
+        labels.append(f"{name}\n(n={len(values)})")
 
         if len(values) == 0:
             continue
@@ -1065,7 +1046,7 @@ for ax, component in zip(axes, components):
         ax.scatter(
             i + jitter,
             values,
-            s=12,
+            s=18,
             color=color,
             alpha=0.65,
             edgecolors="none",
@@ -1077,16 +1058,22 @@ for ax, component in zip(axes, components):
             [i - 0.22, i + 0.22],
             [np.median(values)] * 2,
             color=DARK,
-            linewidth=1.8,
+            linewidth=2.2,
             zorder=3
         )
 
     ax.set_xticks([0, 1])
-    ax.set_xticklabels(["3xTG", "Alzheimer"])
+    ax.set_xticklabels(labels, fontsize=10)
     ax.set_xlim(-0.6, 1.6)
 
-    ax.set_title(component_labels[component])
-    ax.set_ylabel("DR value")
+    ax.set_title(
+        component_labels[component],
+        fontsize=11,
+        pad=10
+    )
+
+    ax.set_ylabel("DR value", fontsize=10)
+    ax.tick_params(axis="y", labelsize=9)
 
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
@@ -1096,13 +1083,15 @@ for ax, component in zip(axes, components):
 
 fig.suptitle(
     "Functional network measurements in Alzheimer and 3xTG datasets",
-    fontsize=10
+    fontsize=13,
+    y=1.02
 )
 
 plt.tight_layout()
 
 plt.savefig(
     fig_dir / "figure4A_Alzheimer_3xTG.svg",
+    format="svg",
     bbox_inches="tight"
 )
 
@@ -1115,18 +1104,30 @@ plt.show()
 from scipy.stats import mannwhitneyu
 from statsmodels.stats.multitest import multipletests
 
+# Load original data
+TG = pd.read_csv(
+    root / "results" / "combined_dataset" / "Combined_dataset.csv"
+)
+
+TG = TG[TG["Dataset_name"] == "3xTG"]
+
+Alzheimer = pd.read_csv(
+    root / "data" / "Alzheimer" / "Alzheimer.csv"
+)
+
+components = [f"comp{i}" for i in range(1, 19)]
+
 results = []
 
 for component in components:
 
-    alz = Alzheimer[component].dropna().astype(float)
-    tg = TG[component].dropna().astype(float)
+    alz = pd.to_numeric(Alzheimer[component], errors="coerce").dropna()
+    tg = pd.to_numeric(TG[component], errors="coerce").dropna()
 
-    stat, p = mannwhitneyu(
-        alz,
-        tg,
-        alternative="two-sided"
-    )
+    if len(alz) == 0 or len(tg) == 0:
+        continue
+
+    stat, p = mannwhitneyu(alz, tg, alternative="two-sided")
 
     results.append([
         component,
@@ -1135,7 +1136,6 @@ for component in components:
         stat,
         p
     ])
-
 
 results = pd.DataFrame(
     results,
@@ -1148,55 +1148,151 @@ results = pd.DataFrame(
     ]
 )
 
-
-# FDR correction
 results["p_FDR"] = multipletests(
     results["p"],
     method="fdr_bh"
 )[1]
 
-
-# Direction only if significant
 results["Direction"] = "Normal"
 
 results.loc[
-    (results["p_FDR"] < 0.05)
-    &
-    (
-        results["Median_Alzheimer"]
-        >
-        results["Median_3xTG"]
-    ),
+    (results["p_FDR"] < 0.05) &
+    (results["Median_Alzheimer"] > results["Median_3xTG"]),
     "Direction"
 ] = "Higher"
 
 results.loc[
-    (results["p_FDR"] < 0.05)
-    &
-    (
-        results["Median_Alzheimer"]
-        <
-        results["Median_3xTG"]
-    ),
+    (results["p_FDR"] < 0.05) &
+    (results["Median_Alzheimer"] < results["Median_3xTG"]),
     "Direction"
 ] = "Lower"
 
+print(results.to_string(index=False))
+```
 
-# Sort numerically by component
-results["Component_number"] = (
-    results["Component"]
-    .str.extract(r"(\d+)")
-    .astype(int)
+```{python}
+from pathlib import Path
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# ============================================================
+# PATHS
+# ============================================================
+
+current_dir = Path.cwd().parent
+
+alzheimer_dir = current_dir / "results" / "normative_model"
+fig_dir = current_dir / "results" / "Figures_Analysis"
+
+df = pd.read_csv(alzheimer_dir / "Alzheimer_Zscores.csv")
+
+# ============================================================
+# SETTINGS
+# ============================================================
+
+components = {
+    "comp2_Z": {
+        "label": "Somatosensory",
+        "color": "#4682B4"
+    },
+    "comp10_Z": {
+        "label": "DMN",
+        "color": "#F4A460"
+    },
+    "comp11_Z": {
+        "label": "Ventral\nHippocampus",
+        "color": "#6D9F8C"
+    }
+}
+
+rng = np.random.default_rng(7)
+
+
+# ============================================================
+# PLOT
+# ============================================================
+
+fig, ax = plt.subplots(figsize=(7, 4.3))
+
+for i, (column, info) in enumerate(components.items()):
+
+    values = df[column].dropna().values
+
+    x = np.full(len(values), i) + rng.uniform(
+        -0.10,
+        0.10,
+        len(values)
+    )
+
+    ax.scatter(
+        x,
+        values,
+        s=35,
+        alpha=0.7,
+        color=info["color"],
+        edgecolors="none"
+    )
+
+    mean_z = values.mean()
+
+    ax.plot(
+        [i - 0.20, i + 0.20],
+        [mean_z, mean_z],
+        color="black",
+        linewidth=2
+    )
+
+
+# ============================================================
+# REFERENCE LINES
+# ============================================================
+
+ax.axhline(
+    0,
+    color="black",
+    linewidth=1
 )
 
-results = (
-    results
-    .sort_values("Component_number")
-    .drop(columns="Component_number")
+ax.axhline(
+    -1.96,
+    color="black",
+    linewidth=1,
+    linestyle="--",
+    alpha=0.7
 )
 
 
-print(
-    results.to_string(index=False)
+# ============================================================
+# FORMATTING
+# ============================================================
+
+ax.set_xticks(range(len(components)))
+
+ax.set_xticklabels([
+    info["label"]
+    for info in components.values()
+])
+
+ax.set_ylabel("Normative deviation (Z-score)")
+
+ax.set_title(
+    "Alzheimer mice show negative deviations from the healthy normative model"
 )
+
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+
+plt.tight_layout()
+
+
+# ============================================================
+# SAVE
+# ============================================================
+
+plt.savefig(
+    fig_dir / "Alzheimer_Zscores.svg",
+    bbox_inches="tight"
+)
+
 ```

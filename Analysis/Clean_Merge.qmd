@@ -1,3 +1,13 @@
+---
+title: "Data Cleaning and Merging"
+format: gfm
+jupyter: python3
+execute:
+  echo: true
+  warning: true
+  message: true
+---
+
 ```{python}
 from pathlib import Path
 import pandas as pd

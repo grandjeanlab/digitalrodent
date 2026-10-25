@@ -14,6 +14,7 @@ import pandas as pd
 
 from pcntoolkit import (
     BLR,
+    BsplineBasisFunction,
     NormativeModel,
     NormData,
     plot_qq
@@ -127,8 +128,24 @@ train, test = norm_data.train_test_split()
 # BLR MODEL
 # ============================================================
 
+# Non-linear age effect: B-spline basis on Age only.
+# Without a basis function BLR is linear in every covariate,
+# which is why the centile curves came out as straight lines.
+# The other covariates (scanner, sex, anesthesia, ...) stay linear.
+age_column = covariates.index("Age(week)")
+
 model = NormativeModel(
     BLR(
+        basis_function_mean=BsplineBasisFunction(
+            basis_column=[age_column],
+            degree=3,
+            nknots=5
+        ),
+        basis_function_var=BsplineBasisFunction(
+            basis_column=[age_column],
+            degree=3,
+            nknots=5
+        ),
         heteroskedastic=True
     ),
     inscaler="standardize",

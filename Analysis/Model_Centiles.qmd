@@ -122,6 +122,10 @@ reference_pool = model_df.dropna(
     subset=covariates
 ).copy()
 
+# Reference profile must be a scan with known sex
+if "Sex_unknown" in reference_pool.columns:
+    reference_pool = reference_pool[reference_pool["Sex_unknown"] == 0]
+
 median_age = reference_pool[
     "Age(week)"
 ].median()
@@ -885,6 +889,10 @@ if "Sex_encoded" in covariates:
             1.0: "Male"
         }
     )
+
+    # Scans with unknown sex are not shown as Female
+    if "Sex_unknown" in model_df.columns:
+        obs_labels = obs_labels.where(model_df["Sex_unknown"] == 0, "Unknown")
 
     categorical_centile_plot(
         name="Sex",

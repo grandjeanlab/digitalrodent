@@ -248,6 +248,20 @@ inferred_counts = (
 
 
 # ============================================================
+# SEX STILL UNKNOWN -> OWN CATEGORY
+# Sex cannot be recovered for part of Multicenter. Instead of
+# deleting these scans (and losing e.g. all medetomidine-only
+# scans), unknown sex becomes its own category, modelled with
+# an indicator (Sex_unknown) next to Sex_encoded.
+# ============================================================
+
+df["Sex"] = df["Sex"].fillna("Unknown")
+
+print("\nSex categories after filling:")
+print(df.groupby(["Dataset_name", "Sex"]).size().unstack(fill_value=0))
+
+
+# ============================================================
 # DELETE ROWS STILL MISSING WANTED MODEL VALUES
 # ============================================================
 
@@ -306,13 +320,19 @@ display(
 # ENCODE BINARY VARIABLES
 # ============================================================
 
+# F = reference; unknown sex gets Sex_encoded = 0 and Sex_unknown = 1
 model_df["Sex_encoded"] = (
     model_df["Sex"]
     .map({
         "F": 0.0,
-        "M": 1.0
+        "M": 1.0,
+        "Unknown": 0.0
     })
 )
+
+model_df["Sex_unknown"] = (
+    model_df["Sex"] == "Unknown"
+).astype(float)
 
 model_df["Coil_encoded"] = (
     model_df["Coil"]
@@ -333,6 +353,7 @@ model_df["Ventilation_encoded"] = (
 encoding_table = [
     ["Sex", "F", "0"],
     ["Sex", "M", "1"],
+    ["Sex", "Unknown", "Sex_unknown = 1"],
     ["Coil", "RT", "0"],
     ["Coil", "Cryo", "1"],
     ["Ventilation", "No", "0"],
@@ -423,6 +444,7 @@ covariates = (
     numeric_covariates
     + [
         "Sex_encoded",
+        "Sex_unknown",
         "Coil_encoded",
         "Ventilation_encoded"
     ]

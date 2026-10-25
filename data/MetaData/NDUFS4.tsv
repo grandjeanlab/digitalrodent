@@ -1,32 +1,32 @@
 Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
-	sub-399233	1	NDUFS4		21	C57BL/6	11.75		EPI	1000		iso							
-	sub-399235	1	NDUFS4		21	C57BL/6	11.75		EPI	1000		iso							
-	sub-399434	1	NDUFS4		21	C57BL/6	11.75		EPI	1000		iso							
-	sub-399455	1	NDUFS4		21	C57BL/6	11.75		EPI	1000		iso							
-	sub-399456	1	NDUFS4		21	C57BL/6	11.75		EPI	1000		iso							
-	sub-401593	1	NDUFS4		21	C57BL/6	11.75		EPI	1000		iso							
-	sub-401594	1	NDUFS4		21	C57BL/6	11.75		EPI	1000		iso							
-	sub-401627	1	NDUFS4		21	C57BL/6	11.75		EPI	1000		iso							
-	sub-401635	1	NDUFS4		27	C57BL/6	11.75		EPI	1000		iso							
-	sub-405017	1	NDUFS4		27	C57BL/6	11.75		EPI	1000		iso							
-	sub-405024	1	NDUFS4		27	C57BL/6	11.75		EPI	1000		iso							
-	sub-405034	1	NDUFS4		27	C57BL/6	11.75		EPI	1000		iso							
-	sub-405057	1	NDUFS4		27	C57BL/6	11.75		EPI	1000		iso							
-	sub-405060	1	NDUFS4		27	C57BL/6	11.75		EPI	1000		iso							
-	sub-405221	1	NDUFS4		27	C57BL/6	11.75		EPI	1000		iso							
-	sub-405224	1	NDUFS4		27	C57BL/6	11.75		EPI	1000		iso							
-	sub-407025	1	NDUFS4		21	C57BL/6	11.75		EPI	1000		iso							
-	sub-406780	1	NDUFS4		27	C57BL/6	11.75		EPI	1000		iso							
-	sub-406786	1	NDUFS4		27	C57BL/6	11.75		EPI	1000		iso							
-	sub-406789	1	NDUFS4		27	C57BL/6	11.75		EPI	1000		iso							
-	sub-407037	1	NDUFS4		27	C57BL/6	11.75		EPI	1000		iso							
-	sub-406794	1	NDUFS4		39	C57BL/6	11.75		EPI	1000		iso							
-	sub-406809	1	NDUFS4		39	C57BL/6	11.75		EPI	1000		iso							
-	sub-407260	1	NDUFS4		39	C57BL/6	11.75		EPI	1000		iso							
-	sub-407263	1	NDUFS4		39	C57BL/6	11.75		EPI	1000		iso							
-	sub-407340	1	NDUFS4		39	C57BL/6	11.75		EPI	1000		iso							
-	sub-407395	1	NDUFS4		39	C57BL/6	11.75		EPI	1000		iso							
-	sub-410610	1	NDUFS4		39	C57BL/6	11.75		EPI	1000		iso							
-	sub-410612	1	NDUFS4		39	C57BL/6	11.75		EPI	1000		iso							
-	sub-410876	1	NDUFS4		39	C57BL/6	11.75		EPI	1000		iso							
-	sub-411101	1	NDUFS4		39	C57BL/6	11.75		EPI	1000		iso							
+	sub-399233	1	NDUFS4	M	21	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.009541971	0.01643410074	74.84938
+	sub-399235	1	NDUFS4	M	21	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01362130012	0.02312354098	56.22403
+	sub-399434	1	NDUFS4	M	21	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.008302244714	0.01342031177	101.447525
+	sub-399455	1	NDUFS4	M	21	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01116891281	0.01970793871	71.106575
+	sub-399456	1	NDUFS4	F	21	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01154832351	0.01972656729	54.68187
+	sub-401593	1	NDUFS4	M	21	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.00927825396	0.01683191217	79.7833
+	sub-401594	1	NDUFS4	M	21	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.007723563576	0.01366628907	96.46794
+	sub-401627	1	NDUFS4	F	21	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01010946819	0.01870960691	64.182846
+	sub-401635	1	NDUFS4	F	27	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01149051965	0.02009439565	92.87444
+	sub-405017	1	NDUFS4	M	27	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.04247742374	0.08175026665	47.219025
+	sub-405024	1	NDUFS4	F	27	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01432103088	0.02654899116	79.753555
+	sub-405034	1	NDUFS4	F	27	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01037200406	0.01884977574	64.225784
+	sub-405057	1	NDUFS4	F	27	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.04924844399	0.09356516957	65.33727
+	sub-405060	1	NDUFS4	F	27	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.008217670333	0.01422404815	85.05396
+	sub-405221	1	NDUFS4	M	27	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01609952331	0.02717165691	22.959978
+	sub-405224	1	NDUFS4	M	27	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.03275392444	0.06194633651	39.612076
+	sub-407025	1	NDUFS4	M	21	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01043940215	0.02005530528	104.232315
+	sub-406780	1	NDUFS4	M	27	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.02390382959	0.05663534639	100.40643
+	sub-406786	1	NDUFS4	M	27	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01834394384	0.03484794527	52.73715
+	sub-406789	1	NDUFS4	F	27	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01555664657	0.02698364568	64.093834
+	sub-407037	1	NDUFS4	M	27	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01458721154	0.0292445041	73.06692
+	sub-406794	1	NDUFS4	M	39	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01415249479	0.02645059179	72.961044
+	sub-406809	1	NDUFS4	M	39	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01128718003	0.01894629154	74.063576
+	sub-407260	1	NDUFS4	M	39	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.0118672014	0.02142547433	74.879265
+	sub-407263	1	NDUFS4	M	39	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.0100445069	0.01762148154	79.23807
+	sub-407340	1	NDUFS4	M	39	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01632587997	0.02852458397	58.36211
+	sub-407395	1	NDUFS4	F	39	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.007169058311	0.0123887808	94.12209
+	sub-410610	1	NDUFS4	M	39	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.02235624773	0.03467545497	59.13226
+	sub-410612	1	NDUFS4	M	39	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.01609603983	0.03103502327	67.212715
+	sub-410876	1	NDUFS4	M	39	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.00872002936	0.01586793433	71.629036
+	sub-411101	1	NDUFS4	F	39	C57BL/6	11.75		EPI	1000		Dexiso	"0.15 mg/kg dexmed bolus, s.c., 0.5% iso"	n	n		0.00802060286	0.01400553841	91.108315

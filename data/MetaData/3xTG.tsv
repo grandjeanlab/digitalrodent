@@ -1,21 +1,22 @@
 Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
-	c1NT	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01154757277	0.02264274042	
-	c1NT	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01238526112	0.02522321498	
-	c1NT	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01437152414	0.02966423685	
-	c1NT	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01299973465	0.02722472465	
-	c1NT	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01325709185	0.02721692222	
-	c1NT	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01293538695	0.02608374341	
-	c41L	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01419583408	0.02895582821	
-	c41L	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01439849296	0.02964451452	
-	c41R	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01187099016	0.02425592053	
-	c41R	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01383416691	0.02833375436	
-	c42L	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01317149748	0.02691620126	
-	c42L	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.009351516861	0.01828143773	
-	c42R	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01406571165	0.0286141992	
-	c42R	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01156012978	0.02220032083	
-	c51L	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01105706619	0.02231625152	
-	c51L	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01045366105	0.02064219063	
-	c71L	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01253781389	0.02581378075	
-	c71L	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01351073701	0.02719278558	
-	c71R	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01297959093	0.02661468488	
-	c71R	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO				0.01250657996	0.02496207521	
+sub-jgrADc3NT2_ses-1	c3NT2	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0150494870148196	0.0264084485706065	136.5441
+sub-jgrADc41L_ses-1	c41L	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0115475727670737	0.0226427404179865	44.78048
+sub-jgrADc41L_ses-2	c41L	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0123852611235213	0.0252232149843139	52.736126
+sub-jgrADc41R_ses-1	c41R	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0143715241401073	0.0296642368476565	50.915874
+sub-jgrADc41R_ses-2	c41R	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0129997346493002	0.0272247246484184	54.20655
+sub-jgrADc42L_ses-1	c42L	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0132570918536743	0.0272169222209381	44.716904
+sub-jgrADc42L_ses-2	c42L	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.012935386951833	0.0260837434069426	54.42089
+sub-jgrADc42R_ses-1	c42R	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0141958340786832	0.0289558282079441	50.27829
+sub-jgrADc42R_ses-2	c42R	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0143984929599694	0.029644514523711	51.36542
+sub-jgrADc4NT_ses-1	c4NT	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0118709901627247	0.0242559205269784	48.71548
+sub-jgrADc4NT_ses-2	c4NT	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0138341669146425	0.028333754359555	52.876038
+sub-jgrADc51L_ses-1	c51L	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0131714974813317	0.0269162012592769	47.383686
+sub-jgrADc51L_ses-2	c51L	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.009351516861168	0.018281437728378	56.46896
+sub-jgrADc5NT_ses-1	c5NT	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0140657116463345	0.028614199200143	50.97758
+sub-jgrADc5NT_ses-2	c5NT	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0115601297775213	0.0222003208324676	46.479275
+sub-jgrADc71L_ses-1	c71L	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0110570661912931	0.022316251523806	51.19408
+sub-jgrADc71L_ses-2	c71L	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0104536610463442	0.0206421906339273	52.541756
+sub-jgrADc71R_ses-1	c71R	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0125378138881852	0.0258137807549162	48.327587
+sub-jgrADc71R_ses-2	c71R	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0135107370078258	0.0271927855783038	54.29397
+sub-jgrADc7NT_ses-1	c7NT	1	Mouse_rest_3xTG	M	13	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0129795909342691	0.0266146848843585	47.87798
+sub-jgrADc7NT_ses-2	c7NT	2	Mouse_rest_3xTG	M	26	C57BL/6	11.75	y	GE-EPI	1000	15	Mediso	0.1 mg/kg med bolus + 0.5 mg/kg med infusion,0.5% ISO	l	y	n	0.0125065799550299	0.0249620752138309	53.574974

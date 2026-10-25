@@ -3,6 +3,7 @@
 
 ``` python
 from pathlib import Path
+import numpy as np
 import pandas as pd
 
 
@@ -49,8 +50,13 @@ response_vars = [
 numeric_covariates = [
     "Age(week)",
     "MRI",
-    "MRI T.R."
+    "MRI T.R.",
+    "FD average",   # motion, per run
+    "log_tSNR"      # signal quality, per run (log-transformed below)
 ]
+
+# Per-run quality measures: never copied from another run of the same animal
+per_scan_covariates = ["FD average", "log_tSNR"]
 
 categorical_covariates = [
     "Sex",
@@ -60,6 +66,9 @@ categorical_covariates = [
     "Anesthesia",
     "Ventilation"
 ]
+
+# tSNR is strongly right-skewed (median ~17, max ~240): use log(tSNR)
+df["log_tSNR"] = np.log(pd.to_numeric(df["tSNR"], errors="coerce"))
 
 wanted_columns = (
     id_columns
@@ -175,6 +184,19 @@ df["Ventilation"] = (
 
 
 # ============================================================
+# REMOVE VERY RARE CATEGORIES
+# ICR strain (4 scans) and Dex anesthesia (5 scans): with so few
+# scans their coefficients are unstable and they make the
+# heteroskedastic variance model blow up (|z| > 50 in testing)
+# ============================================================
+
+rare = (df["Rodent.strain"] == "ICR") | (df["Anesthesia"] == "Dex")
+print("\nRemoved rare categories:", int(rare.sum()), "scans")
+print(df.loc[rare].groupby(["Dataset_name", "Rodent.strain", "Anesthesia"]).size())
+df = df.loc[~rare].copy()
+
+
+# ============================================================
 # MISSING VALUES BEFORE INFERENCE
 # ============================================================
 
@@ -195,10 +217,10 @@ missing_before = (
 # INFER FROM SAME PARTICIPANT
 # ============================================================
 
-inferable_columns = (
-    numeric_covariates
-    + categorical_covariates
-)
+inferable_columns = [
+    col for col in numeric_covariates + categorical_covariates
+    if col not in per_scan_covariates
+]
 
 
 def fill_if_unique(series):
@@ -522,16 +544,22 @@ deleted_rows.to_csv(
 
     Original rows: 2153
     Columns kept:
-    ['Scan_id', 'Participant_Id', 'Session', 'Dataset_name', 'Age(week)', 'MRI', 'MRI T.R.', 'Sex', 'Rodent.strain', 'Coil', 'fMRI.sequence', 'Anesthesia', 'Ventilation', 'comp1', 'comp2', 'comp3', 'comp4', 'comp5', 'comp6', 'comp7', 'comp8', 'comp9', 'comp10', 'comp11', 'comp12', 'comp13', 'comp14', 'comp15', 'comp16', 'comp17', 'comp18']
+    ['Scan_id', 'Participant_Id', 'Session', 'Dataset_name', 'Age(week)', 'MRI', 'MRI T.R.', 'FD average', 'log_tSNR', 'Sex', 'Rodent.strain', 'Coil', 'fMRI.sequence', 'Anesthesia', 'Ventilation', 'comp1', 'comp2', 'comp3', 'comp4', 'comp5', 'comp6', 'comp7', 'comp8', 'comp9', 'comp10', 'comp11', 'comp12', 'comp13', 'comp14', 'comp15', 'comp16', 'comp17', 'comp18']
+
+    Removed rare categories: 9 scans
+    Dataset_name  Rodent.strain  Anesthesia
+    Awake         ICR            Awake         4
+    Douglas       C57BL/6        Dex           5
+    dtype: int64
 
     Sex categories after filling:
     Sex                 F    M  Unknown
     Dataset_name                       
     3xTG                0   21        0
     Alvino              8   14        0
-    Awake             665  773        0
+    Awake             661  773        0
     Awake_Rest        166    0        0
-    Douglas             0   20        0
+    Douglas             0   15        0
     Env_Enrichment     22   16        0
     Florida             6    6        0
     Longitudinal       27   27        0
@@ -563,36 +591,38 @@ deleted_rows.to_csv(
 | 0 | Age(week) | 222 | 0 | 222 |
 | 1 | MRI | 0 | 0 | 0 |
 | 2 | MRI T.R. | 0 | 0 | 0 |
-| 3 | Sex | 144 | 0 | 144 |
-| 4 | Rodent.strain | 0 | 0 | 0 |
-| 5 | Coil | 0 | 0 | 0 |
-| 6 | fMRI.sequence | 0 | 0 | 0 |
-| 7 | Anesthesia | 0 | 0 | 0 |
-| 8 | Ventilation | 0 | 0 | 0 |
-| 9 | comp1 | 0 | 0 | 0 |
-| 10 | comp2 | 0 | 0 | 0 |
-| 11 | comp3 | 0 | 0 | 0 |
-| 12 | comp4 | 0 | 0 | 0 |
-| 13 | comp5 | 0 | 0 | 0 |
-| 14 | comp6 | 0 | 0 | 0 |
-| 15 | comp7 | 0 | 0 | 0 |
-| 16 | comp8 | 0 | 0 | 0 |
-| 17 | comp9 | 0 | 0 | 0 |
-| 18 | comp10 | 0 | 0 | 0 |
-| 19 | comp11 | 0 | 0 | 0 |
-| 20 | comp12 | 0 | 0 | 0 |
-| 21 | comp13 | 0 | 0 | 0 |
-| 22 | comp14 | 0 | 0 | 0 |
-| 23 | comp15 | 0 | 0 | 0 |
-| 24 | comp16 | 0 | 0 | 0 |
-| 25 | comp17 | 0 | 0 | 0 |
-| 26 | comp18 | 0 | 0 | 0 |
+| 3 | FD average | 2 | 0 | 2 |
+| 4 | log_tSNR | 0 | 0 | 0 |
+| 5 | Sex | 144 | 0 | 144 |
+| 6 | Rodent.strain | 0 | 0 | 0 |
+| 7 | Coil | 0 | 0 | 0 |
+| 8 | fMRI.sequence | 0 | 0 | 0 |
+| 9 | Anesthesia | 0 | 0 | 0 |
+| 10 | Ventilation | 0 | 0 | 0 |
+| 11 | comp1 | 0 | 0 | 0 |
+| 12 | comp2 | 0 | 0 | 0 |
+| 13 | comp3 | 0 | 0 | 0 |
+| 14 | comp4 | 0 | 0 | 0 |
+| 15 | comp5 | 0 | 0 | 0 |
+| 16 | comp6 | 0 | 0 | 0 |
+| 17 | comp7 | 0 | 0 | 0 |
+| 18 | comp8 | 0 | 0 | 0 |
+| 19 | comp9 | 0 | 0 | 0 |
+| 20 | comp10 | 0 | 0 | 0 |
+| 21 | comp11 | 0 | 0 | 0 |
+| 22 | comp12 | 0 | 0 | 0 |
+| 23 | comp13 | 0 | 0 | 0 |
+| 24 | comp14 | 0 | 0 | 0 |
+| 25 | comp15 | 0 | 0 | 0 |
+| 26 | comp16 | 0 | 0 | 0 |
+| 27 | comp17 | 0 | 0 | 0 |
+| 28 | comp18 | 0 | 0 | 0 |
 
 </div>
 
-    Rows before: 2153
-    Rows deleted: 222
-    Rows retained: 1931
+    Rows before: 2144
+    Rows deleted: 224
+    Rows retained: 1920
 
     Deleted rows by dataset:
 
@@ -611,7 +641,7 @@ deleted_rows.to_csv(
 
 |     | Dataset_name | N_deleted |
 |-----|--------------|-----------|
-| 0   | Awake        | 217       |
+| 0   | Awake        | 219       |
 | 1   | Propofol     | 5         |
 
 </div>

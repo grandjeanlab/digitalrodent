@@ -121,7 +121,7 @@ print(Combined_dataset.shape)
 print("Alzheimer:", Alzheimer.shape)
 ```
 
-    (2153, 33)
+    (2153, 34)
     Alzheimer: (22, 33)
 
 # Information about the dataset
@@ -28385,7 +28385,7 @@ ax.set_xticklabels([
 ax.set_ylabel("Normative deviation (Z-score)")
 
 ax.set_title(
-    "Alzheimer mice show negative deviations from the healthy normative model"
+    "Alzheimer mice: deviations from the healthy normative model"
 )
 
 ax.spines["top"].set_visible(False)

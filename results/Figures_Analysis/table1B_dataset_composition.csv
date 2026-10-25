@@ -1,0 +1,16 @@
+Dataset,N scans,N animals,N sessions,Mean age (weeks),Female scans,Male scans,Sex unknown scans,Strain
+Awake,1438,187,417,22.2,665,773,0,"129S2/SvPas, C57BL/6, F1 C6/129P, ICR"
+Multicenter,241,241,241,7.0,35,67,139,C57BL/6
+Awake_Rest,166,29,57,12.0,166,0,0,C57BL/6
+Sexdifference,60,60,60,16.0,30,30,0,C57BL/6
+Longitudinal,54,54,54,8.0,27,27,0,C57BL/6
+Env_Enrichment,38,38,38,9.0,22,16,0,C57BL/6
+NDUFS4,28,28,28,29.6,10,18,0,C57BL/6
+Psilocybin_Pilot,24,24,24,7.0,0,24,0,C57BL/6
+Alvino,22,22,22,12.0,8,14,0,C57BL/6
+3xTG,21,11,21,13.0,0,21,0,C57BL/6
+Douglas,20,15,20,11.3,0,20,0,C57BL/6
+Psilocybin,15,15,15,7.0,0,15,0,C57BL/6
+Florida,12,12,12,28.0,6,6,0,C57BL/6
+MPTP,9,9,9,12.0,0,9,0,C57BL/6
+Propofol,5,5,5,,0,0,5,C57BL/6

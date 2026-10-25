@@ -112,6 +112,26 @@ for dataset in datasets["Nickname"]:
         lambda x: get_dr_session(dataset, x)
     )
 
+    # Awake and Awake_Rest have several runs per session, each with its
+    # own FD / tSNR: match on the run too, otherwise every run would get
+    # the metadata of run 1
+    match_keys = ["match_id", "match_session"]
+
+    if "Run" in metadata.columns:
+
+        metadata["match_run"] = pd.to_numeric(metadata["Run"], errors="coerce")
+
+        run_in_name = dr["subject"].str.extract(r"_run-(\d+)", expand=False)
+
+        if run_in_name.notna().all():
+            dr["match_run"] = run_in_name.astype(int)
+        else:
+            # Awake_Rest: DR file has no run in the name,
+            # rows are in run order within each subject/session
+            dr["match_run"] = dr.groupby(match_keys).cumcount() + 1
+
+        match_keys = match_keys + ["match_run"]
+
     # Sexdifference: match only on subject ID
     if dataset == "Sexdifference":
 
@@ -128,12 +148,12 @@ for dataset in datasets["Nickname"]:
     else:
 
         metadata_unique = metadata.drop_duplicates(
-            subset=["match_id", "match_session"]
+            subset=match_keys
         )
 
         matched = dr.merge(
             metadata_unique,
-            on=["match_id", "match_session"],
+            on=match_keys,
             how="left"
         )
 
@@ -157,7 +177,9 @@ for dataset in datasets["Nickname"]:
         "match_id",
         "match_session",
         "match_session_x",
-        "match_session_y"
+        "match_session_y",
+        "match_run",
+        "Run"
     ]
 
     for column in columns_to_remove:
@@ -450,43 +472,40 @@ print("\nSaved cleaned Combined_dataset.csv")
 print(Combined_dataset.shape)
 ```
 
-
     Sex
     Sex
-    M       1112
-    F        995
-    <NA>     199
+    M       1140
+    F       1011
+    <NA>     155
     Name: count, dtype: int64[pyarrow]
 
     Rodent.strain
     Rodent.strain
-    C57BL/6        1708
+    C57BL/6        1721
     F1 C6/129P      476
     129S2/SvPas     105
-    <NA>             13
     ICR               4
     Name: count, dtype: int64[pyarrow]
 
     Coil
     Coil
-    RT      1999
-    Cryo     307
+    RT      1983
+    Cryo     323
     Name: count, dtype: int64[pyarrow]
 
     fMRI.sequence
     fMRI.sequence
-    GE-EPI    1209
+    GE-EPI    1222
     SE-EPI    1045
     ME-EPI      39
-    <NA>        13
     Name: count, dtype: int64[pyarrow]
 
     Anesthesia
     Anesthesia
-    Awake       1628
-    Mediso       258
-    Iso          189
-    Dexiso       109
+    Awake       1621
+    Mediso       274
+    Iso          149
+    Dexiso       140
     Med           75
     Hal           37
     Dex            5
@@ -495,41 +514,29 @@ print(Combined_dataset.shape)
 
     Ventilation
     Ventilation
-    No     2023
-    Yes     283
+    No     1933
+    Yes     373
     Name: count, dtype: int64[pyarrow]
 
     Missing required metadata:
 
     Age(week)
     Dataset_name
-    3xTG            7
-    Awake         224
-    Awake_Rest      6
-    MPTP            9
-    Propofol        5
+    Awake       224
+    Propofol      5
     dtype: int64
 
     Sex
     Dataset_name
-    3xTG             7
-    Awake_Rest       6
     Multicenter    150
-    NDUFS4          31
     Propofol         5
     dtype: int64
 
     MRI
-    Dataset_name
-    3xTG          7
-    Awake_Rest    6
-    dtype: int64
+    Series([], dtype: int64)
 
     MRI T.R.
-    Dataset_name
-    3xTG          7
-    Awake_Rest    6
-    dtype: int64
+    Series([], dtype: int64)
 
     Saved cleaned Combined_dataset.csv
     (2306, 33)
@@ -670,19 +677,17 @@ print("\nSaved Combined_dataset.csv")
 print("Remaining shape:", Combined_dataset.shape)
 ```
 
-
     Removed scans per dataset:
     Dataset_name
-    Awake             258
+    Awake             114
     Awake_Rest          5
     Env_Enrichment      1
-    Longitudinal        5
-    Multicenter        13
+    Longitudinal       16
+    Multicenter        14
     NDUFS4              3
-    Propofol            1
     dtype: int64
 
-    Total scans removed: 286
+    Total scans removed: 153
 
     Saved Combined_dataset.csv
-    Remaining shape: (2020, 33)
+    Remaining shape: (2153, 33)

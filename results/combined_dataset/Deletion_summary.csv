@@ -1,11 +1,11 @@
 Variable,Missing_before_inference,Inferred_from_participant,Missing_after_inference
-Age(week),218,0,218
-MRI,10,0,10
-MRI T.R.,10,0,10
-Sex,182,0,182
-Rodent.strain,10,0,10
+Age(week),222,0,222
+MRI,0,0,0
+MRI T.R.,0,0,0
+Sex,144,0,144
+Rodent.strain,0,0,0
 Coil,0,0,0
-fMRI.sequence,10,0,10
+fMRI.sequence,0,0,0
 Anesthesia,0,0,0
 Ventilation,0,0,0
 comp1,0,0,0

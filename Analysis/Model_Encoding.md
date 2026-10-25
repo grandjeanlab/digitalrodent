@@ -242,6 +242,20 @@ inferred_counts = (
 
 
 # ============================================================
+# SEX STILL UNKNOWN -> OWN CATEGORY
+# Sex cannot be recovered for part of Multicenter. Instead of
+# deleting these scans (and losing e.g. all medetomidine-only
+# scans), unknown sex becomes its own category, modelled with
+# an indicator (Sex_unknown) next to Sex_encoded.
+# ============================================================
+
+df["Sex"] = df["Sex"].fillna("Unknown")
+
+print("\nSex categories after filling:")
+print(df.groupby(["Dataset_name", "Sex"]).size().unstack(fill_value=0))
+
+
+# ============================================================
 # DELETE ROWS STILL MISSING WANTED MODEL VALUES
 # ============================================================
 
@@ -300,13 +314,19 @@ display(
 # ENCODE BINARY VARIABLES
 # ============================================================
 
+# F = reference; unknown sex gets Sex_encoded = 0 and Sex_unknown = 1
 model_df["Sex_encoded"] = (
     model_df["Sex"]
     .map({
         "F": 0.0,
-        "M": 1.0
+        "M": 1.0,
+        "Unknown": 0.0
     })
 )
+
+model_df["Sex_unknown"] = (
+    model_df["Sex"] == "Unknown"
+).astype(float)
 
 model_df["Coil_encoded"] = (
     model_df["Coil"]
@@ -327,6 +347,7 @@ model_df["Ventilation_encoded"] = (
 encoding_table = [
     ["Sex", "F", "0"],
     ["Sex", "M", "1"],
+    ["Sex", "Unknown", "Sex_unknown = 1"],
     ["Coil", "RT", "0"],
     ["Coil", "Cryo", "1"],
     ["Ventilation", "No", "0"],
@@ -417,6 +438,7 @@ covariates = (
     numeric_covariates
     + [
         "Sex_encoded",
+        "Sex_unknown",
         "Coil_encoded",
         "Ventilation_encoded"
     ]
@@ -498,9 +520,28 @@ deleted_rows.to_csv(
 )
 ```
 
-    Original rows: 2020
+    Original rows: 2153
     Columns kept:
     ['Scan_id', 'Participant_Id', 'Session', 'Dataset_name', 'Age(week)', 'MRI', 'MRI T.R.', 'Sex', 'Rodent.strain', 'Coil', 'fMRI.sequence', 'Anesthesia', 'Ventilation', 'comp1', 'comp2', 'comp3', 'comp4', 'comp5', 'comp6', 'comp7', 'comp8', 'comp9', 'comp10', 'comp11', 'comp12', 'comp13', 'comp14', 'comp15', 'comp16', 'comp17', 'comp18']
+
+    Sex categories after filling:
+    Sex                 F    M  Unknown
+    Dataset_name                       
+    3xTG                0   21        0
+    Alvino              8   14        0
+    Awake             665  773        0
+    Awake_Rest        166    0        0
+    Douglas             0   20        0
+    Env_Enrichment     22   16        0
+    Florida             6    6        0
+    Longitudinal       27   27        0
+    MPTP                0    9        0
+    Multicenter        35   67      139
+    NDUFS4             10   18        0
+    Propofol            0    0        5
+    Psilocybin          0   15        0
+    Psilocybin_Pilot    0   24        0
+    Sexdifference      30   30        0
 
     Missing-value summary:
 
@@ -519,13 +560,13 @@ deleted_rows.to_csv(
 
 |  | Variable | Missing_before_inference | Inferred_from_participant | Missing_after_inference |
 |----|----|----|----|----|
-| 0 | Age(week) | 218 | 0 | 218 |
-| 1 | MRI | 10 | 0 | 10 |
-| 2 | MRI T.R. | 10 | 0 | 10 |
-| 3 | Sex | 182 | 0 | 182 |
-| 4 | Rodent.strain | 10 | 0 | 10 |
+| 0 | Age(week) | 222 | 0 | 222 |
+| 1 | MRI | 0 | 0 | 0 |
+| 2 | MRI T.R. | 0 | 0 | 0 |
+| 3 | Sex | 144 | 0 | 144 |
+| 4 | Rodent.strain | 0 | 0 | 0 |
 | 5 | Coil | 0 | 0 | 0 |
-| 6 | fMRI.sequence | 10 | 0 | 10 |
+| 6 | fMRI.sequence | 0 | 0 | 0 |
 | 7 | Anesthesia | 0 | 0 | 0 |
 | 8 | Ventilation | 0 | 0 | 0 |
 | 9 | comp1 | 0 | 0 | 0 |
@@ -549,10 +590,9 @@ deleted_rows.to_csv(
 
 </div>
 
-
-    Rows before: 2020
-    Rows deleted: 386
-    Rows retained: 1634
+    Rows before: 2153
+    Rows deleted: 222
+    Rows retained: 1931
 
     Deleted rows by dataset:
 
@@ -571,12 +611,7 @@ deleted_rows.to_csv(
 
 |     | Dataset_name | N_deleted |
 |-----|--------------|-----------|
-| 0   | Awake        | 195       |
-| 1   | Multicenter  | 140       |
-| 2   | NDUFS4       | 28        |
-| 3   | MPTP         | 9         |
-| 4   | 3xTG         | 7         |
-| 5   | Propofol     | 4         |
-| 6   | Awake_Rest   | 3         |
+| 0   | Awake        | 217       |
+| 1   | Propofol     | 5         |
 
 </div>

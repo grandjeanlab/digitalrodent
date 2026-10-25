@@ -9,6 +9,7 @@ execute:
 ---
 ```{python}
 from pathlib import Path
+import numpy as np
 import pandas as pd
 
 
@@ -55,8 +56,13 @@ response_vars = [
 numeric_covariates = [
     "Age(week)",
     "MRI",
-    "MRI T.R."
+    "MRI T.R.",
+    "FD average",   # motion, per run
+    "log_tSNR"      # signal quality, per run (log-transformed below)
 ]
+
+# Per-run quality measures: never copied from another run of the same animal
+per_scan_covariates = ["FD average", "log_tSNR"]
 
 categorical_covariates = [
     "Sex",
@@ -66,6 +72,9 @@ categorical_covariates = [
     "Anesthesia",
     "Ventilation"
 ]
+
+# tSNR is strongly right-skewed (median ~17, max ~240): use log(tSNR)
+df["log_tSNR"] = np.log(pd.to_numeric(df["tSNR"], errors="coerce"))
 
 wanted_columns = (
     id_columns
@@ -181,6 +190,19 @@ df["Ventilation"] = (
 
 
 # ============================================================
+# REMOVE VERY RARE CATEGORIES
+# ICR strain (4 scans) and Dex anesthesia (5 scans): with so few
+# scans their coefficients are unstable and they make the
+# heteroskedastic variance model blow up (|z| > 50 in testing)
+# ============================================================
+
+rare = (df["Rodent.strain"] == "ICR") | (df["Anesthesia"] == "Dex")
+print("\nRemoved rare categories:", int(rare.sum()), "scans")
+print(df.loc[rare].groupby(["Dataset_name", "Rodent.strain", "Anesthesia"]).size())
+df = df.loc[~rare].copy()
+
+
+# ============================================================
 # MISSING VALUES BEFORE INFERENCE
 # ============================================================
 
@@ -201,10 +223,10 @@ missing_before = (
 # INFER FROM SAME PARTICIPANT
 # ============================================================
 
-inferable_columns = (
-    numeric_covariates
-    + categorical_covariates
-)
+inferable_columns = [
+    col for col in numeric_covariates + categorical_covariates
+    if col not in per_scan_covariates
+]
 
 
 def fill_if_unique(series):

@@ -802,9 +802,79 @@ if anesthesia_dummy_cols:
 # ALZHEIMER Z-SCORES
 # ============================================================
 
-alz_df = make_reference_dataframe(len(Alzheimer))
+# Each Alzheimer scan is evaluated with ITS OWN covariates (anesthesia,
+# field strength, coil, TR, sequence, strain, sex), encoded exactly as in
+# Model_Encoding. Before, every covariate except age was copied from the
+# reference profile (an awake 9.4 T mouse), so the z-scores mixed the
+# disease effect with the anesthesia/scanner difference.
 
-alz_df["Age(week)"] = Alzheimer["Age(week)"].to_numpy()
+alz_raw = pd.read_csv(root / "data" / "Alzheimer" / "Alzheimer.csv")
+
+
+def norm_text(series):
+    return series.astype("string").str.strip()
+
+
+sex = norm_text(alz_raw["Sex"]).str.upper().replace({"FEMALE": "F", "MALE": "M"})
+coil = norm_text(alz_raw["Coil"]).str.lower()
+vent = norm_text(alz_raw["Ventilation"]).str.lower()
+strain = norm_text(alz_raw["Rodent.strain"]).replace(
+    {"C57BL6": "C57BL/6", "C57BL6J": "C57BL/6", "C57BL/6J": "C57BL/6"}
+)
+sequence = norm_text(alz_raw["fMRI.sequence"]).str.upper().replace(
+    {"EPI": "GE-EPI", "GE EPI": "GE-EPI", "SE EPI": "SE-EPI", "ME EPI": "ME-EPI"}
+)
+anesthesia = norm_text(alz_raw["Anesthesia"]).str.lower().replace({
+    "awake": "Awake", "iso": "Iso", "dex": "Dex", "dexiso": "Dexiso",
+    "med": "Med", "mediso": "Mediso", "hal": "Hal", "propofol": "Propofol"
+})
+
+alz_df = pd.DataFrame(index=range(len(alz_raw)))
+
+for col in covariates:
+
+    if col in ["Age(week)", "MRI", "MRI T.R."]:
+        alz_df[col] = pd.to_numeric(alz_raw[col], errors="coerce").to_numpy()
+
+    elif col == "Sex_encoded":
+        alz_df[col] = sex.map({"F": 0.0, "M": 1.0}).fillna(0.0).to_numpy()
+
+    elif col == "Sex_unknown":
+        alz_df[col] = (~sex.isin(["F", "M"])).astype(float).to_numpy()
+
+    elif col == "Coil_encoded":
+        alz_df[col] = coil.isin(["y", "yes", "cryo"]).astype(float).to_numpy()
+
+    elif col == "Ventilation_encoded":
+        alz_df[col] = vent.isin(["y", "yes"]).astype(float).to_numpy()
+
+    elif col.startswith("Rodent.strain_"):
+        alz_df[col] = (strain == col.replace("Rodent.strain_", "")).astype(float).to_numpy()
+
+    elif col.startswith("fMRI.sequence_"):
+        alz_df[col] = (sequence == col.replace("fMRI.sequence_", "")).astype(float).to_numpy()
+
+    elif col.startswith("Anesthesia_"):
+        alz_df[col] = (anesthesia == col.replace("Anesthesia_", "")).astype(float).to_numpy()
+
+    elif col in ["FD average", "log_tSNR"]:
+        # Not available for the Alzheimer scans: use the median of the
+        # 3xTG dataset (same lab, scanner and protocol)
+        if col == "FD average" and col in alz_raw.columns and alz_raw[col].notna().all():
+            alz_df[col] = alz_raw[col].to_numpy()
+        else:
+            same_protocol = model_df.loc[model_df["Dataset_name"] == "3xTG", col]
+            alz_df[col] = float(same_protocol.median())
+            print(f"{col}: not available for Alzheimer scans, using 3xTG median = {same_protocol.median():.4f}")
+
+    else:
+        raise ValueError(f"No rule to build covariate {col} for the Alzheimer scans")
+
+for response in response_vars:
+    alz_df[response] = 0.0
+
+print("\nAlzheimer covariates (unique profiles):")
+print(alz_df[covariates].drop_duplicates().T)
 
 for component in selected_components:
     alz_df[component] = Alzheimer[component].to_numpy()

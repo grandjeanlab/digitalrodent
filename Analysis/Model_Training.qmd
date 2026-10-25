@@ -128,21 +128,27 @@ train, test = norm_data.train_test_split()
 # BLR MODEL
 # ============================================================
 
-# Non-linear age effect: B-spline basis on Age only.
+# Non-linear effects: B-spline basis on the continuous covariates
+# that vary within datasets (age, motion, tSNR).
 # Without a basis function BLR is linear in every covariate,
 # which is why the centile curves came out as straight lines.
 # The other covariates (scanner, sex, anesthesia, ...) stay linear.
-age_column = covariates.index("Age(week)")
+spline_columns = [
+    covariates.index(col)
+    for col in ["Age(week)", "FD average", "log_tSNR"]
+    if col in covariates
+]
+print("B-spline applied to:", [covariates[i] for i in spline_columns])
 
 model = NormativeModel(
     BLR(
         basis_function_mean=BsplineBasisFunction(
-            basis_column=[age_column],
+            basis_column=spline_columns,
             degree=3,
             nknots=5
         ),
         basis_function_var=BsplineBasisFunction(
-            basis_column=[age_column],
+            basis_column=spline_columns,
             degree=3,
             nknots=5
         ),

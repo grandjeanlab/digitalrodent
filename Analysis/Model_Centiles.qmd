@@ -479,7 +479,9 @@ def safe_name(text):
 continuous_variables = {
     "Age(week)": "Age (weeks)",
     "MRI": "MRI field strength (T)",
-    "MRI T.R.": "TR"
+    "MRI T.R.": "TR",
+    "FD average": "Mean framewise displacement (mm)",
+    "log_tSNR": "log(tSNR)"
 }
 
 

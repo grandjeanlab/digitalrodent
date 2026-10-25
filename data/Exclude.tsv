@@ -150,7 +150,7 @@ sub-COMR381h-PND90	Longitudinal	Exclude
 sub-COMR421b-PND30	Longitudinal	Exclude
 sub-COMR421f-PND90	Longitudinal	Exclude
 sub-COMR431c-PND90	Longitudinal	Exclude
-sub-030_ses-1	Multicenter	Exclude
+sub-031_ses-1	Multicenter	Exclude
 sub-033_ses-1	Multicenter	Exclude
 sub-035_ses-1	Multicenter	Exclude
 sub-132_ses-1	Multicenter	Exclude
@@ -160,6 +160,7 @@ sub-179_ses-1	Multicenter	Exclude
 sub-180_ses-1	Multicenter	Exclude
 sub-203_ses-1	Multicenter	Exclude
 sub-204_ses-1	Multicenter	Exclude
+sub-222_ses-1	Multicenter	Exclude
 sub-231_ses-1	Multicenter	Exclude
 sub-232_ses-1	Multicenter	Exclude
 sub-234_ses-1	Multicenter	Exclude
@@ -171,8 +172,8 @@ sub-04_ses-1	Propofol	Exclude
 sub-05_ses-1	Propofol	Exclude
 sub-06_ses-1	Propofol	Exclude
 sub-11_ses-1	Propofol	Exclude
-sub-jgrAesAWc11R1L_ses-1_run-1	Awake_Rest	Exclude
-sub-jgrAesAWc11R1L_ses-1_run-3	Awake_Rest	Exclude
+sub-jgrAesAWc11L_ses-1_run-2	Awake_Rest	Exclude
+sub-jgrAesAWc11L_ses-1_run-3	Awake_Rest	Exclude
 sub-jgrAesMEDISOc11L_ses-1_run-1	Awake_Rest	Exclude
 sub-jgrAesAWc11L_ses-2_run-1	Awake_Rest	Exclude
 sub-jgrAesAWc21R_ses-1_run-2	Awake_Rest	Exclude

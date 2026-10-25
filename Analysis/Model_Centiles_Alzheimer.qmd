@@ -57,14 +57,18 @@ GREEN = "#6D9F8C"
 DARK = "#39434B"
 
 component_colors = {
-    "comp2": BLUE,
-    "comp10": ORANGE,
-    "comp11": GREEN
+    "comp2": "#8E6C8A",   # M1, motor
+    "comp3": BLUE,        # S1uLp + S2, somatosensory
+    "comp7": "#C9A227",   # V2 + RSD, visual
+    "comp10": ORANGE,     # Cg1 + RS
+    "comp11": GREEN       # Ventral HP
 }
 
 component_labels = {
-    "comp2": "Somatosensory cortex",
-    "comp10": "DMN-associated cortex",
+    "comp2": "Primary motor cortex",
+    "comp3": "S1 upper lip + secondary somatosensory cortex",
+    "comp7": "Secondary visual + dorsal retrosplenial cortex",
+    "comp10": "Cingulate cortex, area 1 + retrosplenial cortex",
     "comp11": "Ventral hippocampus"
 }
 
@@ -76,7 +80,7 @@ model = NormativeModel.load(str(model_dir))
 
 
 response_vars = [str(x) for x in model.response_vars]
-selected_components = ["comp2", "comp10", "comp11"]
+selected_components = ["comp2", "comp3", "comp7", "comp10", "comp11"]
 
 model_df = pd.read_csv(input_file)
 
@@ -313,7 +317,7 @@ for variable, xlabel in continuous_variables.items():
 
     centile_data = get_centiles(centile_data)
 
-    for component in response_vars:
+    for component in selected_components:
 
         color = component_colors[component]
 
@@ -461,7 +465,7 @@ def categorical_centile_plot(
 
     x = np.arange(len(labels))
 
-    for component in response_vars:
+    for component in selected_components:
 
         color = component_colors[component]
 

@@ -1,172 +1,172 @@
-Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
-	sub-jgrAesAWc11R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.020632794	0.036292905	30.782572
-	sub-jgrAesAWc11R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.029927107	0.042982901	24.829058
-	sub-jgrAesAWc11R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.1064128	0.175382116	31.461897
-	sub-jgrAesAWc12R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.019080666	0.035271814	37.607506
-	sub-jgrAesAWc12R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.017247972	0.029226136	23.37059
-	sub-jgrAesAWc12R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.026887866	0.046005593	33.24241
-	sub-jgrAesAWc1NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.050899655	0.073514921	53.35114
-	sub-jgrAesAWc1NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.032451121	0.047219252	56.042465
-	sub-jgrAesAWc1NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.035359831	0.049848611	20.495745
-	sub-jgrAesAWc11L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.028808504	0.046085752	41.42247
-	sub-jgrAesAWc11L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.034441404	0.055602813	34.25747
-	sub-jgrAesAWc11L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.041676027	0.064169483	5.6093926
-	sub-jgrAesAWc11R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.044660564	0.068922054	34.546352
-	sub-jgrAesAWc11R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.090689541	0.13118491	39.923897
-	sub-jgrAesAWc11R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.039190374	0.061839179	41.947258
-	sub-jgrAesISOc1NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.013497061	0.023798107	67.69591
-	sub-jgrAesISOc1NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.024643787	0.041083582	68.88173
-	sub-jgrAesISOc1NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.035238314	0.056494535	69.863
-	sub-jgrAesISOc11R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.030935319	0.050041953	59.366497
-	sub-jgrAesISOc11R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.060559298	0.100329123	61.693768
-	sub-jgrAesISOc11R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.042093682	0.064825954	67.56363
-	sub-jgrAesISOc11L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.023136947	0.041200139	55.597572
-	sub-jgrAesISOc11L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.045863887	0.076860823	61.039074
-	sub-jgrAesISOc11L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.032432778	0.054147498	62.315598
-	sub-jgrAesISOc12R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.012514981	0.022614574	88.61879
-	sub-jgrAesISOc12R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.012877951	0.02404523	85.18391
-	sub-jgrAesISOc12R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.101427422	0.154846864	87.47383
-	sub-jgrAesISOc11R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.040140895	0.075147516	66.83234
-	sub-jgrAesISOc11R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.0702393	0.151720046	65.49627
-	sub-jgrAesISOc11R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.062325343	0.126472716	69.05345
-	sub-jgrAesMEDISOc1NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.009069825	0.017003494	71.37535
-	sub-jgrAesMEDISOc1NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.028142179	0.049842543	68.67408
-	sub-jgrAesMEDISOc1NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.036666895	0.064840079	62.519638
-	sub-jgrAesMEDISOc11R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.015376723	0.026565705	63.870285
-	sub-jgrAesMEDISOc11R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.017033803	0.029589818	33.70556
-	sub-jgrAesMEDISOc11R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.012992681	0.020601777	48.668877
-	sub-jgrAesMEDISOc11L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.05096398	0.080596094	89.60419
-	sub-jgrAesMEDISOc11L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.012449548	0.021316905	83.49903
-	sub-jgrAesMEDISOc11L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.047104979	0.075482914	72.17915
-	sub-jgrAesMEDISOc12R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.024357749	0.041152782	82.34968
-	sub-jgrAesMEDISOc12R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.027608857	0.048891805	75.45904
-	sub-jgrAesMEDISOc12R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.026908009	0.042466873	74.53272
-	sub-jgrAesMEDISOc11R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.029018998	0.046543819	90.77518
-	sub-jgrAesMEDISOc11R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.119810444	0.186710816	85.789024
-	sub-jgrAesMEDISOc11R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.054943711	0.101214433	74.3795
-	sub-jgrAesAWc1NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.025824311	0.042336856	20.614702
-	sub-jgrAesAWc1NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.044012161	0.071599527	28.698227
-	sub-jgrAesAWc1NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.045451495	0.068918943	26.642685
-	sub-jgrAesAWc11R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.020499891	0.03186389	55.201893
-	sub-jgrAesAWc11R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.051469928	0.089906709	56.369984
-	sub-jgrAesAWc11R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.042622196	0.076791111	45.580757
-	sub-jgrAesAWc11L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.023257133	0.036492814	3.9076397
-	sub-jgrAesAWc11L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.040645841	0.065924527	55.734768
-	sub-jgrAesAWc11L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.029527513	0.045532908	47.77113
-	sub-jgrAesAWc11R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008447672	0.0148001	59.43079
-	sub-jgrAesAWc11R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.013151546	0.023530876	49.86555
-	sub-jgrAesAWc11R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.014218611	0.024527797	36.516384
-	sub-jgrAesAWc12R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008098848	0.011303554	39.987083
-	sub-jgrAesAWc12R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007887862	0.012478338	27.626005
-	sub-jgrAesAWc12R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006700677	0.010400332	32.648552
-	sub-jgrAesISOc11R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006496637	0.010456413	61.31653
-	sub-jgrAesISOc11R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006098587	0.009671376	67.416
-	sub-jgrAesISOc11R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006724317	0.011189378	61.435608
-	sub-jgrAesISOc11R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007528386	0.012545894	77.564186
-	sub-jgrAesISOc11R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006686101	0.011001145	76.37367
-	sub-jgrAesISOc11R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006736935	0.010840579	79.3282
-	sub-jgrAesISOc12R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.010577222	0.016906005	65.02332
-	sub-jgrAesISOc12R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.009212082	0.014902844	63.857944
-	sub-jgrAesISOc12R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.008816828	0.015383034	70.666534
-	sub-jgrAesISOc1NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007175487	0.011357173	74.98988
-	sub-jgrAesISOc1NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006556212	0.010267171	75.5019
-	sub-jgrAesISOc1NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006765704	0.010778299	73.1855
-	sub-jgrAesMEDISOc11R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006658551	0.010981613	84.19507
-	sub-jgrAesMEDISOc11R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007203463	0.011582339	76.39338
-	sub-jgrAesMEDISOc11R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006504375	0.011114882	65.72521
-	sub-jgrAesMEDISOc11R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.010723224	0.018935956	69.99265
-	sub-jgrAesMEDISOc11R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008019988	0.013913982	63.917973
-	sub-jgrAesMEDISOc11R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007658849	0.013235531	64.69827
-	sub-jgrAesMEDISOc12R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008872781	0.014685811	61.87377
-	sub-jgrAesMEDISOc12R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008037035	0.01469875	67.83131
-	sub-jgrAesMEDISOc12R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.009126224	0.015350552	62.93563
-	sub-jgrAesMEDISOc11L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.0075215	0.013284846	62.61937
-	sub-jgrAesMEDISOc11L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008647802	0.015448343	68.57566
-	sub-jgrAesMEDISOc11L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008370567	0.014605634	66.66489
-	sub-jgrAesMEDISOc1NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.01331487	0.024280042	86.13136
-	sub-jgrAesMEDISOc1NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.012612396	0.021965161	84.10123
-	sub-jgrAesMEDISOc1NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007636259	0.013191062	71.1753
-	sub-jgrAesAWc21R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008446466	0.015323002	21.558466
-	sub-jgrAesAWc21R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006010843	0.008585475	58.050457
-	sub-jgrAesAWc21R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.00719453	0.011919483	37.44052
-	sub-jgrAesAWc21R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.005771109	0.009220577	37.35354
-	sub-jgrAesAWc21R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008081182	0.014537503	17.381714
-	sub-jgrAesAWc21R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006342426	0.010118702	15.757468
-	sub-jgrAesAWc22R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007982347	0.013570477	55.70995
-	sub-jgrAesAWc22R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007810794	0.014811021	27.192278
-	sub-jgrAesAWc22R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007016258	0.012828305	33.674656
-	sub-jgrAesAWc21L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.00716046	0.012091481	61.80629
-	sub-jgrAesAWc21L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008123962	0.014131436	55.02063
-	sub-jgrAesAWc21L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.010218118	0.017821972	46.368946
-	sub-jgrAesISOc2NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.009343727	0.015832557	63.341473
-	sub-jgrAesISOc2NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.009193582	0.014549765	72.80615
-	sub-jgrAesISOc2NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.015876668	0.025964815	70.17323
-	sub-jgrAesISOc21R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.031117417	0.052606595	66.83338
-	sub-jgrAesISOc21R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.009534556	0.01556108	78.917244
-	sub-jgrAesISOc21R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.008820629	0.015097335	73.312355
-	sub-jgrAesISOc21L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.009808665	0.015799245	86.71165
-	sub-jgrAesISOc21L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.009695669	0.017228112	95.00393
-	sub-jgrAesISOc21L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.010691857	0.017418333	91.833626
-	sub-jgrAesISOc22R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.014087613	0.020131207	85.55067
-	sub-jgrAesISOc22R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006733171	0.012168146	73.13902
-	sub-jgrAesISOc22R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007146763	0.011962131	52.754982
-	sub-jgrAesISOc21R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.00645335	0.011117328	59.584743
-	sub-jgrAesISOc21R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006580549	0.012226491	69.86043
-	sub-jgrAesISOc21R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006796683	0.011755273	66.57197
-	sub-jgrAesMEDISOc2NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008067593	0.015405339	83.21682
-	sub-jgrAesMEDISOc2NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007985478	0.015149682	80.59986
-	sub-jgrAesMEDISOc2NT	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008381022	0.016288109	83.81649
-	sub-jgrAesMEDISOc21R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006785181	0.011918162	88.61359
-	sub-jgrAesMEDISOc21R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.035581975	0.064271126	78.16037
-	sub-jgrAesMEDISOc21R	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.011933746	0.024524237	68.20373
-	sub-jgrAesMEDISOc21L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007139901	0.012857564	68.16726
-	sub-jgrAesMEDISOc21L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006854912	0.012606323	61.641937
-	sub-jgrAesMEDISOc21L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006932839	0.012633826	53.455643
-	sub-jgrAesMEDISOc22r	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006809562	0.012388791	46.777046
-	sub-jgrAesMEDISOc22r	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.00683458	0.012143007	41.658417
-	sub-jgrAesMEDISOc22r	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006622126	0.011457396	39.86612
-	sub-jgrAesMEDISOc21R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006558458	0.012679333	84.2883
-	sub-jgrAesMEDISOc21R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006835895	0.012772112	79.49266
-	sub-jgrAesMEDISOc21R1L	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006913553	0.012783564	39.465267
-	sub-jgrAesAWc21R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006140898	0.010074826	40.3899
-	sub-jgrAesAWc21R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006643708	0.010609688	42.38957
-	sub-jgrAesAWc21R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006241462	0.00964801	28.853407
-	sub-jgrAesAWc21R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.00782729	0.013928654	47.751686
-	sub-jgrAesAWc21R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007422695	0.013000756	29.24913
-	sub-jgrAesAWc21R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007655341	0.014002324	31.785236
-	sub-jgrAesAWc21L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006734917	0.010910784	42.5994
-	sub-jgrAesAWc21L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006367495	0.010523988	38.861786
-	sub-jgrAesAWc21L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007065469	0.011326557	57.40295
-	sub-jgrAesAWc22R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008650126	0.016650816	49.158478
-	sub-jgrAesAWc22R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008491322	0.016840703	38.561237
-	sub-jgrAesAWc22R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008159114	0.01673231	43.739563
-	sub-jgrAesISOc21L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006021291	0.01036207	72.62565
-	sub-jgrAesISOc21L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006084412	0.010100954	75.75299
-	sub-jgrAesISOc21L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006512059	0.010600446	75.159744
-	sub-jgrAesISOc21R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006543942	0.012123209	68.6427
-	sub-jgrAesISOc21R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006608043	0.012393956	72.46981
-	sub-jgrAesISOc21R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006926905	0.01269014	73.49163
-	sub-jgrAesISOc21R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006484192	0.010880275	57.67073
-	sub-jgrAesISOc21R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006616627	0.011216092	55.06948
-	sub-jgrAesISOc21R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006632346	0.010659322	56.018177
-	sub-jgrAesISOc2NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007456029	0.01300838	54.208176
-	sub-jgrAesISOc2NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.00781065	0.013509336	71.35043
-	sub-jgrAesISOc2NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007506527	0.013672589	69.243996
-	sub-jgrAesISOc22R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007014378	0.01243417	59.02402
-	sub-jgrAesISOc22R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007019465	0.012549835	71.67104
-	sub-jgrAesISOc22R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.028496738	0.049845392	76.590004
-	sub-jgrAesMEDISOc22r	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008379634	0.01578784	69.720436
-	sub-jgrAesMEDISOc22r	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007420185	0.013683977	71.013054
-	sub-jgrAesMEDISOc22r	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007790991	0.013529222	62.95901
-	sub-jgrAesMEDISOc2NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007635216	0.014453799	74.58309
-	sub-jgrAesMEDISOc2NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007899742	0.015407604	76.80209
-	sub-jgrAesMEDISOc2NT	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008036393	0.016032358	66.35393
-	sub-jgrAesMEDISOc21R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006138993	0.010987668	79.07231
-	sub-jgrAesMEDISOc21R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006523314	0.012206261	76.990616
-	sub-jgrAesMEDISOc21R	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006382985	0.011446685	79.099365
-	sub-jgrAesMEDISOc21L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006500231	0.011044164	77.25258
-	sub-jgrAesMEDISOc21L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006697572	0.01169828	78.611496
-	sub-jgrAesMEDISOc21L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006603099	0.011179823	71.83171
-	sub-jgrAesMEDISOc21R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007277283	0.01288249	87.70666
-	sub-jgrAesMEDISOc21R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007415067	0.01361242	86.27038
-	sub-jgrAesMEDISOc21R1L	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007059243	0.012578854	78.452385
+Scan_id	Participant_Id	Session	Run	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
+	sub-jgrAesAWc11R1L	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.020632794	0.036292905	30.782572
+	sub-jgrAesAWc11R1L	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.029927107	0.042982901	24.829058
+	sub-jgrAesAWc11R1L	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.1064128	0.175382116	31.461897
+	sub-jgrAesAWc12R	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.019080666	0.035271814	37.607506
+	sub-jgrAesAWc12R	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.017247972	0.029226136	23.37059
+	sub-jgrAesAWc12R	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.026887866	0.046005593	33.24241
+	sub-jgrAesAWc1NT	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.050899655	0.073514921	53.35114
+	sub-jgrAesAWc1NT	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.032451121	0.047219252	56.042465
+	sub-jgrAesAWc1NT	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.035359831	0.049848611	20.495745
+	sub-jgrAesAWc11L	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.028808504	0.046085752	41.42247
+	sub-jgrAesAWc11L	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.034441404	0.055602813	34.25747
+	sub-jgrAesAWc11L	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.041676027	0.064169483	5.6093926
+	sub-jgrAesAWc11R	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.044660564	0.068922054	34.546352
+	sub-jgrAesAWc11R	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.090689541	0.13118491	39.923897
+	sub-jgrAesAWc11R	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.039190374	0.061839179	41.947258
+	sub-jgrAesISOc1NT	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.013497061	0.023798107	67.69591
+	sub-jgrAesISOc1NT	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.024643787	0.041083582	68.88173
+	sub-jgrAesISOc1NT	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.035238314	0.056494535	69.863
+	sub-jgrAesISOc11R	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.030935319	0.050041953	59.366497
+	sub-jgrAesISOc11R	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.060559298	0.100329123	61.693768
+	sub-jgrAesISOc11R	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.042093682	0.064825954	67.56363
+	sub-jgrAesISOc11L	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.023136947	0.041200139	55.597572
+	sub-jgrAesISOc11L	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.045863887	0.076860823	61.039074
+	sub-jgrAesISOc11L	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.032432778	0.054147498	62.315598
+	sub-jgrAesISOc12R	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.012514981	0.022614574	88.61879
+	sub-jgrAesISOc12R	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.012877951	0.02404523	85.18391
+	sub-jgrAesISOc12R	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.101427422	0.154846864	87.47383
+	sub-jgrAesISOc11R1L	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.040140895	0.075147516	66.83234
+	sub-jgrAesISOc11R1L	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.0702393	0.151720046	65.49627
+	sub-jgrAesISOc11R1L	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.062325343	0.126472716	69.05345
+	sub-jgrAesMEDISOc1NT	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.009069825	0.017003494	71.37535
+	sub-jgrAesMEDISOc1NT	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.028142179	0.049842543	68.67408
+	sub-jgrAesMEDISOc1NT	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.036666895	0.064840079	62.519638
+	sub-jgrAesMEDISOc11R	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.015376723	0.026565705	63.870285
+	sub-jgrAesMEDISOc11R	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.017033803	0.029589818	33.70556
+	sub-jgrAesMEDISOc11R	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.012992681	0.020601777	48.668877
+	sub-jgrAesMEDISOc11L	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.05096398	0.080596094	89.60419
+	sub-jgrAesMEDISOc11L	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.012449548	0.021316905	83.49903
+	sub-jgrAesMEDISOc11L	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.047104979	0.075482914	72.17915
+	sub-jgrAesMEDISOc12R	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.024357749	0.041152782	82.34968
+	sub-jgrAesMEDISOc12R	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.027608857	0.048891805	75.45904
+	sub-jgrAesMEDISOc12R	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.026908009	0.042466873	74.53272
+	sub-jgrAesMEDISOc11R1L	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.029018998	0.046543819	90.77518
+	sub-jgrAesMEDISOc11R1L	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.119810444	0.186710816	85.789024
+	sub-jgrAesMEDISOc11R1L	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.054943711	0.101214433	74.3795
+	sub-jgrAesAWc1NT	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.025824311	0.042336856	20.614702
+	sub-jgrAesAWc1NT	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.044012161	0.071599527	28.698227
+	sub-jgrAesAWc1NT	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.045451495	0.068918943	26.642685
+	sub-jgrAesAWc11R	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.020499891	0.03186389	55.201893
+	sub-jgrAesAWc11R	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.051469928	0.089906709	56.369984
+	sub-jgrAesAWc11R	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.042622196	0.076791111	45.580757
+	sub-jgrAesAWc11L	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.023257133	0.036492814	3.9076397
+	sub-jgrAesAWc11L	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.040645841	0.065924527	55.734768
+	sub-jgrAesAWc11L	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.029527513	0.045532908	47.77113
+	sub-jgrAesAWc11R1L	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008447672	0.0148001	59.43079
+	sub-jgrAesAWc11R1L	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.013151546	0.023530876	49.86555
+	sub-jgrAesAWc11R1L	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.014218611	0.024527797	36.516384
+	sub-jgrAesAWc12R	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008098848	0.011303554	39.987083
+	sub-jgrAesAWc12R	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007887862	0.012478338	27.626005
+	sub-jgrAesAWc12R	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006700677	0.010400332	32.648552
+	sub-jgrAesISOc11R1L	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006496637	0.010456413	61.31653
+	sub-jgrAesISOc11R1L	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006098587	0.009671376	67.416
+	sub-jgrAesISOc11R1L	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006724317	0.011189378	61.435608
+	sub-jgrAesISOc11R	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007528386	0.012545894	77.564186
+	sub-jgrAesISOc11R	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006686101	0.011001145	76.37367
+	sub-jgrAesISOc11R	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006736935	0.010840579	79.3282
+	sub-jgrAesISOc12R	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.010577222	0.016906005	65.02332
+	sub-jgrAesISOc12R	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.009212082	0.014902844	63.857944
+	sub-jgrAesISOc12R	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.008816828	0.015383034	70.666534
+	sub-jgrAesISOc1NT	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007175487	0.011357173	74.98988
+	sub-jgrAesISOc1NT	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006556212	0.010267171	75.5019
+	sub-jgrAesISOc1NT	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006765704	0.010778299	73.1855
+	sub-jgrAesMEDISOc11R1L	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006658551	0.010981613	84.19507
+	sub-jgrAesMEDISOc11R1L	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007203463	0.011582339	76.39338
+	sub-jgrAesMEDISOc11R1L	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006504375	0.011114882	65.72521
+	sub-jgrAesMEDISOc11R	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.010723224	0.018935956	69.99265
+	sub-jgrAesMEDISOc11R	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008019988	0.013913982	63.917973
+	sub-jgrAesMEDISOc11R	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007658849	0.013235531	64.69827
+	sub-jgrAesMEDISOc12R	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008872781	0.014685811	61.87377
+	sub-jgrAesMEDISOc12R	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008037035	0.01469875	67.83131
+	sub-jgrAesMEDISOc12R	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.009126224	0.015350552	62.93563
+	sub-jgrAesMEDISOc11L	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.0075215	0.013284846	62.61937
+	sub-jgrAesMEDISOc11L	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008647802	0.015448343	68.57566
+	sub-jgrAesMEDISOc11L	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008370567	0.014605634	66.66489
+	sub-jgrAesMEDISOc1NT	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.01331487	0.024280042	86.13136
+	sub-jgrAesMEDISOc1NT	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.012612396	0.021965161	84.10123
+	sub-jgrAesMEDISOc1NT	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007636259	0.013191062	71.1753
+	sub-jgrAesAWc21R	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008446466	0.015323002	21.558466
+	sub-jgrAesAWc21R	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006010843	0.008585475	58.050457
+	sub-jgrAesAWc21R	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.00719453	0.011919483	37.44052
+	sub-jgrAesAWc21R1L	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.005771109	0.009220577	37.35354
+	sub-jgrAesAWc21R1L	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008081182	0.014537503	17.381714
+	sub-jgrAesAWc21R1L	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006342426	0.010118702	15.757468
+	sub-jgrAesAWc22R	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007982347	0.013570477	55.70995
+	sub-jgrAesAWc22R	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007810794	0.014811021	27.192278
+	sub-jgrAesAWc22R	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007016258	0.012828305	33.674656
+	sub-jgrAesAWc21L	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.00716046	0.012091481	61.80629
+	sub-jgrAesAWc21L	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008123962	0.014131436	55.02063
+	sub-jgrAesAWc21L	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.010218118	0.017821972	46.368946
+	sub-jgrAesISOc2NT	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.009343727	0.015832557	63.341473
+	sub-jgrAesISOc2NT	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.009193582	0.014549765	72.80615
+	sub-jgrAesISOc2NT	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.015876668	0.025964815	70.17323
+	sub-jgrAesISOc21R	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.031117417	0.052606595	66.83338
+	sub-jgrAesISOc21R	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.009534556	0.01556108	78.917244
+	sub-jgrAesISOc21R	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.008820629	0.015097335	73.312355
+	sub-jgrAesISOc21L	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.009808665	0.015799245	86.71165
+	sub-jgrAesISOc21L	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.009695669	0.017228112	95.00393
+	sub-jgrAesISOc21L	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.010691857	0.017418333	91.833626
+	sub-jgrAesISOc22R	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.014087613	0.020131207	85.55067
+	sub-jgrAesISOc22R	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006733171	0.012168146	73.13902
+	sub-jgrAesISOc22R	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007146763	0.011962131	52.754982
+	sub-jgrAesISOc21R1L	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.00645335	0.011117328	59.584743
+	sub-jgrAesISOc21R1L	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006580549	0.012226491	69.86043
+	sub-jgrAesISOc21R1L	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006796683	0.011755273	66.57197
+	sub-jgrAesMEDISOc2NT	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008067593	0.015405339	83.21682
+	sub-jgrAesMEDISOc2NT	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007985478	0.015149682	80.59986
+	sub-jgrAesMEDISOc2NT	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008381022	0.016288109	83.81649
+	sub-jgrAesMEDISOc21R	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006785181	0.011918162	88.61359
+	sub-jgrAesMEDISOc21R	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.035581975	0.064271126	78.16037
+	sub-jgrAesMEDISOc21R	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.011933746	0.024524237	68.20373
+	sub-jgrAesMEDISOc21L	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007139901	0.012857564	68.16726
+	sub-jgrAesMEDISOc21L	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006854912	0.012606323	61.641937
+	sub-jgrAesMEDISOc21L	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006932839	0.012633826	53.455643
+	sub-jgrAesMEDISOc22r	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006809562	0.012388791	46.777046
+	sub-jgrAesMEDISOc22r	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.00683458	0.012143007	41.658417
+	sub-jgrAesMEDISOc22r	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006622126	0.011457396	39.86612
+	sub-jgrAesMEDISOc21R1L	1	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006558458	0.012679333	84.2883
+	sub-jgrAesMEDISOc21R1L	1	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006835895	0.012772112	79.49266
+	sub-jgrAesMEDISOc21R1L	1	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006913553	0.012783564	39.465267
+	sub-jgrAesAWc21R	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006140898	0.010074826	40.3899
+	sub-jgrAesAWc21R	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006643708	0.010609688	42.38957
+	sub-jgrAesAWc21R	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006241462	0.00964801	28.853407
+	sub-jgrAesAWc21R1L	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.00782729	0.013928654	47.751686
+	sub-jgrAesAWc21R1L	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007422695	0.013000756	29.24913
+	sub-jgrAesAWc21R1L	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007655341	0.014002324	31.785236
+	sub-jgrAesAWc21L	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006734917	0.010910784	42.5994
+	sub-jgrAesAWc21L	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.006367495	0.010523988	38.861786
+	sub-jgrAesAWc21L	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.007065469	0.011326557	57.40295
+	sub-jgrAesAWc22R	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008650126	0.016650816	49.158478
+	sub-jgrAesAWc22R	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008491322	0.016840703	38.561237
+	sub-jgrAesAWc22R	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	awake		n	n	y	0.008159114	0.01673231	43.739563
+	sub-jgrAesISOc21L	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006021291	0.01036207	72.62565
+	sub-jgrAesISOc21L	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006084412	0.010100954	75.75299
+	sub-jgrAesISOc21L	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006512059	0.010600446	75.159744
+	sub-jgrAesISOc21R1L	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006543942	0.012123209	68.6427
+	sub-jgrAesISOc21R1L	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006608043	0.012393956	72.46981
+	sub-jgrAesISOc21R1L	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006926905	0.01269014	73.49163
+	sub-jgrAesISOc21R	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006484192	0.010880275	57.67073
+	sub-jgrAesISOc21R	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006616627	0.011216092	55.06948
+	sub-jgrAesISOc21R	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.006632346	0.010659322	56.018177
+	sub-jgrAesISOc2NT	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007456029	0.01300838	54.208176
+	sub-jgrAesISOc2NT	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.00781065	0.013509336	71.35043
+	sub-jgrAesISOc2NT	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007506527	0.013672589	69.243996
+	sub-jgrAesISOc22R	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007014378	0.01243417	59.02402
+	sub-jgrAesISOc22R	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.007019465	0.012549835	71.67104
+	sub-jgrAesISOc22R	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	iso	1 % iso	n	n	n	0.028496738	0.049845392	76.590004
+	sub-jgrAesMEDISOc22r	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008379634	0.01578784	69.720436
+	sub-jgrAesMEDISOc22r	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007420185	0.013683977	71.013054
+	sub-jgrAesMEDISOc22r	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007790991	0.013529222	62.95901
+	sub-jgrAesMEDISOc2NT	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007635216	0.014453799	74.58309
+	sub-jgrAesMEDISOc2NT	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007899742	0.015407604	76.80209
+	sub-jgrAesMEDISOc2NT	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.008036393	0.016032358	66.35393
+	sub-jgrAesMEDISOc21R	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006138993	0.010987668	79.07231
+	sub-jgrAesMEDISOc21R	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006523314	0.012206261	76.990616
+	sub-jgrAesMEDISOc21R	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006382985	0.011446685	79.099365
+	sub-jgrAesMEDISOc21L	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006500231	0.011044164	77.25258
+	sub-jgrAesMEDISOc21L	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006697572	0.01169828	78.611496
+	sub-jgrAesMEDISOc21L	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.006603099	0.011179823	71.83171
+	sub-jgrAesMEDISOc21R1L	2	1	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007277283	0.01288249	87.70666
+	sub-jgrAesMEDISOc21R1L	2	2	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007415067	0.01361242	86.27038
+	sub-jgrAesMEDISOc21R1L	2	3	Mouse_rest_awake	F	12	C57BL/6J	11.7		EPI	1200	15	mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y	n	n	0.007059243	0.012578854	78.452385

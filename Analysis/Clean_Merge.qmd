@@ -120,6 +120,26 @@ for dataset in datasets["Nickname"]:
         lambda x: get_dr_session(dataset, x)
     )
 
+    # Awake and Awake_Rest have several runs per session, each with its
+    # own FD / tSNR: match on the run too, otherwise every run would get
+    # the metadata of run 1
+    match_keys = ["match_id", "match_session"]
+
+    if "Run" in metadata.columns:
+
+        metadata["match_run"] = pd.to_numeric(metadata["Run"], errors="coerce")
+
+        run_in_name = dr["subject"].str.extract(r"_run-(\d+)", expand=False)
+
+        if run_in_name.notna().all():
+            dr["match_run"] = run_in_name.astype(int)
+        else:
+            # Awake_Rest: DR file has no run in the name,
+            # rows are in run order within each subject/session
+            dr["match_run"] = dr.groupby(match_keys).cumcount() + 1
+
+        match_keys = match_keys + ["match_run"]
+
     # Sexdifference: match only on subject ID
     if dataset == "Sexdifference":
 
@@ -136,12 +156,12 @@ for dataset in datasets["Nickname"]:
     else:
 
         metadata_unique = metadata.drop_duplicates(
-            subset=["match_id", "match_session"]
+            subset=match_keys
         )
 
         matched = dr.merge(
             metadata_unique,
-            on=["match_id", "match_session"],
+            on=match_keys,
             how="left"
         )
 
@@ -165,7 +185,9 @@ for dataset in datasets["Nickname"]:
         "match_id",
         "match_session",
         "match_session_x",
-        "match_session_y"
+        "match_session_y",
+        "match_run",
+        "Run"
     ]
 
     for column in columns_to_remove:

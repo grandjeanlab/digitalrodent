@@ -212,6 +212,7 @@ first_columns = [
     "Ventilation",
     "FD average",
     "FD maximum",
+    "tSNR",
 ]
 
 components = [f"comp{i}" for i in range(1, 19)]
@@ -229,7 +230,7 @@ Combined_dataset.to_csv(
 print(Combined_dataset.shape)
 ```
 
-    (2306, 33)
+    (2306, 34)
 
 ``` python
 # ============================================================
@@ -407,7 +408,8 @@ numeric_columns = [
     "MRI",
     "MRI T.R.",
     "FD average",
-    "FD maximum"
+    "FD maximum",
+    "tSNR"
 ]
 
 for col in numeric_columns:
@@ -539,7 +541,7 @@ print(Combined_dataset.shape)
     Series([], dtype: int64)
 
     Saved cleaned Combined_dataset.csv
-    (2306, 33)
+    (2306, 34)
 
 ``` python
 # ============================================================
@@ -690,4 +692,4 @@ print("Remaining shape:", Combined_dataset.shape)
     Total scans removed: 153
 
     Saved Combined_dataset.csv
-    Remaining shape: (2153, 33)
+    Remaining shape: (2153, 34)

@@ -91,7 +91,15 @@ def get_dr_session(dataset, subject):
 ```{python}
 all_datasets = []
 
+# Datasets left out completely
+# Propofol: no age, sex, FD or tSNR for most scans -> not usable
+excluded_datasets = ["Propofol"]
+
 for dataset in datasets["Nickname"]:
+
+    if dataset in excluded_datasets:
+        print(f"Skipping dataset {dataset} (in excluded_datasets)")
+        continue
 
     metadata_file = meta_dir / f"{dataset}.tsv"
     dr_file = dr_dir / f"{dataset}.csv"
@@ -218,6 +226,7 @@ first_columns = [
     "MRI T.R.",
     "Anesthesia",
     "Ventilation",
+    "Anesthesia level",
     "FD average",
     "FD maximum",
     "tSNR",
@@ -403,6 +412,25 @@ Combined_dataset["Ventilation"] = (
     Combined_dataset["Ventilation"]
     .fillna("No")
 )
+
+
+# ------------------------------------------------------------
+# Anesthesia level (dose): Low / High; awake scans = None
+# Missing for an anesthetized scan stays missing
+# ------------------------------------------------------------
+
+Combined_dataset["Anesthesia level"] = (
+    Combined_dataset["Anesthesia level"]
+    .astype("string")
+    .str.strip()
+    .str.lower()
+    .replace({"l": "low", "h": "high", "": pd.NA})
+    .replace({"low": "Low", "high": "High"})
+)
+
+Combined_dataset.loc[
+    Combined_dataset["Anesthesia"] == "Awake", "Anesthesia level"
+] = "Awake"
 
 
 # ------------------------------------------------------------

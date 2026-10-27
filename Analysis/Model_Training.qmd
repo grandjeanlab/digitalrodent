@@ -223,6 +223,232 @@ test_stats.to_csv(
 
 
 # ============================================================
+# QQ PLOTS AND CALIBRATION BY GROUP (test set)
+# PCNToolkit's plot_qq(hue_data=..., split_data=...) only works with
+# batch effects; sex, anesthesia, dataset etc. are covariates here, so
+# the per-group QQ plots are built from the test z-scores directly.
+# If the model is well calibrated, every group has mean z ~ 0, SD ~ 1
+# and its QQ curve lies on the identity line.
+# ============================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+
+qq_components = {
+    "comp2": "M1",
+    "comp3": "S1uLp + S2",
+    "comp7": "V2 + RSD",
+    "comp10": "Cg1 + RS",
+    "comp11": "Ventral HP",
+}
+min_group_size = 10
+
+qq_group_dir = model_dir / "plots" / "qq_by_group"
+qq_group_dir.mkdir(parents=True, exist_ok=True)
+
+# z-scores of the test set, one row per scan
+z_test = pd.DataFrame(
+    test.Z.values,
+    columns=[str(r) for r in test.Z.coords["response_vars"].values],
+    index=test.Z.coords["observations"].values.astype(int),
+)
+groups_df = model_df.loc[z_test.index].copy()
+
+# rebuild readable group labels from the encoded covariates
+anesthesia_dummies = [c for c in covariates if c.startswith("Anesthesia_")
+                      and c not in ["Anesthesia_high", "Anesthesia_dose_unknown"]]
+
+
+def from_dummies(row, cols, prefix, reference):
+    for c in cols:
+        if row[c] == 1:
+            return c.replace(prefix, "")
+    return reference
+
+
+group_labels = pd.DataFrame(index=groups_df.index)
+group_labels["Dataset"] = groups_df["Dataset_name"]
+group_labels["Sex"] = np.where(
+    groups_df.get("Sex_unknown", 0) == 1, "Unknown",
+    np.where(groups_df["Sex_encoded"] == 1, "M", "F")
+)
+group_labels["Anesthesia"] = groups_df.apply(
+    lambda r: from_dummies(r, anesthesia_dummies, "Anesthesia_", "Awake"), axis=1
+)
+if "Anesthesia_high" in groups_df:
+    group_labels["Anesthesia dose"] = np.select(
+        [group_labels["Anesthesia"] == "Awake",
+         groups_df.get("Anesthesia_dose_unknown", 0) == 1,
+         groups_df["Anesthesia_high"] == 1],
+        ["Awake", "Unknown", "High"], default="Low"
+    )
+group_labels["Coil"] = np.where(groups_df["Coil_encoded"] == 1, "Cryo", "RT")
+seq_dummies = [c for c in covariates if c.startswith("fMRI.sequence_")]
+group_labels["fMRI sequence"] = groups_df.apply(
+    lambda r: from_dummies(r, seq_dummies, "fMRI.sequence_", "GE-EPI"), axis=1
+)
+
+# ---------------- calibration table ----------------
+rows = []
+for variable in group_labels.columns:
+    for group, idx in group_labels.groupby(variable).groups.items():
+        row = {"Variable": variable, "Group": group, "N_test": len(idx)}
+        for comp, name in qq_components.items():
+            row[f"{name} mean z"] = z_test.loc[idx, comp].mean()
+            row[f"{name} SD z"] = z_test.loc[idx, comp].std()
+        rows.append(row)
+calibration = pd.DataFrame(rows).round(2)
+calibration.to_csv(model_dir / "Z_calibration_by_group.csv", index=False)
+
+print("\nZ-score calibration by group (test set; ideal: mean 0, SD 1)")
+display(calibration)
+
+flag = calibration[(calibration["N_test"] >= min_group_size) &
+                   (calibration.filter(like="mean z").abs() > 0.5).any(axis=1)]
+if len(flag):
+    print("\nGroups with |mean z| > 0.5 in at least one component (model biased for them):")
+    display(flag[["Variable", "Group", "N_test"] + list(calibration.filter(like="mean z").columns)])
+
+# ---------------- QQ plots by group ----------------
+palette = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
+
+for variable in group_labels.columns:
+    counts = group_labels[variable].value_counts()
+    keep = counts[counts >= min_group_size].index.tolist()
+    if len(keep) < 2:
+        continue
+
+    fig, axes = plt.subplots(1, len(qq_components), figsize=(3.2 * len(qq_components), 3.6), sharey=True)
+    for ax, (comp, name) in zip(axes, qq_components.items()):
+        for k, group in enumerate(keep):
+            z = np.sort(z_test.loc[group_labels[variable] == group, comp].dropna().to_numpy())
+            theoretical = norm.ppf((np.arange(1, len(z) + 1) - 0.5) / len(z))
+            ax.plot(theoretical, z, "o", ms=3, alpha=0.7, color=palette[k % len(palette)],
+                    label=f"{group} (n={len(z)})")
+        ax.plot([-3, 3], [-3, 3], "--", color="#52514e", lw=1)
+        ax.set_title(name)
+        ax.set_xlabel("Theoretical quantiles")
+        ax.set_xlim(-3.5, 3.5)
+        ax.set_ylim(-5, 8)
+        ax.grid(alpha=0.3)
+    axes[0].set_ylabel("Z-score quantiles")
+    axes[-1].legend(title=variable, fontsize=7, title_fontsize=8, frameon=False,
+                    loc="upper left", bbox_to_anchor=(1.02, 1))
+    fig.suptitle(f"QQ plots by {variable} (test set)", y=1.02)
+    plt.tight_layout()
+    fname = variable.replace(" ", "_")
+    plt.savefig(qq_group_dir / f"qq_by_{fname}.png", dpi=200, bbox_inches="tight")
+    plt.show()
+    plt.close()
+
+print("QQ plots by group saved to:", qq_group_dir)
+
+
+# ============================================================
+# UNHARMONIZED vs HARMONIZED SCATTER PLOTS
+# Same idea as model.harmonize() in the PCNToolkit tutorial:
+#   1. z = forward(own covariates, Y)        -> where the scan sits in its own norm
+#   2. Y_harmonized = backward(reference covariates, z)
+#      -> the value the same scan would have under the reference protocol.
+# model.harmonize() only swaps batch effects; this model has none
+# (site/protocol are covariates), so it would return Y unchanged.
+# Here we keep the biology of each scan (age, sex) and set every
+# acquisition/protocol covariate to one reference protocol.
+# ============================================================
+
+import copy
+
+harm_dir = model_dir / "plots" / "harmonized_scatter"
+harm_dir.mkdir(parents=True, exist_ok=True)
+
+keep_own = ["Age(week)", "Sex_encoded", "Sex_unknown"]  # biology kept per scan
+harmonized_covs = [c for c in covariates if c not in keep_own]
+
+# reference protocol = the most common value in the largest dataset;
+# FD and log tSNR set to the overall median (a "typical" scan quality)
+reference_dataset = model_df["Dataset_name"].value_counts().idxmax()
+ref_src = model_df[model_df["Dataset_name"] == reference_dataset]
+reference_protocol = {c: ref_src[c].mode().iloc[0] for c in harmonized_covs}
+for c in ["FD average", "log_tSNR"]:
+    if c in reference_protocol:
+        reference_protocol[c] = model_df[c].median()
+
+print("Harmonized to the protocol of dataset:", reference_dataset)
+print(pd.Series(reference_protocol))
+
+harm_input = model_df.dropna(subset=covariates + response_vars).copy()
+ref_input = harm_input.copy()
+for c, v in reference_protocol.items():
+    ref_input[c] = v
+
+
+def make_nd(name, df):
+    return NormData.from_dataframe(
+        name=name, dataframe=df, covariates=covariates,
+        batch_effects=batch_effects, response_vars=response_vars, remove_Nan=False,
+    )
+
+
+own_nd = make_nd("own", harm_input)
+ref_nd = make_nd("reference", ref_input)
+model.preprocess(own_nd)
+model.preprocess(ref_nd)
+for rv in model.response_vars:
+    X, be, _, Y, _ = model.extract_data(own_nd.sel({"response_vars": rv}))
+    Z = model[rv].forward(X, be, Y)
+    X_ref, be_ref, _, _, _ = model.extract_data(ref_nd.sel({"response_vars": rv}))
+    ref_nd["Y"].loc[{"response_vars": rv}] = model[rv].backward(X_ref, be_ref, Z)
+model.postprocess(ref_nd)
+model.postprocess(own_nd)
+
+harmonized = pd.DataFrame(
+    ref_nd.Y.values, index=harm_input.index,
+    columns=[str(r) for r in ref_nd.Y.coords["response_vars"].values],
+)
+harm_out = harm_input[["Dataset_name", "Age(week)"]].join(
+    harmonized.add_suffix("_harmonized"))
+harm_out.to_csv(model_dir / "Harmonized_data.csv")
+
+# ---------------- scatter plots ----------------
+datasets = sorted(harm_input["Dataset_name"].unique())
+cmap = plt.get_cmap("tab20")
+colors = {d: cmap(i % 20) for i, d in enumerate(datasets)}
+
+for comp, name in qq_components.items():
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4), sharey=True)
+    for ax, values, title in [
+        (axes[0], harm_input[comp], "Unharmonized"),
+        (axes[1], harmonized[comp], f"Harmonized (protocol of {reference_dataset})"),
+    ]:
+        for d in datasets:
+            m = harm_input["Dataset_name"] == d
+            ax.scatter(harm_input.loc[m, "Age(week)"], values[m], s=10, alpha=0.6,
+                       color=colors[d], label=f"{d} (n={m.sum()})", edgecolors="none")
+        ax.set_title(title)
+        ax.set_xlabel("Age (weeks)")
+        ax.grid(alpha=0.3)
+    axes[0].set_ylabel(f"{name} ({comp})")
+    axes[1].legend(fontsize=7, frameon=False, loc="upper left", bbox_to_anchor=(1.02, 1))
+    fig.suptitle(f"{name}: unharmonized vs harmonized (n = {len(harm_input)} scans)", y=1.02)
+    plt.tight_layout()
+    plt.savefig(harm_dir / f"harmonized_scatter_{comp}.png", dpi=200, bbox_inches="tight")
+    plt.show()
+    plt.close()
+
+# how much of the between-dataset spread is removed
+spread = pd.DataFrame({
+    "SD of dataset means, raw": harm_input.groupby("Dataset_name")[list(qq_components)].mean().std(),
+    "SD of dataset means, harmonized": harmonized.join(harm_input["Dataset_name"])
+        .groupby("Dataset_name")[list(qq_components)].mean().std(),
+}).round(3)
+spread.index = [f"{qq_components[c]} ({c})" for c in spread.index]
+print("\nBetween-dataset spread before/after harmonization:")
+display(spread)
+print("Harmonized scatter plots saved to:", harm_dir)
+
+
+# ============================================================
 # DONE
 # ============================================================
 

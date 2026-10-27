@@ -70,6 +70,7 @@ categorical_covariates = [
     "Coil",
     "fMRI.sequence",
     "Anesthesia",
+    "Anesthesia level",
     "Ventilation"
 ]
 
@@ -190,13 +191,32 @@ df["Ventilation"] = (
 
 
 # ============================================================
+# ANESTHESIA DOSE NOT REPORTED -> OWN CATEGORY
+# Douglas has no dose information. Instead of deleting the scans,
+# an unknown dose becomes its own category (Anesthesia_dose_unknown),
+# like Sex_unknown.
+# ============================================================
+
+dose_missing = (df["Anesthesia"] != "Awake") & df["Anesthesia level"].isna()
+df.loc[dose_missing, "Anesthesia level"] = "Unknown"
+print("\nAnesthesia dose not reported:")
+print(df.loc[dose_missing].groupby("Dataset_name").size())
+
+
+# ============================================================
 # REMOVE VERY RARE CATEGORIES
 # ICR strain (4 scans) and Dex anesthesia (5 scans): with so few
 # scans their coefficients are unstable and they make the
 # heteroskedastic variance model blow up (|z| > 50 in testing)
 # ============================================================
 
+n_scans_merged = df.groupby("Dataset_name").size()
+
 rare = (df["Rodent.strain"] == "ICR") | (df["Anesthesia"] == "Dex")
+rare_rows = df.loc[rare].copy()
+rare_rows["Reason"] = np.where(
+    rare_rows["Rodent.strain"] == "ICR", "rare category: ICR strain", "rare category: Dex anesthesia"
+)
 print("\nRemoved rare categories:", int(rare.sum()), "scans")
 print(df.loc[rare].groupby(["Dataset_name", "Rodent.strain", "Anesthesia"]).size())
 df = df.loc[~rare].copy()
@@ -339,6 +359,57 @@ display(
 
 
 # ============================================================
+# EXCLUSION REPORT
+# One row per scan left out of the normative model, with the reason.
+# (QC exclusions from Exclude.tsv and excluded datasets are handled
+#  earlier, in Clean_Merge.)
+# ============================================================
+
+missing_reason = deleted_rows[required_columns].isna().apply(
+    lambda r: "missing: " + ", ".join(r.index[r]), axis=1
+)
+deleted_rows["Reason"] = missing_reason
+
+report_cols = ["Scan_id", "Participant_Id", "Session", "Dataset_name", "Reason"]
+exclusion_report = pd.concat(
+    [rare_rows[report_cols], deleted_rows[report_cols]],
+    ignore_index=True
+)
+
+print("\n" + "=" * 60)
+print("EXCLUSION REPORT - scans not used in the normative model")
+print("=" * 60)
+
+if exclusion_report.empty:
+    print("No scans excluded.")
+else:
+    by_reason = (
+        exclusion_report
+        .groupby(["Dataset_name", "Reason"])
+        .agg(N_scans=("Scan_id", "size"), N_animals=("Participant_Id", "nunique"))
+        .reset_index()
+    )
+    display(by_reason)
+
+    print("\nAnimals affected:")
+    for (dataset, reason), g in exclusion_report.groupby(["Dataset_name", "Reason"]):
+        animals = sorted(g["Participant_Id"].astype(str).unique())
+        shown = ", ".join(animals[:15]) + (" ..." if len(animals) > 15 else "")
+        print(f"  {dataset} | {reason} | {len(animals)} animals: {shown}")
+
+coverage = pd.DataFrame({
+    "In_merged_dataset": n_scans_merged,
+    "In_model": model_df.groupby("Dataset_name").size(),
+}).fillna(0).astype(int)
+coverage["Excluded"] = coverage["In_merged_dataset"] - coverage["In_model"]
+coverage["Percent_used"] = (100 * coverage["In_model"] / coverage["In_merged_dataset"]).round(1)
+
+print("\nScans per dataset:")
+display(coverage)
+print("=" * 60)
+
+
+# ============================================================
 # ENCODE BINARY VARIABLES
 # ============================================================
 
@@ -372,6 +443,16 @@ model_df["Ventilation_encoded"] = (
     })
 )
 
+# Anesthesia dose: high = 1; low and awake = 0
+# (the anesthetic itself is coded by the Anesthesia_* dummies)
+model_df["Anesthesia_high"] = (
+    model_df["Anesthesia level"] == "High"
+).astype(float)
+
+model_df["Anesthesia_dose_unknown"] = (
+    model_df["Anesthesia level"] == "Unknown"
+).astype(float)
+
 encoding_table = [
     ["Sex", "F", "0"],
     ["Sex", "M", "1"],
@@ -379,7 +460,10 @@ encoding_table = [
     ["Coil", "RT", "0"],
     ["Coil", "Cryo", "1"],
     ["Ventilation", "No", "0"],
-    ["Ventilation", "Yes", "1"]
+    ["Ventilation", "Yes", "1"],
+    ["Anesthesia level", "Low / Awake", "0"],
+    ["Anesthesia level", "High", "Anesthesia_high = 1"],
+    ["Anesthesia level", "Unknown", "Anesthesia_dose_unknown = 1"]
 ]
 
 
@@ -468,7 +552,9 @@ covariates = (
         "Sex_encoded",
         "Sex_unknown",
         "Coil_encoded",
-        "Ventilation_encoded"
+        "Ventilation_encoded",
+        "Anesthesia_high",
+        "Anesthesia_dose_unknown"
     ]
     + dummy_columns
 )
@@ -545,5 +631,14 @@ deletion_summary.to_csv(
 deleted_rows.to_csv(
     output_dir / "Deleted_rows.csv",
     index=False
+)
+
+exclusion_report.to_csv(
+    output_dir / "Model_exclusion_report.csv",
+    index=False
+)
+
+coverage.to_csv(
+    output_dir / "Model_dataset_coverage.csv"
 )
 ```

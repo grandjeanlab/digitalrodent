@@ -379,7 +379,7 @@ for variable, xlabel in continuous_variables.items():
         ax.set_ylabel("DR value")
 
         ax.set_title(
-            component_labels[component],
+            f"{component_labels[component]}  (n = {int(model_df[component].notna().sum())} scans)",
             pad=18
         )
 
@@ -557,7 +557,7 @@ def categorical_centile_plot(
         ax.set_xticks(x)
 
         ax.set_xticklabels(
-            labels,
+            [f"{l}\n(n={int((observed_labels == l).sum())})" for l in labels],
             rotation=35 if len(labels) > 4 else 0,
             ha="right" if len(labels) > 4 else "center"
         )
@@ -566,7 +566,7 @@ def categorical_centile_plot(
         ax.set_ylabel("DR value")
 
         ax.set_title(
-            component_labels[component],
+            f"{component_labels[component]}  (n = {int(model_df[component].notna().sum())} scans)",
             pad=18
         )
 
@@ -760,7 +760,7 @@ if sequence_dummy_cols:
 
 anesthesia_dummy_cols = [
     col for col in covariates
-    if col.startswith("Anesthesia_")
+    if col.startswith("Anesthesia_") and col not in ["Anesthesia_high", "Anesthesia_dose_unknown"]
 ]
 
 if anesthesia_dummy_cols:
@@ -848,6 +848,14 @@ for col in covariates:
     elif col == "Ventilation_encoded":
         alz_df[col] = vent.isin(["y", "yes"]).astype(float).to_numpy()
 
+    elif col == "Anesthesia_dose_unknown":
+        level = norm_text(alz_raw["Anesthesia level"]).str.lower()
+        alz_df[col] = (~level.isin(["l", "low", "h", "high"])).astype(float).to_numpy()
+
+    elif col == "Anesthesia_high":
+        level = norm_text(alz_raw["Anesthesia level"]).str.lower()
+        alz_df[col] = level.isin(["h", "high"]).astype(float).to_numpy()
+
     elif col.startswith("Rodent.strain_"):
         alz_df[col] = (strain == col.replace("Rodent.strain_", "")).astype(float).to_numpy()
 
@@ -858,10 +866,12 @@ for col in covariates:
         alz_df[col] = (anesthesia == col.replace("Anesthesia_", "")).astype(float).to_numpy()
 
     elif col in ["FD average", "log_tSNR"]:
-        # Not available for the Alzheimer scans: use the median of the
-        # 3xTG dataset (same lab, scanner and protocol)
-        if col == "FD average" and col in alz_raw.columns and alz_raw[col].notna().all():
-            alz_df[col] = alz_raw[col].to_numpy()
+        # Use the Alzheimer scans' own FD and tSNR (same S1-bilateral tSNR
+        # as the model); fall back to the 3xTG median only if missing
+        source = "tSNR" if col == "log_tSNR" else col
+        values = pd.to_numeric(alz_raw.get(source), errors="coerce") if source in alz_raw.columns else None
+        if values is not None and values.notna().all():
+            alz_df[col] = (np.log(values) if col == "log_tSNR" else values).to_numpy()
         else:
             same_protocol = model_df.loc[model_df["Dataset_name"] == "3xTG", col]
             alz_df[col] = float(same_protocol.median())

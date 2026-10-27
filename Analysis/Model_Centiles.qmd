@@ -583,9 +583,7 @@ for variable, xlabel in continuous_variables.items():
         )
 
         ax.set_title(
-            component_labels[
-                component
-            ],
+            f"{component_labels[component]}  (n = {int(model_df[component].notna().sum())} scans)",
             pad=18
         )
 
@@ -826,7 +824,7 @@ def categorical_centile_plot(
         )
 
         ax.set_xticklabels(
-            labels,
+            [f"{l}\n(n={int((observed_labels == l).sum())})" for l in labels],
             rotation=35
             if len(labels) > 4
             else 0,
@@ -844,9 +842,7 @@ def categorical_centile_plot(
         )
 
         ax.set_title(
-            component_labels[
-                component
-            ],
+            f"{component_labels[component]}  (n = {int(model_df[component].notna().sum())} scans)",
             pad=18
         )
 
@@ -981,6 +977,50 @@ if "Ventilation_encoded" in covariates:
             }
         ],
         xlabel="Ventilation",
+        observed_labels=obs_labels
+    )
+
+
+# ============================================================
+# ANESTHESIA DOSE
+# Low = 0, High = 1, shown for anesthetized scans only
+# Curves: reference profile under medetomidine + isoflurane
+# (an "awake mouse at high dose" would not be a real profile)
+# ============================================================
+
+if "Anesthesia_high" in covariates:
+
+    anesthesia_cols = [c for c in covariates if c.startswith("Anesthesia_") and c not in ["Anesthesia_high", "Anesthesia_dose_unknown"]]
+    is_awake = model_df[anesthesia_cols].sum(axis=1) == 0
+
+    obs_labels = observed_binary_labels(
+        "Anesthesia_high",
+        {
+            0.0: "Low",
+            1.0: "High"
+        }
+    ).where(~is_awake)
+
+    if "Anesthesia_dose_unknown" in model_df.columns:
+        obs_labels = obs_labels.where(model_df["Anesthesia_dose_unknown"] == 0)
+
+    dose_profile = {c: 0.0 for c in anesthesia_cols}
+    if "Anesthesia_dose_unknown" in covariates:
+        dose_profile["Anesthesia_dose_unknown"] = 0.0
+    if "Anesthesia_Mediso" in covariates:
+        dose_profile["Anesthesia_Mediso"] = 1.0
+
+    categorical_centile_plot(
+        name="Anesthesia_dose",
+        labels=[
+            "Low",
+            "High"
+        ],
+        profiles=[
+            {**dose_profile, "Anesthesia_high": 0.0},
+            {**dose_profile, "Anesthesia_high": 1.0}
+        ],
+        xlabel="Anesthesia dose (anesthetized scans; curves: medetomidine + isoflurane)",
         observed_labels=obs_labels
     )
 
@@ -1126,6 +1166,7 @@ anesthesia_dummy_cols = [
     if col.startswith(
         "Anesthesia_"
     )
+    and col not in ["Anesthesia_high", "Anesthesia_dose_unknown"]
 ]
 
 if anesthesia_dummy_cols:

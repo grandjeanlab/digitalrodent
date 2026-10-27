@@ -1,16 +1,16 @@
-Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
-	sub-001	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.006490166	0.010409578	161.33197
-	sub-006	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.006002584	0.009490114	160.43907
-	sub-009	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.005947452	0.009676696	156.42638
-	sub-011	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.005960785	0.009329271	117.88335
-	sub-014	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.006397981	0.010122735	156.61856
-	sub-016	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.005988782	0.00953225	123.14313
-	sub-019	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.006122839	0.009767857	158.13135
-	sub-022	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.006188818	0.009468099	154.71686
-	sub-025	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.006588654	0.010361728	131.00943
-	sub-028	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.006476247	0.010110985	127.2503
-	sub-031	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.007046453	0.011548763	162.19426
-	sub-034	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.006469004	0.010657771	130.60918
-	sub-037	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.006327387	0.010023872	147.06764
-	sub-039	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.006546585	0.01049912	166.3621
-	sub-040	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	"0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso"	y			0.006395093	0.010149368	141.90176
+Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Anesthesia level	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
+	sub-001	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.006490166	0.010409578	161.33197
+	sub-006	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.006002584	0.009490114	160.43907
+	sub-009	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.005947452	0.009676696	156.42638
+	sub-011	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.005960785	0.009329271	117.88335
+	sub-014	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.006397981	0.010122735	156.61856
+	sub-016	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.005988782	0.00953225	123.14313
+	sub-019	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.006122839	0.009767857	158.13135
+	sub-022	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.006188818	0.009468099	154.71686
+	sub-025	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.006588654	0.010361728	131.00943
+	sub-028	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.006476247	0.010110985	127.2503
+	sub-031	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.007046453	0.011548763	162.19426
+	sub-034	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.006469004	0.010657771	130.60918
+	sub-037	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.006327387	0.010023872	147.06764
+	sub-039	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.006546585	0.01049912	166.3621
+	sub-040	1	Mouse_rest_psilocybin	M	7	C57BL/6J	9.4	y	ME-EPI	1700	15	Mediso	0.05 mg/kg med bolus + 0.1 mg/kg med infusion, i.v., 0,5% iso	low	y			0.006395093	0.010149368	141.90176

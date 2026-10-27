@@ -1,40 +1,40 @@
-Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
-	sub-23	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.009870594	0.017200563	36.682686
-	sub-24	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.009460113	0.016149335	45.47518
-	sub-25	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010618916	0.018862546	41.990772
-	sub-26	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010384377	0.017779976	34.711273
-	sub-27	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.011862716	0.021247121	39.82959
-	sub-28	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010184108	0.018772195	32.564163
-	sub-29	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.009832441	0.016793161	44.51636
-	sub-30	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010441717	0.019615456	38.693066
-	sub-31	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010908944	0.019103648	36.403534
-	sub-32	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010305132	0.019449166	43.526905
-	sub-33	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.008907889	0.015244433	47.387455
-	sub-34	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.012145787	0.021462299	19.83322
-	sub-35	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010470774	0.020033293	42.040417
-	sub-36	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.01042891	0.020110924	42.47399
-	sub-37	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010066495	0.018071425	40.340027
-	sub-38	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010833435	0.019462583	36.453857
-	sub-39	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010409981	0.01857755	38.369297
-	sub-40	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.009388026	0.016588971	40.426357
-	sub-41	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.014704489	0.02666681	27.214495
-	sub-42	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010908398	0.019832206	26.317375
-	sub-43	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.01766044	0.031976991	27.575846
-	sub-44	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010259872	0.018697413	35.417736
-	sub-45	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.016261744	0.028667027	28.416412
-	sub-46	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010682771	0.018608515	34.0899
-	sub-47	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.014631829	0.028694943	42.532505
-	sub-48	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.015594194	0.027025411	28.2277
-	sub-49	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.009318485	0.016214362	40.285515
-	sub-50	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.011531943	0.019727292	37.41007
-	sub-51	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.012767523	0.024514882	35.42039
-	sub-52	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.014334517	0.026708666	38.611748
-	sub-53	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.011755684	0.020211765	31.858253
-	sub-54	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.013702489	0.025732145	31.663565
-	sub-55	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.013355579	0.024651969	32.674877
-	sub-56	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.009368144	0.015554161	40.101017
-	sub-57	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.010185954	0.017723848	42.267986
-	sub-62	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.009718835	0.017822806	37.152092
-	sub-63	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.01028146	0.019880939	44.563522
-	sub-67	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.009846066	0.017499679	43.82017
-	sub-68	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	dexiso	"0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO"	n	n		0.008691329	0.014802448	32.430695
+Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Anesthesia level	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
+	sub-23	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.009870594	0.017200563	36.682686
+	sub-24	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.009460113	0.016149335	45.47518
+	sub-25	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010618916	0.018862546	41.990772
+	sub-26	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010384377	0.017779976	34.711273
+	sub-27	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.011862716	0.021247121	39.82959
+	sub-28	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010184108	0.018772195	32.564163
+	sub-29	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.009832441	0.016793161	44.51636
+	sub-30	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010441717	0.019615456	38.693066
+	sub-31	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010908944	0.019103648	36.403534
+	sub-32	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010305132	0.019449166	43.526905
+	sub-33	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.008907889	0.015244433	47.387455
+	sub-34	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.012145787	0.021462299	19.83322
+	sub-35	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010470774	0.020033293	42.040417
+	sub-36	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.01042891	0.020110924	42.47399
+	sub-37	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010066495	0.018071425	40.340027
+	sub-38	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010833435	0.019462583	36.453857
+	sub-39	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010409981	0.01857755	38.369297
+	sub-40	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.009388026	0.016588971	40.426357
+	sub-41	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.014704489	0.02666681	27.214495
+	sub-42	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010908398	0.019832206	26.317375
+	sub-43	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.01766044	0.031976991	27.575846
+	sub-44	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010259872	0.018697413	35.417736
+	sub-45	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.016261744	0.028667027	28.416412
+	sub-46	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010682771	0.018608515	34.0899
+	sub-47	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.014631829	0.028694943	42.532505
+	sub-48	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.015594194	0.027025411	28.2277
+	sub-49	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.009318485	0.016214362	40.285515
+	sub-50	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.011531943	0.019727292	37.41007
+	sub-51	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.012767523	0.024514882	35.42039
+	sub-52	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.014334517	0.026708666	38.611748
+	sub-53	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.011755684	0.020211765	31.858253
+	sub-54	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.013702489	0.025732145	31.663565
+	sub-55	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.013355579	0.024651969	32.674877
+	sub-56	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.009368144	0.015554161	40.101017
+	sub-57	1	Envoiromental_enrichment	M	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.010185954	0.017723848	42.267986
+	sub-62	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.009718835	0.017822806	37.152092
+	sub-63	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.01028146	0.019880939	44.563522
+	sub-67	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.009846066	0.017499679	43.82017
+	sub-68	1	Envoiromental_enrichment	F	9	C57BL/6	11.1	n	SE-EPI	1500	16	mediso	0.1 mg/kg DEX bolus + 0.5 mg/kg DEX infusion, i.p., 0.5% ISO	high	n	n		0.008691329	0.014802448	32.430695

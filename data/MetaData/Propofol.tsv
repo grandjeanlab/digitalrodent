@@ -1,11 +1,11 @@
-Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
-	sub-02	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol					0.015758844	0.030127378	27.38504
-	sub-03	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol							
-	sub-04	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol							
-	sub-05	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol							
-	sub-06	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol							
-	sub-07	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol					0.014695398	0.026666912	21.87049
-	sub-08	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol					0.020427594	0.036259443	23.06377
-	sub-09	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol					0.019524935	0.035256462	13.535037
-	sub-10	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol					0.014729079	0.025599617	16.491453
-	sub-11	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol							
+Scan_id	Participant_Id	Session	Dataset_name	Sex	Age(week)	Rodent.strain	MRI	Coil	fMRI.sequence	MRI T.R.	MRI T.E.	Anesthesia	Anesthesia amount	Anesthesia level	Ventilation	head-plate	Habituation	FD average	FD maximum	tSNR
+	sub-02	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol						0.015758844	0.030127378	27.38504
+	sub-03	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol								
+	sub-04	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol								
+	sub-05	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol								
+	sub-06	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol								
+	sub-07	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol						0.014695398	0.026666912	21.87049
+	sub-08	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol						0.020427594	0.036259443	23.06377
+	sub-09	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol						0.019524935	0.035256462	13.535037
+	sub-10	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol						0.014729079	0.025599617	16.491453
+	sub-11	1	propofol_dataset			C57BL/6J	9.4		GE-EPI	2000		propofol								

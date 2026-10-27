@@ -80,144 +80,152 @@
         "Age(week)": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 13.822916666666666,
-            "s": 10.08182129675597,
+            "m": 13.827922077922079,
+            "s": 10.053926006778262,
             "min": 4.0,
             "max": 100.0
         },
         "MRI": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 9.597916666666668,
-            "s": 1.6264133143506978,
+            "m": 9.585064935064937,
+            "s": 1.632575547367214,
             "min": 4.7,
             "max": 15.2
         },
         "MRI T.R.": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 1719.04296875,
-            "s": 709.4027588016227,
+            "m": 1719.7727272727273,
+            "s": 709.193075598583,
             "min": 600.0,
             "max": 2500.0
         },
         "FD average": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.0281508968351297,
-            "s": 0.02079863942878234,
+            "m": 0.028051929310999816,
+            "s": 0.020889951530165637,
             "min": 0.003551669,
             "max": 0.119810444
         },
         "log_tSNR": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 3.17450524332853,
-            "s": 0.8916641861890127,
+            "m": 3.1779360934507905,
+            "s": 0.8954720856920099,
             "min": 1.3270750014599193,
             "max": 5.484262932016081
         },
         "Sex_encoded": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.4817708333333333,
-            "s": 0.49966758698422586,
+            "m": 0.4785714285714286,
+            "s": 0.49954060528302463,
             "min": 0.0,
             "max": 1.0
         },
         "Sex_unknown": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.068359375,
-            "s": 0.2523615875081019,
+            "m": 0.06883116883116883,
+            "s": 0.2531668205521884,
             "min": 0.0,
             "max": 1.0
         },
         "Coil_encoded": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.125,
-            "s": 0.33071891388307384,
+            "m": 0.12207792207792208,
+            "s": 0.3273757825787651,
             "min": 0.0,
             "max": 1.0
         },
         "Ventilation_encoded": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.18294270833333334,
-            "s": 0.3866195465842334,
+            "m": 0.18441558441558442,
+            "s": 0.38782273868385136,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_high": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.07207792207792207,
+            "s": 0.25861688890490325,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_dose_unknown": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.023376623376623377,
+            "s": 0.1510965150363531,
             "min": 0.0,
             "max": 1.0
         },
         "Rodent.strain_129S2/SvPas": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.024088541666666668,
-            "s": 0.15332411365157125,
+            "m": 0.024025974025974027,
+            "s": 0.15312977045002465,
             "min": 0.0,
             "max": 1.0
         },
         "Rodent.strain_F1 C6/129P": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.23502604166666666,
-            "s": 0.42401509572792917,
+            "m": 0.2344155844155844,
+            "s": 0.4236329994212968,
             "min": 0.0,
             "max": 1.0
         },
         "fMRI.sequence_ME-EPI": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.017578125,
-            "s": 0.13141207905472152,
+            "m": 0.01883116883116883,
+            "s": 0.1359284955836003,
             "min": 0.0,
             "max": 1.0
         },
         "fMRI.sequence_SE-EPI": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.4654947916666667,
-            "s": 0.4988079696615454,
-            "min": 0.0,
-            "max": 1.0
-        },
-        "Anesthesia_Dexiso": {
-            "scaler_type": "standardize",
-            "adjust_outliers": false,
-            "m": 0.0703125,
-            "s": 0.25567294018677456,
+            "m": 0.4636363636363636,
+            "s": 0.49867593279645367,
             "min": 0.0,
             "max": 1.0
         },
         "Anesthesia_Hal": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.020182291666666668,
-            "s": 0.14062349295102958,
+            "m": 0.01948051948051948,
+            "s": 0.13820647177787512,
             "min": 0.0,
             "max": 1.0
         },
         "Anesthesia_Iso": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.068359375,
-            "s": 0.2523615875081019,
+            "m": 0.06688311688311688,
+            "s": 0.24981946593313384,
             "min": 0.0,
             "max": 1.0
         },
         "Anesthesia_Med": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.03515625,
-            "s": 0.1841746130332232,
+            "m": 0.03831168831168831,
+            "s": 0.19194765653791235,
             "min": 0.0,
             "max": 1.0
         },
         "Anesthesia_Mediso": {
             "scaler_type": "standardize",
             "adjust_outliers": false,
-            "m": 0.13020833333333334,
-            "s": 0.3365324995656272,
+            "m": 0.2051948051948052,
+            "s": 0.40384390191740066,
             "min": 0.0,
             "max": 1.0
         }
@@ -236,11 +244,12 @@
         "Sex_unknown",
         "Coil_encoded",
         "Ventilation_encoded",
+        "Anesthesia_high",
+        "Anesthesia_dose_unknown",
         "Rodent.strain_129S2/SvPas",
         "Rodent.strain_F1 C6/129P",
         "fMRI.sequence_ME-EPI",
         "fMRI.sequence_SE-EPI",
-        "Anesthesia_Dexiso",
         "Anesthesia_Hal",
         "Anesthesia_Iso",
         "Anesthesia_Med",
@@ -253,7 +262,7 @@
     },
     "inverse_batch_effect_counts": {
         "dummy_batch_effect": {
-            "0_1920": "0.0"
+            "0_1925": "0.0"
         }
     },
     "batch_effects_maps": {
@@ -265,92 +274,97 @@
         "dummy_batch_effect": {
             "0.0": {
                 "Age(week)": {
-                    "mean": 13.75,
+                    "mean": 13.745454545454546,
                     "min": 4.0,
                     "max": 100.0
                 },
                 "MRI": {
-                    "mean": 9.597942708333335,
+                    "mean": 9.591194805194807,
                     "min": 4.7,
                     "max": 15.2
                 },
                 "MRI T.R.": {
-                    "mean": 1723.6458333333333,
+                    "mean": 1721.7662337662337,
                     "min": 600.0,
                     "max": 2500.0
                 },
                 "FD average": {
-                    "mean": 0.027890660029952944,
+                    "mean": 0.027839245853771247,
                     "min": 0.003551669,
                     "max": 0.122322669
                 },
                 "log_tSNR": {
-                    "mean": 3.191747718136855,
+                    "mean": 3.1954793070165683,
                     "min": 1.3270750014599193,
                     "max": 5.484262932016081
                 },
                 "Sex_encoded": {
-                    "mean": 0.4796875,
+                    "mean": 0.48103896103896104,
                     "min": 0.0,
                     "max": 1.0
                 },
                 "Sex_unknown": {
-                    "mean": 0.07239583333333334,
+                    "mean": 0.0722077922077922,
                     "min": 0.0,
                     "max": 1.0
                 },
                 "Coil_encoded": {
-                    "mean": 0.12760416666666666,
+                    "mean": 0.12727272727272726,
                     "min": 0.0,
                     "max": 1.0
                 },
                 "Ventilation_encoded": {
-                    "mean": 0.190625,
+                    "mean": 0.19012987012987012,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 0.07688311688311689,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_dose_unknown": {
+                    "mean": 0.0212987012987013,
                     "min": 0.0,
                     "max": 1.0
                 },
                 "Rodent.strain_129S2/SvPas": {
-                    "mean": 0.023958333333333335,
+                    "mean": 0.023896103896103898,
                     "min": 0.0,
                     "max": 1.0
                 },
                 "Rodent.strain_F1 C6/129P": {
-                    "mean": 0.234375,
+                    "mean": 0.23376623376623376,
                     "min": 0.0,
                     "max": 1.0
                 },
                 "fMRI.sequence_ME-EPI": {
-                    "mean": 0.0203125,
+                    "mean": 0.02025974025974026,
                     "min": 0.0,
                     "max": 1.0
                 },
                 "fMRI.sequence_SE-EPI": {
-                    "mean": 0.4635416666666667,
-                    "min": 0.0,
-                    "max": 1.0
-                },
-                "Anesthesia_Dexiso": {
-                    "mean": 0.07083333333333333,
+                    "mean": 0.4623376623376623,
                     "min": 0.0,
                     "max": 1.0
                 },
                 "Anesthesia_Hal": {
-                    "mean": 0.019270833333333334,
+                    "mean": 0.01922077922077922,
                     "min": 0.0,
                     "max": 1.0
                 },
                 "Anesthesia_Iso": {
-                    "mean": 0.0734375,
+                    "mean": 0.07324675324675324,
                     "min": 0.0,
                     "max": 1.0
                 },
                 "Anesthesia_Med": {
-                    "mean": 0.03697916666666667,
+                    "mean": 0.039480519480519484,
                     "min": 0.0,
                     "max": 1.0
                 },
                 "Anesthesia_Mediso": {
-                    "mean": 0.13385416666666666,
+                    "mean": 0.20415584415584415,
                     "min": 0.0,
                     "max": 1.0
                 }
@@ -359,92 +373,97 @@
     },
     "covariate_ranges": {
         "Age(week)": {
-            "mean": 13.75,
+            "mean": 13.745454545454546,
             "min": 4.0,
             "max": 100.0
         },
         "MRI": {
-            "mean": 9.597942708333335,
+            "mean": 9.591194805194807,
             "min": 4.7,
             "max": 15.2
         },
         "MRI T.R.": {
-            "mean": 1723.6458333333333,
+            "mean": 1721.7662337662337,
             "min": 600.0,
             "max": 2500.0
         },
         "FD average": {
-            "mean": 0.027890660029952944,
+            "mean": 0.027839245853771247,
             "min": 0.003551669,
             "max": 0.122322669
         },
         "log_tSNR": {
-            "mean": 3.191747718136855,
+            "mean": 3.1954793070165683,
             "min": 1.3270750014599193,
             "max": 5.484262932016081
         },
         "Sex_encoded": {
-            "mean": 0.4796875,
+            "mean": 0.48103896103896104,
             "min": 0.0,
             "max": 1.0
         },
         "Sex_unknown": {
-            "mean": 0.07239583333333334,
+            "mean": 0.0722077922077922,
             "min": 0.0,
             "max": 1.0
         },
         "Coil_encoded": {
-            "mean": 0.12760416666666666,
+            "mean": 0.12727272727272726,
             "min": 0.0,
             "max": 1.0
         },
         "Ventilation_encoded": {
-            "mean": 0.190625,
+            "mean": 0.19012987012987012,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_high": {
+            "mean": 0.07688311688311689,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_dose_unknown": {
+            "mean": 0.0212987012987013,
             "min": 0.0,
             "max": 1.0
         },
         "Rodent.strain_129S2/SvPas": {
-            "mean": 0.023958333333333335,
+            "mean": 0.023896103896103898,
             "min": 0.0,
             "max": 1.0
         },
         "Rodent.strain_F1 C6/129P": {
-            "mean": 0.234375,
+            "mean": 0.23376623376623376,
             "min": 0.0,
             "max": 1.0
         },
         "fMRI.sequence_ME-EPI": {
-            "mean": 0.0203125,
+            "mean": 0.02025974025974026,
             "min": 0.0,
             "max": 1.0
         },
         "fMRI.sequence_SE-EPI": {
-            "mean": 0.4635416666666667,
-            "min": 0.0,
-            "max": 1.0
-        },
-        "Anesthesia_Dexiso": {
-            "mean": 0.07083333333333333,
+            "mean": 0.4623376623376623,
             "min": 0.0,
             "max": 1.0
         },
         "Anesthesia_Hal": {
-            "mean": 0.019270833333333334,
+            "mean": 0.01922077922077922,
             "min": 0.0,
             "max": 1.0
         },
         "Anesthesia_Iso": {
-            "mean": 0.0734375,
+            "mean": 0.07324675324675324,
             "min": 0.0,
             "max": 1.0
         },
         "Anesthesia_Med": {
-            "mean": 0.03697916666666667,
+            "mean": 0.039480519480519484,
             "min": 0.0,
             "max": 1.0
         },
         "Anesthesia_Mediso": {
-            "mean": 0.13385416666666666,
+            "mean": 0.20415584415584415,
             "min": 0.0,
             "max": 1.0
         }

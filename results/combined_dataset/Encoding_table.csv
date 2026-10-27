@@ -6,6 +6,9 @@ Coil,RT,0
 Coil,Cryo,1
 Ventilation,No,0
 Ventilation,Yes,1
+Anesthesia level,Low / Awake,0
+Anesthesia level,High,Anesthesia_high = 1
+Anesthesia level,Unknown,Anesthesia_dose_unknown = 1
 Rodent.strain,C57BL/6,Reference
 Rodent.strain,129S2/SvPas,Rodent.strain_129S2/SvPas
 Rodent.strain,F1 C6/129P,Rodent.strain_F1 C6/129P
@@ -13,7 +16,6 @@ fMRI.sequence,GE-EPI,Reference
 fMRI.sequence,ME-EPI,fMRI.sequence_ME-EPI
 fMRI.sequence,SE-EPI,fMRI.sequence_SE-EPI
 Anesthesia,Awake,Reference
-Anesthesia,Dexiso,Anesthesia_Dexiso
 Anesthesia,Hal,Anesthesia_Hal
 Anesthesia,Iso,Anesthesia_Iso
 Anesthesia,Med,Anesthesia_Med

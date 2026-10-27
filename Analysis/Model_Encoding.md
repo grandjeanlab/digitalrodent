@@ -64,6 +64,7 @@ categorical_covariates = [
     "Coil",
     "fMRI.sequence",
     "Anesthesia",
+    "Anesthesia level",
     "Ventilation"
 ]
 
@@ -184,13 +185,32 @@ df["Ventilation"] = (
 
 
 # ============================================================
+# ANESTHESIA DOSE NOT REPORTED -> OWN CATEGORY
+# Douglas has no dose information. Instead of deleting the scans,
+# an unknown dose becomes its own category (Anesthesia_dose_unknown),
+# like Sex_unknown.
+# ============================================================
+
+dose_missing = (df["Anesthesia"] != "Awake") & df["Anesthesia level"].isna()
+df.loc[dose_missing, "Anesthesia level"] = "Unknown"
+print("\nAnesthesia dose not reported:")
+print(df.loc[dose_missing].groupby("Dataset_name").size())
+
+
+# ============================================================
 # REMOVE VERY RARE CATEGORIES
 # ICR strain (4 scans) and Dex anesthesia (5 scans): with so few
 # scans their coefficients are unstable and they make the
 # heteroskedastic variance model blow up (|z| > 50 in testing)
 # ============================================================
 
+n_scans_merged = df.groupby("Dataset_name").size()
+
 rare = (df["Rodent.strain"] == "ICR") | (df["Anesthesia"] == "Dex")
+rare_rows = df.loc[rare].copy()
+rare_rows["Reason"] = np.where(
+    rare_rows["Rodent.strain"] == "ICR", "rare category: ICR strain", "rare category: Dex anesthesia"
+)
 print("\nRemoved rare categories:", int(rare.sum()), "scans")
 print(df.loc[rare].groupby(["Dataset_name", "Rodent.strain", "Anesthesia"]).size())
 df = df.loc[~rare].copy()
@@ -333,6 +353,57 @@ display(
 
 
 # ============================================================
+# EXCLUSION REPORT
+# One row per scan left out of the normative model, with the reason.
+# (QC exclusions from Exclude.tsv and excluded datasets are handled
+#  earlier, in Clean_Merge.)
+# ============================================================
+
+missing_reason = deleted_rows[required_columns].isna().apply(
+    lambda r: "missing: " + ", ".join(r.index[r]), axis=1
+)
+deleted_rows["Reason"] = missing_reason
+
+report_cols = ["Scan_id", "Participant_Id", "Session", "Dataset_name", "Reason"]
+exclusion_report = pd.concat(
+    [rare_rows[report_cols], deleted_rows[report_cols]],
+    ignore_index=True
+)
+
+print("\n" + "=" * 60)
+print("EXCLUSION REPORT - scans not used in the normative model")
+print("=" * 60)
+
+if exclusion_report.empty:
+    print("No scans excluded.")
+else:
+    by_reason = (
+        exclusion_report
+        .groupby(["Dataset_name", "Reason"])
+        .agg(N_scans=("Scan_id", "size"), N_animals=("Participant_Id", "nunique"))
+        .reset_index()
+    )
+    display(by_reason)
+
+    print("\nAnimals affected:")
+    for (dataset, reason), g in exclusion_report.groupby(["Dataset_name", "Reason"]):
+        animals = sorted(g["Participant_Id"].astype(str).unique())
+        shown = ", ".join(animals[:15]) + (" ..." if len(animals) > 15 else "")
+        print(f"  {dataset} | {reason} | {len(animals)} animals: {shown}")
+
+coverage = pd.DataFrame({
+    "In_merged_dataset": n_scans_merged,
+    "In_model": model_df.groupby("Dataset_name").size(),
+}).fillna(0).astype(int)
+coverage["Excluded"] = coverage["In_merged_dataset"] - coverage["In_model"]
+coverage["Percent_used"] = (100 * coverage["In_model"] / coverage["In_merged_dataset"]).round(1)
+
+print("\nScans per dataset:")
+display(coverage)
+print("=" * 60)
+
+
+# ============================================================
 # ENCODE BINARY VARIABLES
 # ============================================================
 
@@ -366,6 +437,16 @@ model_df["Ventilation_encoded"] = (
     })
 )
 
+# Anesthesia dose: high = 1; low and awake = 0
+# (the anesthetic itself is coded by the Anesthesia_* dummies)
+model_df["Anesthesia_high"] = (
+    model_df["Anesthesia level"] == "High"
+).astype(float)
+
+model_df["Anesthesia_dose_unknown"] = (
+    model_df["Anesthesia level"] == "Unknown"
+).astype(float)
+
 encoding_table = [
     ["Sex", "F", "0"],
     ["Sex", "M", "1"],
@@ -373,7 +454,10 @@ encoding_table = [
     ["Coil", "RT", "0"],
     ["Coil", "Cryo", "1"],
     ["Ventilation", "No", "0"],
-    ["Ventilation", "Yes", "1"]
+    ["Ventilation", "Yes", "1"],
+    ["Anesthesia level", "Low / Awake", "0"],
+    ["Anesthesia level", "High", "Anesthesia_high = 1"],
+    ["Anesthesia level", "Unknown", "Anesthesia_dose_unknown = 1"]
 ]
 
 
@@ -462,7 +546,9 @@ covariates = (
         "Sex_encoded",
         "Sex_unknown",
         "Coil_encoded",
-        "Ventilation_encoded"
+        "Ventilation_encoded",
+        "Anesthesia_high",
+        "Anesthesia_dose_unknown"
     ]
     + dummy_columns
 )
@@ -540,16 +626,30 @@ deleted_rows.to_csv(
     output_dir / "Deleted_rows.csv",
     index=False
 )
+
+exclusion_report.to_csv(
+    output_dir / "Model_exclusion_report.csv",
+    index=False
+)
+
+coverage.to_csv(
+    output_dir / "Model_dataset_coverage.csv"
+)
 ```
 
-    Original rows: 2153
+    Original rows: 2148
     Columns kept:
-    ['Scan_id', 'Participant_Id', 'Session', 'Dataset_name', 'Age(week)', 'MRI', 'MRI T.R.', 'FD average', 'log_tSNR', 'Sex', 'Rodent.strain', 'Coil', 'fMRI.sequence', 'Anesthesia', 'Ventilation', 'comp1', 'comp2', 'comp3', 'comp4', 'comp5', 'comp6', 'comp7', 'comp8', 'comp9', 'comp10', 'comp11', 'comp12', 'comp13', 'comp14', 'comp15', 'comp16', 'comp17', 'comp18']
+    ['Scan_id', 'Participant_Id', 'Session', 'Dataset_name', 'Age(week)', 'MRI', 'MRI T.R.', 'FD average', 'log_tSNR', 'Sex', 'Rodent.strain', 'Coil', 'fMRI.sequence', 'Anesthesia', 'Anesthesia level', 'Ventilation', 'comp1', 'comp2', 'comp3', 'comp4', 'comp5', 'comp6', 'comp7', 'comp8', 'comp9', 'comp10', 'comp11', 'comp12', 'comp13', 'comp14', 'comp15', 'comp16', 'comp17', 'comp18']
 
-    Removed rare categories: 9 scans
+    Anesthesia dose not reported:
+    Dataset_name
+    3xTG       21
+    Douglas    20
+    dtype: int64
+
+    Removed rare categories: 4 scans
     Dataset_name  Rodent.strain  Anesthesia
     Awake         ICR            Awake         4
-    Douglas       C57BL/6        Dex           5
     dtype: int64
 
     Sex categories after filling:
@@ -559,14 +659,13 @@ deleted_rows.to_csv(
     Alvino              8   14        0
     Awake             661  773        0
     Awake_Rest        166    0        0
-    Douglas             0   15        0
+    Douglas             0   20        0
     Env_Enrichment     22   16        0
     Florida             6    6        0
     Longitudinal       27   27        0
     MPTP                0    9        0
     Multicenter        35   67      139
     NDUFS4             10   18        0
-    Propofol            0    0        5
     Psilocybin          0   15        0
     Psilocybin_Pilot    0   24        0
     Sexdifference      30   30        0
@@ -588,41 +687,42 @@ deleted_rows.to_csv(
 
 |  | Variable | Missing_before_inference | Inferred_from_participant | Missing_after_inference |
 |----|----|----|----|----|
-| 0 | Age(week) | 222 | 0 | 222 |
+| 0 | Age(week) | 217 | 0 | 217 |
 | 1 | MRI | 0 | 0 | 0 |
 | 2 | MRI T.R. | 0 | 0 | 0 |
 | 3 | FD average | 2 | 0 | 2 |
 | 4 | log_tSNR | 0 | 0 | 0 |
-| 5 | Sex | 144 | 0 | 144 |
+| 5 | Sex | 139 | 0 | 139 |
 | 6 | Rodent.strain | 0 | 0 | 0 |
 | 7 | Coil | 0 | 0 | 0 |
 | 8 | fMRI.sequence | 0 | 0 | 0 |
 | 9 | Anesthesia | 0 | 0 | 0 |
-| 10 | Ventilation | 0 | 0 | 0 |
-| 11 | comp1 | 0 | 0 | 0 |
-| 12 | comp2 | 0 | 0 | 0 |
-| 13 | comp3 | 0 | 0 | 0 |
-| 14 | comp4 | 0 | 0 | 0 |
-| 15 | comp5 | 0 | 0 | 0 |
-| 16 | comp6 | 0 | 0 | 0 |
-| 17 | comp7 | 0 | 0 | 0 |
-| 18 | comp8 | 0 | 0 | 0 |
-| 19 | comp9 | 0 | 0 | 0 |
-| 20 | comp10 | 0 | 0 | 0 |
-| 21 | comp11 | 0 | 0 | 0 |
-| 22 | comp12 | 0 | 0 | 0 |
-| 23 | comp13 | 0 | 0 | 0 |
-| 24 | comp14 | 0 | 0 | 0 |
-| 25 | comp15 | 0 | 0 | 0 |
-| 26 | comp16 | 0 | 0 | 0 |
-| 27 | comp17 | 0 | 0 | 0 |
-| 28 | comp18 | 0 | 0 | 0 |
+| 10 | Anesthesia level | 0 | 0 | 0 |
+| 11 | Ventilation | 0 | 0 | 0 |
+| 12 | comp1 | 0 | 0 | 0 |
+| 13 | comp2 | 0 | 0 | 0 |
+| 14 | comp3 | 0 | 0 | 0 |
+| 15 | comp4 | 0 | 0 | 0 |
+| 16 | comp5 | 0 | 0 | 0 |
+| 17 | comp6 | 0 | 0 | 0 |
+| 18 | comp7 | 0 | 0 | 0 |
+| 19 | comp8 | 0 | 0 | 0 |
+| 20 | comp9 | 0 | 0 | 0 |
+| 21 | comp10 | 0 | 0 | 0 |
+| 22 | comp11 | 0 | 0 | 0 |
+| 23 | comp12 | 0 | 0 | 0 |
+| 24 | comp13 | 0 | 0 | 0 |
+| 25 | comp14 | 0 | 0 | 0 |
+| 26 | comp15 | 0 | 0 | 0 |
+| 27 | comp16 | 0 | 0 | 0 |
+| 28 | comp17 | 0 | 0 | 0 |
+| 29 | comp18 | 0 | 0 | 0 |
 
 </div>
 
     Rows before: 2144
-    Rows deleted: 224
-    Rows retained: 1920
+    Rows deleted: 219
+    Rows retained: 1925
 
     Deleted rows by dataset:
 
@@ -642,6 +742,72 @@ deleted_rows.to_csv(
 |     | Dataset_name | N_deleted |
 |-----|--------------|-----------|
 | 0   | Awake        | 219       |
-| 1   | Propofol     | 5         |
 
 </div>
+
+    ============================================================
+    EXCLUSION REPORT - scans not used in the normative model
+    ============================================================
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&#10;    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+&#10;    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+|     | Dataset_name | Reason                    | N_scans | N_animals |
+|-----|--------------|---------------------------|---------|-----------|
+| 0   | Awake        | missing: Age(week)        | 217     | 20        |
+| 1   | Awake        | missing: FD average       | 2       | 2         |
+| 2   | Awake        | rare category: ICR strain | 4       | 4         |
+
+</div>
+
+    Animals affected:
+      Awake | missing: Age(week) | 20 animals: 100500, 100501, 100502, 100503, 100504, 300100, 300101, 300102, 300103, 300104, 300105, 300400, 300401, 300402, 300403 ...
+      Awake | missing: FD average | 2 animals: 300316, 300317
+      Awake | rare category: ICR strain | 4 animals: 101400, 101401, 101402, 101403
+
+    Scans per dataset:
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+&#10;    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+&#10;    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+|                  | In_merged_dataset | In_model | Excluded | Percent_used |
+|------------------|-------------------|----------|----------|--------------|
+| Dataset_name     |                   |          |          |              |
+| 3xTG             | 21                | 21       | 0        | 100.0        |
+| Alvino           | 22                | 22       | 0        | 100.0        |
+| Awake            | 1438              | 1215     | 223      | 84.5         |
+| Awake_Rest       | 166               | 166      | 0        | 100.0        |
+| Douglas          | 20                | 20       | 0        | 100.0        |
+| Env_Enrichment   | 38                | 38       | 0        | 100.0        |
+| Florida          | 12                | 12       | 0        | 100.0        |
+| Longitudinal     | 54                | 54       | 0        | 100.0        |
+| MPTP             | 9                 | 9        | 0        | 100.0        |
+| Multicenter      | 241               | 241      | 0        | 100.0        |
+| NDUFS4           | 28                | 28       | 0        | 100.0        |
+| Psilocybin       | 15                | 15       | 0        | 100.0        |
+| Psilocybin_Pilot | 24                | 24       | 0        | 100.0        |
+| Sexdifference    | 60                | 60       | 0        | 100.0        |
+
+</div>
+
+    ============================================================

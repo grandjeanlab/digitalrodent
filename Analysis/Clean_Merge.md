@@ -83,7 +83,15 @@ def get_dr_session(dataset, subject):
 ``` python
 all_datasets = []
 
+# Datasets left out completely
+# Propofol: no age, sex, FD or tSNR for most scans -> not usable
+excluded_datasets = ["Propofol"]
+
 for dataset in datasets["Nickname"]:
+
+    if dataset in excluded_datasets:
+        print(f"Skipping dataset {dataset} (in excluded_datasets)")
+        continue
 
     metadata_file = meta_dir / f"{dataset}.tsv"
     dr_file = dr_dir / f"{dataset}.csv"
@@ -210,6 +218,7 @@ first_columns = [
     "MRI T.R.",
     "Anesthesia",
     "Ventilation",
+    "Anesthesia level",
     "FD average",
     "FD maximum",
     "tSNR",
@@ -230,7 +239,8 @@ Combined_dataset.to_csv(
 print(Combined_dataset.shape)
 ```
 
-    (2306, 34)
+    Skipping dataset Propofol (in excluded_datasets)
+    (2301, 35)
 
 ``` python
 # ============================================================
@@ -400,6 +410,25 @@ Combined_dataset["Ventilation"] = (
 
 
 # ------------------------------------------------------------
+# Anesthesia level (dose): Low / High; awake scans = None
+# Missing for an anesthetized scan stays missing
+# ------------------------------------------------------------
+
+Combined_dataset["Anesthesia level"] = (
+    Combined_dataset["Anesthesia level"]
+    .astype("string")
+    .str.strip()
+    .str.lower()
+    .replace({"l": "low", "h": "high", "": pd.NA})
+    .replace({"low": "Low", "high": "High"})
+)
+
+Combined_dataset.loc[
+    Combined_dataset["Anesthesia"] == "Awake", "Anesthesia level"
+] = "Awake"
+
+
+# ------------------------------------------------------------
 # Numeric columns
 # ------------------------------------------------------------
 
@@ -478,12 +507,12 @@ print(Combined_dataset.shape)
     Sex
     M       1140
     F       1011
-    <NA>     155
+    <NA>     150
     Name: count, dtype: int64[pyarrow]
 
     Rodent.strain
     Rodent.strain
-    C57BL/6        1721
+    C57BL/6        1716
     F1 C6/129P      476
     129S2/SvPas     105
     ICR               4
@@ -491,32 +520,29 @@ print(Combined_dataset.shape)
 
     Coil
     Coil
-    RT      1983
+    RT      1978
     Cryo     323
     Name: count, dtype: int64[pyarrow]
 
     fMRI.sequence
     fMRI.sequence
-    GE-EPI    1222
+    GE-EPI    1217
     SE-EPI    1045
     ME-EPI      39
     Name: count, dtype: int64[pyarrow]
 
     Anesthesia
     Anesthesia
-    Awake       1621
-    Mediso       274
-    Iso          149
-    Dexiso       140
-    Med           75
-    Hal           37
-    Dex            5
-    Propofol       5
+    Awake     1621
+    Mediso     414
+    Iso        149
+    Med         80
+    Hal         37
     Name: count, dtype: int64[pyarrow]
 
     Ventilation
     Ventilation
-    No     1933
+    No     1928
     Yes     373
     Name: count, dtype: int64[pyarrow]
 
@@ -524,14 +550,12 @@ print(Combined_dataset.shape)
 
     Age(week)
     Dataset_name
-    Awake       224
-    Propofol      5
+    Awake    224
     dtype: int64
 
     Sex
     Dataset_name
     Multicenter    150
-    Propofol         5
     dtype: int64
 
     MRI
@@ -541,7 +565,7 @@ print(Combined_dataset.shape)
     Series([], dtype: int64)
 
     Saved cleaned Combined_dataset.csv
-    (2306, 34)
+    (2301, 35)
 
 ``` python
 # ============================================================
@@ -692,4 +716,4 @@ print("Remaining shape:", Combined_dataset.shape)
     Total scans removed: 153
 
     Saved Combined_dataset.csv
-    Remaining shape: (2153, 34)
+    Remaining shape: (2148, 35)

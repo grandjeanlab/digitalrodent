@@ -576,9 +576,7 @@ for variable, xlabel in continuous_variables.items():
         )
 
         ax.set_title(
-            component_labels[
-                component
-            ],
+            f"{component_labels[component]}  (n = {int(model_df[component].notna().sum())} scans)",
             pad=18
         )
 
@@ -819,7 +817,7 @@ def categorical_centile_plot(
         )
 
         ax.set_xticklabels(
-            labels,
+            [f"{l}\n(n={int((observed_labels == l).sum())})" for l in labels],
             rotation=35
             if len(labels) > 4
             else 0,
@@ -837,9 +835,7 @@ def categorical_centile_plot(
         )
 
         ax.set_title(
-            component_labels[
-                component
-            ],
+            f"{component_labels[component]}  (n = {int(model_df[component].notna().sum())} scans)",
             pad=18
         )
 
@@ -974,6 +970,50 @@ if "Ventilation_encoded" in covariates:
             }
         ],
         xlabel="Ventilation",
+        observed_labels=obs_labels
+    )
+
+
+# ============================================================
+# ANESTHESIA DOSE
+# Low = 0, High = 1, shown for anesthetized scans only
+# Curves: reference profile under medetomidine + isoflurane
+# (an "awake mouse at high dose" would not be a real profile)
+# ============================================================
+
+if "Anesthesia_high" in covariates:
+
+    anesthesia_cols = [c for c in covariates if c.startswith("Anesthesia_") and c not in ["Anesthesia_high", "Anesthesia_dose_unknown"]]
+    is_awake = model_df[anesthesia_cols].sum(axis=1) == 0
+
+    obs_labels = observed_binary_labels(
+        "Anesthesia_high",
+        {
+            0.0: "Low",
+            1.0: "High"
+        }
+    ).where(~is_awake)
+
+    if "Anesthesia_dose_unknown" in model_df.columns:
+        obs_labels = obs_labels.where(model_df["Anesthesia_dose_unknown"] == 0)
+
+    dose_profile = {c: 0.0 for c in anesthesia_cols}
+    if "Anesthesia_dose_unknown" in covariates:
+        dose_profile["Anesthesia_dose_unknown"] = 0.0
+    if "Anesthesia_Mediso" in covariates:
+        dose_profile["Anesthesia_Mediso"] = 1.0
+
+    categorical_centile_plot(
+        name="Anesthesia_dose",
+        labels=[
+            "Low",
+            "High"
+        ],
+        profiles=[
+            {**dose_profile, "Anesthesia_high": 0.0},
+            {**dose_profile, "Anesthesia_high": 1.0}
+        ],
+        xlabel="Anesthesia dose (anesthetized scans; curves: medetomidine + isoflurane)",
         observed_labels=obs_labels
     )
 
@@ -1119,6 +1159,7 @@ anesthesia_dummy_cols = [
     if col.startswith(
         "Anesthesia_"
     )
+    and col not in ["Anesthesia_high", "Anesthesia_dose_unknown"]
 ]
 
 if anesthesia_dummy_cols:
@@ -1190,7 +1231,7 @@ print(
 
     Loaded trained model
     Responses: ['comp10', 'comp11', 'comp2', 'comp1', 'comp3', 'comp4', 'comp5', 'comp6', 'comp7', 'comp8', 'comp9', 'comp12', 'comp13', 'comp14', 'comp15', 'comp16', 'comp17', 'comp18']
-    Covariates: ['Age(week)', 'MRI', 'MRI T.R.', 'FD average', 'log_tSNR', 'Sex_encoded', 'Sex_unknown', 'Coil_encoded', 'Ventilation_encoded', 'Rodent.strain_129S2/SvPas', 'Rodent.strain_F1 C6/129P', 'fMRI.sequence_ME-EPI', 'fMRI.sequence_SE-EPI', 'Anesthesia_Dexiso', 'Anesthesia_Hal', 'Anesthesia_Iso', 'Anesthesia_Med', 'Anesthesia_Mediso']
+    Covariates: ['Age(week)', 'MRI', 'MRI T.R.', 'FD average', 'log_tSNR', 'Sex_encoded', 'Sex_unknown', 'Coil_encoded', 'Ventilation_encoded', 'Anesthesia_high', 'Anesthesia_dose_unknown', 'Rodent.strain_129S2/SvPas', 'Rodent.strain_F1 C6/129P', 'fMRI.sequence_ME-EPI', 'fMRI.sequence_SE-EPI', 'Anesthesia_Hal', 'Anesthesia_Iso', 'Anesthesia_Med', 'Anesthesia_Mediso']
     Saving SVGs to:
     /home/traaffneu/giuvas/digitalrodent/results/normative_model/centiles_svg
 
@@ -1204,46 +1245,44 @@ print(
     Sex_unknown                       0.0
     Coil_encoded                      0.0
     Ventilation_encoded               0.0
+    Anesthesia_high                   0.0
+    Anesthesia_dose_unknown           0.0
     Rodent.strain_129S2/SvPas         0.0
     Rodent.strain_F1 C6/129P          0.0
     fMRI.sequence_ME-EPI              0.0
     fMRI.sequence_SE-EPI              0.0
-    Anesthesia_Dexiso                 0.0
     Anesthesia_Hal                    0.0
     Anesthesia_Iso                    0.0
     Anesthesia_Med                    0.0
     Anesthesia_Mediso                 0.0
     Name: 90, dtype: object
-    Process: 1857872 - 2026-10-25 22:50:53 - Dataset "Age(week)_centiles" created.
+    Process: 3347252 - 2026-10-27 23:18:26 - Dataset "Age(week)_centiles" created.
         - 150 observations
         - 150 unique subjects
-        - 18 covariates
+        - 19 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for 18 response variables.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp12.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp4.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp3.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp18.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp9.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp8.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp17.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp11.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp14.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp16.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp1.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp15.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp7.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp10.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp6.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp5.
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp13.
-
-    findfont: Font family 'Liberation Sans' not found.
-
-    Process: 1857872 - 2026-10-25 22:50:53 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for 18 response variables.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for comp18.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for comp10.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for comp14.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for comp4.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for comp6.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for comp9.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for comp8.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for comp13.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for comp7.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for comp16.
+    Process: 3347252 - 2026-10-27 23:18:26 - Computing centiles for comp12.
+    Process: 3347252 - 2026-10-27 23:18:27 - Computing centiles for comp5.
+    Process: 3347252 - 2026-10-27 23:18:27 - Computing centiles for comp1.
+    Process: 3347252 - 2026-10-27 23:18:27 - Computing centiles for comp15.
+    Process: 3347252 - 2026-10-27 23:18:27 - Computing centiles for comp17.
+    Process: 3347252 - 2026-10-27 23:18:27 - Computing centiles for comp11.
+    Process: 3347252 - 2026-10-27 23:18:27 - Computing centiles for comp3.
 
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -3109,37 +3148,35 @@ print(
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
-    Process: 1857872 - 2026-10-25 22:50:55 - Dataset "MRI_centiles" created.
+    Process: 3347252 - 2026-10-27 23:18:28 - Dataset "MRI_centiles" created.
         - 150 observations
         - 150 unique subjects
-        - 18 covariates
+        - 19 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 1857872 - 2026-10-25 22:50:55 - Computing centiles for 18 response variables.
-    Process: 1857872 - 2026-10-25 22:50:55 - Computing centiles for comp12.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp4.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp3.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp18.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp9.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp8.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp17.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp11.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp14.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp16.
-
-    findfont: Font family 'Liberation Sans' not found.
-
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp1.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp15.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp7.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp10.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp6.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp5.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp13.
-    Process: 1857872 - 2026-10-25 22:50:56 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for 18 response variables.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp18.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp10.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp14.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp4.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp6.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp9.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp8.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp13.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp7.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp16.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp12.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp5.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp1.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp15.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp17.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp11.
+    Process: 3347252 - 2026-10-27 23:18:28 - Computing centiles for comp3.
 
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -4879,37 +4916,36 @@ print(
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
-    Process: 1857872 - 2026-10-25 22:50:57 - Dataset "MRI T.R._centiles" created.
+    Process: 3347252 - 2026-10-27 23:18:30 - Dataset "MRI T.R._centiles" created.
         - 150 observations
         - 150 unique subjects
-        - 18 covariates
+        - 19 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 1857872 - 2026-10-25 22:50:57 - Computing centiles for 18 response variables.
-    Process: 1857872 - 2026-10-25 22:50:57 - Computing centiles for comp12.
-    Process: 1857872 - 2026-10-25 22:50:57 - Computing centiles for comp4.
-    Process: 1857872 - 2026-10-25 22:50:57 - Computing centiles for comp3.
-    Process: 1857872 - 2026-10-25 22:50:57 - Computing centiles for comp18.
-    Process: 1857872 - 2026-10-25 22:50:57 - Computing centiles for comp9.
-    Process: 1857872 - 2026-10-25 22:50:57 - Computing centiles for comp8.
-    Process: 1857872 - 2026-10-25 22:50:57 - Computing centiles for comp17.
-    Process: 1857872 - 2026-10-25 22:50:57 - Computing centiles for comp11.
-    Process: 1857872 - 2026-10-25 22:50:58 - Computing centiles for comp14.
-
-    findfont: Font family 'Liberation Sans' not found.
-
-    Process: 1857872 - 2026-10-25 22:50:58 - Computing centiles for comp16.
-    Process: 1857872 - 2026-10-25 22:50:58 - Computing centiles for comp1.
-    Process: 1857872 - 2026-10-25 22:50:58 - Computing centiles for comp15.
-    Process: 1857872 - 2026-10-25 22:50:58 - Computing centiles for comp7.
-    Process: 1857872 - 2026-10-25 22:50:58 - Computing centiles for comp10.
-    Process: 1857872 - 2026-10-25 22:50:58 - Computing centiles for comp6.
-    Process: 1857872 - 2026-10-25 22:50:58 - Computing centiles for comp5.
-    Process: 1857872 - 2026-10-25 22:50:58 - Computing centiles for comp13.
-    Process: 1857872 - 2026-10-25 22:50:58 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for 18 response variables.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp18.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp10.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp14.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp4.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp6.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp9.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp8.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp13.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp7.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp16.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp12.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp5.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp1.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp15.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp17.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp11.
+    Process: 3347252 - 2026-10-27 23:18:30 - Computing centiles for comp3.
 
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -6965,33 +7001,33 @@ print(
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
 
-    Process: 1857872 - 2026-10-25 22:50:59 - Dataset "FD average_centiles" created.
+    Process: 3347252 - 2026-10-27 23:18:32 - Dataset "FD average_centiles" created.
         - 150 observations
         - 150 unique subjects
-        - 18 covariates
+        - 19 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 1857872 - 2026-10-25 22:50:59 - Computing centiles for 18 response variables.
-    Process: 1857872 - 2026-10-25 22:50:59 - Computing centiles for comp12.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp4.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp3.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp18.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp9.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp8.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp17.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp11.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp14.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp16.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp1.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp15.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp7.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp10.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp6.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp5.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp13.
-    Process: 1857872 - 2026-10-25 22:51:00 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for 18 response variables.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp18.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp10.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp14.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp4.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp6.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp9.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp8.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp13.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp7.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp16.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp12.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp5.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp1.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp15.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp17.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp11.
+    Process: 3347252 - 2026-10-27 23:18:32 - Computing centiles for comp3.
 
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -8984,278 +9020,35 @@ print(
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
-    Process: 1857872 - 2026-10-25 22:51:02 - Dataset "log_tSNR_centiles" created.
+    Process: 3347252 - 2026-10-27 23:18:33 - Dataset "log_tSNR_centiles" created.
         - 150 observations
         - 150 unique subjects
-        - 18 covariates
+        - 19 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for 18 response variables.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp12.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp4.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp3.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp18.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp9.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp8.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp17.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp11.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp14.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp16.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp1.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp15.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp7.
-
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp10.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp6.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp5.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp13.
-    Process: 1857872 - 2026-10-25 22:51:02 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for 18 response variables.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp18.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp10.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp14.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp4.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp6.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp9.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp8.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp13.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp7.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp16.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp12.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp5.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp1.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp15.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp17.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp11.
+    Process: 3347252 - 2026-10-27 23:18:33 - Computing centiles for comp3.
 
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -10649,34 +10442,334 @@ print(
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
-    Process: 1857872 - 2026-10-25 22:51:04 - Dataset "Sex_centiles" created.
+    Process: 3347252 - 2026-10-27 23:18:35 - Dataset "Sex_centiles" created.
         - 2 observations
         - 2 unique subjects
-        - 18 covariates
+        - 19 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for 18 response variables.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp12.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp4.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp3.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp18.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp9.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp8.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp17.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp11.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp14.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp16.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp1.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp15.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp7.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp10.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp6.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp5.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp13.
-    Process: 1857872 - 2026-10-25 22:51:04 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for 18 response variables.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp18.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp10.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp14.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp4.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp6.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp9.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp8.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp13.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp7.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp16.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp12.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp5.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp1.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp15.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp17.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp11.
+    Process: 3347252 - 2026-10-27 23:18:35 - Computing centiles for comp3.
 
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -12073,63 +12166,34 @@ print(
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
 
-    Process: 1857872 - 2026-10-25 22:51:05 - Dataset "Coil_centiles" created.
+    Process: 3347252 - 2026-10-27 23:18:36 - Dataset "Coil_centiles" created.
         - 2 observations
         - 2 unique subjects
-        - 18 covariates
+        - 19 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for 18 response variables.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp12.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp4.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp3.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp18.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp9.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp8.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp17.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp11.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp14.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp16.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp1.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp15.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp7.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp10.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp6.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp5.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp13.
-    Process: 1857872 - 2026-10-25 22:51:05 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for 18 response variables.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp18.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp10.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp14.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp4.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp6.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp9.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp8.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp13.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp7.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp16.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp12.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp5.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp1.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp15.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp17.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp11.
+    Process: 3347252 - 2026-10-27 23:18:36 - Computing centiles for comp3.
 
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -13620,34 +13684,66 @@ print(
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
-    Process: 1857872 - 2026-10-25 22:51:07 - Dataset "Ventilation_centiles" created.
+    Process: 3347252 - 2026-10-27 23:18:37 - Dataset "Ventilation_centiles" created.
         - 2 observations
         - 2 unique subjects
-        - 18 covariates
+        - 19 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for 18 response variables.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp12.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp4.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp3.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp18.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp9.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp8.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp17.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp11.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp14.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp16.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp1.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp15.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp7.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp10.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp6.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp5.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp13.
-    Process: 1857872 - 2026-10-25 22:51:07 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for 18 response variables.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp18.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp10.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp14.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp4.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp6.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp9.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp8.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp13.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp7.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp16.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp12.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp5.
+    Process: 3347252 - 2026-10-27 23:18:37 - Computing centiles for comp1.
+    Process: 3347252 - 2026-10-27 23:18:38 - Computing centiles for comp15.
+    Process: 3347252 - 2026-10-27 23:18:38 - Computing centiles for comp17.
+    Process: 3347252 - 2026-10-27 23:18:38 - Computing centiles for comp11.
+    Process: 3347252 - 2026-10-27 23:18:38 - Computing centiles for comp3.
 
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -15062,34 +15158,1713 @@ print(
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
-    Process: 1857872 - 2026-10-25 22:51:08 - Dataset "Rodent_strain_centiles" created.
+    Process: 3347252 - 2026-10-27 23:18:39 - Dataset "Anesthesia_dose_centiles" created.
+        - 2 observations
+        - 2 unique subjects
+        - 19 covariates
+        - 18 response variables
+        - 1 batch effects:
+            dummy_batch_effect (1)
+        
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for 18 response variables.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp18.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp10.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp14.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp4.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp6.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp9.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp8.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp13.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp7.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp16.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp12.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp5.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp1.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp15.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp17.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp11.
+    Process: 3347252 - 2026-10-27 23:18:39 - Computing centiles for comp3.
+
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+
+    Process: 3347252 - 2026-10-27 23:18:40 - Dataset "Rodent_strain_centiles" created.
         - 3 observations
         - 3 unique subjects
-        - 18 covariates
+        - 19 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for 18 response variables.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp12.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp4.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp3.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp18.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp9.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp8.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp17.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp11.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp14.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp16.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp1.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp15.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp7.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp10.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp6.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp5.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp13.
-    Process: 1857872 - 2026-10-25 22:51:08 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for 18 response variables.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp18.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp10.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp14.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp4.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp6.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp9.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp8.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp13.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp7.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp16.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp12.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp5.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp1.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp15.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp17.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp11.
+    Process: 3347252 - 2026-10-27 23:18:40 - Computing centiles for comp3.
 
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -16616,34 +18391,87 @@ print(
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
-    Process: 1857872 - 2026-10-25 22:51:10 - Dataset "fMRI_sequence_centiles" created.
+    Process: 3347252 - 2026-10-27 23:18:41 - Dataset "fMRI_sequence_centiles" created.
         - 3 observations
         - 3 unique subjects
-        - 18 covariates
+        - 19 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for 18 response variables.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp12.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp4.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp3.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp18.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp9.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp8.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp17.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp11.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp14.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp16.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp1.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp15.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp7.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp10.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp6.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp5.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp13.
-    Process: 1857872 - 2026-10-25 22:51:10 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:41 - Computing centiles for 18 response variables.
+    Process: 3347252 - 2026-10-27 23:18:41 - Computing centiles for comp18.
+    Process: 3347252 - 2026-10-27 23:18:41 - Computing centiles for comp10.
+    Process: 3347252 - 2026-10-27 23:18:41 - Computing centiles for comp14.
+    Process: 3347252 - 2026-10-27 23:18:41 - Computing centiles for comp4.
+    Process: 3347252 - 2026-10-27 23:18:41 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:41 - Computing centiles for comp6.
+    Process: 3347252 - 2026-10-27 23:18:41 - Computing centiles for comp9.
+    Process: 3347252 - 2026-10-27 23:18:41 - Computing centiles for comp8.
+    Process: 3347252 - 2026-10-27 23:18:42 - Computing centiles for comp13.
+    Process: 3347252 - 2026-10-27 23:18:42 - Computing centiles for comp7.
+    Process: 3347252 - 2026-10-27 23:18:42 - Computing centiles for comp16.
+    Process: 3347252 - 2026-10-27 23:18:42 - Computing centiles for comp12.
+    Process: 3347252 - 2026-10-27 23:18:42 - Computing centiles for comp5.
+    Process: 3347252 - 2026-10-27 23:18:42 - Computing centiles for comp1.
+    Process: 3347252 - 2026-10-27 23:18:42 - Computing centiles for comp15.
+    Process: 3347252 - 2026-10-27 23:18:42 - Computing centiles for comp17.
+    Process: 3347252 - 2026-10-27 23:18:42 - Computing centiles for comp11.
+    Process: 3347252 - 2026-10-27 23:18:42 - Computing centiles for comp3.
 
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -18146,100 +19974,86 @@ print(
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
-    Process: 1857872 - 2026-10-25 22:51:11 - Dataset "Anesthesia_centiles" created.
-        - 6 observations
-        - 6 unique subjects
-        - 18 covariates
+    Process: 3347252 - 2026-10-27 23:18:43 - Dataset "Anesthesia_centiles" created.
+        - 5 observations
+        - 5 unique subjects
+        - 19 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for 18 response variables.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp12.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp4.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp3.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp18.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp9.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp8.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp17.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp11.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp14.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp16.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp1.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp15.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp7.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp10.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp6.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp5.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp13.
-    Process: 1857872 - 2026-10-25 22:51:11 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for 18 response variables.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp18.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp10.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp14.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp4.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp2.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp6.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp9.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp8.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp13.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp7.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp16.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp12.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp5.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp1.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp15.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp17.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp11.
+    Process: 3347252 - 2026-10-27 23:18:43 - Computing centiles for comp3.
 
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.

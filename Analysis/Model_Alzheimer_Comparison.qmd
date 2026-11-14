@@ -1,0 +1,365 @@
+---
+title: "Wild-type vs 3xTG-AD: raw values vs normative deviation scores"
+format: gfm
+jupyter: python3
+execute:
+  echo: true
+  warning: true
+  message: true
+---
+
+Raw dual-regression values and normative-model deviation (z) scores compared
+between wild-type controls and 3xTG-AD mice of the same study (same scanner,
+11.75 T, medetomidine + isoflurane), in the style of Rutherford et al.
+(group difference testing, SVM classification).
+
+The wild-type controls (`Dataset_name == "3xTG"` in `Model_dataframe.csv`)
+are part of the main training set. Here the normative model is refit
+**without** them, with the same settings as `Model_Training.qmd`, so that
+both groups are unseen by the model (like a new lab).
+
+```{python}
+import warnings
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.stats import gaussian_kde
+import statsmodels.formula.api as smf
+from statsmodels.stats.multitest import multipletests
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+from sklearn.model_selection import LeaveOneGroupOut
+from sklearn.metrics import roc_auc_score, roc_curve
+
+from pcntoolkit import BLR, BsplineBasisFunction, NormativeModel, NormData
+import pcntoolkit.util.output
+
+from component_labels import COMPONENTS, ACRONYM, NAME, SELECTED_COMPONENTS
+
+from statsmodels.tools.sm_exceptions import ConvergenceWarning
+
+warnings.filterwarnings("ignore", category=FutureWarning)
+# mixed models with ~1-2 scans per animal often hit the variance boundary
+# (random-intercept variance ~ 0); the fixed effect of group is still valid
+warnings.filterwarnings("ignore", category=ConvergenceWarning)
+pcntoolkit.util.output.Output.set_show_messages(False)
+
+# pcntoolkit switches seaborn's dark grid on at import: reset to plain style
+plt.style.use("default")
+
+root = Path.cwd().parent
+fig_dir = root / "results" / "Figures_Analysis"
+fig_dir.mkdir(parents=True, exist_ok=True)
+out_dir = root / "results" / "normative_model_WT_heldout"
+out_dir.mkdir(parents=True, exist_ok=True)
+
+MM = 1 / 25.4
+WT_COLOR = "#2a78d6"     # wild-type
+AD_COLOR = "#eb6834"     # 3xTG-AD
+RAW_COLOR = "#6b6a64"    # raw values (summary panels)
+Z_COLOR = "#6250d6"      # deviation scores (summary panels)
+INK = "#2b2b29"
+MUTED = "#6b6a64"
+
+plt.rcParams.update({
+    "font.family": "Liberation Sans",
+    "font.size": 6,
+    "axes.labelsize": 7,
+    "axes.titlesize": 7,
+    "xtick.labelsize": 6,
+    "ytick.labelsize": 6,
+    "legend.fontsize": 6,
+    "svg.fonttype": "none",
+})
+```
+
+## Refit the normative model without the wild-type controls
+
+```{python}
+model_df = pd.read_csv(root / "results" / "combined_dataset" / "Model_dataframe.csv")
+
+id_cols = ["Scan_id", "Participant_Id", "Session", "Dataset_name"]
+covariates = [c for c in model_df.columns if c not in id_cols + COMPONENTS]
+
+
+def to_normdata(name, df):
+    return NormData.from_dataframe(
+        name=name, dataframe=df, covariates=covariates,
+        batch_effects=[], response_vars=COMPONENTS, remove_Nan=False,
+    )
+
+
+train_df = (
+    model_df[model_df["Dataset_name"] != "3xTG"]
+    .dropna(subset=covariates + COMPONENTS)
+)
+
+# same configuration as Model_Training.qmd
+spline_columns = [
+    covariates.index(c)
+    for c in ["Age(week)", "FD average", "log_tSNR"]
+    if c in covariates
+]
+
+model = NormativeModel(
+    BLR(
+        basis_function_mean=BsplineBasisFunction(basis_column=spline_columns, degree=3, nknots=5),
+        basis_function_var=BsplineBasisFunction(basis_column=spline_columns, degree=3, nknots=5),
+        heteroskedastic=True,
+    ),
+    inscaler="standardize",
+    outscaler="standardize",
+    savemodel=True,
+    evaluate_model=False,
+    saveresults=False,
+    saveplots=False,
+    save_dir=str(out_dir),
+)
+
+model.fit(to_normdata("train_without_WT", train_df))
+print(f"Model refit on {len(train_df)} scans; wild-type controls held out")
+```
+
+## Covariates of both groups
+
+Each scan is evaluated with its own covariates, encoded exactly as in
+`Model_Encoding.qmd` / `Model_Centiles_Alzheimer.qmd`.
+
+```{python}
+wt = model_df[model_df["Dataset_name"] == "3xTG"].copy()
+wt["Group"] = "Wild-type"
+
+alz_raw = pd.read_csv(root / "data" / "Alzheimer" / "Alzheimer.csv")
+
+
+def text(series):
+    return series.astype("string").str.strip()
+
+
+sex = text(alz_raw["Sex"]).str.upper().replace({"FEMALE": "F", "MALE": "M"})
+sequence = text(alz_raw["fMRI.sequence"]).str.upper().replace(
+    {"EPI": "GE-EPI", "GE EPI": "GE-EPI", "SE EPI": "SE-EPI", "ME EPI": "ME-EPI"})
+anesthesia = text(alz_raw["Anesthesia"]).str.lower().replace(
+    {"awake": "Awake", "iso": "Iso", "med": "Med", "mediso": "Mediso", "hal": "Hal"})
+level = text(alz_raw["Anesthesia level"]).str.lower()
+strain = text(alz_raw["Rodent.strain"]).replace({"C57BL6": "C57BL/6", "C57BL/6J": "C57BL/6"})
+
+ad = pd.DataFrame(index=alz_raw.index)
+for col in covariates:
+    if col in ["Age(week)", "MRI", "MRI T.R.", "FD average"]:
+        ad[col] = pd.to_numeric(alz_raw[col], errors="coerce")
+    elif col == "log_tSNR":
+        ad[col] = np.log(pd.to_numeric(alz_raw["tSNR"], errors="coerce"))
+    elif col == "Sex_encoded":
+        ad[col] = sex.map({"F": 0.0, "M": 1.0}).fillna(0.0).astype(float)
+    elif col == "Sex_unknown":
+        ad[col] = (~sex.isin(["F", "M"])).astype(float)
+    elif col == "Coil_encoded":
+        ad[col] = text(alz_raw["Coil"]).str.lower().isin(["y", "yes", "cryo"]).astype(float)
+    elif col == "Ventilation_encoded":
+        ad[col] = text(alz_raw["Ventilation"]).str.lower().isin(["y", "yes"]).astype(float)
+    elif col == "Anesthesia_high":
+        ad[col] = level.isin(["h", "high"]).astype(float)
+    elif col == "Anesthesia_dose_unknown":
+        ad[col] = (~level.isin(["l", "low", "h", "high"])).astype(float)
+    elif col.startswith("Rodent.strain_"):
+        ad[col] = (strain == col.split("_", 1)[1]).astype(float)
+    elif col.startswith("fMRI.sequence_"):
+        ad[col] = (sequence == col.split("_", 1)[1]).astype(float)
+    elif col.startswith("Anesthesia_"):
+        ad[col] = (anesthesia == col.split("_", 1)[1]).astype(float)
+    else:
+        raise ValueError(f"No rule to build covariate {col}")
+
+for col in COMPONENTS + ["Scan_id", "Participant_Id", "Session"]:
+    ad[col] = alz_raw[col]
+ad["Group"] = "3xTG-AD"
+assert ad[covariates].notna().all().all(), "missing covariates in the 3xTG-AD scans"
+
+both = pd.concat([wt, ad], ignore_index=True)
+both["Animal"] = both["Group"] + "_" + both["Participant_Id"].astype(str)
+both["Age"] = np.where(both["Age(week)"] < 20, "3 mo", "6 mo")
+both["AD"] = (both["Group"] == "3xTG-AD").astype(int)
+
+print(both.groupby(["Group", "Age"]).agg(scans=("Scan_id", "size"), animals=("Animal", "nunique")))
+print("\nScan-quality covariates by group (differences here are absorbed by the model):")
+print(both.groupby("Group")[["FD average", "log_tSNR"]].median().round(3))
+```
+
+## Deviation scores
+
+```{python}
+norm_both = to_normdata("WT_vs_3xTG", both[covariates + COMPONENTS])
+model.compute_zscores(norm_both)
+
+z = pd.DataFrame(
+    norm_both.Z.values,
+    columns=[str(r) for r in norm_both.Z.coords["response_vars"].values],
+)
+for c in COMPONENTS:
+    both[f"{c}_Z"] = z[c].to_numpy()
+
+both.to_csv(out_dir / "WT_vs_3xTG_raw_and_z.csv", index=False)
+
+# Calibration check: unseen healthy wild-type mice should have z SD ~ 1
+print("SD of z in wild-type controls (ideal ~ 1):")
+print(both.loc[both.Group == "Wild-type", [f"{c}_Z" for c in SELECTED_COMPONENTS]].std().round(2))
+```
+
+## Figure 4A: group difference, overlapping distributions (raw vs deviation)
+
+```{python}
+def density(ax, values, color, label):
+    values = values.dropna().to_numpy(dtype=float)
+    if len(values) < 3 or np.std(values) == 0:
+        return
+    pad = 0.25 * (values.max() - values.min())
+    x = np.linspace(values.min() - pad, values.max() + pad, 300)
+    y = gaussian_kde(values)(x)
+    ax.plot(x, y, color=color, lw=1.6, label=label)
+    ax.fill_between(x, 0, y, color=color, alpha=0.12, lw=0)
+    ax.axvline(np.mean(values), color=color, lw=1, ls="--")
+
+
+n_wt = both.loc[both.Group == "Wild-type", "Animal"].nunique()
+n_ad = both.loc[both.Group == "3xTG-AD", "Animal"].nunique()
+
+fig, axes = plt.subplots(
+    2, len(SELECTED_COMPONENTS),
+    figsize=(36 * MM * len(SELECTED_COMPONENTS), 70 * MM),
+)
+
+for j, comp in enumerate(SELECTED_COMPONENTS):
+    for i, (suffix, xlabel) in enumerate([("", "DR value"), ("_Z", "Deviation score (z)")]):
+        ax = axes[i, j]
+        density(ax, both.loc[both.Group == "Wild-type", comp + suffix], WT_COLOR,
+                f"Wild-type ({n_wt} mice)")
+        density(ax, both.loc[both.Group == "3xTG-AD", comp + suffix], AD_COLOR,
+                f"3xTG-AD ({n_ad} mice)")
+        ax.set_xlabel(xlabel)
+        ax.set_yticks([])
+        ax.spines[["top", "right", "left"]].set_visible(False)
+        if i == 0:
+            ax.set_title(ACRONYM[comp], color=INK)
+        if j == 0:
+            ax.set_ylabel(["Raw values", "Deviation scores"][i], color=INK)
+
+axes[0, -1].legend(frameon=False, loc="upper left", bbox_to_anchor=(1.02, 1))
+fig.suptitle("Wild-type vs 3xTG-AD: raw values (top) and normative deviation scores (bottom)\n"
+             "dashed line = group mean; all scans of both ages", fontsize=7, color=INK)
+fig.tight_layout()
+fig.savefig(fig_dir / "figure4A_WT_vs_3xTG_distributions.svg", bbox_inches="tight")
+fig.savefig(fig_dir / "figure4A_WT_vs_3xTG_distributions.png", dpi=300, bbox_inches="tight")
+plt.show()
+```
+
+## Figure 4B: raw vs deviation scores, group testing and classification
+
+```{python}
+def group_test(col):
+    """Mixed model: value ~ group + age, random intercept per animal."""
+    d = both[[col, "AD", "Age", "Animal"]].rename(columns={col: "y"}).dropna()
+    d["y"] = (d["y"] - d["y"].mean()) / d["y"].std()
+    fit = smf.mixedlm("y ~ AD + C(Age)", d, groups=d["Animal"]).fit(reml=True)
+    return fit.params["AD"], fit.pvalues["AD"]
+
+
+def cohen_d(col):
+    a = both.loc[both.AD == 1, col]
+    b = both.loc[both.AD == 0, col]
+    pooled = np.sqrt(((len(a) - 1) * a.var() + (len(b) - 1) * b.var()) / (len(a) + len(b) - 2))
+    return (a.mean() - b.mean()) / pooled
+
+
+rows = []
+for comp in COMPONENTS:
+    beta_raw, p_raw = group_test(comp)
+    beta_z, p_z = group_test(comp + "_Z")
+    rows.append(dict(Component=comp, Network=ACRONYM[comp],
+                     beta_raw=beta_raw, p_raw=p_raw, d_raw=cohen_d(comp),
+                     beta_z=beta_z, p_z=p_z, d_z=cohen_d(comp + "_Z")))
+group_diff = pd.DataFrame(rows)
+group_diff["pFDR_raw"] = multipletests(group_diff["p_raw"], method="fdr_bh")[1]
+group_diff["pFDR_z"] = multipletests(group_diff["p_z"], method="fdr_bh")[1]
+group_diff.round(4).to_csv(out_dir / "group_differences_raw_vs_z.csv", index=False)
+print(group_diff.round(3).to_string(index=False))
+
+
+def svm_scores(columns, labels):
+    """Linear SVM, leave-one-animal-out; returns out-of-sample decision scores."""
+    X = both[columns].to_numpy()
+    groups = both["Animal"].to_numpy()
+    scores = np.zeros(len(labels))
+    for train_idx, test_idx in LeaveOneGroupOut().split(X, labels, groups):
+        if len(np.unique(labels[train_idx])) < 2:
+            continue
+        clf = make_pipeline(StandardScaler(), SVC(kernel="linear", C=1.0))
+        clf.fit(X[train_idx], labels[train_idx])
+        scores[test_idx] = clf.decision_function(X[test_idx])
+    return scores
+
+
+rng = np.random.default_rng(0)
+animals = both.drop_duplicates("Animal")[["Animal", "AD"]]
+svm = {}
+for name, columns in [("Raw", COMPONENTS), ("Deviation (z)", [c + "_Z" for c in COMPONENTS])]:
+    y = both["AD"].to_numpy()
+    scores = svm_scores(columns, y)
+    auc = roc_auc_score(y, scores)
+    null = []
+    for _ in range(200):   # permute genotype labels at the animal level
+        permuted = dict(zip(animals["Animal"], rng.permutation(animals["AD"].to_numpy())))
+        y_perm = both["Animal"].map(permuted).to_numpy()
+        null.append(roc_auc_score(y_perm, svm_scores(columns, y_perm)))
+    p = (1 + np.sum(np.array(null) >= auc)) / (1 + len(null))
+    svm[name] = dict(scores=scores, auc=auc, p=p)
+    print(f"SVM {name}: AUC = {auc:.2f}, permutation p = {p:.3f}")
+
+fig, axes = plt.subplots(1, 3, figsize=(180 * MM, 62 * MM),
+                         gridspec_kw=dict(width_ratios=[0.7, 1, 1.3]))
+
+ax = axes[0]
+n_sig = [(group_diff["pFDR_raw"] < 0.05).sum(), (group_diff["pFDR_z"] < 0.05).sum()]
+ax.bar([0, 1], n_sig, color=[RAW_COLOR, Z_COLOR], width=0.55)
+for x, v in zip([0, 1], n_sig):
+    ax.text(x, v + 0.2, str(v), ha="center", va="bottom", color=INK)
+ax.set_xticks([0, 1])
+ax.set_xticklabels(["Raw", "Deviation (z)"])
+ax.set_ylim(0, max(n_sig + [1]) + 2)
+ax.set_ylabel("Networks with group difference\n(FDR p < 0.05, of 18)")
+ax.set_title("Group difference testing")
+
+ax = axes[1]
+for name, color in [("Raw", RAW_COLOR), ("Deviation (z)", Z_COLOR)]:
+    fpr, tpr, _ = roc_curve(both["AD"], svm[name]["scores"])
+    ax.plot(fpr, tpr, color=color, lw=1.6,
+            label=f"{name}: AUC {svm[name]['auc']:.2f} (p {svm[name]['p']:.3f})")
+ax.plot([0, 1], [0, 1], "--", color=MUTED, lw=0.7)
+ax.set_xlabel("False positive rate")
+ax.set_ylabel("True positive rate")
+ax.legend(frameon=False, loc="lower right")
+ax.set_title("SVM classification, 18 networks\n(leave-one-animal-out)")
+
+ax = axes[2]
+order = group_diff.sort_values("d_z").reset_index(drop=True)
+ypos = np.arange(len(order))
+ax.hlines(ypos, order["d_raw"], order["d_z"], color="#d6d5cf", lw=1.2)
+ax.scatter(order["d_raw"], ypos, color=RAW_COLOR, s=12, zorder=2, label="Raw")
+ax.scatter(order["d_z"], ypos, color=Z_COLOR, s=12, zorder=3, label="Deviation (z)")
+ax.axvline(0, color=MUTED, lw=0.7)
+ax.set_yticks(ypos)
+ax.set_yticklabels(order["Network"])
+ax.set_xlabel("Cohen's d (3xTG-AD − wild-type)")
+ax.legend(frameon=False, loc="lower right")
+ax.set_title("Effect size per network")
+
+for ax in axes:
+    ax.spines[["top", "right"]].set_visible(False)
+fig.tight_layout()
+fig.savefig(fig_dir / "figure4B_raw_vs_z_comparison.svg", bbox_inches="tight")
+fig.savefig(fig_dir / "figure4B_raw_vs_z_comparison.png", dpi=300, bbox_inches="tight")
+plt.show()
+```

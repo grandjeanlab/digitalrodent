@@ -238,13 +238,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm
 
-qq_components = {
-    "comp2": "M1",
-    "comp3": "S1uLp + S2",
-    "comp7": "V2 + RSD",
-    "comp10": "Cg1 + RS",
-    "comp11": "Ventral HP",
-}
+# Component labels (new Zerbi ICA) -- single source: component_labels.py
+from component_labels import ACRONYM, SELECTED_COMPONENTS
+
+qq_components = {c: ACRONYM[c] for c in SELECTED_COMPONENTS}
 min_group_size = 10
 
 qq_group_dir = model_dir / "plots" / "qq_by_group"

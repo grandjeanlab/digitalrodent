@@ -1,0 +1,406 @@
+---
+title: "Model Training HBR"
+format: gfm
+jupyter: python3
+execute:
+  echo: true
+  warning: false
+  message: true
+---
+
+Hierarchical Bayesian Regression (HBR) with a SHASH likelihood, as an
+alternative to the warped BLR in `Model_Training.qmd`.
+
+Two models are trained on exactly the same train/test split as the BLR,
+each with its own output folder, so the three can be compared:
+
+| Model | Folder | Dataset effect |
+|---|---|---|
+| BLR (warped) | `results/normative_model/` | none (protocol covariates only) |
+| HBR A | `results/normative_model_HBR_A/` | none (same covariates as BLR) |
+| HBR B | `results/normative_model_HBR_B/` | random intercept per dataset (protocol covariates dropped) |
+
+SHASHb likelihood: besides mean (mu) and spread (sigma), it has skewness
+(epsilon) and tail weight (delta), so it can follow skewed, heavy-tailed data.
+mu and sigma depend on all covariates, with a B-spline on age, FD and log(tSNR).
+
+Run this after `Model_Training.qmd` (it reuses its train/test split and its
+statistics for the comparison). HBR uses MCMC sampling: run it as a SLURM job.
+
+```{python}
+from pathlib import Path
+import os
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.stats import norm, skew, kurtosis
+
+from pcntoolkit import (
+    HBR,
+    BsplineBasisFunction,
+    NormativeModel,
+    NormData,
+    SHASHbLikelihood,
+    make_prior,
+)
+import pcntoolkit.util.output
+
+pcntoolkit.util.output.Output.set_show_messages(False)
+
+
+# ============================================================
+# SETTINGS
+# ============================================================
+
+MODELS_TO_RUN = os.environ.get("HBR_MODELS", "A,B").split(",")  # e.g. HBR_MODELS=A to run only A
+
+# MCMC settings (PCNToolkit defaults: 1500 draws, 500 tune, 4 chains)
+DRAWS = int(os.environ.get("HBR_DRAWS", 1500))
+TUNE = int(os.environ.get("HBR_TUNE", 500))
+CHAINS = int(os.environ.get("HBR_CHAINS", 4))
+CORES = int(os.environ.get("SLURM_CPUS_PER_TASK", os.environ.get("HBR_CORES", 4)))
+
+# Fit all 18 components, or only the selected ones (much faster)
+FIT_ALL_COMPONENTS = os.environ.get("HBR_ALL", "1") == "1"
+
+print(f"MCMC: {CHAINS} chains x {DRAWS} draws (+{TUNE} tune), {CORES} cores")
+
+
+# ============================================================
+# PATHS
+# ============================================================
+
+current_dir = Path.cwd().parent
+input_path = current_dir / "results" / "combined_dataset" / "Model_dataframe.csv"
+blr_dir = current_dir / "results" / "normative_model"
+compare_dir = current_dir / "results" / "model_comparison"
+compare_dir.mkdir(parents=True, exist_ok=True)
+
+out_dirs = {
+    "A": current_dir / "results" / "normative_model_HBR_A",
+    "B": current_dir / "results" / "normative_model_HBR_B",
+}
+
+
+# ============================================================
+# COMPONENT LABELS
+# ============================================================
+
+try:
+    from component_labels import ACRONYM, SELECTED_COMPONENTS
+    selected = {c: ACRONYM[c] for c in SELECTED_COMPONENTS}
+except ImportError:
+    selected = {"comp2": "M1", "comp3": "S1uLp + S2", "comp7": "V2 + RSD",
+                "comp10": "Cg1 + RS", "comp12": "Ventral HP"}
+print("Selected components:", selected)
+
+
+# ============================================================
+# DATA
+# ============================================================
+
+model_df = pd.read_csv(input_path)
+
+all_responses = [f"comp{i}" for i in range(1, 19)]
+response_vars = all_responses if FIT_ALL_COMPONENTS else list(selected)
+if os.environ.get("HBR_ONLY"):  # e.g. HBR_ONLY=comp10 for a quick test
+    response_vars = os.environ["HBR_ONLY"].split(",")
+
+id_columns = ["Scan_id", "Participant_Id", "Session", "Dataset_name"]
+covariates = [c for c in model_df.columns if c not in id_columns + all_responses]
+
+print("Rows:", len(model_df))
+print("Responses:", response_vars)
+print("Covariates:", covariates)
+
+# Model B: the dataset intercept already absorbs everything that is constant
+# within a dataset (scanner, TR, coil, ventilation, strain, sequence). Keeping
+# those covariates as well makes the model non-identifiable (in testing the
+# z-scores exploded), so B only keeps covariates that vary within datasets.
+covariates_B = [c for c in covariates
+                if c in ["Age(week)", "FD average", "log_tSNR", "Sex_encoded", "Anesthesia_high"]
+                or (c.startswith("Anesthesia_") and c != "Anesthesia_dose_unknown")]
+print("Covariates model B:", covariates_B)
+
+
+def spline_columns_for(covs):
+    return [covs.index(c) for c in ["Age(week)", "FD average", "log_tSNR"] if c in covs]
+
+
+def make_normdata(name, batch_effects, covs=None):
+    return NormData.from_dataframe(
+        name=name,
+        dataframe=model_df,
+        covariates=covs or covariates,
+        batch_effects=batch_effects,
+        response_vars=response_vars,
+        remove_Nan=False,
+    )
+
+
+# Same split as the BLR: Model_Training.qmd uses train_test_split() on data
+# without batch effects (random_state = 42). Reproduce it and keep the
+# observation indices, then apply them to every model.
+reference_split = make_normdata("DigitalRodent", [])
+ref_train, ref_test = reference_split.train_test_split()
+train_obs = ref_train.observations.values
+test_obs = ref_test.observations.values
+print(f"Train: {len(train_obs)} scans, test: {len(test_obs)} scans (same split as BLR)")
+```
+
+```{python}
+# ============================================================
+# HBR MODELS
+# ============================================================
+
+def bspline(covs):
+    return BsplineBasisFunction(basis_column=spline_columns_for(covs), degree=3, nknots=5)
+
+
+def shash_likelihood(random_intercept, covs):
+    if random_intercept:
+        # every dataset gets its own intercept, drawn from a shared
+        # distribution (small datasets borrow strength from large ones)
+        mu_intercept = make_prior(
+            random=True,
+            mu=make_prior(dist_name="Normal", dist_params=(0.0, 1.0)),
+            sigma=make_prior(dist_name="Gamma", dist_params=(1.0, 0.5)),
+        )
+    else:
+        mu_intercept = make_prior(dist_name="Normal", dist_params=(0.0, 1.0))
+
+    mu = make_prior(
+        linear=True,
+        slope=make_prior(dist_name="Normal", dist_params=(0.0, 3.0)),
+        intercept=mu_intercept,
+        basis_function=bspline(covs),
+    )
+    sigma = make_prior(
+        linear=True,
+        slope=make_prior(dist_name="Normal", dist_params=(0.0, 2.0)),
+        intercept=make_prior(dist_name="Normal", dist_params=(0.0, 1.0)),
+        basis_function=bspline(covs),
+        mapping="softplus",
+        mapping_params=(0.0, 2.0),
+    )
+    # skewness (0 = symmetric) and tail weight (1 = Gaussian tails)
+    epsilon = make_prior(dist_name="Normal", dist_params=(0.0, 1.0))
+    delta = make_prior(
+        dist_name="Normal", dist_params=(1.0, 1.0),
+        mapping="softplus", mapping_params=(0.0, 3.0, 0.6),
+    )
+    return SHASHbLikelihood(mu, sigma, epsilon, delta)
+
+
+model_specs = {
+    "A": {"batch_effects": [], "random_intercept": False,
+          "covariates": covariates, "label": "HBR A (SHASH, no dataset effect)"},
+    "B": {"batch_effects": ["Dataset_name"], "random_intercept": True,
+          "covariates": covariates_B, "label": "HBR B (SHASH, random intercept per dataset)"},
+}
+
+results = {}
+
+for key in MODELS_TO_RUN:
+    spec = model_specs[key]
+    out_dir = out_dirs[key]
+    out_dir.mkdir(parents=True, exist_ok=True)
+    print("\n" + "=" * 60)
+    print(spec["label"], "->", out_dir)
+    print("=" * 60)
+
+    data = make_normdata(f"HBR_{key}", spec["batch_effects"], spec["covariates"])
+    train = data.sel(observations=train_obs)
+    test = data.sel(observations=test_obs)
+
+    model = NormativeModel(
+        HBR(
+            name="template",
+            likelihood=shash_likelihood(spec["random_intercept"], spec["covariates"]),
+            draws=DRAWS, tune=TUNE, chains=CHAINS, cores=CORES,
+            nuts_sampler="nutpie", progressbar=False,
+        ),
+        inscaler="standardize",
+        outscaler="standardize",
+        savemodel=True,
+        evaluate_model=True,
+        saveresults=True,
+        saveplots=False,
+        save_dir=str(out_dir),
+    )
+    model.fit_predict(train, test)
+
+    stats = test.get_statistics_df()
+    stats.to_csv(out_dir / "Test_statistics.csv")
+    train.get_statistics_df().to_csv(out_dir / "Train_statistics.csv")
+
+    z_test = pd.DataFrame(
+        test.Z.values,
+        columns=[str(r) for r in test.Z.coords["response_vars"].values],
+        index=test.Z.coords["observations"].values.astype(int),
+    )
+    z_test.to_csv(out_dir / "Z_test.csv")
+    results[key] = {"stats": stats, "z": z_test, "label": spec["label"]}
+    print(stats.round(3).to_string())
+```
+
+```{python}
+# ============================================================
+# QQ PLOTS AND CALIBRATION BY GROUP (one set per HBR model)
+# ============================================================
+
+def group_labels_for(index):
+    g = model_df.loc[index]
+    labels = pd.DataFrame(index=index)
+    labels["Dataset"] = g["Dataset_name"]
+    labels["Sex"] = np.where(g["Sex_encoded"] == 1, "M", "F")
+    anest = [c for c in covariates if c.startswith("Anesthesia_")
+             and c not in ["Anesthesia_high", "Anesthesia_dose_unknown"]]
+    labels["Anesthesia"] = g[anest].idxmax(axis=1).str.replace("Anesthesia_", "").where(
+        g[anest].sum(axis=1) > 0, "Awake")
+    labels["Anesthesia dose"] = np.select(
+        [labels["Anesthesia"] == "Awake",
+         g.get("Anesthesia_dose_unknown", 0) == 1,
+         g.get("Anesthesia_high", 0) == 1],
+        ["Awake", "Unknown", "High"], default="Low")
+    labels["Coil"] = np.where(g["Coil_encoded"] == 1, "Cryo", "RT")
+    seq = [c for c in covariates if c.startswith("fMRI.sequence_")]
+    labels["fMRI sequence"] = g[seq].idxmax(axis=1).str.replace("fMRI.sequence_", "").where(
+        g[seq].sum(axis=1) > 0, "GE-EPI")
+    return labels
+
+
+palette = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
+
+for key, res in results.items():
+    out_dir = out_dirs[key]
+    qq_dir = out_dir / "plots" / "qq_by_group"
+    qq_dir.mkdir(parents=True, exist_ok=True)
+    z = res["z"]
+    labels = group_labels_for(z.index)
+    sel_here = {c: n for c, n in selected.items() if c in z.columns}
+
+    rows = []
+    for variable in labels.columns:
+        for group, idx in labels.groupby(variable).groups.items():
+            row = {"Variable": variable, "Group": group, "N_test": len(idx)}
+            for comp, name in sel_here.items():
+                row[f"{name} mean z"] = z.loc[idx, comp].mean()
+                row[f"{name} SD z"] = z.loc[idx, comp].std()
+            rows.append(row)
+    calibration = pd.DataFrame(rows).round(2)
+    calibration.to_csv(out_dir / "Z_calibration_by_group.csv", index=False)
+    print(f"\n{res['label']}: calibration by group (ideal mean 0, SD 1)")
+    display(calibration)
+
+    for variable in labels.columns:
+        counts = labels[variable].value_counts()
+        keep = counts[counts >= 10].index.tolist()
+        if len(keep) < 2:
+            continue
+        fig, axes = plt.subplots(1, max(len(sel_here), 2), figsize=(3.2 * max(len(sel_here), 2), 3.6), sharey=True)
+        for ax, (comp, name) in zip(axes, sel_here.items()):
+            for k, group in enumerate(keep):
+                zz = np.sort(z.loc[labels[variable] == group, comp].dropna().to_numpy())
+                th = norm.ppf((np.arange(1, len(zz) + 1) - 0.5) / len(zz))
+                ax.plot(th, zz, "o", ms=3, alpha=0.7, color=palette[k % len(palette)],
+                        label=f"{group} (n={len(zz)})")
+            ax.plot([-3, 3], [-3, 3], "--", color="#52514e", lw=1)
+            ax.set_title(name)
+            ax.set_xlabel("Theoretical quantiles")
+            ax.grid(alpha=0.3)
+        axes[0].set_ylabel("Z-score quantiles")
+        axes[-1].legend(title=variable, fontsize=7, title_fontsize=8, frameon=False,
+                        loc="upper left", bbox_to_anchor=(1.02, 1))
+        fig.suptitle(f"{res['label']}: QQ by {variable} (test set)", y=1.02)
+        plt.tight_layout()
+        plt.savefig(qq_dir / f"qq_by_{variable.replace(' ', '_')}.png", dpi=200, bbox_inches="tight")
+        plt.show()
+        plt.close()
+```
+
+```{python}
+# ============================================================
+# COMPARISON: BLR vs HBR A vs HBR B (same test set)
+# ============================================================
+
+models = {}
+
+blr_z_path = blr_dir / "results" / "Z_DigitalRodent_test.csv"
+if blr_z_path.exists():
+    blr_z = pd.read_csv(blr_z_path)
+    obs_col = [c for c in blr_z.columns if not c.startswith("comp")]
+    if obs_col:
+        blr_z = blr_z.set_index(obs_col[0])
+    blr_stats = pd.read_csv(blr_dir / "Test_statistics.csv")
+    if "Unnamed: 0" in blr_stats.columns:
+        blr_stats = blr_stats.set_index("Unnamed: 0")
+    else:
+        blr_stats.index = all_responses
+    models["BLR (warped)"] = {"z": blr_z, "stats": blr_stats}
+else:
+    print("BLR results not found: run Model_Training.qmd first")
+
+for key, res in results.items():
+    models[res["label"]] = {"z": res["z"], "stats": res["stats"]}
+
+
+def stat_mean(stats, name, comps):
+    if name in stats.columns:
+        s = stats[name]
+    elif name in stats.index:
+        s = stats.loc[name]
+    else:
+        return np.nan
+    s.index = [str(i) for i in s.index]
+    return pd.to_numeric(s.reindex(comps), errors="coerce").mean()
+
+
+rows = []
+for label, m in models.items():
+    for comp_set, comps in [("all fitted", response_vars), ("selected", [c for c in selected if c in response_vars])]:
+        z = m["z"][[c for c in comps if c in m["z"].columns]]
+        rows.append({
+            "Model": label,
+            "Components": comp_set,
+            "EXPV": stat_mean(m["stats"], "EXPV", comps),
+            "ShapiroW (z)": stat_mean(m["stats"], "ShapiroW", comps),
+            "MACE": stat_mean(m["stats"], "MACE", comps),
+            "Skew (z)": z.apply(lambda s: skew(s.dropna())).mean(),
+            "Excess kurtosis (z)": z.apply(lambda s: kurtosis(s.dropna())).mean(),
+            "% |z| > 1.96 (ideal 5%)": 100 * (z.abs() > 1.96).mean().mean(),
+        })
+comparison = pd.DataFrame(rows).round(3)
+comparison.to_csv(compare_dir / "BLR_vs_HBR_test_metrics.csv", index=False)
+print("Model comparison on the same test set")
+print("ideal: ShapiroW -> 1, MACE -> 0, skew -> 0, excess kurtosis -> 0, |z|>1.96 -> 5%")
+display(comparison)
+
+# QQ overlay of the three models
+colors = {"BLR (warped)": "#9aa0a6"}
+extra = ["#2a78d6", "#eb6834"]
+for i, label in enumerate([l for l in models if l not in colors]):
+    colors[label] = extra[i % 2]
+
+plot_sel = {c: n for c, n in selected.items() if c in response_vars}
+fig, axes = plt.subplots(1, max(len(plot_sel), 2), figsize=(3.4 * max(len(plot_sel), 2), 3.8), sharey=True)
+for ax, (comp, name) in zip(axes, plot_sel.items()):
+    for label, m in models.items():
+        if comp not in m["z"].columns:
+            continue
+        zz = np.sort(m["z"][comp].dropna().to_numpy())
+        th = norm.ppf((np.arange(1, len(zz) + 1) - 0.5) / len(zz))
+        ax.plot(th, zz, "o", ms=3, alpha=0.7, color=colors[label], label=label)
+    ax.plot([-3.5, 3.5], [-3.5, 3.5], "--", color="k", lw=1)
+    ax.set_title(name)
+    ax.set_xlabel("Theoretical quantiles")
+    ax.grid(alpha=0.3)
+axes[0].set_ylabel("Z-score quantiles (test set)")
+axes[-1].legend(fontsize=7, frameon=False, loc="upper left", bbox_to_anchor=(1.02, 1))
+plt.tight_layout()
+plt.savefig(compare_dir / "qq_BLR_vs_HBR.png", dpi=200, bbox_inches="tight")
+plt.show()
+plt.close()
+
+print("Comparison saved to:", compare_dir)
+```

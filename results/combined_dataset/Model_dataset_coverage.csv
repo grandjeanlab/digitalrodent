@@ -1,7 +1,7 @@
 Dataset_name,In_merged_dataset,In_model,Excluded,Percent_used
 3xTG,21,21,0,100.0
 Alvino,22,22,0,100.0
-Awake,1438,1215,223,84.5
+Awake,1438,1197,241,83.2
 Awake_Rest,166,166,0,100.0
 Douglas,20,20,0,100.0
 Env_Enrichment,38,38,0,100.0

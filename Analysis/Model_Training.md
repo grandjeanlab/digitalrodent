@@ -145,7 +145,10 @@ model = NormativeModel(
             degree=3,
             nknots=5
         ),
-        heteroskedastic=True
+        heteroskedastic=True,
+        # SinhArcsinh warping: lets the predictive distribution be skewed
+        # and heavy-tailed instead of Gaussian (the z-scores had skew ~1.3)
+        warp_name="WarpSinhArcsinh"
     ),
     inscaler="standardize",
     outscaler="standardize",
@@ -228,13 +231,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm
 
-qq_components = {
-    "comp2": "M1",
-    "comp3": "S1uLp + S2",
-    "comp7": "V2 + RSD",
-    "comp10": "Cg1 + RS",
-    "comp11": "Ventral HP",
-}
+# Component labels (new Zerbi ICA) -- single source: component_labels.py
+from component_labels import ACRONYM, SELECTED_COMPONENTS
+
+qq_components = {c: ACRONYM[c] for c in SELECTED_COMPONENTS}
 min_group_size = 10
 
 qq_group_dir = model_dir / "plots" / "qq_by_group"
@@ -451,14 +451,20 @@ print("\nSaved to:")
 print(model_dir)
 ```
 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/arviz/__init__.py:50: FutureWarning: 
+    ArviZ is undergoing a major refactor to improve flexibility and extensibility while maintaining a user-friendly interface.
+    Some upcoming changes may be backward incompatible.
+    For details and migration guidance, visit: https://python.arviz.org/en/latest/user_guide/migration_guide.html
+      warn(
+
     Rows:
-    1925
+    1907
 
     Responses:
     ['comp1', 'comp2', 'comp3', 'comp4', 'comp5', 'comp6', 'comp7', 'comp8', 'comp9', 'comp10', 'comp11', 'comp12', 'comp13', 'comp14', 'comp15', 'comp16', 'comp17', 'comp18']
 
     Covariates:
-    ['Age(week)', 'MRI', 'MRI T.R.', 'FD average', 'log_tSNR', 'Sex_encoded', 'Sex_unknown', 'Coil_encoded', 'Ventilation_encoded', 'Anesthesia_high', 'Anesthesia_dose_unknown', 'Rodent.strain_129S2/SvPas', 'Rodent.strain_F1 C6/129P', 'fMRI.sequence_ME-EPI', 'fMRI.sequence_SE-EPI', 'Anesthesia_Hal', 'Anesthesia_Iso', 'Anesthesia_Med', 'Anesthesia_Mediso']
+    ['Age(week)', 'MRI', 'MRI T.R.', 'FD average', 'log_tSNR', 'Sex_encoded', 'Coil_encoded', 'Ventilation_encoded', 'Anesthesia_high', 'Anesthesia_dose_unknown', 'Rodent.strain_129S2/SvPas', 'Rodent.strain_F1 C6/129P', 'fMRI.sequence_ME-EPI', 'fMRI.sequence_SE-EPI', 'Anesthesia_Hal', 'Anesthesia_Iso', 'Anesthesia_Med', 'Anesthesia_Mediso']
 
     Batch effects:
     []
@@ -467,1138 +473,1326 @@ print(model_dir)
     Missing response values: 0
     B-spline applied to: ['Age(week)', 'FD average', 'log_tSNR']
 
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.914099678629302e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2483703448227404e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:01:11 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:02:21 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.23671877722108e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2822427614245297e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9141005720743377e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2431761755581578e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9141036657487115e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.184252271478907e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.914101309364477e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2012732598386046e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9138078958244475e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.242583553121027e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9012834280692523e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4647418083808778e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7978175079142694e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.3829653545716558e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.758784171242976e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.3788463877841988e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.947330248597147e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2071808321873986e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.2253811430796916e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1820257126600885e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.058407013003435e-230.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.899640356787266e-230.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7608976982121137e-230.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.808798130720184e-230.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.901837407309521e-230.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9141019415850213e-230.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:01:12 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:02:22 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9141034003288476e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2342619117311387e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9141000926368285e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2477787036856285e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.4576622152191966e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0224119234074933e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.8681115384427072e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2425833535833118e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.74571751257503e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2015262842946758e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.848123222031807e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1842309216792655e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9092043775305403e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2429271796277126e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9140989172378116e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1325733142567538e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9140996787163005e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.294735345861059e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.625252967993138e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.3092702209664116e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9944134974883047e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.287724396329739e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.0248150338335725e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.9999383756661414e-48.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.0560138207285953e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.263914326031238e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.996457750660265e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.3205312599387028e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.959534198969488e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2658729822806892e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5406580506664206e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.3715146520734134e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.0798913033334215e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.267074988596909e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.954750869157476e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2824244551411042e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.1980217499623183e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2741144536032175e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.955464506242561e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0224972212681322e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.993169638834254e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1295721995620755e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.972846524431011e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.379662600086163e-47.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.065989133074526e-230.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.933404935669331e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.636792605818461e-230.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.220571390876462e-230.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.46149565832021e-142.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:01:58 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:04:07 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.704742516029065e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4581781846691504e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.3425307739095165e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.935952627764451e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.603664014996204e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.0305132408646126e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:01:59 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.013957718083798e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.808144767237826e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8665245368814585e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.947026736408983e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9340287140595258e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.200261548702228e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.987679237777527e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.0516813564373166e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.886700287511717e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8312591486717604e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8948620000719027e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9412441754059513e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.0036991694816962e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.0448536763345357e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9451103031096377e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9546671955916537e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9337360127034808e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.92770640890635e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:04:08 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.424553007816119e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.927840970479538e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.460008040986689e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.936558685997039e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.813117397805263e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.93615340088084e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.246845549096391e-143.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9361161185700355e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.471159981419368e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.933880857823083e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.654437104510745e-143.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5830335853427848e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.3206095355021675e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9282941241251252e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.2926567297971405e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.931066912644403e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.4333328349605665e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9330127564053274e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.4605503397866025e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8527486153912953e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.750505919748892e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.561336650011964e-103.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.457746169686207e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.930727411775934e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.3994991195041614e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9324178155223924e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.2637867616633252e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9336758018790305e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.386026152387962e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9252849326543785e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.118397187431015e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9388968442008806e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.556898066685824e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.930994486092919e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.647276148347554e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9310117208173394e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.80499714523849e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9363419705449495e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.55932637452455e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.927523694292125e-102.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.51546598030187e-142.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.155941442623715e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.516234631381577e-142.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.65843462235291e-142.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.68181502694602e-142.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.798758283583292e-142.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.5106317127625204e-142.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.555420523805266e-142.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.531279297711059e-142.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.8430879392055614e-142.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.1320907940171187e-142.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.825544334620612e-142.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6402032918313626e-194.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:02:39 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:04:48 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.960884139825855e-195.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.888306977274627e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6402032918336746e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.167205540241068e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6402032918416805e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.4094497173234545e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6402032918355824e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.350734943582363e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6400389921932554e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.884152781289067e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.632989655142234e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.9904500461308654e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.574753780757052e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.153422485916825e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5527838365685635e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.155940038827598e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6589020337285248e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.94368826258621e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.815411165998912e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.30360619391403e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.723490537268552e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.690445307080528e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.631175196301713e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.073888578119874e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5536346880017352e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.856549877988508e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5819447092286768e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.041457466818437e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.633488821476944e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.148280263069075e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.640203291839301e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.178715665886241e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6402032918391215e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.3702299070168626e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6402032918316047e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.4462118997555184e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:02:40 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.809517329290931e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.1559402618325205e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.155939899964991e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.067359601674596e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.927042949256724e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.385601076826667e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.2556847075860935e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.155939812531165e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.221021758459768e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.15594005528555e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.670718130777101e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.155939822727308e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.155938504599081e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.269736749010481e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.1559401577834675e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.1559401649750555e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.155939905117716e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.155939993491998e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.155940075128092e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.155939857613889e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.618329911692493e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.155939939053453e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.1559380833094436e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.112098435663865e-167.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:05:38 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9384935212004672e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.186831516432189e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6146545810510706e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.100953173525071e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5479948281850867e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.872525813244038e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6023243050476804e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.894072715497684e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6350984319171473e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.080324810421436e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.640103567628352e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.998143370137948e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6402032918347985e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.663267358923801e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4776287006802894e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.608615802286594e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6854089947066578e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.97260058653914e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.702520904443847e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.82742545459192e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.7200815572739156e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.039357412294799e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6865596298375122e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.1084957358700124e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.665776716877824e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.672240386002954e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.671608939905743e-195.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.101170894597632e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.7335213164507974e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.8715577358322406e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6630843559699642e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.879231930455629e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.800012612054548e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.096572331051255e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6634860361103844e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.6651627884441244e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.684708872375304e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.301963927311123e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.673269736608758e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.1440034040546065e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.7256962947176585e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.273253966136299e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.484117311650721e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.168274873029347e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8127049778463008e-194.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.175751311070185e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.008213946258068e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.40759864744803e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:03:38 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.183772042730892e-167.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:05:39 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.398618313020333e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.616376531557081e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.00821394625807e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.6096350398916438e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.008213946258071e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.251550614104374e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.007411761149451e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.2175210122015615e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.972993710922124e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.374751878587851e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.688659845878324e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.6256179492716534e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.581392646546962e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.649742521435724e-167.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.09950965709831e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3440706931280694e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.863657993039182e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.401924830589105e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.969158478115918e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.58818257442656e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.71751635068505e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.974165299351577e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.486577521057587e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.888862027751985e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.54784009028994e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.818687780282043e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.993457533118518e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.008213650378921e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.214451298337257e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.228928623552208e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.31247670256234e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.398215748212239e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.234546544421813e-117.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:03:39 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:06:30 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.133074968151818e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.789782718247822e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.233871495991357e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.123515299580513e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.463834728141001e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.3082671255772694e-98.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.119929645081479e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.517811472030157e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.788475291579094e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.370907682020418e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.121890829111611e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.344857461241728e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.225510309427027e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3442533098795423e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.16965927780084e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3434437338311336e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.425629434631611e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.008023600211151e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.246131630211966e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.46834285899743e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.850445159132226e-117.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.063644561034212e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.216408648379098e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.1848868613744173e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:05:01 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.1220093414404384e-97.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.4624921859211118e-98.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.5256278731911063e-97.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.49331956125548e-97.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.5922885446794596e-97.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.376764824521286e-97.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.883529527943961e-97.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:06:31 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.109828739085418e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.344099565550324e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.533237093580642e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3421321896076246e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.642564437110976e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.4075307670504274e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.375615728788118e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.5445054774422237e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.8425103851256184e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.174307782858649e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.800358701990894e-22.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.256085066013448e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.674589819036006e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.344223389722064e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4506098446003485e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.344291220064072e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.1224103928377486e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.344285677672174e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.8949159381874533e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3722896529911656e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.7599725738099316e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3442969708288984e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6306584989828795e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3440223955099436e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6026942875765021e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3443873858675363e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.373580488196972e-22.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3445272757148563e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.844162459594785e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3441286003061287e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.840623267682142e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3417947340360666e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.844162457798771e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3436814643452293e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.887490360391882e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.3442781654083646e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.892777863158416e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.344315838604984e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.8195614155135083e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.405255786357153e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6991900754365905e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.273527020155837e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.67119753491902e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.344126092680332e-97.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.2883562906149707e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/math_functions/warp.py:530: RuntimeWarning: overflow encountered in sinh
+      y = np.sinh(b * np.arcsinh(x) - a)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.8570434196833536e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.841862391010493e-21.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.839945492871404e-21.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.230660247839662e-21.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.5699125940356604e-21.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:05:02 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:675: RuntimeWarning: invalid value encountered in dot
+      self.m = (invAXt * self.lambda_n_vec).dot(y)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:07:16 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.990216927851739e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.088561586755452e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.031374023078306e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.948334438415886e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.949296341248101e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.090428087811123e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.899156319764966e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.9228436899441135e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.9013356153121705e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.8596853662827876e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.059268810576968e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.826715388380017e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.897789051136267e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6707005842936984e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.454061011376309e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6971831969680454e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.8954101505877084e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.3252296161231836e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.645974052538878e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.4419276332627494e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.921660647364962e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.920723782645676e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.044533344971296e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.0121301066954065e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4827921454835191e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.060110190316354e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.248456552717404e-21.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.83778111486866e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4699846909855742e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.610595021892128e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:05:38 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.7818453009071025e-89.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.857025209631325e-89.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.857043419683348e-89.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.6269097802452115e-89.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.856824448047878e-89.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:07:17 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.573283724772576e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.765688718906061e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4194641715019676e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.636319548284298e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.3928948155190132e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.983632539404704e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4542963481286654e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.048073885242956e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4693529482586703e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.866019718550554e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.7221865464152959e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.160291794664116e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4130330124766508e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.262395298801888e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6292773264157526e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.857043419685054e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4151900192909238e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.491096298744128e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.3952709335351083e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.85704341968381e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4560876505316937e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6979393081006313e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4694685106810598e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.857043419685368e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2197943603854473e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.857043419683826e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4699846909855412e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.8570434196868466e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4601542753264322e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.8570434196839284e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4055547667592316e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.857043419684318e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.402995674541724e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.425094247921964e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4672965929497067e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.857043419685207e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6177791187075428e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.857043419680126e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0175966146204e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.85704341968697e-89.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1242121311140385e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.57739703974909e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5415732726813883e-112.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.026803087175385e-112.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4929041324385855e-112.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4932305535673195e-112.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5536182675555116e-112.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4904911819603578e-112.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6132091652924234e-112.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4908511761513539e-112.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5098715283514104e-112.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.906854620421271e-113.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5466053184821796e-112.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.3300971523437454e-112.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:05:39 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:08:11 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6245843304936735e-112.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.680202419797924e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8456818123599052e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.562468869879536e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:06:35 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.398910898483567e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.4477897404479473e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.5608007871410404e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.2039569792668025e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.962419798276515e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.948741767362084e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.4655480099167186e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.3868546782488647e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.542088635832891e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.575411925099218e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.57714882123491e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.577379133503658e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9299517358286705e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.577295981575021e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.582949017908346e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.5673759208220956e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.4462654023301426e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:08:12 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9753819031595837e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.3959758560160687e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.7822493123252473e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.566129605109688e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.7488893886440292e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.2505998407080367e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.825983859548096e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.716021255345392e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8448886094998254e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.757737815419144e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.866723062528148e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.690340478489622e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.850834863853697e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.435032830360807e-133.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:06:36 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.627561814452528e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.7830947525843416e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.63318335578009e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.9296316929467984e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.631078029724581e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.675129968693104e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.656837211147342e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9303367877696052e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.241986338318592e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.959771055540013e-133.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.634550797344907e-82.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:08:58 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.051624432935173e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.781000097872761e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.7714551322184172e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6345582465906476e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.755114188074187e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6345570464402707e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8303241750076542e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.611000309703661e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8451578428950024e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.4215542308072863e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4763086674169028e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.5178917427966384e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8426938110251963e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.632775350425579e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8052781527974623e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6345507946630973e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.7398947963865754e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.676507781692219e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.814118676983665e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.0264185276344646e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6627404858132169e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.8930769029722475e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8965507162548224e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.5861814454247913e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4115370699815512e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.429559036448019e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.495634467211888e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.5402554075278314e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8978454986422863e-77.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6261792917535803e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8744589802437773e-77.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.874868827736872e-77.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9506903693362636e-77.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.967497617761531e-78.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.025511445235649e-77.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.87188133157565e-77.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8957628851289415e-77.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8828906974019683e-77.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5159446142070157e-77.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6700419656116767e-77.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.0397938630413218e-77.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.393082480715549e-131.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:08:04 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:08:59 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.912776199500005e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.951458590722217e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.13893871842825e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6321672709444825e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.005381646926849e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.5618142821304065e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.314223263990475e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.4515123888502646e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.389910133162631e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.53654403670783e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.393082480715721e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.633074442430581e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.393082480717107e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.634553700143114e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.393082480717658e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6345507974341985e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.477759647806233e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.297392261207253e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.413486393437105e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.7695395466303377e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.219345776304077e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.8118569103218346e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.094574092683656e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.749127613332813e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.030995616092453e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.674490582892521e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.332042475486433e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6198807518848636e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.391014388667641e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.8446427084989626e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.901184136591534e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.685508612221084e-82.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:08:05 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.9930776094904613e-82.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.68900817710036e-82.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.733697171915391e-82.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.709503131388395e-82.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.821332096506133e-82.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.288677559190094e-82.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.016799841494254e-82.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.353522968841305e-106.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:09:45 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.393082480715682e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.580639090647796e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.393082481044181e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.318752858109281e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.382566141199006e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.9244444858432e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.240669862736342e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.038411073302156e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.968340155093162e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.314884294062988e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.256858557627186e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.353562247960716e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.660290778902673e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.35352354772692e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.596843497201892e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.353522968844609e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.65406773425168e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.801365908877873e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.99092915314482e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.254043459010861e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.602029891151905e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.224480827130287e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.510751796751887e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.079630125998879e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.509994296536432e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.908746779918149e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.813705861031923e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.258384331370537e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.591393518550106e-131.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.349515206204247e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.113409949630958e-131.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.498027550455664e-131.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.593687752557648e-131.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.542126782007098e-131.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.072283691573107e-131.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.689537663181339e-131.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.170619752617449e-131.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.76184335050445e-111.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:08:50 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:09:46 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.869024971414704e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.353522969101486e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.705442147811451e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.353522968844614e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.6025711463454155e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.353522968844611e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7103312450688584e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.831905443494712e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.758693720614489e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.353525484763859e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.793329079233157e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.353580958532999e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.4741134686594056e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.35357597731357e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3526290001656683e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.317004478193961e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7618433504556577e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.046656642571769e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7606554335290847e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.9182103362413895e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7050269752585404e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.314567104212731e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.6039021634629802e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.578772115008489e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7078936252986286e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.663732340941528e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7607597063540116e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.760979281067892e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.07391601610988e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.616824927952995e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.761815586527581e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.345724757267704e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.68567331942803e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.459027667547591e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.608431593637734e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.83632231461713e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7210613863128967e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.470626000318552e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7618429692165625e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.177431463917458e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.4880934100369798e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.478668135900338e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.8379626160402165e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.581365176169144e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.8667763700197196e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.525766334339057e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.896345736509594e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.842035996308467e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.8399001039123285e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.558692876699896e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.804904960167672e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.231946071491852e-106.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.805518248203595e-111.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.782948248176497e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.305227917008947e-111.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.800371449530348e-111.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.480203921681722e-111.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.8010478154603427e-111.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.8367837204463034e-111.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.817522022226129e-111.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9058000677822372e-111.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.499019206290175e-111.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.0523089512581245e-111.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.812993756563023e-45.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:09:27 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:10:34 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.077392428539381e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.8674883922968245e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.673861665041614e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.7703404169752444e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.420096551755464e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.511937019701615e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.685922229260078e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.536311476142141e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.805224159937708e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.7470050376248346e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.890663648018078e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.785266976211154e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.85069540442002e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.40644589778728e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.704697892610528e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.46252352960512e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.811121628990366e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.524403202229423e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.653651483231642e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.5161615819238614e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:09:28 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.743586261568739e-185.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.7817617330708666e-185.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:10:35 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.446127784942308e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.8648499005143465e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.673643810124052e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.7219991433305146e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.811707970900251e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.486691476444357e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.81299374417626e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.575508952683291e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.413644557933237e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.78128367509729e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.812993373881037e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.246530319127807e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.702639696295266e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.997729384754195e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.422535236994272e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.065060710651899e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.647555053544441e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.965251876394582e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2423809992671918e-47.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.316170436959057e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.137699614726998e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.85495415513492e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.000766926520293e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.117226324700095e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.071845514641289e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.8640274303642766e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.14478806920139e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.353401686806497e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.00554637672826e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.8695956019805825e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.919219360462608e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.940700439603584e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.920732236838612e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.5431482979839006e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.686601813664832e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.080069144174568e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.908035967435596e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.2326279615154833e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.118237600381767e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.391146224621186e-185.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.909704446155588e-45.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.098820857798962e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.997858793327486e-45.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.950343488127054e-45.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.168110282578202e-45.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.164651679783632e-45.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.529522564784407e-45.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.965486369462968e-49.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:12:10 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:11:20 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.52523848841681e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.1435292058935697e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.691728069942735e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.099693583913715e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.5477552488478e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.118459979390524e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.880475088765468e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.116614970328039e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.96206311062828e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.099488534752548e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.33210626577581e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.043002647385006e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.65696321127507e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.755860133052283e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.820994731685903e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.804600917837156e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.675283728088263e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.23718468474878e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.556868751942679e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.832565985808464e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.887375041376453e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.161726447385053e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.962509212690622e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.000413592279811e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:12:11 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.643157550120268e-88.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.962150089210815e-88.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.11538820760731e-88.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:11:21 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.6349118928090425e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.121308095367109e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.965486048745809e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.093811354798307e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.965484643128063e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.098417844345001e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.905088986174096e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.930688101836912e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.601175323569994e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.659758850570776e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.620977451627363e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.045978715034587e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.954573874308197e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.106548037487075e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.76634811089544e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.404967145577574e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.514106380207094e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.347639116046545e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.0918354394533876e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.542990144349897e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.353407328915e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.3100147827783e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.563876356049342e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.172439940332403e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.08968119925203e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.161749180268988e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.091449995258937e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.486073156097411e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.418676200814612e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.192748942981686e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.076606012644763e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.759676057993783e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.74158465460879e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.199199522325954e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.078556732838636e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.281572593501079e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.18162335463476e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.236976884186401e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.82627677215924e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.5563182226708e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.380674750462065e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.461289380934107e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.207470119945543e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.803402105387665e-88.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.803223883858441e-49.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.563004866421076e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.495886122167996e-152.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:12:48 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:12:19 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.022638406423545e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.750626202820839e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.238267071300024e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.523456035043708e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.102782077470561e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.358987750026185e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.415886628144267e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.46618391189225e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.4926646794086755e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.55473585605192e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.781937874743159e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.5630048664741335e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.2062196105046695e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.563004866458168e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.307038009571405e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.563004866421376e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.217457737944603e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.244600268118915e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.114347230442076e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6781191776696255e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.4246071581620095e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.814177347284583e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.4932273010408036e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.517757101388979e-126.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:12:49 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.361109784584185e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.4693378498655323e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.5548960570593906e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.563004866433129e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.352878384493659e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.562996993077136e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.5376754572569314e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.3574183668785194e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.448004106522274e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.560655160678087e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.948476900219217e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6953363696248606e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.73682071863676e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.5816143323207377e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.60215843949385e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.607369329982374e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.768961129895726e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.61295957952294e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.203705311681525e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.616390255660621e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.6601995500783703e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.636481767904243e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.918334763670002e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.223940123875841e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:675: RuntimeWarning: overflow encountered in dot
+      self.m = (invAXt * self.lambda_n_vec).dot(y)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.937729359226806e-126.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6226983952392866e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:13:15 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.226601295355308e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0728851167076498e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.495886115004244e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6262323890409184e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.4439366100499326e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.7024455476577127e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.163353551441206e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.692910556601744e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.159040723858435e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6006075600258246e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.483182523120726e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.545541685794723e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.249533562504461e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.574377541205247e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.189025700930271e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6222371124923836e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.7326897100817905e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8705908683157094e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.860937445035086e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6691267220725596e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.235972223762941e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.6820031886502185e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.612759123749828e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.610129795427411e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.614423641499371e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5343850842862716e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.922358431574992e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.570080007168175e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.600454776559473e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6172666693126336e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.226230020233996e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.629857336651515e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.602290493269064e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6901243956263902e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.69928088709368e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.714021846369553e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.5418682487516375e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8186045832621422e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.886597332866549e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6226442865439416e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.782558244674299e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6225519536114815e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.284235347426906e-152.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.598025853673146e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.705079101638317e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.5508044220943395e-101.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:15:22 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.691363130332596e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6540490794834667e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6226228843895352e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.3284357324857781e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6226070558999082e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.0993325557759607e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.622686511350892e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6226650249838688e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.143705909486335e-102.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6236324516274143e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.622512157406993e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.622671955738016e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.622672372616928e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.622661541240902e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.622676244240187e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.0828321804947525e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6226724909568787e-101.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1328419403979247e-269.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:14:02 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.842445218715163e-47.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1635911175883397e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.61211078550748e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1281266739955506e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.8653413140954166e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.074653531945014e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1408901749711768e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0901078415568587e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.703916562967898e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1275921053865415e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.3753353897719207e-47.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.3291896585574276e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.624696801415391e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2549810737441809e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.63731906269619e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2509115780677816e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.378513412457688e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0957408149341593e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0420205160238735e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0724941499570978e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.6115456331480923e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1199146465560486e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.5637192154196863e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1322964158262182e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.6762559741934764e-46.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7039062988624864e-46.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.810992246921866e-47.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3068391924128644e-46.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4762729874415698e-46.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.0496302325675223e-46.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.824114437677109e-46.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2727467914140672e-46.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.21917937072931e-46.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.422194756076837e-46.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0875853830658439e-47.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.0480613568178395e-46.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8725904786545094e-46.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:15:23 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:14:03 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.0687852422775764e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.262860475636631e-270.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.836817056086899e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1328419403979276e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.8895323125804377e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1328419403979304e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7472556647514684e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1279396483013961e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7478563478606666e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.091382811685365e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.846043798966366e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0736652770778666e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.801232800190515e-47.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1274984002098077e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.9686420725089627e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0277611578058579e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.067889370099588e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1749161677781595e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7784792199186832e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1881059364922725e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.6390474297305814e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.168554035175404e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.8460770722066323e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.5372272057325875e-270.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1901473577319586e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1469474291310459e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.989574754224866e-46.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1983248409168517e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.6805533052922336e-122.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1487248247215145e-269.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:16:18 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2445900578962929e-269.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1498155933169751e-269.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1637445684294619e-269.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.1562036024765604e-269.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.278718779219888e-270.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0250377763924913e-269.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.2519839673041635e-269.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3831412151138688e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:14:59 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9863872625264888e-122.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.447827088737707e-73.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.680084452913065e-122.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3732221541183666e-73.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.6599681673299965e-122.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.2607313404617055e-73.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.4937838195130753e-122.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.2932419124908303e-73.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.431089459977955e-122.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3720970563285177e-73.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.7339128239063937e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.180533886171147e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.95020239677616e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.640435473475919e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.4292356363485345e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.529821199082575e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.6640873491654823e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.377701994629439e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.6252301392768026e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.466761076110546e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.5460082512076123e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.6233193531287165e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.678556145905521e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.216623593838996e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.809554206025786e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.858385473520294e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.90849729323453e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.812837706975342e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.7535307098230814e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.47456690814368e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.946849556979972e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.745847675159266e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.136591923059078e-122.
-      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 3339003 - 2026-10-27 23:16:19 - Estimation of posterior distribution failed due to: 
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:15:00 - Estimation of posterior distribution failed due to: 
     Matrix is not positive definite
       warnings.warn(message)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.7469939265528907e-122.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.7961945670906862e-73.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.8075563071705344e-122.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.6400833824308433e-73.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.774913107021621e-122.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.6318937655422e-73.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.924519744862669e-122.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3047830881727327e-73.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.2351397677404465e-122.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.256347667384907e-73.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
-    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.172811393511823e-122.
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3560861187529092e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3820032408550253e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3831407429218868e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.383140998829499e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3831412137320138e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9502389191052846e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3831412428194074e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3724535577874423e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.294788498542066e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.259697651684042e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.3723432932971e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.1620847359231695e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.47165214944666e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.4993997844335935e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.4582720374921268e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.54489103258458e-74.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.4128145169558774e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.5208958739694168e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.4165510919232947e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.618223957886913e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.4188495408999735e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.4481507370409862e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.4322868510598515e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.9519514427020476e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.1563556573644824e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.63377805446143e-73.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.97853333954736e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:15:53 - Estimation of posterior distribution failed due to: 
+    Matrix is not positive definite
+      warnings.warn(message)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.554115377653528e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.882934472618849e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.193420084608934e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.4681758724584632e-244.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 5.972929362698525e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.8807073006216e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.60860878360908e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.681144719047801e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.0007632316812878e-244.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.666969336249974e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.889172125983591e-244.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.311422525123761e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.483074568741865e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.2787227009241565e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 1.63005713608428e-244.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.563431427735221e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.765721515419247e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.119357580994563e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.489762880159299e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.535045177083032e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.286661515959052e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.712809200513094e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.0766866869458814e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.603380011514873e-246.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.008299268743464e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.218624780035831e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.612408775611124e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.151560504084521e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.961605200078118e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.140554017408176e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 2.666977529467481e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/util/output.py:239: UserWarning: Process: 358856 - 2026-11-14 18:15:54 - Estimation of posterior distribution failed due to: 
+    Matrix is not positive definite
+      warnings.warn(message)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 9.003906772619603e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.947745525144508e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.409576846951626e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.946591720883001e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 6.813754061096383e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 8.505947680377231e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.647330241818706e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.685871863805192e-245.
+      invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
+    /home/traaffneu/giuvas/digitalrodent/Analysis/.venv/lib64/python3.11/site-packages/pcntoolkit/regression_model/blr.py:674: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 7.74379989730142e-245.
       invAXt: np.ndarray = linalg.solve(self.A, X.T, check_finite=False)
 
     Train statistics:
@@ -1619,24 +1813,24 @@ print(model_dir)
 | statistic | EXPV | MACE | MAPE | MSLL | NLL | R2 | RMSE | Rho | Rho_p | SMSE | ShapiroW |
 |----|----|----|----|----|----|----|----|----|----|----|----|
 | response_vars |  |  |  |  |  |  |  |  |  |  |  |
-| comp1 | 0.834471 | 0.025974 | 0.278400 | -0.008740 | 0.087100 | 0.834450 | 0.108355 | 0.928073 | 0.0 | 0.165550 | 0.969587 |
-| comp10 | 0.757274 | 0.030130 | 0.254176 | 1.103738 | 0.334180 | 0.757206 | 0.055229 | 0.908391 | 0.0 | 0.242794 | 0.952851 |
-| comp11 | 0.767580 | 0.042727 | 0.235634 | 0.768933 | 0.352328 | 0.767319 | 0.076951 | 0.900935 | 0.0 | 0.232681 | 0.919379 |
-| comp12 | 0.724402 | 0.043247 | 0.246970 | 0.874891 | 0.408020 | 0.724391 | 0.079643 | 0.896052 | 0.0 | 0.275609 | 0.905318 |
-| comp13 | 0.866774 | 0.024026 | 0.190745 | 0.992206 | 0.177431 | 0.866766 | 0.039104 | 0.921360 | 0.0 | 0.133234 | 0.984864 |
-| comp14 | 0.798941 | 0.030130 | 0.228747 | 1.335840 | 0.364966 | 0.798875 | 0.041101 | 0.907576 | 0.0 | 0.201125 | 0.947161 |
-| comp15 | 0.850376 | 0.020260 | 0.211924 | 0.658474 | 0.154236 | 0.850245 | 0.056554 | 0.927387 | 0.0 | 0.149755 | 0.972517 |
-| comp16 | 0.809623 | 0.034545 | 0.287178 | 0.433045 | 0.154535 | 0.809601 | 0.079917 | 0.912222 | 0.0 | 0.190399 | 0.947059 |
-| comp17 | 0.837231 | 0.030649 | 0.205816 | 0.848305 | 0.219617 | 0.837113 | 0.052080 | 0.917733 | 0.0 | 0.162887 | 0.947626 |
-| comp18 | 0.723969 | 0.042597 | 0.276312 | 0.944790 | 0.342669 | 0.722297 | 0.069832 | 0.893272 | 0.0 | 0.277703 | 0.922102 |
-| comp2 | 0.749954 | 0.028052 | 0.254583 | 0.877316 | 0.428622 | 0.749796 | 0.077276 | 0.894765 | 0.0 | 0.250204 | 0.939851 |
-| comp3 | 0.730773 | 0.024935 | 0.245166 | 1.477127 | 0.613271 | 0.730760 | 0.052925 | 0.847638 | 0.0 | 0.269240 | 0.972872 |
-| comp4 | 0.778200 | 0.026623 | 0.285561 | 0.516224 | 0.258404 | 0.778155 | 0.088068 | 0.920753 | 0.0 | 0.221845 | 0.943550 |
-| comp5 | 0.831611 | 0.028052 | 0.221211 | 1.038137 | 0.294980 | 0.831579 | 0.047229 | 0.921932 | 0.0 | 0.168421 | 0.955039 |
-| comp6 | 0.778222 | 0.033636 | 0.237790 | 1.315760 | 0.485822 | 0.778211 | 0.049693 | 0.896550 | 0.0 | 0.221789 | 0.946829 |
-| comp7 | 0.788509 | 0.032468 | 0.301003 | 0.379803 | 0.259433 | 0.788293 | 0.098708 | 0.909473 | 0.0 | 0.211707 | 0.924592 |
-| comp8 | 0.600721 | 0.034416 | 0.256251 | 1.090862 | 0.404781 | 0.595496 | 0.077493 | 0.846604 | 0.0 | 0.404504 | 0.934236 |
-| comp9 | 0.770873 | 0.036234 | 0.242638 | 0.722575 | 0.336760 | 0.770764 | 0.078768 | 0.893629 | 0.0 | 0.229236 | 0.941651 |
+| comp1 | 0.832177 | 0.022361 | 0.275248 | 0.051430 | 0.153469 | 0.832169 | 0.109778 | 0.927716 | 0.0 | 0.167831 | 0.965334 |
+| comp10 | 0.751012 | 0.021508 | 0.254612 | 1.121712 | 0.349088 | 0.750981 | 0.055761 | 0.907960 | 0.0 | 0.249019 | 0.971850 |
+| comp11 | 0.771809 | 0.034230 | 0.238810 | 0.795115 | 0.381846 | 0.771712 | 0.076476 | 0.896381 | 0.0 | 0.228288 | 0.952451 |
+| comp12 | 0.747961 | 0.029246 | 0.233401 | 0.866735 | 0.393987 | 0.747678 | 0.075758 | 0.903242 | 0.0 | 0.252322 | 0.942480 |
+| comp13 | 0.866694 | 0.023541 | 0.188838 | 1.026916 | 0.212901 | 0.866691 | 0.039145 | 0.921746 | 0.0 | 0.133309 | 0.985518 |
+| comp14 | 0.789018 | 0.027803 | 0.232897 | 1.359458 | 0.388519 | 0.788964 | 0.042099 | 0.899339 | 0.0 | 0.211036 | 0.963922 |
+| comp15 | 0.847318 | 0.014820 | 0.209057 | 0.669478 | 0.165291 | 0.847280 | 0.057114 | 0.929934 | 0.0 | 0.152720 | 0.984859 |
+| comp16 | 0.808779 | 0.034098 | 0.281195 | 0.508888 | 0.226105 | 0.808742 | 0.079756 | 0.911534 | 0.0 | 0.191258 | 0.954270 |
+| comp17 | 0.841527 | 0.027344 | 0.207151 | 0.859359 | 0.231549 | 0.841486 | 0.051421 | 0.916606 | 0.0 | 0.158514 | 0.972219 |
+| comp18 | 0.738655 | 0.034361 | 0.279104 | 0.931748 | 0.339508 | 0.737483 | 0.068570 | 0.889801 | 0.0 | 0.262517 | 0.944662 |
+| comp2 | 0.698125 | 0.022033 | 0.262450 | 0.848933 | 0.412060 | 0.698125 | 0.085890 | 0.897213 | 0.0 | 0.301875 | 0.968650 |
+| comp3 | 0.728761 | 0.016328 | 0.254590 | 1.467560 | 0.618226 | 0.728679 | 0.053907 | 0.845774 | 0.0 | 0.271321 | 0.985857 |
+| comp4 | 0.777981 | 0.027344 | 0.278806 | 0.531427 | 0.283276 | 0.777949 | 0.088965 | 0.920772 | 0.0 | 0.222051 | 0.950115 |
+| comp5 | 0.832455 | 0.020525 | 0.220486 | 1.031732 | 0.291805 | 0.832455 | 0.047259 | 0.921489 | 0.0 | 0.167545 | 0.967945 |
+| comp6 | 0.766052 | 0.028459 | 0.239339 | 1.325898 | 0.507369 | 0.766052 | 0.051623 | 0.894423 | 0.0 | 0.233948 | 0.957085 |
+| comp7 | 0.790974 | 0.038623 | 0.295532 | 0.471692 | 0.347924 | 0.790971 | 0.097749 | 0.907415 | 0.0 | 0.209029 | 0.922947 |
+| comp8 | 0.673722 | 0.027541 | 0.277210 | 1.153059 | 0.457237 | 0.672917 | 0.069008 | 0.862997 | 0.0 | 0.327083 | 0.947283 |
+| comp9 | 0.761769 | 0.028459 | 0.246354 | 0.710514 | 0.336110 | 0.761756 | 0.081222 | 0.893073 | 0.0 | 0.238244 | 0.965575 |
 
 </div>
 
@@ -1658,24 +1852,24 @@ print(model_dir)
 | statistic | EXPV | MACE | MAPE | MSLL | NLL | R2 | RMSE | Rho | Rho_p | SMSE | ShapiroW |
 |----|----|----|----|----|----|----|----|----|----|----|----|
 | response_vars |  |  |  |  |  |  |  |  |  |  |  |
-| comp1 | 0.821807 | 0.023377 | 0.288034 | 0.084383 | 0.181947 | 0.820189 | 0.113121 | 0.918716 | 1.286195e-156 | 0.179811 | 0.930817 |
-| comp10 | 0.804656 | 0.029091 | 0.223940 | 1.052898 | 0.281830 | 0.800337 | 0.050008 | 0.923877 | 7.496172e-162 | 0.199663 | 0.947618 |
-| comp11 | 0.777279 | 0.042078 | 0.224636 | 0.791387 | 0.425869 | 0.770773 | 0.080381 | 0.910974 | 2.204402e-149 | 0.229227 | 0.896728 |
-| comp12 | 0.792575 | 0.035325 | 0.225500 | 0.831165 | 0.341592 | 0.789971 | 0.067965 | 0.911956 | 2.905732e-150 | 0.210029 | 0.931031 |
-| comp13 | 0.885649 | 0.027792 | 0.178069 | 1.011384 | 0.213441 | 0.882020 | 0.037422 | 0.929228 | 1.099663e-167 | 0.117980 | 0.938896 |
-| comp14 | 0.772780 | 0.034286 | 0.231574 | 1.362398 | 0.418472 | 0.769132 | 0.045238 | 0.899115 | 1.704999e-139 | 0.230868 | 0.942358 |
-| comp15 | 0.844091 | 0.021558 | 0.199629 | 0.634573 | 0.135959 | 0.841007 | 0.058601 | 0.932857 | 6.584105e-172 | 0.158993 | 0.952366 |
-| comp16 | 0.804696 | 0.041558 | 0.283056 | 0.436449 | 0.160989 | 0.804162 | 0.081298 | 0.915523 | 1.502474e-153 | 0.195838 | 0.927999 |
-| comp17 | 0.840934 | 0.035584 | 0.194881 | 0.899986 | 0.318394 | 0.832975 | 0.055280 | 0.921600 | 1.690982e-159 | 0.167025 | 0.910117 |
-| comp18 | 0.710912 | 0.045195 | 0.255726 | 0.887765 | 0.326960 | 0.701436 | 0.075462 | 0.904208 | 1.391334e-143 | 0.298564 | 0.890316 |
-| comp2 | 0.776476 | 0.034805 | 0.251062 | 0.731145 | 0.325380 | 0.773431 | 0.076761 | 0.917952 | 7.153097e-156 | 0.226569 | 0.960381 |
-| comp3 | 0.755995 | 0.034805 | 0.251531 | 1.451790 | 0.631386 | 0.755829 | 0.052640 | 0.879545 | 1.332823e-125 | 0.244171 | 0.883571 |
-| comp4 | 0.787633 | 0.034286 | 0.259654 | 0.441392 | 0.265457 | 0.778622 | 0.095482 | 0.932347 | 2.663995e-171 | 0.221378 | 0.917271 |
-| comp5 | 0.865119 | 0.025974 | 0.214569 | 0.940175 | 0.234226 | 0.863747 | 0.044091 | 0.939347 | 4.359642e-180 | 0.136253 | 0.959424 |
-| comp6 | 0.799559 | 0.031169 | 0.235524 | 1.236869 | 0.455173 | 0.797610 | 0.049816 | 0.921273 | 3.636777e-159 | 0.202390 | 0.921811 |
-| comp7 | 0.807417 | 0.032727 | 0.281266 | 0.378806 | 0.257179 | 0.804296 | 0.094785 | 0.921860 | 9.176404e-160 | 0.195704 | 0.939927 |
-| comp8 | 0.616458 | 0.026753 | 0.267560 | 1.127382 | 0.463236 | 0.600495 | 0.078721 | 0.855027 | 2.838616e-111 | 0.399505 | 0.958927 |
-| comp9 | 0.781656 | 0.027532 | 0.228805 | 0.655787 | 0.306178 | 0.776879 | 0.080575 | 0.910739 | 3.562932e-149 | 0.223121 | 0.941595 |
+| comp1 | 0.829984 | 0.031518 | 0.315186 | 0.042076 | 0.128242 | 0.829367 | 0.108947 | 0.915618 | 1.889182e-152 | 0.170633 | 0.956985 |
+| comp10 | 0.801942 | 0.018325 | 0.239292 | 1.084971 | 0.338837 | 0.801386 | 0.051136 | 0.922477 | 3.732729e-159 | 0.198614 | 0.958511 |
+| comp11 | 0.778825 | 0.039791 | 0.243299 | 0.847595 | 0.466981 | 0.778825 | 0.077774 | 0.908823 | 2.383043e-146 | 0.221175 | 0.914785 |
+| comp12 | 0.772940 | 0.018848 | 0.262710 | 0.898534 | 0.442740 | 0.772613 | 0.073147 | 0.903709 | 4.577361e-142 | 0.227387 | 0.950457 |
+| comp13 | 0.877067 | 0.020419 | 0.198335 | 1.029662 | 0.235503 | 0.876622 | 0.038413 | 0.920066 | 9.934484e-157 | 0.123378 | 0.949199 |
+| comp14 | 0.807408 | 0.018848 | 0.229395 | 1.318233 | 0.391064 | 0.805183 | 0.042258 | 0.918193 | 6.737847e-155 | 0.194817 | 0.956299 |
+| comp15 | 0.870791 | 0.014660 | 0.222052 | 0.758704 | 0.260414 | 0.870246 | 0.052956 | 0.926791 | 1.072087e-163 | 0.129754 | 0.956899 |
+| comp16 | 0.830927 | 0.021990 | 0.306823 | 0.456806 | 0.214457 | 0.830576 | 0.078163 | 0.908068 | 1.058155e-145 | 0.169424 | 0.981608 |
+| comp17 | 0.840421 | 0.023037 | 0.223738 | 0.891665 | 0.319976 | 0.839345 | 0.054756 | 0.919288 | 5.797755e-156 | 0.160655 | 0.947658 |
+| comp18 | 0.765525 | 0.039372 | 0.294639 | 0.902393 | 0.318346 | 0.764826 | 0.065435 | 0.901976 | 1.144173e-140 | 0.235174 | 0.911161 |
+| comp2 | 0.787031 | 0.030890 | 0.276654 | 0.862925 | 0.424146 | 0.787020 | 0.072007 | 0.902374 | 5.497447e-141 | 0.212980 | 0.949899 |
+| comp3 | 0.744042 | 0.024607 | 0.257571 | 1.528441 | 0.659636 | 0.743854 | 0.051368 | 0.866306 | 1.324075e-116 | 0.256146 | 0.958034 |
+| comp4 | 0.789114 | 0.024607 | 0.290056 | 0.506230 | 0.313194 | 0.789066 | 0.091623 | 0.924449 | 3.387224e-161 | 0.210934 | 0.955626 |
+| comp5 | 0.846904 | 0.024084 | 0.233567 | 0.998313 | 0.290017 | 0.846868 | 0.046632 | 0.928094 | 4.015625e-165 | 0.153132 | 0.974294 |
+| comp6 | 0.810788 | 0.024084 | 0.234112 | 1.293199 | 0.481801 | 0.810733 | 0.046764 | 0.914541 | 1.889364e-151 | 0.189267 | 0.979718 |
+| comp7 | 0.802732 | 0.034555 | 0.339834 | 0.522921 | 0.423171 | 0.802590 | 0.097303 | 0.918168 | 7.126085e-155 | 0.197410 | 0.869595 |
+| comp8 | 0.661124 | 0.017801 | 0.321046 | 1.141910 | 0.505930 | 0.657111 | 0.075013 | 0.859620 | 7.170100e-113 | 0.342889 | 0.981949 |
+| comp9 | 0.800487 | 0.022513 | 0.250895 | 0.711011 | 0.329406 | 0.800379 | 0.073814 | 0.900380 | 2.101354e-139 | 0.199621 | 0.966518 |
 
 </div>
 
@@ -1696,62 +1890,40 @@ print(model_dir)
 
 |  | Variable | Group | N_test | M1 mean z | M1 SD z | S1uLp + S2 mean z | S1uLp + S2 SD z | V2 + RSD mean z | V2 + RSD SD z | Cg1 + RS mean z | Cg1 + RS SD z | Ventral HP mean z | Ventral HP SD z |
 |----|----|----|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | Dataset | 3xTG | 2 | 0.44 | 0.63 | 0.89 | 0.25 | 0.01 | 0.32 | 0.04 | 0.78 | 0.54 | 1.09 |
-| 1 | Dataset | Alvino | 3 | -0.62 | 0.21 | -0.73 | 0.11 | -0.62 | 0.03 | -0.71 | 0.26 | -0.64 | 0.05 |
-| 2 | Dataset | Awake | 227 | 0.12 | 1.00 | 0.03 | 1.10 | 0.13 | 0.95 | 0.15 | 1.00 | 0.20 | 1.18 |
-| 3 | Dataset | Awake_Rest | 43 | 0.06 | 0.90 | 0.26 | 0.88 | 0.51 | 1.07 | 0.27 | 1.06 | 0.32 | 1.11 |
-| 4 | Dataset | Douglas | 3 | -0.69 | 0.47 | -0.26 | 0.23 | -0.14 | 0.28 | 0.68 | 0.87 | 0.29 | 0.21 |
-| 5 | Dataset | Env_Enrichment | 10 | -0.02 | 0.68 | -0.07 | 0.63 | 0.30 | 1.91 | -0.02 | 0.54 | 0.26 | 0.75 |
-| 6 | Dataset | Florida | 2 | -0.14 | 1.44 | -0.58 | 1.00 | 0.10 | 1.23 | -0.54 | 0.92 | -0.50 | 0.75 |
-| 7 | Dataset | Longitudinal | 9 | 0.32 | 0.75 | 0.15 | 1.10 | -0.02 | 0.66 | 0.08 | 0.51 | -0.26 | 0.39 |
-| 8 | Dataset | MPTP | 4 | -0.21 | 0.14 | -0.75 | 0.42 | -0.13 | 0.69 | -0.19 | 0.42 | 0.51 | 0.52 |
-| 9 | Dataset | Multicenter | 56 | 0.07 | 0.74 | -0.12 | 0.69 | 0.02 | 1.03 | 0.23 | 0.92 | -0.02 | 0.82 |
-| 10 | Dataset | NDUFS4 | 5 | -0.60 | 0.66 | -0.65 | 0.55 | -0.45 | 0.25 | -0.28 | 0.58 | 0.24 | 0.47 |
-| 11 | Dataset | Psilocybin | 7 | 0.09 | 1.26 | 0.39 | 1.35 | -0.24 | 1.33 | -0.43 | 1.39 | -0.03 | 0.81 |
-| 12 | Dataset | Psilocybin_Pilot | 3 | -0.12 | 0.88 | -0.23 | 0.61 | -0.33 | 0.30 | -0.79 | 0.24 | 0.73 | 0.72 |
-| 13 | Dataset | Sexdifference | 11 | -0.54 | 0.70 | -0.18 | 1.14 | -0.50 | 0.57 | -0.25 | 0.87 | -0.53 | 0.47 |
-| 14 | Sex | F | 163 | 0.11 | 0.94 | 0.09 | 0.91 | 0.21 | 1.03 | 0.12 | 0.99 | 0.20 | 1.15 |
-| 15 | Sex | M | 189 | -0.00 | 0.95 | -0.04 | 1.12 | 0.03 | 0.97 | 0.10 | 0.97 | 0.11 | 1.01 |
-| 16 | Sex | Unknown | 33 | 0.16 | 0.74 | -0.07 | 0.64 | 0.12 | 0.97 | 0.24 | 0.95 | 0.04 | 0.97 |
-| 17 | Anesthesia | Awake | 246 | 0.15 | 0.99 | 0.09 | 1.10 | 0.19 | 0.97 | 0.19 | 1.03 | 0.27 | 1.20 |
-| 18 | Anesthesia | Hal | 7 | 0.04 | 0.72 | 0.16 | 1.01 | -0.30 | 0.55 | 0.47 | 1.27 | -0.33 | 0.32 |
-| 19 | Anesthesia | Iso | 38 | -0.26 | 0.83 | -0.37 | 0.53 | -0.08 | 0.99 | -0.00 | 0.89 | -0.06 | 0.65 |
-| 20 | Anesthesia | Med | 17 | -0.09 | 0.53 | -0.04 | 0.53 | -0.24 | 0.56 | -0.03 | 0.69 | -0.41 | 0.59 |
-| 21 | Anesthesia | Mediso | 77 | -0.01 | 0.83 | -0.04 | 0.89 | 0.07 | 1.15 | -0.04 | 0.83 | 0.01 | 0.78 |
-| 22 | Anesthesia dose | Awake | 246 | 0.15 | 0.99 | 0.09 | 1.10 | 0.19 | 0.97 | 0.19 | 1.03 | 0.27 | 1.20 |
-| 23 | Anesthesia dose | High | 37 | -0.02 | 0.67 | -0.16 | 0.61 | 0.09 | 1.28 | 0.03 | 0.65 | -0.03 | 0.75 |
-| 24 | Anesthesia dose | Low | 97 | -0.11 | 0.85 | -0.12 | 0.85 | -0.08 | 0.94 | -0.04 | 0.92 | -0.12 | 0.71 |
-| 25 | Anesthesia dose | Unknown | 5 | -0.24 | 0.77 | 0.20 | 0.66 | -0.08 | 0.27 | 0.42 | 0.80 | 0.39 | 0.58 |
-| 26 | Coil | Cryo | 57 | 0.11 | 0.86 | 0.04 | 1.37 | 0.09 | 1.14 | -0.02 | 0.85 | 0.13 | 0.96 |
-| 27 | Coil | RT | 328 | 0.05 | 0.94 | 0.01 | 0.93 | 0.12 | 0.97 | 0.14 | 0.99 | 0.15 | 1.09 |
-| 28 | fMRI sequence | GE-EPI | 199 | -0.03 | 0.87 | -0.03 | 0.90 | 0.08 | 0.99 | 0.13 | 1.02 | 0.13 | 1.07 |
-| 29 | fMRI sequence | ME-EPI | 10 | 0.03 | 1.11 | 0.21 | 1.18 | -0.27 | 1.09 | -0.54 | 1.15 | 0.20 | 0.83 |
-| 30 | fMRI sequence | SE-EPI | 176 | 0.17 | 0.97 | 0.05 | 1.10 | 0.17 | 1.00 | 0.15 | 0.90 | 0.16 | 1.08 |
+| 0 | Dataset | 3xTG | 4 | -0.53 | 0.71 | -0.94 | 1.47 | -0.02 | 0.43 | -0.09 | 0.63 | -0.24 | 0.29 |
+| 1 | Dataset | Alvino | 3 | -0.66 | 0.25 | -0.88 | 0.29 | -0.57 | 0.18 | -0.69 | 0.19 | -0.84 | 0.35 |
+| 2 | Dataset | Awake | 226 | 0.05 | 1.06 | -0.05 | 1.01 | 0.06 | 0.97 | 0.13 | 1.08 | -0.03 | 1.07 |
+| 3 | Dataset | Awake_Rest | 41 | 0.12 | 1.32 | 0.15 | 0.80 | 0.17 | 1.02 | 0.22 | 1.16 | 0.29 | 1.12 |
+| 4 | Dataset | Douglas | 2 | -0.14 | 0.96 | -0.31 | 0.42 | -0.08 | 0.15 | -0.16 | 0.53 | -0.86 | 1.28 |
+| 5 | Dataset | Env_Enrichment | 7 | -0.03 | 0.66 | 0.46 | 0.89 | 1.03 | 3.75 | 0.08 | 0.39 | 1.59 | 2.24 |
+| 6 | Dataset | Florida | 4 | 0.61 | 1.13 | -0.36 | 1.32 | 0.10 | 0.86 | -0.08 | 0.73 | -0.75 | 0.59 |
+| 7 | Dataset | Longitudinal | 8 | 0.22 | 0.94 | -0.03 | 0.57 | 0.06 | 0.49 | 0.06 | 0.55 | 0.37 | 1.09 |
+| 8 | Dataset | MPTP | 5 | -0.47 | 0.50 | -0.17 | 0.25 | -0.41 | 0.35 | 0.17 | 0.85 | 0.23 | 0.29 |
+| 9 | Dataset | Multicenter | 54 | 0.02 | 0.70 | 0.23 | 1.04 | -0.23 | 0.75 | 0.17 | 0.94 | 0.12 | 0.83 |
+| 10 | Dataset | NDUFS4 | 4 | -0.25 | 0.98 | -0.24 | 0.77 | -0.55 | 0.28 | -0.02 | 0.56 | -0.09 | 0.26 |
+| 11 | Dataset | Psilocybin | 7 | 0.21 | 1.18 | 0.52 | 1.53 | -0.32 | 1.91 | -0.42 | 1.38 | -0.60 | 0.87 |
+| 12 | Dataset | Psilocybin_Pilot | 3 | -0.12 | 0.67 | -0.33 | 0.41 | -0.56 | 0.33 | -0.67 | 0.31 | 0.43 | 0.56 |
+| 13 | Dataset | Sexdifference | 14 | -0.43 | 0.57 | -0.09 | 1.00 | -0.16 | 0.54 | -0.20 | 1.03 | -0.22 | 0.72 |
+| 14 | Sex | F | 182 | -0.02 | 0.97 | -0.07 | 0.86 | -0.03 | 0.86 | 0.01 | 0.98 | 0.04 | 1.04 |
+| 15 | Sex | M | 200 | 0.06 | 1.05 | 0.07 | 1.10 | 0.04 | 1.19 | 0.18 | 1.07 | 0.03 | 1.08 |
+| 16 | Anesthesia | Awake | 238 | 0.05 | 1.04 | -0.02 | 1.02 | 0.08 | 1.01 | 0.14 | 1.08 | 0.01 | 1.09 |
+| 17 | Anesthesia | Hal | 4 | -0.28 | 0.78 | -0.37 | 1.04 | -0.33 | 0.50 | -0.44 | 0.53 | -0.28 | 1.16 |
+| 18 | Anesthesia | Iso | 38 | -0.13 | 0.71 | 0.14 | 1.16 | -0.21 | 0.66 | -0.09 | 0.92 | 0.05 | 0.89 |
+| 19 | Anesthesia | Med | 15 | -0.07 | 0.51 | -0.15 | 0.75 | -0.29 | 0.78 | 0.28 | 0.96 | -0.15 | 1.23 |
+| 20 | Anesthesia | Mediso | 87 | 0.04 | 1.11 | 0.04 | 0.90 | -0.04 | 1.30 | 0.07 | 0.97 | 0.13 | 1.04 |
+| 21 | Anesthesia dose | Awake | 238 | 0.05 | 1.04 | -0.02 | 1.02 | 0.08 | 1.01 | 0.14 | 1.08 | 0.01 | 1.09 |
+| 22 | Anesthesia dose | High | 35 | 0.03 | 0.72 | 0.06 | 1.39 | 0.20 | 1.76 | 0.12 | 0.73 | 0.35 | 1.45 |
+| 23 | Anesthesia dose | Low | 107 | -0.04 | 1.03 | 0.04 | 0.79 | -0.22 | 0.76 | 0.01 | 1.02 | -0.01 | 0.82 |
+| 24 | Anesthesia dose | Unknown | 2 | -0.14 | 0.96 | -0.31 | 0.42 | -0.08 | 0.15 | -0.16 | 0.53 | -0.86 | 1.28 |
+| 25 | Coil | Cryo | 66 | 0.03 | 0.98 | 0.20 | 1.12 | -0.05 | 1.00 | 0.09 | 1.01 | -0.10 | 0.79 |
+| 26 | Coil | RT | 316 | 0.02 | 1.02 | -0.04 | 0.96 | 0.02 | 1.05 | 0.10 | 1.04 | 0.06 | 1.11 |
+| 27 | fMRI sequence | GE-EPI | 198 | 0.01 | 0.99 | 0.05 | 0.97 | -0.05 | 0.86 | 0.15 | 1.06 | 0.05 | 0.96 |
+| 28 | fMRI sequence | ME-EPI | 10 | 0.11 | 1.02 | 0.27 | 1.33 | -0.39 | 1.57 | -0.49 | 1.14 | -0.29 | 0.90 |
+| 29 | fMRI sequence | SE-EPI | 174 | 0.03 | 1.04 | -0.06 | 1.00 | 0.10 | 1.19 | 0.08 | 0.98 | 0.03 | 1.18 |
 
 </div>
 
-    Groups with |mean z| > 0.5 in at least one component (model biased for them):
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-&#10;    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-&#10;    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-|  | Variable | Group | N_test | M1 mean z | S1uLp + S2 mean z | V2 + RSD mean z | Cg1 + RS mean z | Ventral HP mean z |
-|----|----|----|----|----|----|----|----|----|
-| 3 | Dataset | Awake_Rest | 43 | 0.06 | 0.26 | 0.51 | 0.27 | 0.32 |
-| 13 | Dataset | Sexdifference | 11 | -0.54 | -0.18 | -0.50 | -0.25 | -0.53 |
-| 29 | fMRI sequence | ME-EPI | 10 | 0.03 | 0.21 | -0.27 | -0.54 | 0.20 |
-
-</div>
+![](Model_Training_files/figure-commonmark/cell-2-output-10.png)
 
 ![](Model_Training_files/figure-commonmark/cell-2-output-11.png)
 
@@ -1763,14 +1935,12 @@ print(model_dir)
 
 ![](Model_Training_files/figure-commonmark/cell-2-output-15.png)
 
-![](Model_Training_files/figure-commonmark/cell-2-output-16.png)
-
     QQ plots by group saved to: /home/traaffneu/giuvas/digitalrodent/results/normative_model/plots/qq_by_group
     Harmonized to the protocol of dataset: Awake
     MRI                             9.400000
     MRI T.R.                     2500.000000
-    FD average                      0.023456
-    log_tSNR                        2.832625
+    FD average                      0.023904
+    log_tSNR                        2.827833
     Coil_encoded                    0.000000
     Ventilation_encoded             0.000000
     Anesthesia_high                 0.000000
@@ -1785,6 +1955,8 @@ print(model_dir)
     Anesthesia_Mediso               0.000000
     dtype: float64
 
+![](Model_Training_files/figure-commonmark/cell-2-output-17.png)
+
 ![](Model_Training_files/figure-commonmark/cell-2-output-18.png)
 
 ![](Model_Training_files/figure-commonmark/cell-2-output-19.png)
@@ -1792,8 +1964,6 @@ print(model_dir)
 ![](Model_Training_files/figure-commonmark/cell-2-output-20.png)
 
 ![](Model_Training_files/figure-commonmark/cell-2-output-21.png)
-
-![](Model_Training_files/figure-commonmark/cell-2-output-22.png)
 
     Between-dataset spread before/after harmonization:
 
@@ -1812,11 +1982,11 @@ print(model_dir)
 
 |  | SD of dataset means, raw | SD of dataset means, harmonized |
 |----|----|----|
-| M1 (comp2) | 0.067 | 0.017 |
-| S1uLp + S2 (comp3) | 0.053 | 0.018 |
-| V2 + RSD (comp7) | 0.085 | 0.028 |
-| Cg1 + RS (comp10) | 0.047 | 0.010 |
-| Ventral HP (comp11) | 0.072 | 0.021 |
+| M1 (comp2) | 0.067 | 0.021 |
+| S1uLp + S2 (comp3) | 0.053 | 0.013 |
+| V2 + RSD (comp7) | 0.086 | 0.041 |
+| Cg1 + RS (comp10) | 0.047 | 0.007 |
+| Ventral HP (comp12) | 0.069 | 0.011 |
 
 </div>
 

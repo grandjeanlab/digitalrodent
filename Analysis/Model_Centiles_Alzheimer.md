@@ -50,21 +50,13 @@ ORANGE = "#F4A460"
 GREEN = "#6D9F8C"
 DARK = "#39434B"
 
-component_colors = {
-    "comp2": "#8E6C8A",   # M1, motor
-    "comp3": BLUE,        # S1uLp + S2, somatosensory
-    "comp7": "#C9A227",   # V2 + RSD, visual
-    "comp10": ORANGE,     # Cg1 + RS
-    "comp11": GREEN       # Ventral HP
-}
+# Component labels (new Zerbi ICA) -- single source: component_labels.py
+from component_labels import NAME, SELECTED_COMPONENTS, COMPONENT_COLORS
 
-component_labels = {
-    "comp2": "Primary motor cortex",
-    "comp3": "S1 upper lip + secondary somatosensory cortex",
-    "comp7": "Secondary visual + dorsal retrosplenial cortex",
-    "comp10": "Cingulate cortex, area 1 + retrosplenial cortex",
-    "comp11": "Ventral hippocampus"
-}
+component_colors = COMPONENT_COLORS
+component_labels = {c: NAME[c] for c in SELECTED_COMPONENTS}
+
+
 
 # ============================================================
 # LOAD MODEL AND DATA
@@ -74,7 +66,7 @@ model = NormativeModel.load(str(model_dir))
 
 
 response_vars = [str(x) for x in model.response_vars]
-selected_components = ["comp2", "comp3", "comp7", "comp10", "comp11"]
+selected_components = SELECTED_COMPONENTS
 
 model_df = pd.read_csv(input_file)
 
@@ -920,8 +912,8 @@ for file in sorted(plot_dir.glob("*.svg")):
 ```
 
     Model loaded
-    Responses: ['comp10', 'comp11', 'comp2', 'comp1', 'comp3', 'comp4', 'comp5', 'comp6', 'comp7', 'comp8', 'comp9', 'comp12', 'comp13', 'comp14', 'comp15', 'comp16', 'comp17', 'comp18']
-    Covariates: ['Age(week)', 'MRI', 'MRI T.R.', 'FD average', 'log_tSNR', 'Sex_encoded', 'Sex_unknown', 'Coil_encoded', 'Ventilation_encoded', 'Anesthesia_high', 'Anesthesia_dose_unknown', 'Rodent.strain_129S2/SvPas', 'Rodent.strain_F1 C6/129P', 'fMRI.sequence_ME-EPI', 'fMRI.sequence_SE-EPI', 'Anesthesia_Hal', 'Anesthesia_Iso', 'Anesthesia_Med', 'Anesthesia_Mediso']
+    Responses: ['comp1', 'comp2', 'comp3', 'comp4', 'comp5', 'comp6', 'comp7', 'comp8', 'comp9', 'comp10', 'comp11', 'comp12', 'comp13', 'comp14', 'comp15', 'comp16', 'comp17', 'comp18']
+    Covariates: ['Age(week)', 'MRI', 'MRI T.R.', 'FD average', 'log_tSNR', 'Sex_encoded', 'Coil_encoded', 'Ventilation_encoded', 'Anesthesia_high', 'Anesthesia_dose_unknown', 'Rodent.strain_129S2/SvPas', 'Rodent.strain_F1 C6/129P', 'fMRI.sequence_ME-EPI', 'fMRI.sequence_SE-EPI', 'Anesthesia_Hal', 'Anesthesia_Iso', 'Anesthesia_Med', 'Anesthesia_Mediso']
     Alzheimer scans: 22
     Saving to: /home/traaffneu/giuvas/digitalrodent/results/normative_model/centiles_svg_Alzheimer
 
@@ -932,7 +924,6 @@ for file in sorted(plot_dir.glob("*.svg")):
     FD average                   0.008515
     log_tSNR                     2.689207
     Sex_encoded                       0.0
-    Sex_unknown                       0.0
     Coil_encoded                      0.0
     Ventilation_encoded               0.0
     Anesthesia_high                   0.0
@@ -946,34 +937,55 @@ for file in sorted(plot_dir.glob("*.svg")):
     Anesthesia_Med                    0.0
     Anesthesia_Mediso                 0.0
     Name: 90, dtype: object
-    Process: 3348014 - 2026-10-27 23:19:43 - Dataset "Age(week)_centiles" created.
+    Process: 365947 - 2026-11-14 18:18:45 - Dataset "Age(week)_centiles" created.
         - 150 observations
         - 150 unique subjects
-        - 19 covariates
+        - 18 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for 18 response variables.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp15.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp16.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp13.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp5.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp3.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp14.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp11.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp4.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp6.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp10.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp7.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp12.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp8.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp2.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp9.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp18.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp17.
-    Process: 3348014 - 2026-10-27 23:19:43 - Computing centiles for comp1.
+    Process: 365947 - 2026-11-14 18:18:45 - Computing centiles for 18 response variables.
+    Process: 365947 - 2026-11-14 18:18:45 - Computing centiles for comp1.
+    Process: 365947 - 2026-11-14 18:18:45 - Computing centiles for comp14.
+    Process: 365947 - 2026-11-14 18:18:45 - Computing centiles for comp11.
+    Process: 365947 - 2026-11-14 18:18:45 - Computing centiles for comp16.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp5.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp7.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp8.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp9.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp13.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp18.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp10.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp6.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp4.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp3.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp17.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp2.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp12.
+    Process: 365947 - 2026-11-14 18:18:46 - Computing centiles for comp15.
 
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -2040,21 +2052,38 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
 
     Saved: S1_upper_lip_+_secondary_somatosensory_cortex_Ageweek_centiles.svg
 
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -2854,6 +2883,11 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Cingulate_cortex,_area_1_+_retrosplenial_cortex_Ageweek_centiles.svg
 
@@ -2936,48 +2970,98 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Ventral_hippocampus_Ageweek_centiles.svg
-    Process: 3348014 - 2026-10-27 23:19:46 - Dataset "Sex_centiles" created.
+    Process: 365947 - 2026-11-14 18:18:47 - Dataset "Sex_centiles" created.
         - 2 observations
         - 2 unique subjects
-        - 19 covariates
+        - 18 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for 18 response variables.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp15.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp16.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp13.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp5.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp3.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp14.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp11.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp4.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp6.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp10.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp7.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp12.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp8.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp2.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp9.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp18.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp17.
-    Process: 3348014 - 2026-10-27 23:19:46 - Computing centiles for comp1.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for 18 response variables.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp1.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp14.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp11.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp16.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp5.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp7.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp8.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp9.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp13.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp18.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp10.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp6.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp4.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp3.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp17.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp2.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp12.
+    Process: 365947 - 2026-11-14 18:18:47 - Computing centiles for comp15.
 
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -3774,39 +3858,9 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
 
     Saved: S1_upper_lip_+_secondary_somatosensory_cortex_Sex_centiles.svg
 
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -4263,162 +4317,6 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Cingulate_cortex,_area_1_+_retrosplenial_cortex_Sex_centiles.svg
 
@@ -4432,87 +4330,293 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Ventral_hippocampus_Sex_centiles.svg
-    Process: 3348014 - 2026-10-27 23:19:48 - Dataset "Coil_centiles" created.
+    Process: 365947 - 2026-11-14 18:18:49 - Dataset "Coil_centiles" created.
         - 2 observations
         - 2 unique subjects
-        - 19 covariates
+        - 18 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for 18 response variables.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp15.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp16.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp13.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp5.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp3.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp14.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp11.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp4.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp6.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp10.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp7.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp12.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp8.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp2.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp9.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp18.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp17.
-    Process: 3348014 - 2026-10-27 23:19:48 - Computing centiles for comp1.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for 18 response variables.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp1.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp14.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp11.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp16.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp5.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp7.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp8.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp9.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp13.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp18.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp10.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp6.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp4.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp3.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp17.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp2.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp12.
+    Process: 365947 - 2026-11-14 18:18:49 - Computing centiles for comp15.
 
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -5298,20 +5402,12 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: S1_upper_lip_+_secondary_somatosensory_cortex_Coil_centiles.svg
 
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -5913,6 +6009,23 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Cingulate_cortex,_area_1_+_retrosplenial_cortex_Coil_centiles.svg
 
@@ -5948,75 +6061,96 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Ventral_hippocampus_Coil_centiles.svg
-    Process: 3348014 - 2026-10-27 23:19:49 - Dataset "Ventilation_centiles" created.
+    Process: 365947 - 2026-11-14 18:18:50 - Dataset "Ventilation_centiles" created.
         - 2 observations
         - 2 unique subjects
-        - 19 covariates
+        - 18 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for 18 response variables.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp15.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp16.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp13.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp5.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp3.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp14.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp11.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp4.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp6.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp10.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp7.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp12.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp8.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp2.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp9.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp18.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp17.
-    Process: 3348014 - 2026-10-27 23:19:49 - Computing centiles for comp1.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for 18 response variables.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp1.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp14.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp11.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp16.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp5.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp7.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp8.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp9.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp13.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp18.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp10.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp6.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp4.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp3.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp17.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp2.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp12.
+    Process: 365947 - 2026-11-14 18:18:50 - Computing centiles for comp15.
 
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -6790,18 +6924,22 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: S1_upper_lip_+_secondary_somatosensory_cortex_Ventilation_centiles.svg
 
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -7407,6 +7545,25 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Cingulate_cortex,_area_1_+_retrosplenial_cortex_Ventilation_centiles.svg
 
@@ -7450,36 +7607,95 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Ventral_hippocampus_Ventilation_centiles.svg
-    Process: 3348014 - 2026-10-27 23:19:50 - Dataset "Rodent_strain_centiles" created.
+    Process: 365947 - 2026-11-14 18:18:51 - Dataset "Rodent_strain_centiles" created.
         - 3 observations
         - 3 unique subjects
-        - 19 covariates
+        - 18 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for 18 response variables.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp15.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp16.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp13.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp5.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp3.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp14.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp11.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp4.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp6.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp10.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp7.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp12.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp8.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp2.
-    Process: 3348014 - 2026-10-27 23:19:50 - Computing centiles for comp9.
-    Process: 3348014 - 2026-10-27 23:19:51 - Computing centiles for comp18.
-    Process: 3348014 - 2026-10-27 23:19:51 - Computing centiles for comp17.
-    Process: 3348014 - 2026-10-27 23:19:51 - Computing centiles for comp1.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for 18 response variables.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp1.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp14.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp11.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp16.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp5.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp7.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp8.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp9.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp13.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp18.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp10.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp6.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp4.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp3.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp17.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp2.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp12.
+    Process: 365947 - 2026-11-14 18:18:51 - Computing centiles for comp15.
 
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -8356,9 +8572,29 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: S1_upper_lip_+_secondary_somatosensory_cortex_Rodent_strain_centiles.svg
 
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -9000,6 +9236,18 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Cingulate_cortex,_area_1_+_retrosplenial_cortex_Rodent_strain_centiles.svg
 
@@ -9040,78 +9288,92 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Ventral_hippocampus_Rodent_strain_centiles.svg
-    Process: 3348014 - 2026-10-27 23:19:53 - Dataset "fMRI_sequence_centiles" created.
+    Process: 365947 - 2026-11-14 18:18:52 - Dataset "fMRI_sequence_centiles" created.
         - 3 observations
         - 3 unique subjects
-        - 19 covariates
+        - 18 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 3348014 - 2026-10-27 23:19:53 - Computing centiles for 18 response variables.
-    Process: 3348014 - 2026-10-27 23:19:53 - Computing centiles for comp15.
-    Process: 3348014 - 2026-10-27 23:19:54 - Computing centiles for comp16.
-    Process: 3348014 - 2026-10-27 23:19:56 - Computing centiles for comp13.
-    Process: 3348014 - 2026-10-27 23:19:57 - Computing centiles for comp5.
-    Process: 3348014 - 2026-10-27 23:19:58 - Computing centiles for comp3.
-    Process: 3348014 - 2026-10-27 23:19:58 - Computing centiles for comp14.
-    Process: 3348014 - 2026-10-27 23:19:59 - Computing centiles for comp11.
-    Process: 3348014 - 2026-10-27 23:20:00 - Computing centiles for comp4.
-    Process: 3348014 - 2026-10-27 23:20:01 - Computing centiles for comp6.
+    Process: 365947 - 2026-11-14 18:18:52 - Computing centiles for 18 response variables.
+    Process: 365947 - 2026-11-14 18:18:52 - Computing centiles for comp1.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp14.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp11.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp16.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp5.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp7.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp8.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp9.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp13.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp18.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp10.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp6.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp4.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp3.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp17.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp2.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp12.
+    Process: 365947 - 2026-11-14 18:18:53 - Computing centiles for comp15.
 
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-
-    Process: 3348014 - 2026-10-27 23:20:02 - Computing centiles for comp10.
-    Process: 3348014 - 2026-10-27 23:20:02 - Computing centiles for comp7.
-    Process: 3348014 - 2026-10-27 23:20:02 - Computing centiles for comp12.
-    Process: 3348014 - 2026-10-27 23:20:02 - Computing centiles for comp8.
-    Process: 3348014 - 2026-10-27 23:20:02 - Computing centiles for comp2.
-    Process: 3348014 - 2026-10-27 23:20:02 - Computing centiles for comp9.
-    Process: 3348014 - 2026-10-27 23:20:02 - Computing centiles for comp18.
-    Process: 3348014 - 2026-10-27 23:20:02 - Computing centiles for comp17.
-    Process: 3348014 - 2026-10-27 23:20:02 - Computing centiles for comp1.
-
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -10014,27 +10276,69 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Secondary_visual_+_dorsal_retrosplenial_cortex_fMRI_sequence_centiles.svg
 
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -10658,28 +10962,57 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Ventral_hippocampus_fMRI_sequence_centiles.svg
-    Process: 3348014 - 2026-10-27 23:20:04 - Dataset "Anesthesia_centiles" created.
+    Process: 365947 - 2026-11-14 18:18:54 - Dataset "Anesthesia_centiles" created.
         - 5 observations
         - 5 unique subjects
-        - 19 covariates
+        - 18 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for 18 response variables.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp15.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp16.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp13.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp5.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp3.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp14.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp11.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp4.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp6.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp10.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp7.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for 18 response variables.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp1.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp14.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp11.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp16.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp5.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp7.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp8.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp9.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp13.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp18.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp10.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp6.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp4.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp3.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp17.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp2.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp12.
+    Process: 365947 - 2026-11-14 18:18:54 - Computing centiles for comp15.
 
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -10732,44 +11065,6 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp12.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp8.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp2.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp9.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp18.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp17.
-    Process: 3348014 - 2026-10-27 23:20:04 - Computing centiles for comp1.
-
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -11671,38 +11966,39 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: S1_upper_lip_+_secondary_somatosensory_cortex_Anesthesia_centiles.svg
 
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -12403,29 +12699,61 @@ for file in sorted(plot_dir.glob("*.svg")):
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
+    findfont: Font family 'Liberation Sans' not found.
 
     Saved: Cingulate_cortex,_area_1_+_retrosplenial_cortex_Anesthesia_centiles.svg
 
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
-    findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
     findfont: Font family 'Liberation Sans' not found.
@@ -12527,7 +12855,6 @@ for file in sorted(plot_dir.glob("*.svg")):
     FD average                    0.012263     0.013930     0.013009     0.015196   
     log_tSNR                      3.765241     3.765804     3.814261     3.767647   
     Sex_encoded                   1.000000     1.000000     1.000000     1.000000   
-    Sex_unknown                   0.000000     0.000000     0.000000     0.000000   
     Coil_encoded                  1.000000     1.000000     1.000000     1.000000   
     Ventilation_encoded           0.000000     0.000000     0.000000     0.000000   
     Anesthesia_high               1.000000     1.000000     1.000000     1.000000   
@@ -12548,7 +12875,6 @@ for file in sorted(plot_dir.glob("*.svg")):
     FD average                    0.008181     0.017718     0.014267     0.014699   
     log_tSNR                      3.947320     3.792733     3.900139     3.889680   
     Sex_encoded                   1.000000     1.000000     1.000000     1.000000   
-    Sex_unknown                   0.000000     0.000000     0.000000     0.000000   
     Coil_encoded                  1.000000     1.000000     1.000000     1.000000   
     Ventilation_encoded           0.000000     0.000000     0.000000     0.000000   
     Anesthesia_high               1.000000     1.000000     1.000000     1.000000   
@@ -12569,7 +12895,6 @@ for file in sorted(plot_dir.glob("*.svg")):
     FD average                    0.016832     0.007714  ...     0.016427   
     log_tSNR                      3.815950     3.742593  ...     3.772014   
     Sex_encoded                   1.000000     1.000000  ...     1.000000   
-    Sex_unknown                   0.000000     0.000000  ...     0.000000   
     Coil_encoded                  1.000000     1.000000  ...     1.000000   
     Ventilation_encoded           0.000000     0.000000  ...     0.000000   
     Anesthesia_high               1.000000     1.000000  ...     1.000000   
@@ -12590,7 +12915,6 @@ for file in sorted(plot_dir.glob("*.svg")):
     FD average                    0.017626     0.014053     0.014012     0.012230   
     log_tSNR                      3.830955     3.810095     3.666212     3.794098   
     Sex_encoded                   1.000000     1.000000     1.000000     1.000000   
-    Sex_unknown                   0.000000     0.000000     0.000000     0.000000   
     Coil_encoded                  1.000000     1.000000     1.000000     1.000000   
     Ventilation_encoded           0.000000     0.000000     0.000000     0.000000   
     Anesthesia_high               1.000000     1.000000     1.000000     1.000000   
@@ -12611,7 +12935,6 @@ for file in sorted(plot_dir.glob("*.svg")):
     FD average                    0.018954     0.018871     0.014140     0.009611   
     log_tSNR                      3.717320     3.591311     3.658687     3.746835   
     Sex_encoded                   1.000000     1.000000     1.000000     1.000000   
-    Sex_unknown                   0.000000     0.000000     0.000000     0.000000   
     Coil_encoded                  1.000000     1.000000     1.000000     1.000000   
     Ventilation_encoded           0.000000     0.000000     0.000000     0.000000   
     Anesthesia_high               1.000000     1.000000     1.000000     1.000000   
@@ -12632,7 +12955,6 @@ for file in sorted(plot_dir.glob("*.svg")):
     FD average                    0.017459  
     log_tSNR                      3.787040  
     Sex_encoded                   1.000000  
-    Sex_unknown                   0.000000  
     Coil_encoded                  1.000000  
     Ventilation_encoded           0.000000  
     Anesthesia_high               1.000000  
@@ -12646,58 +12968,58 @@ for file in sorted(plot_dir.glob("*.svg")):
     Anesthesia_Med                0.000000  
     Anesthesia_Mediso             1.000000  
 
-    [19 rows x 22 columns]
-    Process: 3348014 - 2026-10-27 23:20:28 - Dataset "Alzheimer_Zscores" created.
+    [18 rows x 22 columns]
+    Process: 365947 - 2026-11-14 18:18:56 - Dataset "Alzheimer_Zscores" created.
         - 22 observations
         - 22 unique subjects
-        - 19 covariates
+        - 18 covariates
         - 18 response variables
         - 1 batch effects:
             dummy_batch_effect (1)
         
-    Process: 3348014 - 2026-10-27 23:20:29 - Making predictions on 18 response variables.
-    Process: 3348014 - 2026-10-27 23:20:29 - Computing z-scores for 18 response variables.
-    Process: 3348014 - 2026-10-27 23:20:29 - Computing z-scores for comp15.
-    Process: 3348014 - 2026-10-27 23:20:30 - Computing z-scores for comp16.
-    Process: 3348014 - 2026-10-27 23:20:31 - Computing z-scores for comp13.
-    Process: 3348014 - 2026-10-27 23:20:31 - Computing z-scores for comp5.
-    Process: 3348014 - 2026-10-27 23:20:32 - Computing z-scores for comp3.
-    Process: 3348014 - 2026-10-27 23:20:33 - Computing z-scores for comp14.
-    Process: 3348014 - 2026-10-27 23:20:34 - Computing z-scores for comp11.
-    Process: 3348014 - 2026-10-27 23:20:34 - Computing z-scores for comp4.
-    Process: 3348014 - 2026-10-27 23:20:35 - Computing z-scores for comp6.
-    Process: 3348014 - 2026-10-27 23:20:36 - Computing z-scores for comp10.
-    Process: 3348014 - 2026-10-27 23:20:37 - Computing z-scores for comp7.
-    Process: 3348014 - 2026-10-27 23:20:38 - Computing z-scores for comp12.
-    Process: 3348014 - 2026-10-27 23:20:39 - Computing z-scores for comp8.
-    Process: 3348014 - 2026-10-27 23:20:39 - Computing z-scores for comp2.
-    Process: 3348014 - 2026-10-27 23:20:40 - Computing z-scores for comp9.
-    Process: 3348014 - 2026-10-27 23:20:41 - Computing z-scores for comp18.
-    Process: 3348014 - 2026-10-27 23:20:42 - Computing z-scores for comp17.
-    Process: 3348014 - 2026-10-27 23:20:43 - Computing z-scores for comp1.
-     Age(week)   comp10   comp11    comp2    comp1    comp3    comp4    comp5    comp6    comp7    comp8    comp9   comp12   comp13   comp14   comp15   comp16   comp17   comp18   comp2_Z   comp3_Z   comp7_Z  comp10_Z  comp11_Z
-            13 0.054319 0.055880 0.088831 0.077791 0.109540 0.103044 0.055364 0.087395 0.086685 0.084099 0.076778 0.051657 0.079653 0.051595 0.063615 0.048057 0.058879 0.039008 -0.412015 -0.030521 -0.308186 -0.498768 -0.447734
-            26 0.070310 0.061353 0.088930 0.075973 0.107877 0.089150 0.056247 0.073719 0.099460 0.097427 0.073319 0.058081 0.068971 0.063236 0.064338 0.059522 0.049423 0.035948 -0.324264  0.066704 -0.032652  0.068543 -0.384343
-            13 0.051530 0.061231 0.106523 0.064114 0.148654 0.102486 0.063188 0.083902 0.093926 0.088090 0.070915 0.060812 0.060932 0.064224 0.062590 0.046106 0.041247 0.034321 -0.134799  0.732883 -0.175219 -0.540515 -0.335500
-            26 0.054323 0.065543 0.067329 0.060223 0.074261 0.065898 0.052213 0.074145 0.073927 0.071696 0.063055 0.058475 0.061478 0.037059 0.054797 0.044254 0.044177 0.042623 -0.604420 -0.478739 -0.368197 -0.432520 -0.341087
-            13 0.073478 0.058793 0.120034 0.082152 0.126505 0.111637 0.066564 0.118598 0.118319 0.074318 0.094873 0.057883 0.054416 0.049790 0.072305 0.049997 0.054045 0.035185  0.181802  0.493295  0.683860  0.469094 -0.266169
-            13 0.056144 0.060129 0.072314 0.072767 0.077668 0.063039 0.047626 0.072680 0.113699 0.082647 0.059297 0.067955 0.053020 0.041984 0.051394 0.052752 0.045648 0.035085 -0.643689 -0.615577 -0.055070 -0.425536 -0.364412
-            26 0.042228 0.056046 0.052744 0.054649 0.067184 0.056598 0.039193 0.056629 0.083840 0.049678 0.054873 0.043782 0.048572 0.029979 0.035496 0.036679 0.045844 0.032480 -0.745036 -0.508587 -0.185012 -0.690473 -0.358955
-            13 0.059990 0.060970 0.083338 0.088956 0.115616 0.091311 0.054582 0.093955 0.109714 0.066092 0.097809 0.059034 0.069440 0.046919 0.068346 0.043252 0.055297 0.037850 -0.425476  0.196907  0.052468 -0.182184 -0.282078
-            13 0.047799 0.051384 0.119104 0.076117 0.120385 0.072166 0.061640 0.081032 0.078961 0.071167 0.058403 0.057808 0.067158 0.062239 0.070257 0.055246 0.042676 0.041794  0.010738  0.182736 -0.468229 -0.664740 -0.450233
-            13 0.033541 0.050688 0.049870 0.047340 0.052216 0.046004 0.043395 0.040785 0.060368 0.036420 0.051381 0.058076 0.046627 0.030468 0.041710 0.041675 0.042454 0.042359 -0.990014 -1.092706 -0.849840 -1.207145 -0.564871
-            26 0.029763 0.049751 0.056638 0.049586 0.071562 0.058109 0.047858 0.055559 0.087364 0.067444 0.049610 0.063292 0.051550 0.039851 0.052658 0.044387 0.036276 0.039851 -0.694933 -0.438106 -0.121696 -1.115343 -0.429407
-            13 0.039724 0.051585 0.073884 0.072132 0.076563 0.053362 0.039885 0.068347 0.079954 0.071903 0.066490 0.059220 0.053873 0.050270 0.060644 0.048905 0.045051 0.039798 -0.568988 -0.550400 -0.451006 -0.813122 -0.360083
-            26 0.041709 0.068943 0.140118 0.056390 0.155823 0.064597 0.083799 0.095375 0.071593 0.051921 0.048935 0.062128 0.060374 0.035413 0.047971 0.044028 0.049721 0.034239  0.313502  0.819994 -0.403087 -0.813370 -0.306273
-            13 0.053674 0.059313 0.078851 0.078980 0.077495 0.085765 0.040542 0.050591 0.075907 0.092586 0.063780 0.049956 0.067735 0.043968 0.061424 0.055671 0.040762 0.037392 -0.536974 -0.592839 -0.510194 -0.463973 -0.346413
-            26 0.069109 0.049501 0.113527 0.089132 0.123786 0.082544 0.076583 0.085188 0.102764 0.094115 0.081985 0.066329 0.064800 0.056325 0.075578 0.057256 0.039845 0.039883  0.025750  0.368999  0.025787  0.086886 -0.468534
-            13 0.046223 0.057119 0.089940 0.074169 0.112604 0.072279 0.046128 0.058227 0.085056 0.098317 0.072060 0.064790 0.069077 0.063996 0.072337 0.052211 0.045009 0.038417 -0.462830 -0.079057 -0.423480 -0.869634 -0.512414
-            26 0.053779 0.049900 0.073326 0.061444 0.074573 0.075158 0.050879 0.065200 0.093773 0.067733 0.054363 0.048905 0.056625 0.036461 0.056046 0.044171 0.050128 0.036864 -0.508613 -0.445660 -0.043576 -0.409915 -0.484954
-            13 0.039858 0.054649 0.085802 0.063565 0.108063 0.064598 0.062320 0.078968 0.071405 0.051964 0.046426 0.056737 0.058374 0.043788 0.061305 0.051272 0.053844 0.039578 -0.514029 -0.156419 -0.613010 -0.992685 -0.481382
-            26 0.053166 0.098003 0.118120 0.079870 0.093855 0.141898 0.075815 0.116266 0.088262 0.087489 0.078178 0.067626 0.075553 0.052166 0.073200 0.064526 0.051733 0.054195 -0.130118 -0.328973 -0.331224 -0.661372 -0.176298
-            13 0.052234 0.064256 0.094555 0.082229 0.103785 0.088347 0.056960 0.081769 0.096665 0.084153 0.090640 0.064628 0.092023 0.056235 0.073022 0.061704 0.046058 0.044997 -0.408925 -0.235758 -0.253758 -0.691948 -0.430506
-            13 0.036661 0.069767 0.057928 0.067119 0.061901 0.054652 0.041877 0.048511 0.060976 0.048628 0.057577 0.062209 0.058336 0.045407 0.054058 0.037740 0.050480 0.052092 -0.857264 -0.901460 -0.799339 -1.103322 -0.282618
-            26 0.040900 0.056493 0.108060 0.056313 0.094236 0.065278 0.071238 0.080106 0.078339 0.048953 0.055486 0.053133 0.059277 0.044810 0.053425 0.038906 0.053570 0.034802 -0.091088 -0.162730 -0.336656 -0.822048 -0.403548
+    Process: 365947 - 2026-11-14 18:18:56 - Making predictions on 18 response variables.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for 18 response variables.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp1.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp14.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp11.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp16.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp5.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp7.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp8.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp9.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp13.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp18.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp10.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp6.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp4.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp3.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp17.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp2.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp12.
+    Process: 365947 - 2026-11-14 18:18:56 - Computing z-scores for comp15.
+     Age(week)    comp1    comp2    comp3    comp4    comp5    comp6    comp7    comp8    comp9   comp10   comp11   comp12   comp13   comp14   comp15   comp16   comp17   comp18   comp2_Z   comp3_Z   comp7_Z  comp10_Z  comp12_Z
+            13 0.077791 0.088831 0.109540 0.103044 0.055364 0.087395 0.086685 0.084099 0.076778 0.054319 0.055880 0.051657 0.079653 0.051595 0.063615 0.048057 0.058879 0.039008 -0.655343  0.486915 -0.240977 -0.659619 -0.389183
+            26 0.075973 0.088930 0.107877 0.089150 0.056247 0.073719 0.099460 0.097427 0.073319 0.070310 0.061353 0.058081 0.068971 0.063236 0.064338 0.059522 0.049423 0.035948 -0.473780  0.663626 -0.146635 -0.112728 -0.213528
+            13 0.064114 0.106523 0.148654 0.102486 0.063188 0.083902 0.093926 0.088090 0.070915 0.051530 0.061231 0.060812 0.060932 0.064224 0.062590 0.046106 0.041247 0.034321 -0.110850  2.119238 -0.072902 -0.687062 -0.235595
+            26 0.060223 0.067329 0.074261 0.065898 0.052213 0.074145 0.073927 0.071696 0.063055 0.054323 0.065543 0.058475 0.061478 0.037059 0.054797 0.044254 0.044177 0.042623 -0.889154 -0.347712 -0.462973 -0.552434 -0.222831
+            13 0.082152 0.120034 0.126505 0.111637 0.066564 0.118598 0.118319 0.074318 0.094873 0.073478 0.058793 0.057883 0.054416 0.049790 0.072305 0.049997 0.054045 0.035185  0.535369  1.577524  0.874771  0.316784  0.031919
+            13 0.072767 0.072314 0.077668 0.063039 0.047626 0.072680 0.113699 0.082647 0.059297 0.056144 0.060129 0.067955 0.053020 0.041984 0.051394 0.052752 0.045648 0.035085 -1.102083 -0.697582  0.101549 -0.598344 -0.242635
+            26 0.054649 0.052744 0.067184 0.056598 0.039193 0.056629 0.083840 0.049678 0.054873 0.042228 0.056046 0.043782 0.048572 0.029979 0.035496 0.036679 0.045844 0.032480 -0.993072 -0.304085 -0.260213 -0.733455 -0.251997
+            13 0.088956 0.083338 0.115616 0.091311 0.054582 0.093955 0.109714 0.066092 0.097809 0.059990 0.060970 0.059034 0.069440 0.046919 0.068346 0.043252 0.055297 0.037850 -0.616778  0.871814  0.245663 -0.339982 -0.218346
+            13 0.076117 0.119104 0.120385 0.072166 0.061640 0.081032 0.078961 0.071167 0.058403 0.047799 0.051384 0.057808 0.067158 0.062239 0.070257 0.055246 0.042676 0.041794  0.169684  0.853541 -0.469052 -0.809766 -0.333092
+            13 0.047340 0.049870 0.052216 0.046004 0.043395 0.040785 0.060368 0.036420 0.051381 0.033541 0.050688 0.058076 0.046627 0.030468 0.041710 0.041675 0.042454 0.042359 -1.604881 -1.283607 -0.642593 -1.290847 -0.182465
+            26 0.049586 0.056638 0.071562 0.058109 0.047858 0.055559 0.087364 0.067444 0.049610 0.029763 0.049751 0.063292 0.051550 0.039851 0.052658 0.044387 0.036276 0.039851 -0.927556 -0.185271 -0.208735 -1.066736 -0.073216
+            13 0.072132 0.073884 0.076563 0.053362 0.039885 0.068347 0.079954 0.071903 0.066490 0.039724 0.051585 0.059220 0.053873 0.050270 0.060644 0.048905 0.045051 0.039798 -0.871373 -0.503594 -0.413204 -0.916998 -0.225870
+            26 0.056390 0.140118 0.155823 0.064597 0.083799 0.095375 0.071593 0.051921 0.048935 0.041709 0.068943 0.062128 0.060374 0.035413 0.047971 0.044028 0.049721 0.034239  0.569808  2.282999 -0.499362 -0.866488 -0.200355
+            13 0.078980 0.078851 0.077495 0.085765 0.040542 0.050591 0.075907 0.092586 0.063780 0.053674 0.059313 0.049956 0.067735 0.043968 0.061424 0.055671 0.040762 0.037392 -0.881643 -0.630057 -0.528515 -0.625448 -0.419325
+            26 0.089132 0.113527 0.123786 0.082544 0.076583 0.085188 0.102764 0.094115 0.081985 0.069109 0.049501 0.066329 0.064800 0.056325 0.075578 0.057256 0.039845 0.039883  0.086243  1.255180 -0.081365 -0.090440 -0.110458
+            13 0.074169 0.089940 0.112604 0.072279 0.046128 0.058227 0.085056 0.098317 0.072060 0.046223 0.057119 0.064790 0.069077 0.063996 0.072337 0.052211 0.045009 0.038417 -0.825062  0.350622 -0.430386 -1.031889 -0.353804
+            26 0.061444 0.073326 0.074573 0.075158 0.050879 0.065200 0.093773 0.067733 0.054363 0.053779 0.049900 0.048905 0.056625 0.036461 0.056046 0.044171 0.050128 0.036864 -0.718514 -0.222986 -0.164015 -0.522072 -0.252151
+            13 0.063565 0.085802 0.108063 0.064598 0.062320 0.078968 0.071405 0.051964 0.046426 0.039858 0.054649 0.056737 0.058374 0.043788 0.061305 0.051272 0.053844 0.039578 -0.929152  0.142422 -0.731640 -1.132284 -0.449760
+            26 0.079870 0.118120 0.093855 0.141898 0.075815 0.116266 0.088262 0.087489 0.078178 0.053166 0.098003 0.067626 0.075553 0.052166 0.073200 0.064526 0.051733 0.054195 -0.240234 -0.199492 -0.455945 -0.790344 -0.286420
+            13 0.082229 0.094555 0.103785 0.088347 0.056960 0.081769 0.096665 0.084153 0.090640 0.052234 0.064256 0.064628 0.092023 0.056235 0.073022 0.061704 0.046058 0.044997 -0.727611  0.011622 -0.220630 -0.872077 -0.365427
+            13 0.067119 0.057928 0.061901 0.054652 0.041877 0.048511 0.060976 0.048628 0.057577 0.036661 0.069767 0.062209 0.058336 0.045407 0.054058 0.037740 0.050480 0.052092 -1.414487 -1.045675 -0.691848 -1.203815 -0.193489
+            26 0.056313 0.108060 0.094236 0.065278 0.071238 0.080106 0.078339 0.048953 0.055486 0.040900 0.056493 0.053133 0.059277 0.044810 0.053425 0.038906 0.053570 0.034802 -0.115086  0.191666 -0.430651 -0.871523 -0.272303
 
     DONE
     SVG files saved to: /home/traaffneu/giuvas/digitalrodent/results/normative_model/centiles_svg_Alzheimer

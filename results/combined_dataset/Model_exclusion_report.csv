@@ -3,6 +3,24 @@ sub-0101400_ses-1_run-1_task-rest_bold_cleaned,101400,1,Awake,rare category: ICR
 sub-0101401_ses-1_run-1_task-rest_bold_cleaned,101401,1,Awake,rare category: ICR strain
 sub-0101402_ses-1_run-1_task-rest_bold_cleaned,101402,1,Awake,rare category: ICR strain
 sub-0101403_ses-1_run-1_task-rest_bold_cleaned,101403,1,Awake,rare category: ICR strain
+sub-0100901_ses-1_run-1_task-rest_bold_cleaned,100901,1,Awake,age > 60 weeks
+sub-0100901_ses-1_run-2_task-rest_bold_cleaned,100901,1,Awake,age > 60 weeks
+sub-0100901_ses-1_run-3_task-rest_bold_cleaned,100901,1,Awake,age > 60 weeks
+sub-0100901_ses-1_run-5_task-rest_bold_cleaned,100901,1,Awake,age > 60 weeks
+sub-0100901_ses-1_run-7_task-rest_bold_cleaned,100901,1,Awake,age > 60 weeks
+sub-0100901_ses-2_run-2_task-rest_bold_cleaned,100901,2,Awake,age > 60 weeks
+sub-0100901_ses-2_run-3_task-rest_bold_cleaned,100901,2,Awake,age > 60 weeks
+sub-0100901_ses-2_run-4_task-rest_bold_cleaned,100901,2,Awake,age > 60 weeks
+sub-0100901_ses-2_run-5_task-rest_bold_cleaned,100901,2,Awake,age > 60 weeks
+sub-0100901_ses-2_run-6_task-rest_bold_cleaned,100901,2,Awake,age > 60 weeks
+sub-0100901_ses-2_run-7_task-rest_bold_cleaned,100901,2,Awake,age > 60 weeks
+sub-0100901_ses-3_run-5_task-rest_bold_cleaned,100901,3,Awake,age > 60 weeks
+sub-0100901_ses-3_run-6_task-rest_bold_cleaned,100901,3,Awake,age > 60 weeks
+sub-0100902_ses-2_run-3_task-rest_bold_cleaned,100902,2,Awake,age > 60 weeks
+sub-0100902_ses-2_run-5_task-rest_bold_cleaned,100902,2,Awake,age > 60 weeks
+sub-0100902_ses-2_run-7_task-rest_bold_cleaned,100902,2,Awake,age > 60 weeks
+sub-0100902_ses-3_run-5_task-rest_bold_cleaned,100902,3,Awake,age > 60 weeks
+sub-0100902_ses-3_run-6_task-rest_bold_cleaned,100902,3,Awake,age > 60 weeks
 sub-0100500_ses-2_run-1_task-rest_bold_cleaned,100500,2,Awake,missing: Age(week)
 sub-0100501_ses-1_run-10_task-rest_bold_cleaned,100501,1,Awake,missing: Age(week)
 sub-0100501_ses-1_run-11_task-rest_bold_cleaned,100501,1,Awake,missing: Age(week)

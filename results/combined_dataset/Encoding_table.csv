@@ -1,7 +1,7 @@
 Variable,Category,Encoding
 Sex,F,0
 Sex,M,1
-Sex,Unknown,Sex_unknown = 1
+Sex,Unknown,randomly assigned F or M (see Sex_imputed.csv)
 Coil,RT,0
 Coil,Cryo,1
 Ventilation,No,0

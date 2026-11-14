@@ -188,7 +188,7 @@ df["Ventilation"] = (
 # ANESTHESIA DOSE NOT REPORTED -> OWN CATEGORY
 # Douglas has no dose information. Instead of deleting the scans,
 # an unknown dose becomes its own category (Anesthesia_dose_unknown),
-# like Sex_unknown.
+# (an indicator column next to Anesthesia_high).
 # ============================================================
 
 dose_missing = (df["Anesthesia"] != "Awake") & df["Anesthesia level"].isna()
@@ -214,6 +214,25 @@ rare_rows["Reason"] = np.where(
 print("\nRemoved rare categories:", int(rare.sum()), "scans")
 print(df.loc[rare].groupby(["Dataset_name", "Rodent.strain", "Anesthesia"]).size())
 df = df.loc[~rare].copy()
+
+
+# ============================================================
+# AGE RANGE OF THE MODEL
+# Very few scans are older than 60 weeks (all from the Awake dataset,
+# at 65 and 100 weeks). With so little data there the centile curves
+# are not trustworthy, so the model is restricted to <= max_age_weeks.
+# Set max_age_weeks = None to keep every age.
+# ============================================================
+
+max_age_weeks = 60
+
+too_old = pd.to_numeric(df["Age(week)"], errors="coerce") > max_age_weeks if max_age_weeks else pd.Series(False, index=df.index)
+old_rows = df.loc[too_old].copy()
+old_rows["Reason"] = f"age > {max_age_weeks} weeks"
+print(f"\nRemoved scans older than {max_age_weeks} weeks:", int(too_old.sum()), "scans")
+if too_old.any():
+    print(old_rows.groupby(["Dataset_name", "Age(week)"]).size())
+df = df.loc[~too_old].copy()
 
 
 # ============================================================
@@ -284,16 +303,36 @@ inferred_counts = (
 
 
 # ============================================================
-# SEX STILL UNKNOWN -> OWN CATEGORY
-# Sex cannot be recovered for part of Multicenter. Instead of
-# deleting these scans (and losing e.g. all medetomidine-only
-# scans), unknown sex becomes its own category, modelled with
-# an indicator (Sex_unknown) next to Sex_encoded.
+# SEX STILL UNKNOWN -> RANDOM M/F
+# Sex cannot be recovered for part of Multicenter. A separate
+# "Unknown" category is not a meaningful biological group for the
+# model, so (as recommended by the PCNToolkit developers) each animal
+# with unknown sex is randomly assigned M or F (50/50, fixed seed so
+# the result is reproducible). All runs of the same animal get the
+# same sex. The assigned animals are saved in Sex_imputed.csv.
 # ============================================================
 
-df["Sex"] = df["Sex"].fillna("Unknown")
+sex_random_seed = 42
 
-print("\nSex categories after filling:")
+unknown_sex = df["Sex"].isna()
+unknown_animals = (
+    df.loc[unknown_sex, ["Dataset_name", "Participant_Id"]]
+    .drop_duplicates()
+    .sort_values(["Dataset_name", "Participant_Id"])
+    .reset_index(drop=True)
+)
+rng = np.random.default_rng(sex_random_seed)
+unknown_animals["Sex_assigned"] = rng.choice(["F", "M"], size=len(unknown_animals))
+
+df = df.merge(unknown_animals, on=["Dataset_name", "Participant_Id"], how="left")
+df["Sex"] = df["Sex"].fillna(df["Sex_assigned"])
+df = df.drop(columns="Sex_assigned")
+
+sex_imputed = df.loc[unknown_sex.to_numpy(), ["Scan_id", "Participant_Id", "Session", "Dataset_name", "Sex"]]
+print(f"\nUnknown sex randomly assigned: {len(unknown_animals)} animals, {len(sex_imputed)} scans")
+print(unknown_animals["Sex_assigned"].value_counts().to_string())
+
+print("\nSex after random assignment:")
 print(df.groupby(["Dataset_name", "Sex"]).size().unstack(fill_value=0))
 
 
@@ -366,7 +405,7 @@ deleted_rows["Reason"] = missing_reason
 
 report_cols = ["Scan_id", "Participant_Id", "Session", "Dataset_name", "Reason"]
 exclusion_report = pd.concat(
-    [rare_rows[report_cols], deleted_rows[report_cols]],
+    [rare_rows[report_cols], old_rows[report_cols], deleted_rows[report_cols]],
     ignore_index=True
 )
 
@@ -407,19 +446,14 @@ print("=" * 60)
 # ENCODE BINARY VARIABLES
 # ============================================================
 
-# F = reference; unknown sex gets Sex_encoded = 0 and Sex_unknown = 1
+# F = reference (unknown sex was randomly assigned above)
 model_df["Sex_encoded"] = (
     model_df["Sex"]
     .map({
         "F": 0.0,
-        "M": 1.0,
-        "Unknown": 0.0
+        "M": 1.0
     })
 )
-
-model_df["Sex_unknown"] = (
-    model_df["Sex"] == "Unknown"
-).astype(float)
 
 model_df["Coil_encoded"] = (
     model_df["Coil"]
@@ -450,7 +484,7 @@ model_df["Anesthesia_dose_unknown"] = (
 encoding_table = [
     ["Sex", "F", "0"],
     ["Sex", "M", "1"],
-    ["Sex", "Unknown", "Sex_unknown = 1"],
+    ["Sex", "Unknown", "randomly assigned F or M (see Sex_imputed.csv)"],
     ["Coil", "RT", "0"],
     ["Coil", "Cryo", "1"],
     ["Ventilation", "No", "0"],
@@ -544,7 +578,6 @@ covariates = (
     numeric_covariates
     + [
         "Sex_encoded",
-        "Sex_unknown",
         "Coil_encoded",
         "Ventilation_encoded",
         "Anesthesia_high",
@@ -612,6 +645,11 @@ partial_model_df.to_csv(
     index=False
 )
 
+sex_imputed.to_csv(
+    output_dir / "Sex_imputed.csv",
+    index=False
+)
+
 encoding_table.to_csv(
     output_dir / "Encoding_table.csv",
     index=False
@@ -643,7 +681,6 @@ coverage.to_csv(
 
     Anesthesia dose not reported:
     Dataset_name
-    3xTG       21
     Douglas    20
     dtype: int64
 
@@ -652,23 +689,34 @@ coverage.to_csv(
     Awake         ICR            Awake         4
     dtype: int64
 
-    Sex categories after filling:
-    Sex                 F    M  Unknown
-    Dataset_name                       
-    3xTG                0   21        0
-    Alvino              8   14        0
-    Awake             661  773        0
-    Awake_Rest        166    0        0
-    Douglas             0   20        0
-    Env_Enrichment     22   16        0
-    Florida             6    6        0
-    Longitudinal       27   27        0
-    MPTP                0    9        0
-    Multicenter        35   67      139
-    NDUFS4             10   18        0
-    Psilocybin          0   15        0
-    Psilocybin_Pilot    0   24        0
-    Sexdifference      30   30        0
+    Removed scans older than 60 weeks: 18 scans
+    Dataset_name  Age(week)
+    Awake         65.0         14
+                  100.0         4
+    dtype: int64
+
+    Unknown sex randomly assigned: 139 animals, 139 scans
+    Sex_assigned
+    M    75
+    F    64
+
+    Sex after random assignment:
+    Sex                 F    M
+    Dataset_name              
+    3xTG                0   21
+    Alvino              8   14
+    Awake             661  755
+    Awake_Rest        166    0
+    Douglas             0   20
+    Env_Enrichment     22   16
+    Florida             6    6
+    Longitudinal       27   27
+    MPTP                0    9
+    Multicenter        99  142
+    NDUFS4             10   18
+    Psilocybin          0   15
+    Psilocybin_Pilot    0   24
+    Sexdifference      30   30
 
     Missing-value summary:
 
@@ -720,9 +768,9 @@ coverage.to_csv(
 
 </div>
 
-    Rows before: 2144
+    Rows before: 2126
     Rows deleted: 219
-    Rows retained: 1925
+    Rows retained: 1907
 
     Deleted rows by dataset:
 
@@ -764,13 +812,15 @@ coverage.to_csv(
 
 |     | Dataset_name | Reason                    | N_scans | N_animals |
 |-----|--------------|---------------------------|---------|-----------|
-| 0   | Awake        | missing: Age(week)        | 217     | 20        |
-| 1   | Awake        | missing: FD average       | 2       | 2         |
-| 2   | Awake        | rare category: ICR strain | 4       | 4         |
+| 0   | Awake        | age \> 60 weeks           | 18      | 2         |
+| 1   | Awake        | missing: Age(week)        | 217     | 20        |
+| 2   | Awake        | missing: FD average       | 2       | 2         |
+| 3   | Awake        | rare category: ICR strain | 4       | 4         |
 
 </div>
 
     Animals affected:
+      Awake | age > 60 weeks | 2 animals: 100901, 100902
       Awake | missing: Age(week) | 20 animals: 100500, 100501, 100502, 100503, 100504, 300100, 300101, 300102, 300103, 300104, 300105, 300400, 300401, 300402, 300403 ...
       Awake | missing: FD average | 2 animals: 300316, 300317
       Awake | rare category: ICR strain | 4 animals: 101400, 101401, 101402, 101403
@@ -795,7 +845,7 @@ coverage.to_csv(
 | Dataset_name     |                   |          |          |              |
 | 3xTG             | 21                | 21       | 0        | 100.0        |
 | Alvino           | 22                | 22       | 0        | 100.0        |
-| Awake            | 1438              | 1215     | 223      | 84.5         |
+| Awake            | 1438              | 1197     | 241      | 83.2         |
 | Awake_Rest       | 166               | 166      | 0        | 100.0        |
 | Douglas          | 20                | 20       | 0        | 100.0        |
 | Env_Enrichment   | 38                | 38       | 0        | 100.0        |

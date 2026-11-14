@@ -152,7 +152,10 @@ model = NormativeModel(
             degree=3,
             nknots=5
         ),
-        heteroskedastic=True
+        heteroskedastic=True,
+        # SinhArcsinh warping: lets the predictive distribution be skewed
+        # and heavy-tailed instead of Gaussian (the z-scores had skew ~1.3)
+        warp_name="WarpSinhArcsinh"
     ),
     inscaler="standardize",
     outscaler="standardize",

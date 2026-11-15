@@ -56,8 +56,15 @@ MODELS_TO_RUN = os.environ.get("HBR_MODELS", "A,B").split(",")  # e.g. HBR_MODEL
 
 # MCMC settings (PCNToolkit defaults: 1500 draws, 500 tune, 4 chains)
 DRAWS = int(os.environ.get("HBR_DRAWS", 1500))
-TUNE = int(os.environ.get("HBR_TUNE", 500))
+TUNE = int(os.environ.get("HBR_TUNE", 1500))
 CHAINS = int(os.environ.get("HBR_CHAINS", 4))
+
+# Prior width of the slopes. With many correlated covariates (model A),
+# wide priors let the chains drift apart (r-hat up to 4.7 in the first run),
+# so the slopes are kept tight; covariates are standardized, so a slope of
+# 1 already means one SD of the outcome per SD of the covariate.
+MU_SLOPE_SD = float(os.environ.get("HBR_MU_SLOPE_SD", 1.0))
+SIGMA_SLOPE_SD = float(os.environ.get("HBR_SIGMA_SLOPE_SD", 0.5))
 CORES = int(os.environ.get("SLURM_CPUS_PER_TASK", os.environ.get("HBR_CORES", 4)))
 
 # Fit all 18 components, or only the selected ones (much faster)
@@ -171,13 +178,13 @@ def shash_likelihood(random_intercept, covs):
 
     mu = make_prior(
         linear=True,
-        slope=make_prior(dist_name="Normal", dist_params=(0.0, 3.0)),
+        slope=make_prior(dist_name="Normal", dist_params=(0.0, MU_SLOPE_SD)),
         intercept=mu_intercept,
         basis_function=bspline(covs),
     )
     sigma = make_prior(
         linear=True,
-        slope=make_prior(dist_name="Normal", dist_params=(0.0, 2.0)),
+        slope=make_prior(dist_name="Normal", dist_params=(0.0, SIGMA_SLOPE_SD)),
         intercept=make_prior(dist_name="Normal", dist_params=(0.0, 1.0)),
         basis_function=bspline(covs),
         mapping="softplus",
@@ -240,7 +247,25 @@ for key in MODELS_TO_RUN:
         index=test.Z.coords["observations"].values.astype(int),
     )
     z_test.to_csv(out_dir / "Z_test.csv")
-    results[key] = {"stats": stats, "z": z_test, "label": spec["label"]}
+    # ---- convergence check: r-hat compares the chains (1.00 = they agree)
+    import arviz as az
+    rhat_rows = []
+    for rv in response_vars:
+        idata_path = out_dir / "model" / rv / "idata.nc"
+        if not idata_path.exists():
+            continue
+        r = az.rhat(az.from_netcdf(idata_path).posterior)
+        vals = {v: float(np.nanmax(r[v].values)) for v in r.data_vars}
+        worst = max(vals, key=vals.get)
+        rhat_rows.append({"component": rv, "max_rhat": round(vals[worst], 3), "parameter": worst})
+    rhat = pd.DataFrame(rhat_rows)
+    rhat.to_csv(out_dir / "Convergence_rhat.csv", index=False)
+    print("\nConvergence (max r-hat per component; > 1.05 = chains disagree):")
+    print(rhat.to_string(index=False))
+    if (rhat["max_rhat"] > 1.05).any():
+        print("WARNING: not converged:", rhat.loc[rhat["max_rhat"] > 1.05, "component"].tolist())
+
+    results[key] = {"stats": stats, "z": z_test, "label": spec["label"], "rhat": rhat}
     print(stats.round(3).to_string())
 ```
 

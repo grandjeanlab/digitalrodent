@@ -1,0 +1,7 @@
+Model,Components,EXPV,ShapiroW (z),MACE,Skew (z),Excess kurtosis (z),% |z| > 1.96 (ideal 5%)
+BLR (warped),all fitted,0.792,0.94,0.027,1.265,5.738,4.988
+BLR (warped),selected,0.792,0.94,0.027,1.265,5.738,4.988
+"HBR A (SHASH, no dataset effect)",all fitted,0.191,0.259,0.061,1.643,167.379,21.885
+"HBR A (SHASH, no dataset effect)",selected,0.191,0.259,0.061,1.643,167.379,21.885
+"HBR B (SHASH, random intercept per dataset)",all fitted,0.773,0.993,0.015,-0.071,0.758,5.55
+"HBR B (SHASH, random intercept per dataset)",selected,0.773,0.993,0.015,-0.071,0.758,5.55

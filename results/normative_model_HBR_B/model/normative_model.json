@@ -1,0 +1,1074 @@
+{
+    "name": null,
+    "save_dir": "/home/traaffneu/giuvas/digitalrodent/results/normative_model_HBR_B",
+    "savemodel": true,
+    "saveresults": true,
+    "saveplots": false,
+    "evaluate_model": true,
+    "template_regression_model": {
+        "name": "template",
+        "type": "HBR",
+        "is_fitted": false,
+        "is_from_dict": false,
+        "transfered": false,
+        "ptk_version": "1.1.2",
+        "likelihood": {
+            "name": "SHASHb",
+            "mu": {
+                "name": "mu",
+                "_dims": null,
+                "mapping": "identity",
+                "mapping_params": [
+                    0,
+                    1
+                ],
+                "slope": {
+                    "name": "slope_mu",
+                    "_dims": [
+                        "covariates"
+                    ],
+                    "mapping": "identity",
+                    "mapping_params": [
+                        0,
+                        1
+                    ],
+                    "dist_name": "Normal",
+                    "dist_params": [
+                        0.0,
+                        3.0
+                    ],
+                    "dims": [
+                        "covariates"
+                    ],
+                    "type": "Prior"
+                },
+                "intercept": {
+                    "name": "intercept_mu",
+                    "_dims": null,
+                    "mapping": "identity",
+                    "mapping_params": [
+                        0,
+                        1
+                    ],
+                    "mu": {
+                        "name": "mu_intercept_mu",
+                        "_dims": null,
+                        "mapping": "identity",
+                        "mapping_params": [
+                            0,
+                            1
+                        ],
+                        "dist_name": "Normal",
+                        "dist_params": [
+                            0.0,
+                            1.0
+                        ],
+                        "dims": null,
+                        "type": "Prior"
+                    },
+                    "sigma": {
+                        "name": "sigma_intercept_mu",
+                        "_dims": null,
+                        "mapping": "identity",
+                        "mapping_params": [
+                            0,
+                            1
+                        ],
+                        "dist_name": "Gamma",
+                        "dist_params": [
+                            1.0,
+                            0.5
+                        ],
+                        "dims": null,
+                        "type": "Prior"
+                    },
+                    "dims": null,
+                    "type": "RandomPrior"
+                },
+                "basis_function": {
+                    "is_fitted": false,
+                    "basis_name": "bspline",
+                    "min": {},
+                    "max": {},
+                    "compute_min": true,
+                    "compute_max": true,
+                    "basis_column": [
+                        0,
+                        1,
+                        2
+                    ],
+                    "degree": 3,
+                    "nknots": 5,
+                    "left_expand": 0.05,
+                    "right_expand": 0.05,
+                    "knot_method": "uniform",
+                    "knots": {},
+                    "basis_function": "BsplineBasisFunction"
+                },
+                "dims": null,
+                "type": "LinearPrior"
+            },
+            "sigma": {
+                "name": "sigma",
+                "_dims": null,
+                "mapping": "softplus",
+                "mapping_params": [
+                    0.0,
+                    2.0
+                ],
+                "slope": {
+                    "name": "slope_sigma",
+                    "_dims": [
+                        "covariates"
+                    ],
+                    "mapping": "identity",
+                    "mapping_params": [
+                        0,
+                        1
+                    ],
+                    "dist_name": "Normal",
+                    "dist_params": [
+                        0.0,
+                        2.0
+                    ],
+                    "dims": [
+                        "covariates"
+                    ],
+                    "type": "Prior"
+                },
+                "intercept": {
+                    "name": "intercept_sigma",
+                    "_dims": null,
+                    "mapping": "identity",
+                    "mapping_params": [
+                        0,
+                        1
+                    ],
+                    "dist_name": "Normal",
+                    "dist_params": [
+                        0.0,
+                        1.0
+                    ],
+                    "dims": null,
+                    "type": "Prior"
+                },
+                "basis_function": {
+                    "is_fitted": false,
+                    "basis_name": "bspline",
+                    "min": {},
+                    "max": {},
+                    "compute_min": true,
+                    "compute_max": true,
+                    "basis_column": [
+                        0,
+                        1,
+                        2
+                    ],
+                    "degree": 3,
+                    "nknots": 5,
+                    "left_expand": 0.05,
+                    "right_expand": 0.05,
+                    "knot_method": "uniform",
+                    "knots": {},
+                    "basis_function": "BsplineBasisFunction"
+                },
+                "dims": null,
+                "type": "LinearPrior"
+            },
+            "epsilon": {
+                "name": "epsilon",
+                "_dims": null,
+                "mapping": "identity",
+                "mapping_params": [
+                    0,
+                    1
+                ],
+                "dist_name": "Normal",
+                "dist_params": [
+                    0.0,
+                    1.0
+                ],
+                "dims": null,
+                "type": "Prior"
+            },
+            "delta": {
+                "name": "delta",
+                "_dims": null,
+                "mapping": "softplus",
+                "mapping_params": [
+                    0.0,
+                    3.0,
+                    0.6
+                ],
+                "dist_name": "Normal",
+                "dist_params": [
+                    1.0,
+                    1.0
+                ],
+                "dims": null,
+                "type": "Prior"
+            }
+        },
+        "_name": "template",
+        "draws": 1500,
+        "tune": 500,
+        "cores": 8,
+        "chains": 4,
+        "nuts_sampler": "nutpie",
+        "init": "jitter+adapt_diag",
+        "progressbar": false,
+        "be_maps": null
+    },
+    "inscalers": {
+        "Age(week)": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 13.182950819672131,
+            "s": 8.150951135138609,
+            "min": 4.0,
+            "max": 58.0
+        },
+        "FD average": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.027959210821023817,
+            "s": 0.02058562006390386,
+            "min": 0.003551669,
+            "max": 0.119810444
+        },
+        "log_tSNR": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 3.172002678735683,
+            "s": 0.8893466330175839,
+            "min": 1.3270750014599193,
+            "max": 5.484262932016081
+        },
+        "Sex_encoded": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.5134426229508197,
+            "s": 0.4998192632224193,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_high": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.08786885245901639,
+            "s": 0.28310407490276784,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Hal": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.021639344262295083,
+            "s": 0.1455028626597874,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Iso": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.06754098360655737,
+            "s": 0.2509565682344579,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Med": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.04,
+            "s": 0.19595917942265428,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Mediso": {
+            "scaler_type": "standardize",
+            "adjust_outliers": false,
+            "m": 0.20065573770491804,
+            "s": 0.40049096448111426,
+            "min": 0.0,
+            "max": 1.0
+        }
+    },
+    "is_fitted": true,
+    "inscaler": "standardize",
+    "outscaler": "standardize",
+    "ptk_version": "1.1.2",
+    "covariates": [
+        "Age(week)",
+        "FD average",
+        "log_tSNR",
+        "Sex_encoded",
+        "Anesthesia_high",
+        "Anesthesia_Hal",
+        "Anesthesia_Iso",
+        "Anesthesia_Med",
+        "Anesthesia_Mediso"
+    ],
+    "unique_batch_effects": {
+        "Dataset_name": [
+            "3xTG",
+            "Alvino",
+            "Awake",
+            "Awake_Rest",
+            "Douglas",
+            "Env_Enrichment",
+            "Florida",
+            "Longitudinal",
+            "MPTP",
+            "Multicenter",
+            "NDUFS4",
+            "Psilocybin",
+            "Psilocybin_Pilot",
+            "Sexdifference"
+        ]
+    },
+    "inverse_batch_effect_counts": {
+        "Dataset_name": {
+            "0_21": "3xTG",
+            "1_22": "Alvino",
+            "2_1197": "Awake",
+            "3_166": "Awake_Rest",
+            "4_20": "Douglas",
+            "5_38": "Env_Enrichment",
+            "6_12": "Florida",
+            "7_54": "Longitudinal",
+            "8_9": "MPTP",
+            "9_241": "Multicenter",
+            "10_28": "NDUFS4",
+            "11_15": "Psilocybin",
+            "12_24": "Psilocybin_Pilot",
+            "13_60": "Sexdifference"
+        }
+    },
+    "batch_effects_maps": {
+        "Dataset_name": {
+            "0_0": "3xTG",
+            "1_1": "Alvino",
+            "2_2": "Awake",
+            "3_3": "Awake_Rest",
+            "4_4": "Douglas",
+            "5_5": "Env_Enrichment",
+            "6_6": "Florida",
+            "7_7": "Longitudinal",
+            "8_8": "MPTP",
+            "9_9": "Multicenter",
+            "10_10": "NDUFS4",
+            "11_11": "Psilocybin",
+            "12_12": "Psilocybin_Pilot",
+            "13_13": "Sexdifference"
+        }
+    },
+    "batch_effect_covariate_ranges": {
+        "Dataset_name": {
+            "3xTG": {
+                "Age(week)": {
+                    "mean": 19.19047619047619,
+                    "min": 13.0,
+                    "max": 26.0
+                },
+                "FD average": {
+                    "mean": 0.012763802257412001,
+                    "min": 0.009351516861168,
+                    "max": 0.0150494870148196
+                },
+                "log_tSNR": {
+                    "mean": 3.9712395076049503,
+                    "min": 3.8003515956810525,
+                    "max": 4.91664763936998
+                },
+                "Sex_encoded": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                }
+            },
+            "Alvino": {
+                "Age(week)": {
+                    "mean": 12.0,
+                    "min": 12.0,
+                    "max": 12.0
+                },
+                "FD average": {
+                    "mean": 0.014017661227272726,
+                    "min": 0.008704938,
+                    "max": 0.038865502
+                },
+                "log_tSNR": {
+                    "mean": 3.7860183261765257,
+                    "min": 3.4223063448723905,
+                    "max": 3.9721769282478934
+                },
+                "Sex_encoded": {
+                    "mean": 0.6363636363636364,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Awake": {
+                "Age(week)": {
+                    "mean": 14.448621553884712,
+                    "min": 8.0,
+                    "max": 58.0
+                },
+                "FD average": {
+                    "mean": 0.03777821394736842,
+                    "min": 0.006506193,
+                    "max": 0.122322669
+                },
+                "log_tSNR": {
+                    "mean": 2.615924608754457,
+                    "min": 1.3270750014599193,
+                    "max": 4.499587423413026
+                },
+                "Sex_encoded": {
+                    "mean": 0.5355054302422724,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Awake_Rest": {
+                "Age(week)": {
+                    "mean": 12.0,
+                    "min": 12.0,
+                    "max": 12.0
+                },
+                "FD average": {
+                    "mean": 0.017443734072289153,
+                    "min": 0.005771109,
+                    "max": 0.119810444
+                },
+                "log_tSNR": {
+                    "mean": 4.051580891202027,
+                    "min": 2.7573144116240718,
+                    "max": 4.553918259165944
+                },
+                "Sex_encoded": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_high": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.3433734939759036,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.35542168674698793,
+                    "min": 0.0,
+                    "max": 1.0
+                }
+            },
+            "Douglas": {
+                "Age(week)": {
+                    "mean": 11.5,
+                    "min": 11.0,
+                    "max": 12.0
+                },
+                "FD average": {
+                    "mean": 0.00862320905,
+                    "min": 0.004956733,
+                    "max": 0.017800124
+                },
+                "log_tSNR": {
+                    "mean": 4.720475921435102,
+                    "min": 4.467075368188195,
+                    "max": 4.962327643498425
+                },
+                "Sex_encoded": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.25,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.25,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.5,
+                    "min": 0.0,
+                    "max": 1.0
+                }
+            },
+            "Env_Enrichment": {
+                "Age(week)": {
+                    "mean": 9.0,
+                    "min": 9.0,
+                    "max": 9.0
+                },
+                "FD average": {
+                    "mean": 0.011346676368421054,
+                    "min": 0.008691329,
+                    "max": 0.01766044
+                },
+                "log_tSNR": {
+                    "mean": 3.6017788604251293,
+                    "min": 2.9873583095814333,
+                    "max": 3.8583575312244873
+                },
+                "Sex_encoded": {
+                    "mean": 0.42105263157894735,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                }
+            },
+            "Florida": {
+                "Age(week)": {
+                    "mean": 28.0,
+                    "min": 28.0,
+                    "max": 28.0
+                },
+                "FD average": {
+                    "mean": 0.0077337347499999995,
+                    "min": 0.004051258,
+                    "max": 0.016419679
+                },
+                "log_tSNR": {
+                    "mean": 4.376131223002551,
+                    "min": 3.423113264655847,
+                    "max": 5.157176466347406
+                },
+                "Sex_encoded": {
+                    "mean": 0.5,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            },
+            "Longitudinal": {
+                "Age(week)": {
+                    "mean": 8.0,
+                    "min": 4.0,
+                    "max": 12.0
+                },
+                "FD average": {
+                    "mean": 0.007125134222222222,
+                    "min": 0.004955594,
+                    "max": 0.019039115
+                },
+                "log_tSNR": {
+                    "mean": 4.266634851021478,
+                    "min": 3.5353077316585106,
+                    "max": 4.626521319611608
+                },
+                "Sex_encoded": {
+                    "mean": 0.5,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                }
+            },
+            "MPTP": {
+                "Age(week)": {
+                    "mean": 12.0,
+                    "min": 12.0,
+                    "max": 12.0
+                },
+                "FD average": {
+                    "mean": 0.010081406333333333,
+                    "min": 0.008446025,
+                    "max": 0.013328904
+                },
+                "log_tSNR": {
+                    "mean": 4.309458910675198,
+                    "min": 4.232109816890244,
+                    "max": 4.431942403208204
+                },
+                "Sex_encoded": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                }
+            },
+            "Multicenter": {
+                "Age(week)": {
+                    "mean": 7.0,
+                    "min": 7.0,
+                    "max": 7.0
+                },
+                "FD average": {
+                    "mean": 0.009295090676348547,
+                    "min": 0.003652074,
+                    "max": 0.03922095
+                },
+                "log_tSNR": {
+                    "mean": 4.185489086924488,
+                    "min": 2.4006623499976016,
+                    "max": 5.484262932016081
+                },
+                "Sex_encoded": {
+                    "mean": 0.5892116182572614,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 0.4066390041493776,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.06224066390041494,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.27800829875518673,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.2946058091286307,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 0.3112033195020747,
+                    "min": 0.0,
+                    "max": 1.0
+                }
+            },
+            "NDUFS4": {
+                "Age(week)": {
+                    "mean": 29.571428571428573,
+                    "min": 21.0,
+                    "max": 39.0
+                },
+                "FD average": {
+                    "mean": 0.014536640539428573,
+                    "min": 0.007169058311,
+                    "max": 0.04924844399
+                },
+                "log_tSNR": {
+                    "mean": 4.287070004162193,
+                    "min": 3.6791340212677377,
+                    "max": 4.6466222060005995
+                },
+                "Sex_encoded": {
+                    "mean": 0.6428571428571429,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                }
+            },
+            "Psilocybin": {
+                "Age(week)": {
+                    "mean": 7.0,
+                    "min": 7.0,
+                    "max": 7.0
+                },
+                "FD average": {
+                    "mean": 0.006329922,
+                    "min": 0.005947452,
+                    "max": 0.007046453
+                },
+                "log_tSNR": {
+                    "mean": 4.979897785107042,
+                    "min": 4.769695576196602,
+                    "max": 5.114166738021776
+                },
+                "Sex_encoded": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                }
+            },
+            "Psilocybin_Pilot": {
+                "Age(week)": {
+                    "mean": 7.0,
+                    "min": 7.0,
+                    "max": 7.0
+                },
+                "FD average": {
+                    "mean": 0.006003442750000001,
+                    "min": 0.005562611,
+                    "max": 0.006940992
+                },
+                "log_tSNR": {
+                    "mean": 5.1459483130748405,
+                    "min": 4.671696230691514,
+                    "max": 5.303223362445765
+                },
+                "Sex_encoded": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                }
+            },
+            "Sexdifference": {
+                "Age(week)": {
+                    "mean": 16.0,
+                    "min": 16.0,
+                    "max": 16.0
+                },
+                "FD average": {
+                    "mean": 0.006356345833333334,
+                    "min": 0.003551669,
+                    "max": 0.036661488
+                },
+                "log_tSNR": {
+                    "mean": 4.12919676725714,
+                    "min": 3.2422275193173538,
+                    "max": 4.6724568026498305
+                },
+                "Sex_encoded": {
+                    "mean": 0.5,
+                    "min": 0.0,
+                    "max": 1.0
+                },
+                "Anesthesia_high": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Hal": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Iso": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Med": {
+                    "mean": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "Anesthesia_Mediso": {
+                    "mean": 1.0,
+                    "min": 1.0,
+                    "max": 1.0
+                }
+            }
+        }
+    },
+    "covariate_ranges": {
+        "Age(week)": {
+            "mean": 13.188253801782905,
+            "min": 4.0,
+            "max": 58.0
+        },
+        "FD average": {
+            "mean": 0.02786161402438891,
+            "min": 0.003551669,
+            "max": 0.122322669
+        },
+        "log_tSNR": {
+            "mean": 3.1977874052425306,
+            "min": 1.3270750014599193,
+            "max": 5.484262932016081
+        },
+        "Sex_encoded": {
+            "mean": 0.5154693235448348,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_high": {
+            "mean": 0.0886208704771893,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Hal": {
+            "mean": 0.019402202412165705,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Iso": {
+            "mean": 0.07393812270582066,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Med": {
+            "mean": 0.03985317252228631,
+            "min": 0.0,
+            "max": 1.0
+        },
+        "Anesthesia_Mediso": {
+            "mean": 0.20608285264813844,
+            "min": 0.0,
+            "max": 1.0
+        }
+    }
+}

@@ -1,0 +1,382 @@
+{
+    "model": {
+        "name": "comp2",
+        "type": "HBR",
+        "is_fitted": true,
+        "is_from_dict": false,
+        "transfered": false,
+        "ptk_version": "1.1.2",
+        "likelihood": {
+            "name": "SHASHb",
+            "mu": {
+                "name": "mu",
+                "_dims": null,
+                "mapping": "identity",
+                "mapping_params": [
+                    0,
+                    1
+                ],
+                "slope": {
+                    "name": "slope_mu",
+                    "_dims": [
+                        "mu_covariates"
+                    ],
+                    "mapping": "identity",
+                    "mapping_params": [
+                        0,
+                        1
+                    ],
+                    "dist_name": "Normal",
+                    "dist_params": [
+                        0.0,
+                        3.0
+                    ],
+                    "dims": [
+                        "mu_covariates"
+                    ],
+                    "type": "Prior"
+                },
+                "intercept": {
+                    "name": "intercept_mu",
+                    "_dims": null,
+                    "mapping": "identity",
+                    "mapping_params": [
+                        0,
+                        1
+                    ],
+                    "dist_name": "Normal",
+                    "dist_params": [
+                        0.0,
+                        1.0
+                    ],
+                    "dims": null,
+                    "type": "Prior"
+                },
+                "basis_function": {
+                    "is_fitted": true,
+                    "basis_name": "bspline",
+                    "min": {
+                        "0": -1.1266109521972951,
+                        "3": -1.1856597831522966,
+                        "4": -2.0744753606542146
+                    },
+                    "max": {
+                        "0": 5.498382757703252,
+                        "3": 4.461912388057429,
+                        "4": 2.599953907100114
+                    },
+                    "compute_min": true,
+                    "compute_max": true,
+                    "basis_column": [
+                        0,
+                        3,
+                        4
+                    ],
+                    "degree": 3,
+                    "nknots": 5,
+                    "left_expand": 0.05,
+                    "right_expand": 0.05,
+                    "knot_method": "uniform",
+                    "knots": {
+                        "0": [
+                            -1.4578606376923224,
+                            -1.4578606376923224,
+                            -1.4578606376923224,
+                            -1.4578606376923224,
+                            0.3640126325303279,
+                            2.185885902752978,
+                            4.007759172975629,
+                            5.829632443198279,
+                            5.829632443198279,
+                            5.829632443198279,
+                            5.829632443198279
+                        ],
+                        "3": [
+                            -1.4680383917127828,
+                            -1.4680383917127828,
+                            -1.4680383917127828,
+                            -1.4680383917127828,
+                            0.08504395536989162,
+                            1.638126302452566,
+                            3.1912086495352403,
+                            4.744290996617915,
+                            4.744290996617915,
+                            4.744290996617915,
+                            4.744290996617915
+                        ],
+                        "4": [
+                            -2.308196824041931,
+                            -2.308196824041931,
+                            -2.308196824041931,
+                            -2.308196824041931,
+                            -1.0227287754094907,
+                            0.26273927322294943,
+                            1.5482073218553896,
+                            2.83367537048783,
+                            2.83367537048783,
+                            2.83367537048783,
+                            2.83367537048783
+                        ]
+                    },
+                    "basis_function": "BsplineBasisFunction"
+                },
+                "covariate_dims": [
+                    "mu_covariates_0",
+                    "mu_covariates_1",
+                    "mu_covariates_2",
+                    "mu_covariates_3",
+                    "mu_covariates_4",
+                    "mu_covariates_5",
+                    "mu_covariates_6",
+                    "mu_covariates_7",
+                    "mu_covariates_8",
+                    "mu_covariates_9",
+                    "mu_covariates_10",
+                    "mu_covariates_11",
+                    "mu_covariates_12",
+                    "mu_covariates_13",
+                    "mu_covariates_14",
+                    "mu_covariates_15",
+                    "mu_covariates_16",
+                    "mu_covariates_17",
+                    "mu_covariates_18",
+                    "mu_covariates_19",
+                    "mu_covariates_20",
+                    "mu_covariates_21",
+                    "mu_covariates_22",
+                    "mu_covariates_23",
+                    "mu_covariates_24",
+                    "mu_covariates_25",
+                    "mu_covariates_26",
+                    "mu_covariates_27",
+                    "mu_covariates_28",
+                    "mu_covariates_29",
+                    "mu_covariates_30",
+                    "mu_covariates_31",
+                    "mu_covariates_32",
+                    "mu_covariates_33",
+                    "mu_covariates_34",
+                    "mu_covariates_35",
+                    "mu_covariates_36",
+                    "mu_covariates_37",
+                    "mu_covariates_38"
+                ],
+                "one_dimensional": false,
+                "dims": null,
+                "type": "LinearPrior"
+            },
+            "sigma": {
+                "name": "sigma",
+                "_dims": null,
+                "mapping": "softplus",
+                "mapping_params": [
+                    0.0,
+                    2.0
+                ],
+                "slope": {
+                    "name": "slope_sigma",
+                    "_dims": [
+                        "sigma_covariates"
+                    ],
+                    "mapping": "identity",
+                    "mapping_params": [
+                        0,
+                        1
+                    ],
+                    "dist_name": "Normal",
+                    "dist_params": [
+                        0.0,
+                        2.0
+                    ],
+                    "dims": [
+                        "sigma_covariates"
+                    ],
+                    "type": "Prior"
+                },
+                "intercept": {
+                    "name": "intercept_sigma",
+                    "_dims": null,
+                    "mapping": "identity",
+                    "mapping_params": [
+                        0,
+                        1
+                    ],
+                    "dist_name": "Normal",
+                    "dist_params": [
+                        0.0,
+                        1.0
+                    ],
+                    "dims": null,
+                    "type": "Prior"
+                },
+                "basis_function": {
+                    "is_fitted": true,
+                    "basis_name": "bspline",
+                    "min": {
+                        "0": -1.1266109521972951,
+                        "3": -1.1856597831522966,
+                        "4": -2.0744753606542146
+                    },
+                    "max": {
+                        "0": 5.498382757703252,
+                        "3": 4.461912388057429,
+                        "4": 2.599953907100114
+                    },
+                    "compute_min": true,
+                    "compute_max": true,
+                    "basis_column": [
+                        0,
+                        3,
+                        4
+                    ],
+                    "degree": 3,
+                    "nknots": 5,
+                    "left_expand": 0.05,
+                    "right_expand": 0.05,
+                    "knot_method": "uniform",
+                    "knots": {
+                        "0": [
+                            -1.4578606376923224,
+                            -1.4578606376923224,
+                            -1.4578606376923224,
+                            -1.4578606376923224,
+                            0.3640126325303279,
+                            2.185885902752978,
+                            4.007759172975629,
+                            5.829632443198279,
+                            5.829632443198279,
+                            5.829632443198279,
+                            5.829632443198279
+                        ],
+                        "3": [
+                            -1.4680383917127828,
+                            -1.4680383917127828,
+                            -1.4680383917127828,
+                            -1.4680383917127828,
+                            0.08504395536989162,
+                            1.638126302452566,
+                            3.1912086495352403,
+                            4.744290996617915,
+                            4.744290996617915,
+                            4.744290996617915,
+                            4.744290996617915
+                        ],
+                        "4": [
+                            -2.308196824041931,
+                            -2.308196824041931,
+                            -2.308196824041931,
+                            -2.308196824041931,
+                            -1.0227287754094907,
+                            0.26273927322294943,
+                            1.5482073218553896,
+                            2.83367537048783,
+                            2.83367537048783,
+                            2.83367537048783,
+                            2.83367537048783
+                        ]
+                    },
+                    "basis_function": "BsplineBasisFunction"
+                },
+                "covariate_dims": [
+                    "sigma_covariates_0",
+                    "sigma_covariates_1",
+                    "sigma_covariates_2",
+                    "sigma_covariates_3",
+                    "sigma_covariates_4",
+                    "sigma_covariates_5",
+                    "sigma_covariates_6",
+                    "sigma_covariates_7",
+                    "sigma_covariates_8",
+                    "sigma_covariates_9",
+                    "sigma_covariates_10",
+                    "sigma_covariates_11",
+                    "sigma_covariates_12",
+                    "sigma_covariates_13",
+                    "sigma_covariates_14",
+                    "sigma_covariates_15",
+                    "sigma_covariates_16",
+                    "sigma_covariates_17",
+                    "sigma_covariates_18",
+                    "sigma_covariates_19",
+                    "sigma_covariates_20",
+                    "sigma_covariates_21",
+                    "sigma_covariates_22",
+                    "sigma_covariates_23",
+                    "sigma_covariates_24",
+                    "sigma_covariates_25",
+                    "sigma_covariates_26",
+                    "sigma_covariates_27",
+                    "sigma_covariates_28",
+                    "sigma_covariates_29",
+                    "sigma_covariates_30",
+                    "sigma_covariates_31",
+                    "sigma_covariates_32",
+                    "sigma_covariates_33",
+                    "sigma_covariates_34",
+                    "sigma_covariates_35",
+                    "sigma_covariates_36",
+                    "sigma_covariates_37",
+                    "sigma_covariates_38"
+                ],
+                "one_dimensional": false,
+                "dims": null,
+                "type": "LinearPrior"
+            },
+            "epsilon": {
+                "name": "epsilon",
+                "_dims": null,
+                "mapping": "identity",
+                "mapping_params": [
+                    0,
+                    1
+                ],
+                "dist_name": "Normal",
+                "dist_params": [
+                    0.0,
+                    1.0
+                ],
+                "dims": null,
+                "type": "Prior"
+            },
+            "delta": {
+                "name": "delta",
+                "_dims": null,
+                "mapping": "softplus",
+                "mapping_params": [
+                    0.0,
+                    3.0,
+                    0.6
+                ],
+                "dist_name": "Normal",
+                "dist_params": [
+                    1.0,
+                    1.0
+                ],
+                "dims": null,
+                "type": "Prior"
+            }
+        },
+        "_name": "comp2",
+        "draws": 1500,
+        "tune": 500,
+        "cores": 8,
+        "chains": 4,
+        "nuts_sampler": "nutpie",
+        "init": "jitter+adapt_diag",
+        "progressbar": false,
+        "be_maps": {
+            "dummy_batch_effect": {
+                "0.0": 0
+            }
+        },
+        "idata_path": "/home/traaffneu/giuvas/digitalrodent/results/normative_model_HBR_A/model/comp2/idata.nc"
+    },
+    "outscaler": {
+        "scaler_type": "standardize",
+        "adjust_outliers": false,
+        "m": 0.24077068983606556,
+        "s": 0.1563260143665727,
+        "min": 0.02537,
+        "max": 0.960322
+    }
+}

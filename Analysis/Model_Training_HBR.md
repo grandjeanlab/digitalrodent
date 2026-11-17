@@ -51,8 +51,15 @@ MODELS_TO_RUN = os.environ.get("HBR_MODELS", "A,B").split(",")  # e.g. HBR_MODEL
 
 # MCMC settings (PCNToolkit defaults: 1500 draws, 500 tune, 4 chains)
 DRAWS = int(os.environ.get("HBR_DRAWS", 1500))
-TUNE = int(os.environ.get("HBR_TUNE", 500))
+TUNE = int(os.environ.get("HBR_TUNE", 1500))
 CHAINS = int(os.environ.get("HBR_CHAINS", 4))
+
+# Prior width of the slopes. With many correlated covariates (model A),
+# wide priors let the chains drift apart (r-hat up to 4.7 in the first run),
+# so the slopes are kept tight; covariates are standardized, so a slope of
+# 1 already means one SD of the outcome per SD of the covariate.
+MU_SLOPE_SD = float(os.environ.get("HBR_MU_SLOPE_SD", 1.0))
+SIGMA_SLOPE_SD = float(os.environ.get("HBR_SIGMA_SLOPE_SD", 0.5))
 CORES = int(os.environ.get("SLURM_CPUS_PER_TASK", os.environ.get("HBR_CORES", 4)))
 
 # Fit all 18 components, or only the selected ones (much faster)
@@ -143,7 +150,7 @@ test_obs = ref_test.observations.values
 print(f"Train: {len(train_obs)} scans, test: {len(test_obs)} scans (same split as BLR)")
 ```
 
-    MCMC: 4 chains x 1500 draws (+500 tune), 8 cores
+    MCMC: 4 chains x 1500 draws (+1500 tune), 8 cores
     Selected components: {'comp2': 'M1', 'comp3': 'S1uLp + S2', 'comp7': 'V2 + RSD', 'comp10': 'Cg1 + RS', 'comp12': 'Ventral HP'}
     Rows: 1907
     Responses: ['comp2', 'comp3', 'comp7', 'comp10', 'comp12']
@@ -174,13 +181,13 @@ def shash_likelihood(random_intercept, covs):
 
     mu = make_prior(
         linear=True,
-        slope=make_prior(dist_name="Normal", dist_params=(0.0, 3.0)),
+        slope=make_prior(dist_name="Normal", dist_params=(0.0, MU_SLOPE_SD)),
         intercept=mu_intercept,
         basis_function=bspline(covs),
     )
     sigma = make_prior(
         linear=True,
-        slope=make_prior(dist_name="Normal", dist_params=(0.0, 2.0)),
+        slope=make_prior(dist_name="Normal", dist_params=(0.0, SIGMA_SLOPE_SD)),
         intercept=make_prior(dist_name="Normal", dist_params=(0.0, 1.0)),
         basis_function=bspline(covs),
         mapping="softplus",
@@ -243,7 +250,25 @@ for key in MODELS_TO_RUN:
         index=test.Z.coords["observations"].values.astype(int),
     )
     z_test.to_csv(out_dir / "Z_test.csv")
-    results[key] = {"stats": stats, "z": z_test, "label": spec["label"]}
+    # ---- convergence check: r-hat compares the chains (1.00 = they agree)
+    import arviz as az
+    rhat_rows = []
+    for rv in response_vars:
+        idata_path = out_dir / "model" / rv / "idata.nc"
+        if not idata_path.exists():
+            continue
+        r = az.rhat(az.from_netcdf(idata_path).posterior)
+        vals = {v: float(np.nanmax(r[v].values)) for v in r.data_vars}
+        worst = max(vals, key=vals.get)
+        rhat_rows.append({"component": rv, "max_rhat": round(vals[worst], 3), "parameter": worst})
+    rhat = pd.DataFrame(rhat_rows)
+    rhat.to_csv(out_dir / "Convergence_rhat.csv", index=False)
+    print("\nConvergence (max r-hat per component; > 1.05 = chains disagree):")
+    print(rhat.to_string(index=False))
+    if (rhat["max_rhat"] > 1.05).any():
+        print("WARNING: not converged:", rhat.loc[rhat["max_rhat"] > 1.05, "component"].tolist())
+
+    results[key] = {"stats": stats, "z": z_test, "label": spec["label"], "rhat": rhat}
     print(stats.round(3).to_string())
 ```
 
@@ -251,25 +276,41 @@ for key in MODELS_TO_RUN:
     HBR A (SHASH, no dataset effect) -> /home/traaffneu/giuvas/digitalrodent/results/normative_model_HBR_A
     ============================================================
 
+    Convergence (max r-hat per component; > 1.05 = chains disagree):
+    component  max_rhat parameter
+        comp2     3.185  slope_mu
+        comp3     1.677  slope_mu
+        comp7     1.596  slope_mu
+       comp10     1.667  slope_mu
+       comp12     1.034  slope_mu
+    WARNING: not converged: ['comp2', 'comp3', 'comp7', 'comp10']
     statistic       EXPV   MACE   MAPE          MSLL           NLL     R2   RMSE    Rho  Rho_p   SMSE  ShapiroW
     response_vars                                                                                              
-    comp10         0.224  0.055  0.814  3.138959e+08  3.138959e+08  0.212  0.102  0.721    0.0  0.788     0.052
-    comp12         0.357  0.048  0.889  1.026495e+12  1.026495e+12  0.357  0.123  0.655    0.0  0.643     0.043
-    comp2          0.790  0.010  0.263  7.950000e-01  3.570000e-01  0.790  0.072  0.906    0.0  0.210     0.991
-    comp3          0.150  0.085  0.752  2.997338e+08  2.997338e+08  0.047  0.099  0.712    0.0  0.953     0.060
-    comp7         -0.566  0.109  2.583  2.288342e+12  2.288342e+12 -0.706  0.286  0.222    0.0  1.706     0.149
+    comp10         0.414  0.078  0.779  2.745124e+09  2.745124e+09  0.370  0.091  0.674    0.0  0.630     0.040
+    comp12         0.779  0.018  0.254  7.620000e-01  3.060000e-01  0.778  0.072  0.911    0.0  0.222     0.992
+    comp2          0.291  0.030  0.957  8.413342e+09  8.413342e+09  0.282  0.132  0.648    0.0  0.718     0.036
+    comp3          0.263  0.049  0.561  7.361749e+09  7.361749e+09  0.262  0.087  0.797    0.0  0.738     0.027
+    comp7          0.296  0.078  1.393  1.457339e+09  1.457339e+09  0.282  0.186  0.577    0.0  0.718     0.053
 
     ============================================================
     HBR B (SHASH, random intercept per dataset) -> /home/traaffneu/giuvas/digitalrodent/results/normative_model_HBR_B
     ============================================================
 
+    Convergence (max r-hat per component; > 1.05 = chains disagree):
+    component  max_rhat       parameter
+        comp2     1.021        slope_mu
+        comp3     1.029        slope_mu
+        comp7     1.403 mu_intercept_mu
+       comp10     1.116        slope_mu
+       comp12     1.020        slope_mu
+    WARNING: not converged: ['comp7', 'comp10']
     statistic       EXPV   MACE   MAPE   MSLL    NLL     R2   RMSE    Rho  Rho_p   SMSE  ShapiroW
     response_vars                                                                                
-    comp10         0.792  0.023  0.240  0.996  0.250  0.790  0.053  0.923    0.0  0.210     0.996
-    comp12         0.782  0.016  0.250  0.791  0.336  0.782  0.072  0.912    0.0  0.218     0.992
-    comp2          0.792  0.014  0.257  0.773  0.335  0.792  0.071  0.915    0.0  0.208     0.995
-    comp3          0.746  0.018  0.244  1.475  0.606  0.745  0.051  0.865    0.0  0.255     0.990
-    comp7          0.754  0.006  0.333  0.251  0.152  0.754  0.109  0.911    0.0  0.246     0.992
+    comp10         0.790  0.025  0.241  0.992  0.246  0.788  0.053  0.923    0.0  0.212     0.994
+    comp12         0.783  0.017  0.248  0.744  0.288  0.783  0.071  0.914    0.0  0.217     0.995
+    comp2          0.791  0.015  0.259  0.750  0.312  0.790  0.071  0.915    0.0  0.210     0.996
+    comp3          0.745  0.017  0.245  1.421  0.552  0.744  0.051  0.865    0.0  0.256     0.995
+    comp7          0.754  0.006  0.335  0.252  0.152  0.753  0.109  0.911    0.0  0.247     0.989
 
 ``` python
 # ============================================================
@@ -363,36 +404,36 @@ for key, res in results.items():
 
 |  | Variable | Group | N_test | M1 mean z | M1 SD z | S1uLp + S2 mean z | S1uLp + S2 SD z | V2 + RSD mean z | V2 + RSD SD z | Cg1 + RS mean z | Cg1 + RS SD z | Ventral HP mean z | Ventral HP SD z |
 |----|----|----|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | Dataset | 3xTG | 4 | -1.00 | 1.30 | -9.78 | 1.79 | -337.47 | 242.73 | 0.07 | 0.38 | -1.18 | 1.05 |
-| 1 | Dataset | Alvino | 3 | -0.97 | 0.45 | 165.34 | 59.09 | -1541.39 | 1255.15 | -0.16 | 0.10 | 40057.66 | 53816.63 |
-| 2 | Dataset | Awake | 226 | 0.03 | 1.07 | 1705.21 | 15858.55 | -52.05 | 510.16 | -1549.87 | 16179.65 | 0.10 | 0.89 |
-| 3 | Dataset | Awake_Rest | 41 | 0.05 | 1.13 | -57.98 | 89.47 | -0.80 | 1.38 | 0.15 | 1.28 | -0.83 | 1.98 |
-| 4 | Dataset | Douglas | 2 | -0.03 | 1.23 | -707.91 | 954.09 | -221058.65 | 312532.01 | -7908.18 | 10085.28 | 9022017.68 | 5761844.84 |
-| 5 | Dataset | Env_Enrichment | 7 | -0.11 | 0.60 | -0.09 | 0.45 | 0.26 | 1.84 | 0.21 | 0.26 | -0.04 | 1.45 |
-| 6 | Dataset | Florida | 4 | 0.73 | 1.60 | -10.12 | 6.12 | 17.44 | 23.13 | 3.65 | 7.28 | -1.10 | 1.01 |
-| 7 | Dataset | Longitudinal | 8 | 0.17 | 1.05 | -1.87 | 2.68 | -0.61 | 0.42 | -0.21 | 0.65 | -0.29 | 0.85 |
-| 8 | Dataset | MPTP | 5 | -0.28 | 0.78 | -75.23 | 12.40 | -820.34 | 58.46 | 0.13 | 0.37 | -1.62 | 0.37 |
-| 9 | Dataset | Multicenter | 54 | 0.13 | 0.85 | -15.46 | 95.83 | -660.58 | 1653.33 | -122.50 | 670.64 | 544.16 | 4236.79 |
-| 10 | Dataset | NDUFS4 | 4 | -0.49 | 1.21 | -1.08 | 1.24 | -1.04 | 0.38 | -0.26 | 0.15 | 0.03 | 0.43 |
-| 11 | Dataset | Psilocybin | 7 | 0.11 | 1.60 | -509.44 | 189.27 | -6305817.00 | 461612.60 | 0.42 | 0.92 | 47369.97 | 15941.44 |
-| 12 | Dataset | Psilocybin_Pilot | 3 | -0.48 | 1.72 | -570.97 | 34.43 | -7084186.53 | 1830157.90 | 0.39 | 0.27 | 93307.15 | 81043.99 |
-| 13 | Dataset | Sexdifference | 14 | -0.32 | 0.68 | -0.43 | 0.91 | -0.40 | 0.34 | -0.89 | 0.61 | -2.72 | 1.58 |
-| 14 | Sex | F | 182 | 0.00 | 0.97 | -13.78 | 51.70 | -8.60 | 41.38 | -9.23 | 107.73 | 553.45 | 7575.88 |
-| 15 | Sex | M | 200 | 0.02 | 1.12 | 1889.97 | 16855.03 | -329456.58 | 1444736.05 | -1855.05 | 17219.35 | 93521.54 | 988122.48 |
-| 16 | Anesthesia | Awake | 238 | 0.04 | 1.06 | 1619.31 | 15456.37 | -49.42 | 497.21 | -1471.72 | 15768.38 | 0.15 | 0.92 |
-| 17 | Anesthesia | Hal | 4 | -0.42 | 1.17 | 265.90 | 206.83 | -2463.36 | 2109.60 | 0.00 | 0.35 | 37817.58 | 44168.90 |
-| 18 | Anesthesia | Iso | 38 | -0.10 | 0.98 | -24.05 | 61.40 | 1.53 | 8.63 | -173.79 | 796.96 | -0.77 | 1.81 |
-| 19 | Anesthesia | Med | 15 | 0.09 | 0.61 | -12.58 | 11.76 | -31104.71 | 113714.49 | -1002.67 | 3883.19 | 329772.53 | 1277532.77 |
-| 20 | Anesthesia | Mediso | 87 | -0.01 | 1.13 | -113.47 | 223.71 | -751778.79 | 2123259.80 | -8.94 | 83.29 | 157553.69 | 1403520.60 |
-| 21 | Anesthesia dose | Awake | 238 | 0.04 | 1.06 | 1619.31 | 15456.37 | -49.42 | 497.21 | -1471.72 | 15768.38 | 0.15 | 0.92 |
-| 22 | Anesthesia dose | High | 35 | 0.04 | 0.94 | -27.55 | 62.30 | -737.27 | 1861.70 | 0.48 | 2.48 | -34.27 | 78.21 |
-| 23 | Anesthesia dose | Low | 107 | -0.06 | 1.08 | -70.38 | 179.10 | -611338.31 | 1935001.14 | -61.89 | 478.18 | 7123.03 | 24307.70 |
-| 24 | Anesthesia dose | Unknown | 2 | -0.03 | 1.23 | -707.91 | 954.09 | -221058.65 | 312532.01 | -7908.18 | 10085.28 | 9022017.68 | 5761844.84 |
-| 25 | Coil | Cryo | 66 | 0.04 | 1.15 | -104.66 | 195.60 | -991279.55 | 2392372.75 | 0.12 | 0.62 | 9239.78 | 27970.52 |
-| 26 | Coil | RT | 316 | 0.01 | 1.03 | 1210.10 | 13426.26 | -1482.38 | 24869.42 | -1179.42 | 13715.41 | 57579.78 | 786707.75 |
-| 27 | fMRI sequence | GE-EPI | 198 | -0.01 | 1.01 | 1923.66 | 16937.26 | -2523.52 | 31412.69 | -1882.75 | 17304.85 | 91886.47 | 993206.10 |
-| 28 | fMRI sequence | ME-EPI | 10 | -0.07 | 1.56 | -527.90 | 158.20 | -6539327.86 | 1013781.54 | 0.41 | 0.76 | 61151.13 | 46058.54 |
-| 29 | fMRI sequence | SE-EPI | 174 | 0.04 | 1.07 | -0.69 | 1.80 | 0.31 | 7.31 | 0.52 | 1.39 | 0.01 | 0.95 |
+| 0 | Dataset | 3xTG | 4 | -1.19 | 0.74 | -0.60 | 1.34 | -3.94 | 1.07 | -25.21 | 22.32 | -0.34 | 0.65 |
+| 1 | Dataset | Alvino | 3 | 8174.65 | 9922.77 | -0.87 | 0.34 | -25.66 | 14.80 | -17.16 | 2.39 | -1.20 | 0.50 |
+| 2 | Dataset | Awake | 226 | -21.24 | 1616.66 | -5284.10 | 78874.99 | 3612.45 | 34985.84 | -4109.23 | 48097.23 | -0.00 | 1.07 |
+| 3 | Dataset | Awake_Rest | 41 | 6.65 | 22.08 | 0.48 | 0.97 | -1.33 | 1.42 | 2.12 | 2.62 | 0.10 | 1.20 |
+| 4 | Dataset | Douglas | 2 | -602928.09 | 800570.37 | -714.79 | 295.04 | -0.25 | 0.07 | -0.11 | 0.56 | -0.34 | 0.82 |
+| 5 | Dataset | Env_Enrichment | 7 | -0.77 | 0.35 | 0.60 | 0.57 | 0.06 | 1.53 | -1.25 | 0.43 | 1.07 | 1.45 |
+| 6 | Dataset | Florida | 4 | 0.64 | 0.71 | 0.17 | 0.86 | 2.23 | 29.06 | 192.20 | 189.93 | -0.89 | 1.27 |
+| 7 | Dataset | Longitudinal | 8 | 0.08 | 0.77 | 3.59 | 2.19 | -0.42 | 0.52 | -0.43 | 0.80 | 0.16 | 1.26 |
+| 8 | Dataset | MPTP | 5 | -3.16 | 0.63 | -1.07 | 0.52 | -1.27 | 0.66 | -2.60 | 0.90 | 0.32 | 0.35 |
+| 9 | Dataset | Multicenter | 54 | 27.88 | 213.99 | 0.73 | 0.79 | -6.40 | 15.90 | 28.70 | 83.24 | 0.09 | 0.92 |
+| 10 | Dataset | NDUFS4 | 4 | 8.61 | 10.25 | -28.66 | 31.93 | 1.57 | 3.20 | -2.95 | 2.15 | -0.01 | 0.58 |
+| 11 | Dataset | Psilocybin | 7 | -16686.86 | 1539.33 | 0.44 | 1.22 | -0.43 | 1.16 | -0.66 | 1.32 | -0.76 | 1.19 |
+| 12 | Dataset | Psilocybin_Pilot | 3 | -17412.18 | 360.69 | -0.23 | 0.71 | -0.45 | 0.54 | -0.75 | 0.50 | 0.67 | 0.50 |
+| 13 | Dataset | Sexdifference | 14 | 0.12 | 0.42 | 25.48 | 12.43 | 1.69 | 2.10 | -1.28 | 0.82 | -0.14 | 0.89 |
+| 14 | Sex | F | 182 | 107.91 | 1455.26 | 2.27 | 6.73 | 11.83 | 110.47 | 11.70 | 56.40 | 0.01 | 0.99 |
+| 15 | Sex | M | 200 | -6865.13 | 82730.03 | -5978.62 | 83844.41 | 4068.96 | 37176.60 | -4643.12 | 51118.49 | 0.01 | 1.14 |
+| 16 | Anesthesia | Awake | 238 | -20.19 | 1575.21 | -5017.61 | 76860.96 | 3430.32 | 34097.82 | -3902.03 | 46872.42 | 0.04 | 1.08 |
+| 17 | Anesthesia | Hal | 4 | 6523.79 | 8748.85 | -0.38 | 1.02 | -21.69 | 14.46 | -15.75 | 3.43 | -0.45 | 1.55 |
+| 18 | Anesthesia | Iso | 38 | 8.06 | 22.54 | 0.47 | 0.77 | -9.06 | 20.14 | 64.33 | 117.47 | -0.04 | 1.10 |
+| 19 | Anesthesia | Med | 15 | -77938.04 | 301837.85 | -33.39 | 130.79 | -0.22 | 1.02 | -0.14 | 0.68 | -0.24 | 0.91 |
+| 20 | Anesthesia | Mediso | 87 | -2366.80 | 6597.19 | -7.31 | 100.33 | -0.43 | 1.84 | -2.21 | 6.76 | 0.03 | 1.05 |
+| 21 | Anesthesia dose | Awake | 238 | -20.19 | 1575.21 | -5017.61 | 76860.96 | 3430.32 | 34097.82 | -3902.03 | 46872.42 | 0.04 | 1.08 |
+| 22 | Anesthesia dose | High | 35 | -1.89 | 2.55 | 0.38 | 0.91 | -0.94 | 8.96 | 19.49 | 85.22 | 0.18 | 1.20 |
+| 23 | Anesthesia dose | Low | 107 | -1333.26 | 5392.93 | 2.77 | 12.60 | -4.09 | 12.44 | 14.07 | 60.80 | -0.09 | 1.01 |
+| 24 | Anesthesia dose | Unknown | 2 | -602928.09 | 800570.37 | -714.79 | 295.04 | -0.25 | 0.07 | -0.11 | 0.56 | -0.34 | 0.82 |
+| 25 | Coil | Cryo | 66 | -2562.85 | 6126.47 | 0.25 | 1.04 | -1.24 | 1.67 | -1.93 | 8.05 | -0.10 | 1.02 |
+| 26 | Coil | RT | 316 | -3747.59 | 65816.18 | -3782.68 | 66704.14 | 2582.36 | 29613.60 | -2931.54 | 40692.55 | 0.03 | 1.08 |
+| 27 | fMRI sequence | GE-EPI | 198 | -5981.49 | 83144.47 | -6036.82 | 84266.93 | 4120.72 | 37361.54 | -4683.36 | 51375.79 | 0.01 | 0.96 |
+| 28 | fMRI sequence | ME-EPI | 10 | -16904.45 | 1315.81 | 0.24 | 1.10 | -0.44 | 0.98 | -0.69 | 1.10 | -0.33 | 1.22 |
+| 29 | fMRI sequence | SE-EPI | 174 | -0.03 | 0.89 | -0.13 | 0.83 | 0.27 | 3.96 | 4.70 | 38.19 | 0.04 | 1.18 |
 
 </div>
 
@@ -425,36 +466,36 @@ for key, res in results.items():
 
 |  | Variable | Group | N_test | M1 mean z | M1 SD z | S1uLp + S2 mean z | S1uLp + S2 SD z | V2 + RSD mean z | V2 + RSD SD z | Cg1 + RS mean z | Cg1 + RS SD z | Ventral HP mean z | Ventral HP SD z |
 |----|----|----|----|----|----|----|----|----|----|----|----|----|----|
-| 0 | Dataset | 3xTG | 4 | -0.99 | 1.19 | -0.97 | 1.62 | -0.73 | 1.32 | -0.10 | 0.92 | -0.45 | 0.50 |
-| 1 | Dataset | Alvino | 3 | -0.61 | 0.53 | -0.82 | 0.69 | -0.94 | 0.94 | -0.53 | 0.34 | -0.82 | 0.64 |
-| 2 | Dataset | Awake | 226 | 0.05 | 1.02 | -0.07 | 1.03 | 0.07 | 0.96 | 0.13 | 0.94 | 0.03 | 1.04 |
-| 3 | Dataset | Awake_Rest | 41 | -0.16 | 1.09 | -0.04 | 0.97 | -0.20 | 1.18 | -0.01 | 1.01 | -0.13 | 1.12 |
-| 4 | Dataset | Douglas | 2 | -0.45 | 1.28 | -0.32 | 0.61 | -0.24 | 0.65 | -0.38 | 0.89 | 0.02 | 0.30 |
-| 5 | Dataset | Env_Enrichment | 7 | -0.12 | 0.49 | 0.08 | 0.69 | 0.59 | 1.90 | 0.22 | 0.53 | 1.05 | 1.27 |
-| 6 | Dataset | Florida | 4 | -0.02 | 1.24 | -0.65 | 0.76 | -0.01 | 1.40 | -0.57 | 0.94 | -0.46 | 1.65 |
-| 7 | Dataset | Longitudinal | 8 | 0.00 | 0.99 | 0.03 | 0.84 | -0.43 | 0.83 | -0.30 | 0.97 | 0.08 | 1.15 |
-| 8 | Dataset | MPTP | 5 | 0.15 | 0.73 | -0.42 | 0.62 | -0.52 | 0.68 | 0.58 | 0.72 | -0.33 | 0.42 |
-| 9 | Dataset | Multicenter | 54 | 0.08 | 0.90 | 0.22 | 0.96 | -0.01 | 0.99 | 0.32 | 1.07 | 0.21 | 1.15 |
-| 10 | Dataset | NDUFS4 | 4 | -0.82 | 1.06 | -0.72 | 0.57 | -0.82 | 0.62 | 0.02 | 0.45 | -0.07 | 0.39 |
-| 11 | Dataset | Psilocybin | 7 | -0.51 | 1.98 | -0.53 | 2.14 | 0.00 | 1.46 | -0.77 | 1.53 | -0.79 | 1.01 |
-| 12 | Dataset | Psilocybin_Pilot | 3 | -0.24 | 1.51 | -0.15 | 1.02 | -0.62 | 0.56 | -0.71 | 0.50 | 0.62 | 0.49 |
-| 13 | Dataset | Sexdifference | 14 | -0.37 | 0.82 | 0.03 | 1.11 | -0.04 | 0.93 | -0.08 | 0.98 | 0.19 | 1.01 |
-| 14 | Sex | F | 182 | -0.03 | 0.94 | -0.14 | 0.99 | -0.06 | 0.93 | 0.09 | 0.93 | 0.04 | 1.01 |
-| 15 | Sex | M | 200 | -0.02 | 1.10 | 0.01 | 1.07 | 0.02 | 1.11 | 0.09 | 1.02 | 0.03 | 1.12 |
-| 16 | Anesthesia | Awake | 238 | 0.03 | 1.03 | -0.07 | 1.05 | 0.07 | 1.02 | 0.12 | 0.95 | 0.06 | 1.05 |
-| 17 | Anesthesia | Hal | 4 | -0.19 | 0.93 | -0.31 | 1.17 | -0.43 | 1.28 | -0.40 | 0.38 | -0.10 | 1.54 |
-| 18 | Anesthesia | Iso | 38 | -0.19 | 1.01 | -0.05 | 0.99 | -0.01 | 0.92 | -0.04 | 0.81 | 0.04 | 1.24 |
-| 19 | Anesthesia | Med | 15 | 0.06 | 0.50 | 0.04 | 0.62 | -0.11 | 0.75 | 0.34 | 0.60 | -0.01 | 0.86 |
-| 20 | Anesthesia | Mediso | 87 | -0.11 | 1.10 | -0.05 | 1.08 | -0.23 | 1.10 | 0.04 | 1.15 | -0.02 | 1.07 |
-| 21 | Anesthesia dose | Awake | 238 | 0.03 | 1.03 | -0.07 | 1.05 | 0.07 | 1.02 | 0.12 | 0.95 | 0.06 | 1.05 |
-| 22 | Anesthesia dose | High | 35 | -0.06 | 0.79 | -0.01 | 1.08 | 0.15 | 1.22 | 0.12 | 0.70 | 0.28 | 1.16 |
-| 23 | Anesthesia dose | Low | 107 | -0.13 | 1.09 | -0.05 | 1.00 | -0.27 | 0.95 | 0.02 | 1.10 | -0.10 | 1.08 |
-| 24 | Anesthesia dose | Unknown | 2 | -0.45 | 1.28 | -0.32 | 0.61 | -0.24 | 0.65 | -0.38 | 0.89 | 0.02 | 0.30 |
-| 25 | Coil | Cryo | 66 | -0.02 | 1.23 | 0.06 | 1.22 | -0.13 | 1.11 | 0.00 | 1.05 | -0.13 | 1.08 |
-| 26 | Coil | RT | 316 | -0.03 | 0.98 | -0.08 | 0.99 | 0.01 | 1.01 | 0.11 | 0.96 | 0.07 | 1.06 |
-| 27 | fMRI sequence | GE-EPI | 198 | -0.04 | 1.03 | 0.06 | 1.01 | -0.17 | 0.99 | 0.13 | 1.00 | 0.00 | 1.06 |
-| 28 | fMRI sequence | ME-EPI | 10 | -0.43 | 1.78 | -0.42 | 1.82 | -0.18 | 1.25 | -0.75 | 1.28 | -0.37 | 1.09 |
-| 29 | fMRI sequence | SE-EPI | 174 | 0.01 | 0.97 | -0.17 | 0.99 | 0.17 | 1.03 | 0.10 | 0.91 | 0.09 | 1.07 |
+| 0 | Dataset | 3xTG | 4 | -1.05 | 1.29 | -0.99 | 1.61 | -0.73 | 1.28 | -0.13 | 1.03 | -0.41 | 0.46 |
+| 1 | Dataset | Alvino | 3 | -0.61 | 0.52 | -0.83 | 0.69 | -0.97 | 0.97 | -0.54 | 0.38 | -0.85 | 0.68 |
+| 2 | Dataset | Awake | 226 | 0.06 | 1.00 | -0.06 | 1.00 | 0.07 | 0.96 | 0.14 | 0.95 | 0.02 | 1.00 |
+| 3 | Dataset | Awake_Rest | 41 | -0.17 | 1.08 | -0.05 | 0.96 | -0.19 | 1.21 | -0.01 | 1.03 | -0.09 | 1.06 |
+| 4 | Dataset | Douglas | 2 | -0.48 | 1.18 | -0.33 | 0.55 | -0.25 | 0.68 | -0.35 | 0.95 | 0.02 | 0.35 |
+| 5 | Dataset | Env_Enrichment | 7 | -0.16 | 0.48 | 0.08 | 0.67 | 0.64 | 2.01 | 0.20 | 0.56 | 1.10 | 1.34 |
+| 6 | Dataset | Florida | 4 | -0.07 | 1.15 | -0.63 | 0.70 | 0.00 | 1.27 | -0.54 | 0.81 | -0.41 | 1.39 |
+| 7 | Dataset | Longitudinal | 8 | 0.00 | 1.02 | 0.04 | 0.86 | -0.41 | 0.80 | -0.28 | 0.96 | -0.03 | 1.12 |
+| 8 | Dataset | MPTP | 5 | 0.14 | 0.71 | -0.42 | 0.59 | -0.51 | 0.70 | 0.64 | 0.73 | -0.32 | 0.44 |
+| 9 | Dataset | Multicenter | 54 | 0.05 | 0.88 | 0.21 | 0.94 | -0.02 | 0.94 | 0.29 | 1.01 | 0.20 | 1.09 |
+| 10 | Dataset | NDUFS4 | 4 | -0.72 | 1.04 | -0.67 | 0.59 | -0.78 | 0.57 | 0.08 | 0.39 | -0.03 | 0.47 |
+| 11 | Dataset | Psilocybin | 7 | -0.46 | 1.77 | -0.48 | 1.98 | -0.00 | 1.29 | -0.74 | 1.53 | -0.72 | 0.91 |
+| 12 | Dataset | Psilocybin_Pilot | 3 | -0.31 | 1.45 | -0.19 | 0.98 | -0.62 | 0.44 | -0.73 | 0.50 | 0.54 | 0.47 |
+| 13 | Dataset | Sexdifference | 14 | -0.33 | 0.91 | 0.09 | 1.15 | -0.01 | 0.93 | -0.05 | 1.02 | 0.20 | 0.99 |
+| 14 | Sex | F | 182 | -0.03 | 0.92 | -0.12 | 0.95 | -0.07 | 0.91 | 0.09 | 0.93 | 0.04 | 0.96 |
+| 15 | Sex | M | 200 | -0.03 | 1.08 | 0.01 | 1.06 | 0.03 | 1.10 | 0.10 | 1.01 | 0.03 | 1.08 |
+| 16 | Anesthesia | Awake | 238 | 0.03 | 1.02 | -0.05 | 1.02 | 0.07 | 1.02 | 0.13 | 0.96 | 0.05 | 1.01 |
+| 17 | Anesthesia | Hal | 4 | -0.18 | 0.97 | -0.32 | 1.17 | -0.48 | 1.25 | -0.41 | 0.40 | -0.18 | 1.44 |
+| 18 | Anesthesia | Iso | 38 | -0.21 | 0.98 | -0.04 | 0.98 | -0.03 | 0.89 | -0.05 | 0.81 | 0.06 | 1.12 |
+| 19 | Anesthesia | Med | 15 | 0.05 | 0.49 | 0.04 | 0.61 | -0.10 | 0.73 | 0.33 | 0.55 | -0.03 | 0.86 |
+| 20 | Anesthesia | Mediso | 87 | -0.12 | 1.06 | -0.05 | 1.05 | -0.22 | 1.09 | 0.04 | 1.12 | -0.01 | 1.03 |
+| 21 | Anesthesia dose | Awake | 238 | 0.03 | 1.02 | -0.05 | 1.02 | 0.07 | 1.02 | 0.13 | 0.96 | 0.05 | 1.01 |
+| 22 | Anesthesia dose | High | 35 | -0.09 | 0.80 | -0.01 | 1.08 | 0.15 | 1.22 | 0.10 | 0.68 | 0.27 | 1.14 |
+| 23 | Anesthesia dose | Low | 107 | -0.14 | 1.05 | -0.05 | 0.97 | -0.26 | 0.92 | 0.02 | 1.08 | -0.09 | 1.00 |
+| 24 | Anesthesia dose | Unknown | 2 | -0.48 | 1.18 | -0.33 | 0.55 | -0.25 | 0.68 | -0.35 | 0.95 | 0.02 | 0.35 |
+| 25 | Coil | Cryo | 66 | -0.02 | 1.22 | 0.05 | 1.19 | -0.12 | 1.09 | 0.02 | 1.06 | -0.13 | 1.03 |
+| 26 | Coil | RT | 316 | -0.03 | 0.96 | -0.07 | 0.97 | 0.00 | 1.00 | 0.11 | 0.95 | 0.06 | 1.02 |
+| 27 | fMRI sequence | GE-EPI | 198 | -0.04 | 1.01 | 0.07 | 0.97 | -0.18 | 0.97 | 0.12 | 0.99 | -0.02 | 0.99 |
+| 28 | fMRI sequence | ME-EPI | 10 | -0.42 | 1.60 | -0.40 | 1.69 | -0.19 | 1.12 | -0.74 | 1.27 | -0.34 | 0.99 |
+| 29 | fMRI sequence | SE-EPI | 174 | 0.01 | 0.96 | -0.17 | 0.99 | 0.17 | 1.03 | 0.11 | 0.91 | 0.11 | 1.05 |
 
 </div>
 
@@ -576,10 +617,10 @@ print("Comparison saved to:", compare_dir)
 |----|----|----|----|----|----|----|----|----|
 | 0 | BLR (warped) | all fitted | 0.792 | 0.940 | 0.027 | 1.265 | 5.738 | 4.988 |
 | 1 | BLR (warped) | selected | 0.792 | 0.940 | 0.027 | 1.265 | 5.738 | 4.988 |
-| 2 | HBR A (SHASH, no dataset effect) | all fitted | 0.191 | 0.259 | 0.061 | 1.643 | 167.379 | 21.885 |
-| 3 | HBR A (SHASH, no dataset effect) | selected | 0.191 | 0.259 | 0.061 | 1.643 | 167.379 | 21.885 |
-| 4 | HBR B (SHASH, random intercept per dataset) | all fitted | 0.773 | 0.993 | 0.015 | -0.071 | 0.758 | 5.550 |
-| 5 | HBR B (SHASH, random intercept per dataset) | selected | 0.773 | 0.993 | 0.015 | -0.071 | 0.758 | 5.550 |
+| 2 | HBR A (SHASH, no dataset effect) | all fitted | 0.409 | 0.229 | 0.051 | -8.732 | 254.760 | 18.325 |
+| 3 | HBR A (SHASH, no dataset effect) | selected | 0.409 | 0.229 | 0.051 | -8.732 | 254.760 | 18.325 |
+| 4 | HBR B (SHASH, random intercept per dataset) | all fitted | 0.772 | 0.994 | 0.016 | -0.004 | 0.647 | 5.340 |
+| 5 | HBR B (SHASH, random intercept per dataset) | selected | 0.772 | 0.994 | 0.016 | -0.004 | 0.647 | 5.340 |
 
 </div>
 

@@ -35,7 +35,7 @@
                     "dist_name": "Normal",
                     "dist_params": [
                         0.0,
-                        3.0
+                        1.0
                     ],
                     "dims": [
                         "covariates"
@@ -129,7 +129,7 @@
                     "dist_name": "Normal",
                     "dist_params": [
                         0.0,
-                        2.0
+                        0.5
                     ],
                     "dims": [
                         "covariates"
@@ -211,7 +211,7 @@
         },
         "_name": "template",
         "draws": 1500,
-        "tune": 500,
+        "tune": 1500,
         "cores": 8,
         "chains": 4,
         "nuts_sampler": "nutpie",

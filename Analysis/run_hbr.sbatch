@@ -15,6 +15,6 @@ export HBR_ALL=0          # 0 = only the selected components, 1 = all 18
 export HBR_MODELS=A,B
 export HBR_CHAINS=4
 export HBR_DRAWS=1500
-export HBR_TUNE=500
+export HBR_TUNE=1500
 
 quarto render Model_Training_HBR.qmd

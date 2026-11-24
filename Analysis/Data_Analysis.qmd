@@ -930,6 +930,128 @@ for component in ridge_components:
 
 ```{python}
 # ============================================================
+# FIGURE 3B: Ridgeline by sex, one panel per component
+# Rows = datasets; in each row the F and M distributions overlap
+# (sex is only compared within a dataset: several datasets are
+#  single-sex, so pooling all datasets would mix sex with dataset)
+# Scans with unknown sex (Multicenter) are not shown.
+# ============================================================
+
+sex_colors = {"F": "#d6604d", "M": "#4393c3"}
+sex_labels = {"F": "Female", "M": "Male"}
+
+sex_data = Combined_dataset[["Dataset_name", "Sex"] + ridge_components].copy()
+for component in ridge_components:
+    sex_data[component] = pd.to_numeric(sex_data[component], errors="coerce")
+sex_data[ridge_components] = sex_data[ridge_components].replace([np.inf, -np.inf], np.nan)
+sex_data = sex_data[sex_data["Sex"].isin(["F", "M"])]
+
+# same dataset order as Figure 3
+sex_counts = sex_data.groupby(["Dataset_name", "Sex"]).size().unstack(fill_value=0)
+sex_counts = sex_counts.reindex(columns=["F", "M"], fill_value=0)
+sex_dataset_order = [d for d in dataset_order if d in sex_counts.index]
+
+n_unknown = Combined_dataset["Sex"].isna().sum()
+print(f"Scans per dataset and sex (unknown sex not shown: {n_unknown} scans)")
+display(sex_counts.loc[sex_dataset_order])
+
+
+def plot_ridge_by_sex(ax, component):
+
+    values_all = sex_data[component].dropna()
+    x = np.linspace(0, np.percentile(values_all, 99), 600)
+
+    for i, dataset in enumerate(sex_dataset_order):
+
+        ax.hlines(i, x.min(), x.max(), color="lightgray", linewidth=0.6, zorder=1)
+
+        for sex in ["F", "M"]:
+            values = (
+                sex_data.loc[(sex_data["Dataset_name"] == dataset) & (sex_data["Sex"] == sex), component]
+                .dropna()
+                .to_numpy(dtype=float)
+            )
+            if len(values) == 0:
+                continue
+
+            color = sex_colors[sex]
+            median = np.median(values)
+
+            if len(values) >= 3 and np.std(values) > 0:
+                try:
+                    density = gaussian_kde(values)(x)
+                except np.linalg.LinAlgError:
+                    density = None
+            else:
+                density = None
+
+            if density is not None and density.max() > 0:
+                density = density / density.max() * ridge_height
+                ax.fill_between(x, i, i - density, color=color, alpha=0.25, zorder=2)
+                ax.plot(x, i - density, color=color, linewidth=1.0, zorder=3)
+                median_height = np.interp(median, x, density)
+                ax.vlines(median, i - max(median_height, 0.16), i,
+                          color=color, linewidth=1.6, zorder=5)
+            else:
+                ax.vlines(median, i - 0.45, i, color=color, linewidth=1.6, zorder=5)
+
+    ax.set_xlim(x.min(), x.max())
+    ax.set_ylim(len(sex_dataset_order) - 0.5, -1.0)
+    ax.set_title(panel_title(component), fontsize=7)
+    ax.set_xlabel("DR value")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["left"].set_visible(False)
+    ax.tick_params(axis="y", length=0)
+
+
+def sex_row_label(dataset):
+    f, m = sex_counts.loc[dataset, "F"], sex_counts.loc[dataset, "M"]
+    return f"{dataset}\nF {f} · M {m}"
+
+
+legend_handles = [
+    plt.Rectangle((0, 0), 1, 1, facecolor=sex_colors[s], alpha=0.5,
+                  edgecolor=sex_colors[s], label=sex_labels[s])
+    for s in ["F", "M"]
+]
+
+# ---------------- all components side by side ----------------
+fig, axes = plt.subplots(1, len(ridge_components), figsize=(230 * MM, 160 * MM), sharey=True)
+
+for ax, component in zip(axes, ridge_components):
+    plot_ridge_by_sex(ax, component)
+
+axes[0].set_yticks(range(len(sex_dataset_order)))
+axes[0].set_yticklabels([sex_row_label(d) for d in sex_dataset_order], fontsize=6)
+fig.legend(handles=legend_handles, loc="upper right", frameon=False, fontsize=7,
+           bbox_to_anchor=(1.0, 1.02), ncol=2)
+fig.text(0.01, -0.01, f"Vertical lines: medians. Scans with unknown sex ({n_unknown}, Multicenter) not shown.",
+         fontsize=6, color=DARK)
+
+plt.tight_layout()
+plt.savefig(fig_dir / "figure3B_ridgeline_by_sex.svg", format="svg", bbox_inches="tight")
+plt.show()
+plt.close()
+
+# ---------------- one file per component ----------------
+for component in ridge_components:
+    fig, ax = plt.subplots(figsize=(75 * MM, 160 * MM))
+    plot_ridge_by_sex(ax, component)
+    ax.set_yticks(range(len(sex_dataset_order)))
+    ax.set_yticklabels([sex_row_label(d) for d in sex_dataset_order], fontsize=6)
+    ax.legend(handles=legend_handles, loc="lower right", frameon=False, fontsize=6)
+    acronym = component_parcellation[component]["acronym"]
+    safe = acronym.replace(" ", "").replace("+", "_")
+    plt.tight_layout()
+    plt.savefig(fig_dir / f"figure3B_ridgeline_by_sex_{component}_{safe}.svg",
+                format="svg", bbox_inches="tight")
+    plt.close()
+```
+
+
+```{python}
+# ============================================================
 # FIGURE 4A: Alzheimer vs 3xTG
 # Selected components
 

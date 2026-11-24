@@ -60,7 +60,7 @@ DARK = "#39434B"
 from component_labels import NAME, SELECTED_COMPONENTS, COMPONENT_COLORS
 
 component_colors = COMPONENT_COLORS
-component_labels = {c: NAME[c] for c in SELECTED_COMPONENTS}
+component_labels = dict(NAME)
 
 
 
@@ -72,7 +72,11 @@ model = NormativeModel.load(str(model_dir))
 
 
 response_vars = [str(x) for x in model.response_vars]
-selected_components = SELECTED_COMPONENTS
+# Alzheimer figures: the selected networks plus the dorsal hippocampus
+# (comp11), so both hippocampal networks are shown
+selected_components = list(SELECTED_COMPONENTS)
+if "comp11" not in selected_components:
+    selected_components.insert(selected_components.index("comp12"), "comp11")
 
 model_df = pd.read_csv(input_file)
 
@@ -363,7 +367,7 @@ for variable, xlabel in continuous_variables.items():
                 alpha=0.9,
                 edgecolors="white",
                 linewidth=0.3,
-                label=f"Alzheimer (n={len(alz_points)})",
+                label=f"3xTG (n={len(alz_points)})",
                 zorder=10
             )
 

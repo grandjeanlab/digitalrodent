@@ -1,0 +1,277 @@
+---
+title: "Model Training, C version: sex as batch effect (log DR, PCNToolkit >= 1.3)"
+format: gfm
+jupyter: python3
+execute:
+  echo: true
+  warning: true
+  message: true
+---
+
+**C version** = the B version (log DR, warped BLR, B-splines on age, FD and
+log tSNR) + **sex as a batch effect**, as suggested by Konstantinos (and the
+neurostars post): `fixed_effect=True` gives each sex its own mean offset,
+`fixed_effect_var=True` its own spread.
+
+Only sex is used as a batch effect. Dataset/site are not, and neither is the
+anesthesia protocol (each lab tends to have its own protocol, so it would act
+as a lab effect). Everything else stays a covariate as in the B version.
+
+To compare fairly, the B version (no batch effects) is refit here with the
+same PCNToolkit version on **the same train/test split**.
+
+* Needs PCNToolkit >= 1.3 (`y_transform="log"`), i.e. Python >= 3.12.
+* Results go to `results/normative_model_log_sexBE/` (C model) and
+  `results/normative_model_log_sexBE/B_same_split/` (B refit). The B
+  results in `results/normative_model_log/` are not touched.
+
+```{python}
+from importlib.metadata import version
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+
+from pcntoolkit import BLR, BsplineBasisFunction, NormativeModel, NormData
+import pcntoolkit.util.output
+
+from component_labels import ACRONYM, COMPONENTS, SELECTED_COMPONENTS
+
+pcntoolkit.util.output.Output.set_show_messages(False)
+plt.style.use("default")
+
+PCN_VERSION = version("pcntoolkit")
+assert tuple(int(v) for v in PCN_VERSION.split(".")[:2]) >= (1, 3), \
+    f"this notebook needs PCNToolkit >= 1.3 (found {PCN_VERSION})"
+print("PCNToolkit", PCN_VERSION)
+
+root = Path.cwd().parent
+model_dir = root / "results" / "normative_model_log_sexBE"
+b_dir = model_dir / "B_same_split"
+fig_dir = model_dir / "plots"
+for d in (model_dir, b_dir, fig_dir):
+    d.mkdir(parents=True, exist_ok=True)
+```
+
+## Data
+
+```{python}
+model_df = pd.read_csv(root / "results" / "combined_dataset" / "Model_dataframe.csv")
+response_vars = COMPONENTS
+assert (model_df[response_vars].dropna() > 0).all().all(), "log needs positive DR values"
+assert "Sex_unknown" not in model_df.columns, "expected imputed sex (no unknown)"
+
+id_cols = ["Scan_id", "Participant_Id", "Session", "Dataset_name"]
+covariates_B = [c for c in model_df.columns if c not in id_cols + response_vars]
+
+# C version: sex leaves the covariates and becomes a batch effect
+model_df["Sex"] = np.where(model_df["Sex_encoded"] == 1, "M", "F")
+covariates_C = [c for c in covariates_B if c != "Sex_encoded"]
+
+print(pd.crosstab(model_df["Dataset_name"], model_df["Sex"]))
+```
+
+## Same train/test split for both versions
+
+The split is stratified by sex (PCNToolkit's default when sex is a batch
+effect); the same scans are then used for B and C.
+
+```{python}
+nd_C = NormData.from_dataframe(
+    name="DigitalRodent_C", dataframe=model_df, covariates=covariates_C,
+    batch_effects=["Sex"], response_vars=response_vars, remove_Nan=False,
+)
+train_C, test_C = nd_C.train_test_split()
+train_idx = train_C.observations.values.astype(int)
+test_idx = test_C.observations.values.astype(int)
+
+nd_B = NormData.from_dataframe(
+    name="DigitalRodent_B", dataframe=model_df, covariates=covariates_B,
+    batch_effects=[], response_vars=response_vars, remove_Nan=False,
+)
+train_B = nd_B.sel(observations=train_idx)
+test_B = nd_B.sel(observations=test_idx)
+print(f"train {len(train_idx)} scans, test {len(test_idx)} scans")
+```
+
+## Fit B and C
+
+```{python}
+def make_model(covariates, sex_batch_effect, save_dir):
+    spline_columns = [covariates.index(c) for c in ["Age(week)", "FD average", "log_tSNR"]]
+    blr_kwargs = dict(
+        basis_function_mean=BsplineBasisFunction(basis_column=spline_columns, degree=3, nknots=5),
+        basis_function_var=BsplineBasisFunction(basis_column=spline_columns, degree=3, nknots=5),
+        heteroskedastic=True,
+        warp_name="WarpSinhArcsinh",
+    )
+    if sex_batch_effect:
+        blr_kwargs.update(fixed_effect=True, fixed_effect_var=True)
+    return NormativeModel(
+        BLR(**blr_kwargs),
+        inscaler="standardize", outscaler="standardize",
+        y_transform="log",
+        savemodel=True, evaluate_model=True, saveresults=True, saveplots=False,
+        save_dir=str(save_dir),
+    )
+
+
+model_B = make_model(covariates_B, False, b_dir)
+model_B.fit_predict(train_B, test_B)
+
+model_C = make_model(covariates_C, True, model_dir)
+model_C.fit_predict(train_C, test_C)
+print("B and C fitted")
+```
+
+## Test-set statistics
+
+**PCNToolkit 1.4.0 bug:** after `fit_predict` with `y_transform="log"`, the
+stored centiles are exponentiated twice (they come out as ~15 to inf instead
+of DR values), so the toolkit's MACE is always 0.5. The z-scores are not
+affected. MACE is therefore recomputed here from the z-scores: the fraction
+of test scans below each nominal centile (5, 25, 50, 75, 95 %) vs the nominal
+value. Centiles computed separately with `compute_centiles` (the plots below)
+are correct.
+
+```{python}
+def z_frame(test):
+    return pd.DataFrame(
+        test.Z.values,
+        columns=[str(r) for r in test.Z.coords["response_vars"].values],
+        index=test.Z.coords["observations"].values.astype(int),
+    )
+
+
+z_B, z_C = z_frame(test_B), z_frame(test_C)
+
+CENTILES = np.array([0.05, 0.25, 0.5, 0.75, 0.95])
+
+
+def mace_from_z(z):
+    q = norm.ppf(CENTILES)
+    return pd.Series({c: np.mean(np.abs((z[c].dropna().to_numpy()[:, None] < q).mean(0) - CENTILES))
+                      for c in response_vars})
+
+
+stats_B = test_B.get_statistics_df()
+stats_C = test_C.get_statistics_df()
+stats_B["MACE"] = mace_from_z(z_B)
+stats_C["MACE"] = mace_from_z(z_C)
+stats_B.to_csv(b_dir / "Test_statistics.csv")
+stats_C.to_csv(model_dir / "Test_statistics.csv")
+
+keep = [c for c in ["MACE", "ShapiroW", "R2", "Rho", "MSLL", "SMSE"] if c in stats_C.columns]
+comparison = pd.concat({"B (no batch effect)": stats_B[keep], "C (sex batch effect)": stats_C[keep]}, axis=1)
+comparison.index = [f"{ACRONYM[c]} ({c})" for c in comparison.index]
+comparison.round(3).to_csv(model_dir / "Test_statistics_B_vs_C.csv")
+print(comparison.round(3).to_string())
+print("\nMean over the 18 networks:")
+print(comparison.mean().round(3).to_string())
+```
+
+## Calibration by sex and other groups (test set)
+
+If the model is well calibrated, every group has mean z ~ 0 and SD z ~ 1.
+
+```{python}
+groups = model_df.loc[test_idx]
+anesthesia_dummies = [c for c in covariates_B if c.startswith("Anesthesia_")
+                      and c not in ["Anesthesia_high", "Anesthesia_dose_unknown"]]
+labels = pd.DataFrame(index=groups.index)
+labels["Sex"] = groups["Sex"]
+labels["Dataset"] = groups["Dataset_name"]
+labels["Anesthesia"] = groups[anesthesia_dummies].idxmax(axis=1).str.replace("Anesthesia_", "") \
+    .where(groups[anesthesia_dummies].sum(axis=1) > 0, "Awake")
+
+rows = []
+for variable in labels.columns:
+    for group, idx in labels.groupby(variable).groups.items():
+        if len(idx) < 10:
+            continue
+        for version, z in [("B", z_B), ("C", z_C)]:
+            zz = z.loc[idx, response_vars]
+            rows.append(dict(Variable=variable, Group=group, N_test=len(idx), Version=version,
+                             mean_z=zz.mean().mean(), SD_z=zz.std().mean(),
+                             worst_abs_mean_z=zz.mean().abs().max()))
+calib = pd.DataFrame(rows)
+calib.round(3).to_csv(model_dir / "Z_calibration_B_vs_C.csv", index=False)
+print("Averaged over the 18 networks (ideal: mean 0, SD 1):")
+print(calib.pivot_table(index=["Variable", "Group", "N_test"], columns="Version",
+                        values=["mean_z", "SD_z", "worst_abs_mean_z"]).round(2).to_string())
+```
+
+QQ plots by sex, B vs C, selected networks:
+
+```{python}
+SEX_COLORS = {"F": "#e87ba4", "M": "#2a78d6"}
+fig, axes = plt.subplots(2, len(SELECTED_COMPONENTS), figsize=(3 * len(SELECTED_COMPONENTS), 6),
+                         sharex=True, sharey=True)
+for i, (version, z) in enumerate([("B: no batch effect", z_B), ("C: sex batch effect", z_C)]):
+    for j, comp in enumerate(SELECTED_COMPONENTS):
+        ax = axes[i, j]
+        for sex, color in SEX_COLORS.items():
+            zz = np.sort(z.loc[labels["Sex"] == sex, comp].dropna().to_numpy())
+            theo = norm.ppf((np.arange(1, len(zz) + 1) - 0.5) / len(zz))
+            ax.plot(theo, zz, "o", ms=2.5, alpha=0.7, color=color, label=f"{sex} (n={len(zz)})")
+        ax.plot([-3.5, 3.5], [-3.5, 3.5], "--", color="#52514e", lw=1)
+        ax.set_xlim(-3.5, 3.5)
+        ax.set_ylim(-5, 6)
+        ax.grid(alpha=0.3)
+        if i == 0:
+            ax.set_title(ACRONYM[comp])
+        if j == 0:
+            ax.set_ylabel(f"{version}\nZ quantiles")
+        if i == 1:
+            ax.set_xlabel("Theoretical quantiles")
+axes[0, -1].legend(frameon=False, loc="upper left", bbox_to_anchor=(1.02, 1))
+fig.suptitle("QQ plots by sex (test set): B vs C", y=1.01)
+fig.tight_layout()
+fig.savefig(fig_dir / "qq_by_sex_B_vs_C.png", dpi=200, bbox_inches="tight")
+plt.show()
+```
+
+## What the sex batch effect learned
+
+Predicted median and 5–95 % range for a female and a male mouse with the
+same reference protocol (most common protocol of the largest dataset,
+median FD and tSNR), across age.
+
+```{python}
+reference_dataset = model_df["Dataset_name"].value_counts().idxmax()
+ref_src = model_df[model_df["Dataset_name"] == reference_dataset]
+reference = {c: ref_src[c].mode().iloc[0] for c in covariates_C}
+reference["FD average"] = model_df["FD average"].median()
+reference["log_tSNR"] = model_df["log_tSNR"].median()
+age = np.linspace(model_df["Age(week)"].min(), model_df["Age(week)"].max(), 120)
+
+curves = {}
+for sex in ["F", "M"]:
+    grid = pd.DataFrame({c: [reference[c]] * len(age) for c in covariates_C})
+    grid["Age(week)"] = age
+    grid["Sex"] = sex
+    for c in response_vars:
+        grid[c] = 1.0
+    nd = NormData.from_dataframe(name=f"grid_{sex}", dataframe=grid, covariates=covariates_C,
+                                 batch_effects=["Sex"], response_vars=response_vars, remove_Nan=False)
+    model_C.compute_centiles(nd, centiles=[0.05, 0.5, 0.95])
+    curves[sex] = nd["centiles"]
+
+fig, axes = plt.subplots(1, len(SELECTED_COMPONENTS), figsize=(3 * len(SELECTED_COMPONENTS), 3))
+for ax, comp in zip(axes, SELECTED_COMPONENTS):
+    for sex, color in SEX_COLORS.items():
+        c = curves[sex].sel(response_vars=comp)
+        ax.fill_between(age, c.sel(centile=0.05), c.sel(centile=0.95), color=color, alpha=0.12, lw=0)
+        ax.plot(age, c.sel(centile=0.5), color=color, lw=1.5, label=sex)
+    ax.set_title(ACRONYM[comp])
+    ax.set_xlabel("Age (weeks)")
+    ax.spines[["top", "right"]].set_visible(False)
+axes[0].set_ylabel("DR value")
+axes[-1].legend(title="Sex", frameon=False, loc="upper left", bbox_to_anchor=(1.02, 1))
+fig.suptitle(f"C version: median and 5–95 % by sex (reference protocol: {reference_dataset})", y=1.03)
+fig.tight_layout()
+fig.savefig(fig_dir / "centiles_by_sex_C.png", dpi=200, bbox_inches="tight")
+plt.show()
+```

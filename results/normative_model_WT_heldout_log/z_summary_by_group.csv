@@ -1,0 +1,37 @@
+Group,Component,Network,mean_z,sd_z,pct_beyond_196
+Wild-type,comp1,Pir,-0.288,0.285,0.0
+Wild-type,comp2,M1,-0.087,0.227,0.0
+Wild-type,comp3,S1uLp + S2,0.242,0.399,0.0
+Wild-type,comp4,S1 HL + FL,0.045,0.4,0.0
+Wild-type,comp5,S1 FL + S1 BF,-0.842,0.434,0.0
+Wild-type,comp6,S1 BF,-0.09,0.357,0.0
+Wild-type,comp7,V2 + RSD,-0.479,0.265,0.0
+Wild-type,comp8,AUd + AUv/TeA-ECT,-0.161,0.527,0.0
+Wild-type,comp9,Cg2,-0.156,0.465,0.0
+Wild-type,comp10,Cg1 + RS,-0.422,0.44,0.0
+Wild-type,comp11,Dorsal HP/SC,-1.05,0.35,0.0
+Wild-type,comp12,Ventral HP,-0.356,0.124,0.0
+Wild-type,comp13,CPu,-0.125,0.268,0.0
+Wild-type,comp14,CPu + En,-0.135,0.155,0.0
+Wild-type,comp15,Septum + VP,-0.291,0.226,0.0
+Wild-type,comp16,Amygdala,-1.219,0.471,4.762
+Wild-type,comp17,Thalamus,-0.877,0.37,0.0
+Wild-type,comp18,MO + GI,-0.036,0.238,0.0
+3xTG-AD,comp1,Pir,-0.809,0.336,0.0
+3xTG-AD,comp2,M1,-0.203,0.392,0.0
+3xTG-AD,comp3,S1uLp + S2,0.2,0.389,0.0
+3xTG-AD,comp4,S1 HL + FL,0.113,0.642,0.0
+3xTG-AD,comp5,S1 FL + S1 BF,-0.813,0.589,0.0
+3xTG-AD,comp6,S1 BF,0.287,0.663,0.0
+3xTG-AD,comp7,V2 + RSD,-0.139,0.496,0.0
+3xTG-AD,comp8,AUd + AUv/TeA-ECT,-0.347,0.596,0.0
+3xTG-AD,comp9,Cg2,-0.467,0.543,0.0
+3xTG-AD,comp10,Cg1 + RS,-0.819,0.631,0.0
+3xTG-AD,comp11,Dorsal HP/SC,-1.114,0.327,0.0
+3xTG-AD,comp12,Ventral HP,-0.394,0.081,0.0
+3xTG-AD,comp13,CPu,-0.228,0.166,0.0
+3xTG-AD,comp14,CPu + En,-0.376,0.171,0.0
+3xTG-AD,comp15,Septum + VP,-0.474,0.266,0.0
+3xTG-AD,comp16,Amygdala,-1.463,0.443,9.091
+3xTG-AD,comp17,Thalamus,-0.88,0.226,0.0
+3xTG-AD,comp18,MO + GI,-0.142,0.228,0.0
